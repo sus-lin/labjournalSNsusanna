@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Workshop
 
-I worked my way through the SNASS Appendices. I particularly focused on instructions related to tidyverse, as I have less experience using this than base R. I expect the sections on missings and recoding to be a useful resource to refer back to when working on syntax for data preparation.
+I worked my way through the SNASS Appendices. I particularly focused on instructions related to tidyverse, as I have less experience using this than base R. It's a really nice overview! Instructions on for example calculating means by group would have been very useful to have known when I was working on my research project last semester... I expect the sections on missings and recoding to be a useful resource to refer back to when working on syntax for data preparation.
 
 ## Final Paper
 
