@@ -1,0 +1,19 @@
+---
+title: "Week1"
+author: "Susanna"
+date: "2026-08-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Workshop
+
+I worked my way through the SNASS Appendices. I particularly focused on instructions related to tidyverse, as I have less experience using this than base R. I expect the sections on missings and recoding to be a useful resource to refer back to when working on syntax for data preparation.
+
+## Final Paper
+
+I also started to search for articles that might be relevant for my own final paper as well as to present in the second week. Since I was interested in the topics addressed by Leszczensky et al (2022), e.g. dual identities and parental support, I searched for more publications containing the key terms "dual identity" and "social network".
+

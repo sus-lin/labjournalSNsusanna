@@ -4,11 +4,13 @@ author: "by: Susanna Linden"
 bibliography: references.bib
 ---
 
-Yay I can type here
+Welcome to my lab journal!
 
-# heading 1
+# This is a heading
 
-\*\* bold \*\* \* italics \* \$\$ \sigma\^{i}
+**this is bold text** *this text is in italics*
+
+# This is a chunk of R syntax
 
 ```{r}
 2+3
@@ -58,7 +60,7 @@ But please note, we are not here to make a beautiful website, our intention is j
 
 Last compiled on `r format(Sys.time(), '%B, %Y')`
 
-*Describe lab journal here.*
+This website contains my weekly lab reports as well as the final research paper for the course Social Networks.
 
 <br>
 
