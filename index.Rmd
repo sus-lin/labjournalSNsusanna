@@ -6,15 +6,13 @@ bibliography: references.bib
 
 Yay I can type here
 
-listy:
+# heading 1
 
-1.  gfhjkl
-2.  hjkl;
-3.  
+\*\* bold \*\* \* italics \* \$\$ \sigma\^{i}
+
 ```{r}
 2+3
 ```
-
 
 ```{r}
 2 + 2 
