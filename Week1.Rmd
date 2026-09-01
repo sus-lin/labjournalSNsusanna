@@ -15,5 +15,24 @@ I worked my way through the SNASS Appendices. I particularly focused on instruct
 
 ## Final Paper
 
-I also started to search for articles that might be relevant for my own final paper as well as to present in the second week. Since I was interested in the topics addressed by Leszczensky et al (2022), e.g. dual identities and parental support, I searched for more publications containing the key terms "dual identity" and "social network".
+I also started to search for articles that might be relevant for my own final paper as well as to present in the second week. Since I was interested in the topics addressed by Leszczensky et al's (2022) FIS data, e.g. dual identities, perceived permeability, and intergroup attitudes, I searched for more publications addressing dual identity from a social network perspective. This resulted in an interest in the potential for dual-identifiers to act as a bridge between mono-identifying peers. I found several relevant publications, of which I would like to present the following in next week's lab session:
 
+Jugert et al.'s (2018) study of adolescents' social networks suggests that dual identifiers may indeed be able to fulfil a 'bridging' function. They find that ethnic majority students prefer friendships with dual identifying peers over friendships with mono-minority identifying classmates, to the extent that they did not differentiate between dual identifiers and fellow momo-majority students. Interestingly, mono-minority adolescents developed more friendships with mono-majority and dual identifiers than with mono-minority identifying peers. Dual identifiers themselves preferred friendships with fellow dual identifiers, minority students with strong host-country identification, and mono-majority peers over friendships with mono-minority classmates. This suggests that dual identifying adolescents are indeed a popular choice of friend for peers with different identities.
+
+A recent study by Chen et al. (2026) investigated the friendship preferences of adolescents with various ethnic identities. They found that mono-majority identifiers did not differentiate between peers with a mono-minority and dual identity. Mono-minority identifiers on the other hand preferred peers with a same-ethnic dual identity over mono-majority identifiers. Similarly, dual identifiers preferred same-ethnic fellow dual identifiers and mono-minority peers over mono-majority peers. In contrast to Jugert et al's (2018) findings, these results suggests that dual-identifying adolescents do not necessarily function as bridges, as they are no more likely to develop multi-ethnic social networks than their mono-identifying peers.
+
+Finally, Zhao (2023) takes a more macro-level social network approach to studying interethnic relations. The author finds that initial network segregation predicts subsequent ethnic homophily in network evolution. 
+
+## This leads me to the following initial research questions:
+
+*Macro:* Is the share of dual-identifying students associated with decreasing levels of network segregation over time?
+
+*Micro:* Are friendships between mono-identifying and dual identifying students associated with an increased likelihood of friendships between mono-identifying majority and minority students over time?
+
+## References
+
+Chen, L., Stark, T. H., Nijs, T., & Jaspers, E. (2026). How does ethnic minority youth’s dual self‐identification affect the formation of interethnic ties in friendship networks? Journal of Research on Adolescence, 36(1), e70168. https://doi.org/10.1111/jora.70168
+
+Jugert, P., Leszczensky, L., & Pink, S. (2018). The Effects of Ethnic Minority Adolescents’ Ethnic Self‐Identification on Friendship Selection. Journal of Research on Adolescence, 28(2), 379–395. https://doi.org/10.1111/jora.12337
+
+Zhao, L. (2023). Networks in the making: Friendship segregation and ethnic homophily. Social Science Research, 110, 102813. https://doi.org/10.1016/j.ssresearch.2022.102813
