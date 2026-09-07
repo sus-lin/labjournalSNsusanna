@@ -1,0 +1,76 @@
+---
+title: "Week2"
+author: "Susanna"
+date: "2026-09-07"
+output: html_document
+---
+## Setting up the Packages
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+```
+
+```{r}
+#install.packages('RSiena')
+library(RSiena)
+#install.packages('igraph')
+library(igraph)
+```
+
+## Playing with Descriptives
+
+First I want to visualise the data because that makes it easier to understand:
+
+```{r}
+View(s501)
+copys501 <- s501
+graph1 <- graph_from_adjacency_matrix(
+  copys501,
+  mode = "undirected",
+  weighted = NULL,
+  diag = TRUE,
+  add.colnames = NULL,
+  add.rownames = NA
+)
+plot(graph1)
+```
+
+My mission was to explore the betweenness, so let's use the betweenness() function:
+
+```{r}
+betweenness(
+  graph1,
+  v = V(graph1),
+  directed = FALSE,
+  weights = NULL,
+  normalized = FALSE,
+  cutoff = -1
+)
+```
+V22 has the highest betweenness score! 
+
+Now let's try a directed version:
+
+```{r}
+graph2 <- graph_from_adjacency_matrix(
+  copys501,
+  mode = "directed",
+  weighted = NULL,
+  diag = TRUE,
+  add.colnames = NULL,
+  add.rownames = NA
+)
+betweenness(
+  graph2,
+  v = V(graph2),
+  directed = TRUE,
+  weights = NULL,
+  normalized = FALSE,
+  cutoff = -1
+)
+```
+V22 still has the highest betweenness score, but the numbers are different now. I would love to know what this data actually means (what are the ties? Friends? Partners? Co-authors?) and whether the ties were measured as undirected or directed... What does R do when you tell it that your network has directed ties when really they are undirected?

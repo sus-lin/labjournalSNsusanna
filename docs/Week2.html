@@ -9,10 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Your Name" />
+<meta name="author" content="Susanna" />
 
+<meta name="date" content="2026-09-07" />
 
-<title>Journal 1</title>
+<title>Week2</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -38,10 +39,6 @@
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
-<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
-<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
-<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -396,27 +393,100 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Journal 1</h1>
-<h4 class="author">Your Name</h4>
+<h1 class="title toc-ignore">Week2</h1>
+<h4 class="author">Susanna</h4>
+<h4 class="date">2026-09-07</h4>
 
 </div>
 
 
-<script>
-  addClassKlippyTo("pre.r, pre.markdown");
-  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
-</script>
-<p>Last compiled on September, 2026</p>
-<p><br></p>
-<hr />
-<p>This is just an example page of your <span style="color: red;">lab
-journal</span>. You can journal the assignments of the first day
-here.</p>
-<hr />
-<pre class="r test"><code>print(&quot;Hello Lab Journal&quot;)</code></pre>
-<pre class="test2"><code>#&gt; [1] &quot;Hello Lab Journal&quot;</code></pre>
+<div id="setting-up-the-packages" class="section level2" number="1">
+<h2><span class="header-section-number">1</span> Setting up the
+Packages</h2>
+<pre class="r test"><code>#install.packages(&#39;RSiena&#39;)
+library(RSiena)
+#install.packages(&#39;igraph&#39;)
+library(igraph)</code></pre>
+</div>
+<div id="playing-with-descriptives" class="section level2" number="2">
+<h2><span class="header-section-number">2</span> Playing with
+Descriptives</h2>
+<p>First I want to visualise the data because that makes it easier to
+understand:</p>
+<pre class="r test"><code>View(s501)
+copys501 &lt;- s501
+graph1 &lt;- graph_from_adjacency_matrix(
+  copys501,
+  mode = &quot;undirected&quot;,
+  weighted = NULL,
+  diag = TRUE,
+  add.colnames = NULL,
+  add.rownames = NA
+)
+plot(graph1)</code></pre>
+<p><img src="Week2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>My mission was to explore the betweenness, so let’s use the
+betweenness() function:</p>
+<pre class="r test"><code>betweenness(
+  graph1,
+  v = V(graph1),
+  directed = FALSE,
+  weights = NULL,
+  normalized = FALSE,
+  cutoff = -1
+)</code></pre>
+<pre class="test2"><code>#&gt;          V1          V2          V3          V4          V5          V6          V7          V8 
+#&gt;   0.0000000  19.8666667   0.0000000   0.0000000   0.0000000   0.0000000  40.3666667   0.0000000 
+#&gt;          V9         V10         V11         V12         V13         V14         V15         V16 
+#&gt;   0.0000000   5.8333333 151.6000000   0.0000000   0.0000000   0.8333333   0.8333333   0.0000000 
+#&gt;         V17         V18         V19         V20         V21         V22         V23         V24 
+#&gt; 112.0000000  31.0000000 261.6166667   0.0000000  71.0000000 130.3333333   0.0000000 121.0000000 
+#&gt;         V25         V26         V27         V28         V29         V30         V31         V32 
+#&gt;   2.0000000  96.6333333  31.0000000   0.0000000   9.6166667  89.0666667  18.3333333  38.0833333 
+#&gt;         V33         V34         V35         V36         V37         V38         V39         V40 
+#&gt;   4.7333333   7.2500000   0.0000000   0.0000000   1.0000000   0.0000000   0.0000000   1.5000000 
+#&gt;         V41         V42         V43         V44         V45         V46         V47         V48 
+#&gt;   0.0000000   0.0000000  31.0000000  22.0000000   1.5000000   6.0000000   0.0000000   0.0000000 
+#&gt;         V49         V50 
+#&gt;   0.0000000   0.0000000</code></pre>
+<p>V22 has the highest betweenness score!</p>
+<p>Now let’s try a directed version:</p>
+<pre class="r test"><code>graph2 &lt;- graph_from_adjacency_matrix(
+  copys501,
+  mode = &quot;directed&quot;,
+  weighted = NULL,
+  diag = TRUE,
+  add.colnames = NULL,
+  add.rownames = NA
+)
+betweenness(
+  graph2,
+  v = V(graph2),
+  directed = TRUE,
+  weights = NULL,
+  normalized = FALSE,
+  cutoff = -1
+)</code></pre>
+<pre class="test2"><code>#&gt;         V1         V2         V3         V4         V5         V6         V7         V8         V9 
+#&gt;   0.000000  50.833333   0.000000   0.000000   0.000000   0.000000  54.333333   0.000000   0.000000 
+#&gt;        V10        V11        V12        V13        V14        V15        V16        V17        V18 
+#&gt;  44.000000 128.833333   0.000000   0.000000   5.000000  43.833333   0.000000 176.000000  38.000000 
+#&gt;        V19        V20        V21        V22        V23        V24        V25        V26        V27 
+#&gt; 202.000000   0.000000  70.000000 220.000000   0.000000  67.000000  25.666667  72.000000  12.000000 
+#&gt;        V28        V29        V30        V31        V32        V33        V34        V35        V36 
+#&gt;   0.000000  10.666667  79.166667  68.500000  47.500000  47.333333  10.000000   0.000000   0.000000 
+#&gt;        V37        V38        V39        V40        V41        V42        V43        V44        V45 
+#&gt;   3.333333   0.000000   0.000000   1.500000   0.000000   0.000000  26.000000  11.000000   1.500000 
+#&gt;        V46        V47        V48        V49        V50 
+#&gt;  10.000000   0.000000   0.000000   3.000000   0.000000</code></pre>
+<p>V22 still has the highest betweenness score, but the numbers are
+different now. I would love to know what this data actually means (what
+are the ties? Friends? Partners? Co-authors?) and whether the ties were
+measured as undirected or directed… What does R do when you tell it that
+your network has directed ties when really they are undirected?</p>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkpvdXJuYWwgMSINCiNiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliDQphdXRob3I6ICJZb3VyIE5hbWUiDQotLS0NCg0KDQoNCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KGtuaXRyKQ0KDQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpvcHRzX2NodW5rJHNldCh0aWR5Lm9wdHM9bGlzdCh3aWR0aC5jdXRvZmY9MTAwKSx0aWR5PVRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLGNvbW1lbnQgPSAiIz4iLCBjYWNoZT1UUlVFLCBjbGFzcy5zb3VyY2U9YygidGVzdCIpLCBjbGFzcy5vdXRwdXQ9YygidGVzdDIiKSkNCm9wdGlvbnMod2lkdGggPSAxMDApDQpyZ2w6OnNldHVwS25pdHIoKQ0KDQoNCg0KY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHtzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpIH0NCg0KYGBgDQoNCmBgYHtyIGtsaXBweSwgZWNobz1GQUxTRSwgaW5jbHVkZT1UUlVFfQ0Ka2xpcHB5OjprbGlwcHkocG9zaXRpb24gPSBjKCd0b3AnLCAncmlnaHQnKSkNCiNrbGlwcHk6OmtsaXBweShjb2xvciA9ICdkYXJrcmVkJykNCiNrbGlwcHk6OmtsaXBweSh0b29sdGlwX21lc3NhZ2UgPSAnQ2xpY2sgdG8gY29weScsIHRvb2x0aXBfc3VjY2VzcyA9ICdEb25lJykNCmBgYA0KDQpMYXN0IGNvbXBpbGVkIG9uIGByIGZvcm1hdChTeXMudGltZSgpLCAnJUIsICVZJylgDQoNCjxicj4NCg0KLS0tLQ0KICANClRoaXMgaXMganVzdCBhbiBleGFtcGxlIHBhZ2Ugb2YgeW91ciBgciBjb2xvcml6ZSgibGFiIGpvdXJuYWwiLCAicmVkIilgLg0KWW91IGNhbiBqb3VybmFsIHRoZSBhc3NpZ25tZW50cyBvZiB0aGUgZmlyc3QgZGF5IGhlcmUuDQogIA0KDQotLS0tDQoNCg0KYGBge3J9DQpwcmludCgiSGVsbG8gTGFiIEpvdXJuYWwiKQ0KYGBgDQoNCg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsyIg0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTA3Ig0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQotLS0NCiMjIFNldHRpbmcgdXAgdGhlIFBhY2thZ2VzDQoNCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KGtuaXRyKQ0KDQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpvcHRzX2NodW5rJHNldCh0aWR5Lm9wdHM9bGlzdCh3aWR0aC5jdXRvZmY9MTAwKSx0aWR5PVRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLGNvbW1lbnQgPSAiIz4iLCBjYWNoZT1UUlVFLCBjbGFzcy5zb3VyY2U9YygidGVzdCIpLCBjbGFzcy5vdXRwdXQ9YygidGVzdDIiKSkNCm9wdGlvbnMod2lkdGggPSAxMDApDQpgYGANCg0KYGBge3J9DQojaW5zdGFsbC5wYWNrYWdlcygnUlNpZW5hJykNCmxpYnJhcnkoUlNpZW5hKQ0KI2luc3RhbGwucGFja2FnZXMoJ2lncmFwaCcpDQpsaWJyYXJ5KGlncmFwaCkNCmBgYA0KDQojIyBQbGF5aW5nIHdpdGggRGVzY3JpcHRpdmVzDQoNCkZpcnN0IEkgd2FudCB0byB2aXN1YWxpc2UgdGhlIGRhdGEgYmVjYXVzZSB0aGF0IG1ha2VzIGl0IGVhc2llciB0byB1bmRlcnN0YW5kOg0KDQpgYGB7cn0NClZpZXcoczUwMSkNCmNvcHlzNTAxIDwtIHM1MDENCmdyYXBoMSA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoDQogIGNvcHlzNTAxLA0KICBtb2RlID0gInVuZGlyZWN0ZWQiLA0KICB3ZWlnaHRlZCA9IE5VTEwsDQogIGRpYWcgPSBUUlVFLA0KICBhZGQuY29sbmFtZXMgPSBOVUxMLA0KICBhZGQucm93bmFtZXMgPSBOQQ0KKQ0KcGxvdChncmFwaDEpDQpgYGANCg0KTXkgbWlzc2lvbiB3YXMgdG8gZXhwbG9yZSB0aGUgYmV0d2Vlbm5lc3MsIHNvIGxldCdzIHVzZSB0aGUgYmV0d2Vlbm5lc3MoKSBmdW5jdGlvbjoNCg0KYGBge3J9DQpiZXR3ZWVubmVzcygNCiAgZ3JhcGgxLA0KICB2ID0gVihncmFwaDEpLA0KICBkaXJlY3RlZCA9IEZBTFNFLA0KICB3ZWlnaHRzID0gTlVMTCwNCiAgbm9ybWFsaXplZCA9IEZBTFNFLA0KICBjdXRvZmYgPSAtMQ0KKQ0KYGBgDQpWMjIgaGFzIHRoZSBoaWdoZXN0IGJldHdlZW5uZXNzIHNjb3JlISANCg0KTm93IGxldCdzIHRyeSBhIGRpcmVjdGVkIHZlcnNpb246DQoNCmBgYHtyfQ0KZ3JhcGgyIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeCgNCiAgY29weXM1MDEsDQogIG1vZGUgPSAiZGlyZWN0ZWQiLA0KICB3ZWlnaHRlZCA9IE5VTEwsDQogIGRpYWcgPSBUUlVFLA0KICBhZGQuY29sbmFtZXMgPSBOVUxMLA0KICBhZGQucm93bmFtZXMgPSBOQQ0KKQ0KYmV0d2Vlbm5lc3MoDQogIGdyYXBoMiwNCiAgdiA9IFYoZ3JhcGgyKSwNCiAgZGlyZWN0ZWQgPSBUUlVFLA0KICB3ZWlnaHRzID0gTlVMTCwNCiAgbm9ybWFsaXplZCA9IEZBTFNFLA0KICBjdXRvZmYgPSAtMQ0KKQ0KYGBgDQpWMjIgc3RpbGwgaGFzIHRoZSBoaWdoZXN0IGJldHdlZW5uZXNzIHNjb3JlLCBidXQgdGhlIG51bWJlcnMgYXJlIGRpZmZlcmVudCBub3cuIEkgd291bGQgbG92ZSB0byBrbm93IHdoYXQgdGhpcyBkYXRhIGFjdHVhbGx5IG1lYW5zICh3aGF0IGFyZSB0aGUgdGllcz8gRnJpZW5kcz8gUGFydG5lcnM/IENvLWF1dGhvcnM/KSBhbmQgd2hldGhlciB0aGUgdGllcyB3ZXJlIG1lYXN1cmVkIGFzIHVuZGlyZWN0ZWQgb3IgZGlyZWN0ZWQuLi4gV2hhdCBkb2VzIFIgZG8gd2hlbiB5b3UgdGVsbCBpdCB0aGF0IHlvdXIgbmV0d29yayBoYXMgZGlyZWN0ZWQgdGllcyB3aGVuIHJlYWxseSB0aGV5IGFyZSB1bmRpcmVjdGVkPw0K</div>
 
 
 </div>
@@ -454,7 +524,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("lab1.Rmd");
+  window.initializeSourceEmbed("Week2.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
