@@ -29,7 +29,7 @@ navbar:
     href: https://github.com/sus-lin/labjournalSNsusanna
 output:
   html_document:
-    theme: sandstone
+    theme: united
     highlight: default
     toc:  true
     toc_float: true
