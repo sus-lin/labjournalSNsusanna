@@ -4,7 +4,10 @@ author: "Susanna"
 date: "2026-09-07"
 output: html_document
 ---
-## Setting up the Packages
+
+## Coding In Class
+
+**Setting up the packages:**
 
 ```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
 library(knitr)
@@ -21,9 +24,9 @@ library(RSiena)
 library(igraph)
 ```
 
-## Playing with Descriptives
+**Playing with Descriptives:**
 
-First I want to visualise the data because that makes it easier to understand:
+First I want to visualise the data because that makes it easier to understand.
 
 ```{r}
 View(s501)
@@ -39,7 +42,7 @@ graph1 <- graph_from_adjacency_matrix(
 plot(graph1)
 ```
 
-My mission was to explore the betweenness, so let's use the betweenness() function:
+My mission was to explore the betweenness, so let's use the betweenness() function.
 
 ```{r}
 betweenness(
@@ -74,3 +77,18 @@ betweenness(
 )
 ```
 V22 still has the highest betweenness score, but the numbers are different now. I would love to know what this data actually means (what are the ties? Friends? Partners? Co-authors?) and whether the ties were measured as undirected or directed... What does R do when you tell it that your network has directed ties when really they are undirected?
+
+## Final Paper Progress
+
+Based on my current research questions, I think I will need the following data:
+
+**Friendship nominations to develop the socionet**
+
+Knowing all ties, I can calculate betweenness centrality.
+
+**Self-categorisation**
+
+With this information, I can distinguish between mono-identifying majority students, dual identifiers, and mono-identifying minority students. After having established these groups, I will be able to distinguish between different types of dyads and tryads. 
+There are some issues I will need to deal with.
+Only students classified as first-, second-, or third-generation migrants received the self-categorisation question. Unsurprisingly, some of these students only identified as German. They are therefore not dual identifiers, nor do they identify as cultural minority group members. However, they might still be treated as minority members by some peers. I am therefore not sure if it is appropriate to include these students in the mono-majority group. On the other hand, I also do not want to override their own identification by classifying them as minority students.
+Additionally, self-categorisation was assessed on a scale. I will therefore need to define the boundaries of dual identification. Currently, my idea would be to follow Jugert et al.'s (2018) strict definition of dual identifiers as only those who identify *equally* as German and as a member of their family's culture of origin, and running a robustness check where adolescents who identify with both groups but report a stronger connection with one are also classified as dual identifiers.

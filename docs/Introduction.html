@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Susanna" />
+
+<meta name="date" content="2026-09-08" />
+
+<title>Introduction</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Weekly journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Week1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="Week2.html">Week 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/sus-lin/labjournalSNsusanna">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Introduction</h1>
+<h4 class="author">Susanna</h4>
+<h4 class="date">2026-09-08</h4>
+
+</div>
+
+
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>All accross Europe, ethnonationalist narratives are gaining traction.
+The past three decades have seen a marked increase in the popularity of
+populist far-right parties that draw on the notion of an ethnoculturally
+homogeneous nation-state to present specific out-groups as a threat to
+the nation (Aktas, 2024; Svraka, 2024). In Germany, the rise of the
+radical right is symbolised by the electoral victories of Alternative
+für Deutschland (AfD), the most recent of which concerns the state
+election in Sachsen-Anhalt, where the party gained a staggering 43.8% of
+votes (Kirby &amp; Parker, 2026). The AfD presents immigrant ‘Others’ as
+threats to the German people based on an essentialised understanding of
+their cultural identities as rigid and incompatible with ‘German’ values
+and civilisation (Grippo, 2026). The party is highly popular among the
+youngest voters, indicating that such ethnonationalist attitudes are
+prevalent across generations (Heinze &amp; Scheuer, 2026).</p>
+<p>Many youth however, by the very way they define their own identities,
+challenge such essentialised and reductive understandings of cultural
+identity. Holding multiple identities, also referred to as dual or
+bicultural identification, refers to the negotiation between and
+integration of different group memberships in one’s sense of self
+(Verkuyten et al., 2019). By identifying as part of both the country
+they reside in and their parents’ heritage countries, dual identifiers
+demonstrate that various cultural identities are not mutually exclusive
+but can overlap even within one person. Scholars have wondered whether
+dual identifiers’ connection to different identity categories can boost
+intergroup relations (Levy et al., 2017). However, most of the research
+on social networks with dual identifiers has focused on the prevalence
+of dual identifying youth’s friendships with differently identifying
+peers, rather than the influence dual identifiers exert on those they
+form ties with (see e.g. Chen et al., 2026; Jugert et al., 2018;
+Leszczensky et al., 2016; Leszczensky, 2018). Results of these studies
+are inconsistent. Some find that dual identifying adolescents are indeed
+a popular choice of friend for various types of mono-identifying peers
+(Jugert et al., 2018; Leszczensky et al., 2016; Leszczensky, 2018),
+suggesting that dual identifiers may function as structural bridges
+between different peer groups. Others see no evidence to suggest that
+dual identifiers are more likely to develop ethnically diverse
+friendship networks than mono-identifying peers (Chen et al., 2026).</p>
+<p>However, even if dual identifying adolescents do indeed form a bridge
+between differently identifying peer groups, the effect of this position
+remains unknown. Do dual identifiers influence the homophily tendency of
+mono-identifying friends? In this study, I take a longitudinal social
+network approach to investigate the influence dual identifying
+adolescents exert on their friends’ friendship selection. To do so, I
+ask the following questions:</p>
+<p><em>Do dual identifying adolescents in German secondary schools have
+a higher betweenness centrality than mono-identifying peers?</em></p>
+<p><em>Do mono-identifying majority adolescents with dual identifying
+friends have a higher chance of developing friendships with
+mono-identifying minority students over time?</em></p>
+<div id="references" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> References</h2>
+<p>Aktas, M. (2024). The rise of populist radical right parties in
+Europe. International Sociology, 39(6), 591–605. <a
+href="https://doi.org/10.1177/02685809241297547"
+class="uri">https://doi.org/10.1177/02685809241297547</a></p>
+<p>Chen, L., Stark, T. H., Nijs, T., &amp; Jaspers, E. (2026). How does
+ethnic minority youth’s dual self‐identification affect the formation of
+interethnic ties in friendship networks? Journal of Research on
+Adolescence, 36(1), e70168. <a href="https://doi.org/10.1111/jora.70168"
+class="uri">https://doi.org/10.1111/jora.70168</a></p>
+<p>Grippo, A. (2026). Constructing the Far‐Right Nation: The Politics of
+Belonging in the Ethno‐Cultural Volksnation. Studies in Ethnicity and
+Nationalism, 26(1), 14–25. <a href="https://doi.org/10.1111/sena.70000"
+class="uri">https://doi.org/10.1111/sena.70000</a></p>
+<p>Heinze, A.-S., &amp; Scheuer, T. (2026). Growing Up Far Right? Youth
+Support for the AfD in Eastern Germany. German Politics, 35(3), 485–515.
+<a href="https://doi.org/10.1080/09644008.2025.2587919"
+class="uri">https://doi.org/10.1080/09644008.2025.2587919</a></p>
+<p>Jugert, P., Leszczensky, L., &amp; Pink, S. (2018). The Effects of
+Ethnic Minority Adolescents’ Ethnic Self‐Identification on Friendship
+Selection. Journal of Research on Adolescence, 28(2), 379–395. <a
+href="https://doi.org/10.1111/jora.12337"
+class="uri">https://doi.org/10.1111/jora.12337</a></p>
+<p>Kirby, P., &amp; Parker, J. (2026, September 7). Germany’s far-right
+AfD hails big victory in east, but falls short of majority. <a
+href="https://www.bbc.com/news/articles/cy4zejgz3z9o"
+class="uri">https://www.bbc.com/news/articles/cy4zejgz3z9o</a></p>
+<p>Leszczensky, L. (2018). Young immigrants’ host country identification
+and their friendships with natives: Does relative group size matter?
+Social Science Research, 70, 163–175. <a
+href="https://doi.org/10.1016/j.ssresearch.2017.10.012"
+class="uri">https://doi.org/10.1016/j.ssresearch.2017.10.012</a></p>
+<p>Leszczensky, L., Stark, T. H., Flache, A., &amp; Munniksma, A.
+(2016). Disentangling the relation between young immigrants’ host
+country identification and their friendships with natives. Social
+Networks, 44, 179–189. <a
+href="https://doi.org/10.1016/j.socnet.2015.08.001"
+class="uri">https://doi.org/10.1016/j.socnet.2015.08.001</a></p>
+<p>Levy, A., Saguy, T., Halperin, E., &amp; Van Zomeren, M. (2017).
+Bridges or Barriers? Conceptualization of the Role of Multiple Identity
+Gateway Groups in Intergroup Relations. Frontiers in Psychology, 8,
+1097. <a href="https://doi.org/10.3389/fpsyg.2017.01097"
+class="uri">https://doi.org/10.3389/fpsyg.2017.01097</a></p>
+<p>Svraka, D. (2024). Targeted Nativism: Ethnic Diversity and Radical
+Right Parties in Europe. Government and Opposition, 59(2), 360–381. <a
+href="https://doi.org/10.1017/gov.2023.27"
+class="uri">https://doi.org/10.1017/gov.2023.27</a></p>
+<p>Verkuyten, M., Wiley, S., Deaux, K., &amp; Fleischmann, F. (2019). To
+Be Both (and More): Immigration and Identity Multiplicity. Journal of
+Social Issues, 75(2), 390–413. <a
+href="https://doi.org/10.1111/josi.12324"
+class="uri">https://doi.org/10.1111/josi.12324</a></p>
+<p>Zhao, L. (2023). Networks in the making: Friendship segregation and
+ethnic homophily. Social Science Research, 110, 102813. <a
+href="https://doi.org/10.1016/j.ssresearch.2022.102813"
+class="uri">https://doi.org/10.1016/j.ssresearch.2022.102813</a></p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkludHJvZHVjdGlvbiINCmF1dGhvcjogIlN1c2FubmEiDQpkYXRlOiAiMjAyNi0wOS0wOCINCm91dHB1dDogaHRtbF9kb2N1bWVudA0KLS0tDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMgSW50cm9kdWN0aW9uDQoNCkFsbCBhY2Nyb3NzIEV1cm9wZSwgZXRobm9uYXRpb25hbGlzdCBuYXJyYXRpdmVzIGFyZSBnYWluaW5nIHRyYWN0aW9uLiBUaGUgcGFzdCB0aHJlZSBkZWNhZGVzIGhhdmUgc2VlbiBhIG1hcmtlZCBpbmNyZWFzZSBpbiB0aGUgcG9wdWxhcml0eSBvZiBwb3B1bGlzdCBmYXItcmlnaHQgcGFydGllcyB0aGF0IGRyYXcgb24gdGhlIG5vdGlvbiBvZiBhbiBldGhub2N1bHR1cmFsbHkgaG9tb2dlbmVvdXMgbmF0aW9uLXN0YXRlIHRvIHByZXNlbnQgc3BlY2lmaWMgb3V0LWdyb3VwcyBhcyBhIHRocmVhdCB0byB0aGUgbmF0aW9uIChBa3RhcywgMjAyNDsgU3ZyYWthLCAyMDI0KS4gSW4gR2VybWFueSwgdGhlIHJpc2Ugb2YgdGhlIHJhZGljYWwgcmlnaHQgaXMgc3ltYm9saXNlZCBieSB0aGUgZWxlY3RvcmFsIHZpY3RvcmllcyBvZiBBbHRlcm5hdGl2ZSBmw7xyIERldXRzY2hsYW5kIChBZkQpLCB0aGUgbW9zdCByZWNlbnQgb2Ygd2hpY2ggY29uY2VybnMgdGhlIHN0YXRlIGVsZWN0aW9uIGluIFNhY2hzZW4tQW5oYWx0LCB3aGVyZSB0aGUgcGFydHkgZ2FpbmVkIGEgc3RhZ2dlcmluZyA0My44JSBvZiB2b3RlcyAoS2lyYnkgJiBQYXJrZXIsIDIwMjYpLiBUaGUgQWZEIHByZXNlbnRzIGltbWlncmFudCAnT3RoZXJzJyBhcyB0aHJlYXRzIHRvIHRoZSBHZXJtYW4gcGVvcGxlIGJhc2VkIG9uIGFuIGVzc2VudGlhbGlzZWQgdW5kZXJzdGFuZGluZyBvZiB0aGVpciBjdWx0dXJhbCBpZGVudGl0aWVzIGFzIHJpZ2lkIGFuZCBpbmNvbXBhdGlibGUgd2l0aCAnR2VybWFuJyB2YWx1ZXMgYW5kIGNpdmlsaXNhdGlvbiAoR3JpcHBvLCAyMDI2KS4gVGhlIHBhcnR5IGlzIGhpZ2hseSBwb3B1bGFyIGFtb25nIHRoZSB5b3VuZ2VzdCB2b3RlcnMsIGluZGljYXRpbmcgdGhhdCBzdWNoIGV0aG5vbmF0aW9uYWxpc3QgYXR0aXR1ZGVzIGFyZSBwcmV2YWxlbnQgYWNyb3NzIGdlbmVyYXRpb25zIChIZWluemUgJiBTY2hldWVyLCAyMDI2KS4NCg0KTWFueSB5b3V0aCBob3dldmVyLCBieSB0aGUgdmVyeSB3YXkgdGhleSBkZWZpbmUgdGhlaXIgb3duIGlkZW50aXRpZXMsIGNoYWxsZW5nZSBzdWNoIGVzc2VudGlhbGlzZWQgYW5kIHJlZHVjdGl2ZSB1bmRlcnN0YW5kaW5ncyBvZiBjdWx0dXJhbCBpZGVudGl0eS4gSG9sZGluZyBtdWx0aXBsZSBpZGVudGl0aWVzLCBhbHNvIHJlZmVycmVkIHRvIGFzIGR1YWwgb3IgYmljdWx0dXJhbCBpZGVudGlmaWNhdGlvbiwgcmVmZXJzIHRvIHRoZSBuZWdvdGlhdGlvbiBiZXR3ZWVuIGFuZCBpbnRlZ3JhdGlvbiBvZiBkaWZmZXJlbnQgZ3JvdXAgbWVtYmVyc2hpcHMgaW4gb25lJ3Mgc2Vuc2Ugb2Ygc2VsZiAoVmVya3V5dGVuIGV0IGFsLiwgMjAxOSkuIEJ5IGlkZW50aWZ5aW5nIGFzIHBhcnQgb2YgYm90aCB0aGUgY291bnRyeSB0aGV5IHJlc2lkZSBpbiBhbmQgdGhlaXIgcGFyZW50cycgaGVyaXRhZ2UgY291bnRyaWVzLCBkdWFsIGlkZW50aWZpZXJzIGRlbW9uc3RyYXRlIHRoYXQgdmFyaW91cyBjdWx0dXJhbCBpZGVudGl0aWVzIGFyZSBub3QgbXV0dWFsbHkgZXhjbHVzaXZlIGJ1dCBjYW4gb3ZlcmxhcCBldmVuIHdpdGhpbiBvbmUgcGVyc29uLiBTY2hvbGFycyBoYXZlIHdvbmRlcmVkIHdoZXRoZXIgZHVhbCBpZGVudGlmaWVycycgY29ubmVjdGlvbiB0byBkaWZmZXJlbnQgaWRlbnRpdHkgY2F0ZWdvcmllcyBjYW4gYm9vc3QgaW50ZXJncm91cCByZWxhdGlvbnMgKExldnkgZXQgYWwuLCAyMDE3KS4gSG93ZXZlciwgbW9zdCBvZiB0aGUgcmVzZWFyY2ggb24gc29jaWFsIG5ldHdvcmtzIHdpdGggZHVhbCBpZGVudGlmaWVycyBoYXMgZm9jdXNlZCBvbiB0aGUgcHJldmFsZW5jZSBvZiBkdWFsIGlkZW50aWZ5aW5nIHlvdXRoJ3MgZnJpZW5kc2hpcHMgd2l0aCBkaWZmZXJlbnRseSBpZGVudGlmeWluZyBwZWVycywgcmF0aGVyIHRoYW4gdGhlIGluZmx1ZW5jZSBkdWFsIGlkZW50aWZpZXJzIGV4ZXJ0IG9uIHRob3NlIHRoZXkgZm9ybSB0aWVzIHdpdGggKHNlZSBlLmcuIENoZW4gZXQgYWwuLCAyMDI2OyBKdWdlcnQgZXQgYWwuLCAyMDE4OyBMZXN6Y3plbnNreSBldCBhbC4sIDIwMTY7IExlc3pjemVuc2t5LCAyMDE4KS4gUmVzdWx0cyBvZiB0aGVzZSBzdHVkaWVzIGFyZSBpbmNvbnNpc3RlbnQuIFNvbWUgZmluZCB0aGF0IGR1YWwgaWRlbnRpZnlpbmcgYWRvbGVzY2VudHMgYXJlIGluZGVlZCBhIHBvcHVsYXIgY2hvaWNlIG9mIGZyaWVuZCBmb3IgdmFyaW91cyB0eXBlcyBvZiBtb25vLWlkZW50aWZ5aW5nIHBlZXJzIChKdWdlcnQgZXQgYWwuLCAyMDE4OyBMZXN6Y3plbnNreSBldCBhbC4sIDIwMTY7IExlc3pjemVuc2t5LCAyMDE4KSwgc3VnZ2VzdGluZyB0aGF0IGR1YWwgaWRlbnRpZmllcnMgbWF5IGZ1bmN0aW9uIGFzIHN0cnVjdHVyYWwgYnJpZGdlcyBiZXR3ZWVuIGRpZmZlcmVudCBwZWVyIGdyb3Vwcy4gT3RoZXJzIHNlZSBubyBldmlkZW5jZSB0byBzdWdnZXN0IHRoYXQgZHVhbCBpZGVudGlmaWVycyBhcmUgbW9yZSBsaWtlbHkgdG8gZGV2ZWxvcCBldGhuaWNhbGx5IGRpdmVyc2UgZnJpZW5kc2hpcCBuZXR3b3JrcyB0aGFuIG1vbm8taWRlbnRpZnlpbmcgcGVlcnMgKENoZW4gZXQgYWwuLCAyMDI2KS4NCg0KSG93ZXZlciwgZXZlbiBpZiBkdWFsIGlkZW50aWZ5aW5nIGFkb2xlc2NlbnRzIGRvIGluZGVlZCBmb3JtIGEgYnJpZGdlIGJldHdlZW4gZGlmZmVyZW50bHkgaWRlbnRpZnlpbmcgcGVlciBncm91cHMsIHRoZSBlZmZlY3Qgb2YgdGhpcyBwb3NpdGlvbiByZW1haW5zIHVua25vd24uIERvIGR1YWwgaWRlbnRpZmllcnMgaW5mbHVlbmNlIHRoZSBob21vcGhpbHkgdGVuZGVuY3kgb2YgbW9uby1pZGVudGlmeWluZyBmcmllbmRzPyBJbiB0aGlzIHN0dWR5LCBJIHRha2UgYSBsb25naXR1ZGluYWwgc29jaWFsIG5ldHdvcmsgYXBwcm9hY2ggdG8gaW52ZXN0aWdhdGUgdGhlIGluZmx1ZW5jZSBkdWFsIGlkZW50aWZ5aW5nIGFkb2xlc2NlbnRzIGV4ZXJ0IG9uIHRoZWlyIGZyaWVuZHMnIGZyaWVuZHNoaXAgc2VsZWN0aW9uLiBUbyBkbyBzbywgSSBhc2sgdGhlIGZvbGxvd2luZyBxdWVzdGlvbnM6DQoNCipEbyBkdWFsIGlkZW50aWZ5aW5nIGFkb2xlc2NlbnRzIGluIEdlcm1hbiBzZWNvbmRhcnkgc2Nob29scyBoYXZlIGEgaGlnaGVyIGJldHdlZW5uZXNzIGNlbnRyYWxpdHkgdGhhbiBtb25vLWlkZW50aWZ5aW5nIHBlZXJzPyoNCg0KKkRvIG1vbm8taWRlbnRpZnlpbmcgbWFqb3JpdHkgYWRvbGVzY2VudHMgd2l0aCBkdWFsIGlkZW50aWZ5aW5nIGZyaWVuZHMgaGF2ZSBhIGhpZ2hlciBjaGFuY2Ugb2YgZGV2ZWxvcGluZyBmcmllbmRzaGlwcyB3aXRoIG1vbm8taWRlbnRpZnlpbmcgbWlub3JpdHkgc3R1ZGVudHMgb3ZlciB0aW1lPyoNCg0KIyMgUmVmZXJlbmNlcw0KDQpBa3RhcywgTS4gKDIwMjQpLiBUaGUgcmlzZSBvZiBwb3B1bGlzdCByYWRpY2FsIHJpZ2h0IHBhcnRpZXMgaW4gRXVyb3BlLiAgICAgSW50ZXJuYXRpb25hbCBTb2Npb2xvZ3ksIDM5KDYpLCA1OTHigJM2MDUuIGh0dHBzOi8vZG9pLm9yZy8xMC4xMTc3LzAyNjg1ODA5MjQxMjk3NTQ3DQoNCkNoZW4sIEwuLCBTdGFyaywgVC4gSC4sIE5panMsIFQuLCAmIEphc3BlcnMsIEUuICgyMDI2KS4gSG93IGRvZXMgZXRobmljIG1pbm9yaXR5IHlvdXRo4oCZcyBkdWFsIHNlbGbigJBpZGVudGlmaWNhdGlvbiBhZmZlY3QgdGhlIGZvcm1hdGlvbiBvZiBpbnRlcmV0aG5pYyB0aWVzIGluIGZyaWVuZHNoaXAgbmV0d29ya3M/IEpvdXJuYWwgb2YgUmVzZWFyY2ggb24gQWRvbGVzY2VuY2UsIDM2KDEpLCBlNzAxNjguIGh0dHBzOi8vZG9pLm9yZy8xMC4xMTExL2pvcmEuNzAxNjgNCg0KR3JpcHBvLCBBLiAoMjAyNikuIENvbnN0cnVjdGluZyB0aGUgRmFy4oCQUmlnaHQgTmF0aW9uOiBUaGUgUG9saXRpY3Mgb2YgQmVsb25naW5nIGluIHRoZSBFdGhub+KAkEN1bHR1cmFsIFZvbGtzbmF0aW9uLiBTdHVkaWVzIGluIEV0aG5pY2l0eSBhbmQgTmF0aW9uYWxpc20sIDI2KDEpLCAxNOKAkzI1LiBodHRwczovL2RvaS5vcmcvMTAuMTExMS9zZW5hLjcwMDAwDQoNCkhlaW56ZSwgQS4tUy4sICYgU2NoZXVlciwgVC4gKDIwMjYpLiBHcm93aW5nIFVwIEZhciBSaWdodD8gWW91dGggU3VwcG9ydCBmb3IgdGhlIEFmRCBpbiBFYXN0ZXJuIEdlcm1hbnkuIEdlcm1hbiBQb2xpdGljcywgMzUoMyksIDQ4NeKAkzUxNS4gaHR0cHM6Ly9kb2kub3JnLzEwLjEwODAvMDk2NDQwMDguMjAyNS4yNTg3OTE5DQoNCkp1Z2VydCwgUC4sIExlc3pjemVuc2t5LCBMLiwgJiBQaW5rLCBTLiAoMjAxOCkuIFRoZSBFZmZlY3RzIG9mIEV0aG5pYyBNaW5vcml0eSBBZG9sZXNjZW50c+KAmSBFdGhuaWMgU2VsZuKAkElkZW50aWZpY2F0aW9uIG9uIEZyaWVuZHNoaXAgU2VsZWN0aW9uLiBKb3VybmFsIG9mIFJlc2VhcmNoIG9uIEFkb2xlc2NlbmNlLCAyOCgyKSwgMzc54oCTMzk1LiBodHRwczovL2RvaS5vcmcvMTAuMTExMS9qb3JhLjEyMzM3DQoNCktpcmJ5LCBQLiwgJiBQYXJrZXIsIEouICgyMDI2LCBTZXB0ZW1iZXIgNykuIEdlcm1hbnnigJlzIGZhci1yaWdodCBBZkQgaGFpbHMgYmlnIHZpY3RvcnkgaW4gZWFzdCwgYnV0IGZhbGxzIHNob3J0IG9mIG1ham9yaXR5LiBodHRwczovL3d3dy5iYmMuY29tL25ld3MvYXJ0aWNsZXMvY3k0emVqZ3ozejlvDQoNCkxlc3pjemVuc2t5LCBMLiAoMjAxOCkuIFlvdW5nIGltbWlncmFudHPigJkgaG9zdCBjb3VudHJ5IGlkZW50aWZpY2F0aW9uIGFuZCB0aGVpciBmcmllbmRzaGlwcyB3aXRoIG5hdGl2ZXM6IERvZXMgcmVsYXRpdmUgZ3JvdXAgc2l6ZSBtYXR0ZXI/IFNvY2lhbCBTY2llbmNlIFJlc2VhcmNoLCA3MCwgMTYz4oCTMTc1LiBodHRwczovL2RvaS5vcmcvMTAuMTAxNi9qLnNzcmVzZWFyY2guMjAxNy4xMC4wMTINCg0KTGVzemN6ZW5za3ksIEwuLCBTdGFyaywgVC4gSC4sIEZsYWNoZSwgQS4sICYgTXVubmlrc21hLCBBLiAoMjAxNikuIERpc2VudGFuZ2xpbmcgdGhlIHJlbGF0aW9uIGJldHdlZW4geW91bmcgaW1taWdyYW50c+KAmSBob3N0IGNvdW50cnkgaWRlbnRpZmljYXRpb24gYW5kIHRoZWlyIGZyaWVuZHNoaXBzIHdpdGggbmF0aXZlcy4gU29jaWFsIE5ldHdvcmtzLCA0NCwgMTc54oCTMTg5LiBodHRwczovL2RvaS5vcmcvMTAuMTAxNi9qLnNvY25ldC4yMDE1LjA4LjAwMQ0KDQpMZXZ5LCBBLiwgU2FndXksIFQuLCBIYWxwZXJpbiwgRS4sICYgVmFuIFpvbWVyZW4sIE0uICgyMDE3KS4gQnJpZGdlcyBvciBCYXJyaWVycz8gQ29uY2VwdHVhbGl6YXRpb24gb2YgdGhlIFJvbGUgb2YgTXVsdGlwbGUgSWRlbnRpdHkgR2F0ZXdheSBHcm91cHMgaW4gSW50ZXJncm91cCBSZWxhdGlvbnMuIEZyb250aWVycyBpbiBQc3ljaG9sb2d5LCA4LCAxMDk3LiBodHRwczovL2RvaS5vcmcvMTAuMzM4OS9mcHN5Zy4yMDE3LjAxMDk3DQoNClN2cmFrYSwgRC4gKDIwMjQpLiBUYXJnZXRlZCBOYXRpdmlzbTogRXRobmljIERpdmVyc2l0eSBhbmQgUmFkaWNhbCBSaWdodCBQYXJ0aWVzIGluIEV1cm9wZS4gR292ZXJubWVudCBhbmQgT3Bwb3NpdGlvbiwgNTkoMiksIDM2MOKAkzM4MS4gaHR0cHM6Ly9kb2kub3JnLzEwLjEwMTcvZ292LjIwMjMuMjcNCg0KVmVya3V5dGVuLCBNLiwgV2lsZXksIFMuLCBEZWF1eCwgSy4sICYgRmxlaXNjaG1hbm4sIEYuICgyMDE5KS4gVG8gQmUgQm90aCAoYW5kIE1vcmUpOiBJbW1pZ3JhdGlvbiBhbmQgSWRlbnRpdHkgTXVsdGlwbGljaXR5LiBKb3VybmFsIG9mIFNvY2lhbCBJc3N1ZXMsIDc1KDIpLCAzOTDigJM0MTMuIGh0dHBzOi8vZG9pLm9yZy8xMC4xMTExL2pvc2kuMTIzMjQNCg0KWmhhbywgTC4gKDIwMjMpLiBOZXR3b3JrcyBpbiB0aGUgbWFraW5nOiBGcmllbmRzaGlwIHNlZ3JlZ2F0aW9uIGFuZCBldGhuaWMgaG9tb3BoaWx5LiBTb2NpYWwgU2NpZW5jZSBSZXNlYXJjaCwgMTEwLCAxMDI4MTMuIGh0dHBzOi8vZG9pLm9yZy8xMC4xMDE2L2ouc3NyZXNlYXJjaC4yMDIyLjEwMjgxMw0K</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("Introduction.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

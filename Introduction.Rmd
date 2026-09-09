@@ -1,0 +1,48 @@
+---
+title: "Introduction"
+author: "Susanna"
+date: "2026-09-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+All accross Europe, ethnonationalist narratives are gaining traction. The past three decades have seen a marked increase in the popularity of populist far-right parties that draw on the notion of an ethnoculturally homogeneous nation-state to present specific out-groups as a threat to the nation (Aktas, 2024; Svraka, 2024). In Germany, the rise of the radical right is symbolised by the electoral victories of Alternative für Deutschland (AfD), the most recent of which concerns the state election in Sachsen-Anhalt, where the party gained a staggering 43.8% of votes (Kirby & Parker, 2026). The AfD presents immigrant 'Others' as threats to the German people based on an essentialised understanding of their cultural identities as rigid and incompatible with 'German' values and civilisation (Grippo, 2026). The party is highly popular among the youngest voters, indicating that such ethnonationalist attitudes are prevalent across generations (Heinze & Scheuer, 2026).
+
+Many youth however, by the very way they define their own identities, challenge such essentialised and reductive understandings of cultural identity. Holding multiple identities, also referred to as dual or bicultural identification, refers to the negotiation between and integration of different group memberships in one's sense of self (Verkuyten et al., 2019). By identifying as part of both the country they reside in and their parents' heritage countries, dual identifiers demonstrate that various cultural identities are not mutually exclusive but can overlap even within one person. Scholars have wondered whether dual identifiers' connection to different identity categories can boost intergroup relations (Levy et al., 2017). However, most of the research on social networks with dual identifiers has focused on the prevalence of dual identifying youth's friendships with differently identifying peers, rather than the influence dual identifiers exert on those they form ties with (see e.g. Chen et al., 2026; Jugert et al., 2018; Leszczensky et al., 2016; Leszczensky, 2018). Results of these studies are inconsistent. Some find that dual identifying adolescents are indeed a popular choice of friend for various types of mono-identifying peers (Jugert et al., 2018; Leszczensky et al., 2016; Leszczensky, 2018), suggesting that dual identifiers may function as structural bridges between different peer groups. Others see no evidence to suggest that dual identifiers are more likely to develop ethnically diverse friendship networks than mono-identifying peers (Chen et al., 2026).
+
+However, even if dual identifying adolescents do indeed form a bridge between differently identifying peer groups, the effect of this position remains unknown. Do dual identifiers influence the homophily tendency of mono-identifying friends? In this study, I take a longitudinal social network approach to investigate the influence dual identifying adolescents exert on their friends' friendship selection. To do so, I ask the following questions:
+
+*Do dual identifying adolescents in German secondary schools have a higher betweenness centrality than mono-identifying peers?*
+
+*Do mono-identifying majority adolescents with dual identifying friends have a higher chance of developing friendships with mono-identifying minority students over time?*
+
+## References
+
+Aktas, M. (2024). The rise of populist radical right parties in Europe.     International Sociology, 39(6), 591–605. https://doi.org/10.1177/02685809241297547
+
+Chen, L., Stark, T. H., Nijs, T., & Jaspers, E. (2026). How does ethnic minority youth’s dual self‐identification affect the formation of interethnic ties in friendship networks? Journal of Research on Adolescence, 36(1), e70168. https://doi.org/10.1111/jora.70168
+
+Grippo, A. (2026). Constructing the Far‐Right Nation: The Politics of Belonging in the Ethno‐Cultural Volksnation. Studies in Ethnicity and Nationalism, 26(1), 14–25. https://doi.org/10.1111/sena.70000
+
+Heinze, A.-S., & Scheuer, T. (2026). Growing Up Far Right? Youth Support for the AfD in Eastern Germany. German Politics, 35(3), 485–515. https://doi.org/10.1080/09644008.2025.2587919
+
+Jugert, P., Leszczensky, L., & Pink, S. (2018). The Effects of Ethnic Minority Adolescents’ Ethnic Self‐Identification on Friendship Selection. Journal of Research on Adolescence, 28(2), 379–395. https://doi.org/10.1111/jora.12337
+
+Kirby, P., & Parker, J. (2026, September 7). Germany’s far-right AfD hails big victory in east, but falls short of majority. https://www.bbc.com/news/articles/cy4zejgz3z9o
+
+Leszczensky, L. (2018). Young immigrants’ host country identification and their friendships with natives: Does relative group size matter? Social Science Research, 70, 163–175. https://doi.org/10.1016/j.ssresearch.2017.10.012
+
+Leszczensky, L., Stark, T. H., Flache, A., & Munniksma, A. (2016). Disentangling the relation between young immigrants’ host country identification and their friendships with natives. Social Networks, 44, 179–189. https://doi.org/10.1016/j.socnet.2015.08.001
+
+Levy, A., Saguy, T., Halperin, E., & Van Zomeren, M. (2017). Bridges or Barriers? Conceptualization of the Role of Multiple Identity Gateway Groups in Intergroup Relations. Frontiers in Psychology, 8, 1097. https://doi.org/10.3389/fpsyg.2017.01097
+
+Svraka, D. (2024). Targeted Nativism: Ethnic Diversity and Radical Right Parties in Europe. Government and Opposition, 59(2), 360–381. https://doi.org/10.1017/gov.2023.27
+
+Verkuyten, M., Wiley, S., Deaux, K., & Fleischmann, F. (2019). To Be Both (and More): Immigration and Identity Multiplicity. Journal of Social Issues, 75(2), 390–413. https://doi.org/10.1111/josi.12324
+
+Zhao, L. (2023). Networks in the making: Friendship segregation and ethnic homophily. Social Science Research, 110, 102813. https://doi.org/10.1016/j.ssresearch.2022.102813
