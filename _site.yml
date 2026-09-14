@@ -16,6 +16,8 @@ navbar:
         href: Week1.html
       - text: "Week 2"
         href: Week2.html
+      - text: "Week 3"
+        href: Week3.html
     - text: "Final research paper"
       menu:
       - text: "Introduction"
