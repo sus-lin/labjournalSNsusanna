@@ -423,7 +423,14 @@ Okay that worked! Can I do it with something other than the in-degree distributi
 First I'll try to calculate segregation (which is not working AAAAAAHHH)
 
 ```{r}
-segregation <- sna::nacf(df_network, gender, type = "moran", neighborhood.type = "out", demean = TRUE)
+#install.packages("netseg")
+#dim(wave1)
+#orwg(wave1, genderlist)
+
+genderlist <- as.numeric(df_soc$gender == "female")
+genderlist
+
+segregation <- sna::nacf(wave1, genderlist, type = "moran", neighborhood.type = "out", demean = TRUE)
 segregation
 ```
 

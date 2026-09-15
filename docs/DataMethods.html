@@ -9,10 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="by: Susanna Linden" />
+<meta name="author" content="Susanna" />
 
+<meta name="date" content="2026-09-15" />
 
-<title>Lab journal SN</title>
+<title>DataMethods</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -38,10 +39,6 @@
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
-<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
-<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
-<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
 <link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -431,86 +428,109 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Lab journal SN</h1>
-<h4 class="author">by: Susanna Linden</h4>
+<h1 class="title toc-ignore">DataMethods</h1>
+<h4 class="author">Susanna</h4>
+<h4 class="date">2026-09-15</h4>
 
 </div>
 
 
-<p>Welcome to my lab journal!</p>
-<div id="this-is-a-heading" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> This is a heading</h1>
-<p><strong>this is bold text</strong> <em>this text is in
-italics</em></p>
+<div id="data-and-methods" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Data and Methods</h1>
+<div id="data" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Data</h2>
+<p>To answer the research questions, I make use of the Friendship and
+Identity in School (FIS) dataset <span class="citation">(Leszczensky et
+al. 2022)</span>. The data were collected in six waves between May 2013
+and March 2017 among 9,292 adolescents at ten secondary schools in the
+German federal state North Rhine-Westphalia. A sampling frame of schools
+was developed based on the share of students with Turkish or otherwise
+foreign citizenship in order to capture settings with ample opportunity
+for interethnic contact. Participants were in the 5th, 6th, or 7th grade
+during the first wave. <strong>add something about school
+transition</strong>. Students filled in the paper questionnaire
+in-class, resulting in student response rates of 76.3%-87.8% per wave.
+Among other topics, participants were asked about various types of
+social relationships with peers within their same grade, enabling the
+construction of directed grade-level socionets.</p>
+<div id="friendship-networks" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Friendship
+Networks</h3>
+<p>Directed grade-level friendship networks were constructed based on
+the peers each student nominated as their ‘best friends’. Students could
+nominate up to ten best friends from within their class or other classes
+within the same grade.</p>
 </div>
-<div id="this-is-a-chunk-of-r-syntax" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> This is a chunk of R
-syntax</h1>
-<pre class="r"><code>2+3</code></pre>
-<pre><code>## [1] 5</code></pre>
-<pre class="r"><code>2 + 2 </code></pre>
-<pre><code>## [1] 4</code></pre>
-<script>
-  addClassKlippyTo("pre.r, pre.markdown");
-  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
-</script>
-<hr />
-<!--- This is the best way to write a comment. 
-It also demonstrate, you can add html directly in your rmarkdown file. See: https://www.w3schools.com/html/html_comments.asp --->
-<!--- to use a multi column page we use Pandoc's fenced Div. 
-see here: https://bookdown.org/yihui/rmarkdown-cookbook/multi-column.html 
-But please note, we are not here to make a beautiful website, our intention is just to have a quick lab journal up and running --->
+<div id="node-attributes" class="section level3" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Node
+attributes</h3>
+<p><strong>Group Identification</strong></p>
+<p>Group identification was measured using the question: <em>“How do you
+see yourself?”</em>. Participants could choose between the options
+<em>only as German</em>, <em>more as German</em>, <em>both equally</em>,
+<em>more as a person from the country of origin of my family</em>, and
+<em>only as a person from the country of origin of my family</em>.
+Students were classified as members of one of four groups:
+non-migratised majority adolescents, dual identifying adolescents,
+German-identifying adolescents with migrant heritage, and
+other-than-German-identifying adolescents. Students were marked as
+non-migratised majority adolescents if none of their parents and
+grandparents were born in a country other than Germany. These
+participants were not posed any further questions about ethnic/cultural
+self-identification. Only students who reported identifying equally as
+German and as a person from their family’s origin country were
+considered dual identifiers, in line with previous studies in the German
+context <span class="citation">(Jugert, Leszczensky, and Pink
+2018)</span>. Students who reported having one or more (grand-)parent
+born abroad, but who identified only or more as German, were considered
+German-identifying adolescents with migrant heritage. Finally, students
+who viewed themselves as only or more as a person from their family’s
+origin country were categorised as other-than-German-identifying
+adolescents. A robustness check was conducted in which students
+identifying as mostly German or mostly part of their family’s origin
+country were included in the dual identifier category. Since identity is
+a dynamic construct, particularly in the adolescent phase of
+development, group identification was treated as a time-varying
+attribute.</p>
+<p><strong>Control Variables</strong></p>
+<p>Information about students’ primary school, neighbourhood of
+residence, and specific classroom were used to control for contact
+opportunities that may affect the prevalence of intergroup friendship
+but are likely to be part of the social influence process of interest.
+Gender was included to control for the well-known tendency for gender
+homophily among adolescents.</p>
 </div>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div id="my-lab-journal" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> My Lab Journal</h1>
-<p>Last compiled on September, 2026</p>
-<p>This website contains my weekly lab reports as well as the final
-research paper for the course Social Networks.</p>
-<p><br></p>
-<hr />
-<div id="open-science" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Open Science</h2>
-<p>Everyone can fork this repository. Use this example to journal your
-lab work and assignments.</p>
-<p>We, Jochem Tolsma and Bas Hofstra, use this repository for our Social
-Network Analysis For Social Scientists course <span
-class="citation">(Tolsma and Hofstra 2022)</span>.
-<!--- this is a reference, stored in references.bib. It will be automatically added at the bottom of the page ---></p>
 </div>
+<div id="methods" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Methods</h2>
+<p>density, recip, transTrip, isolateNet?, altX for dual identifiers,
+sameX, diffXOutAct conditional on MajDI dyad? transTripX or
+diffXTransTrip or jumpXTransTrip</p>
 </div>
-</div><div class="column" style="width:50%;">
-<p><img src="images/cover.jpg" /></p>
-</div>
-</div>
-<div id="how-to-use" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> How to use</h2>
-<ol style="list-style-type: decimal">
-<li><p>Fork the repository for this website and follow instructions on
-<code>README</code> to get started <a
-href="https://github.com/JochemTolsma/labjournal">here</a>.</p></li>
-<li><p>Journal your work, by editing the .Rmd-files</p></li>
-<li><p>…</p></li>
-<li><p>Change everything to make it your own!</p></li>
-</ol>
-<p><br></p>
-<p>Use the top menu to navigate through the journal.</p>
-<hr />
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="unnumbered">References</h1>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
 entry-spacing="0">
-<div id="ref-SNASS" class="csl-entry">
-Tolsma, Jochem, and Bas Hofstra. 2022. <em>Social Network Analysis for
-Social Scientists</em>. <a
-href="https://jtolsma.nl/SNASS/">https://jtolsma.nl/SNASS/</a>.
+<div id="ref-jugert2018" class="csl-entry">
+Jugert, Philipp, Lars Leszczensky, and Sebastian Pink. 2018. <span>“The
+Effects of Ethnic Minority Adolescents’ Ethnic
+Self<span>-</span>Identification on Friendship Selection.”</span>
+<em>Journal of Research on Adolescence</em> 28 (2): 379–95. <a
+href="https://doi.org/10.1111/jora.12337">https://doi.org/10.1111/jora.12337</a>.
+</div>
+<div id="ref-leszczensky2022" class="csl-entry">
+Leszczensky, Lars, Sebastian Pink, David Kretschmer, and Frank Kalter.
+2022. <span>“Studying Youth<span>’</span> Group Identities, Intergroup
+Relations, and Friendship Networks: The Friendship and Identity in
+School Data.”</span> <em>European Sociological Review</em> 38 (3):
+493–506. <a
+href="https://doi.org/10.1093/esr/jcab052">https://doi.org/10.1093/esr/jcab052</a>.
+</div>
 </div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxhYiBqb3VybmFsIFNOIg0KYXV0aG9yOiAiYnk6IFN1c2FubmEgTGluZGVuIg0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KLS0tDQoNCldlbGNvbWUgdG8gbXkgbGFiIGpvdXJuYWwhDQoNCiMgVGhpcyBpcyBhIGhlYWRpbmcNCg0KKip0aGlzIGlzIGJvbGQgdGV4dCoqICp0aGlzIHRleHQgaXMgaW4gaXRhbGljcyoNCg0KIyBUaGlzIGlzIGEgY2h1bmsgb2YgUiBzeW50YXgNCg0KYGBge3J9DQoyKzMNCmBgYA0KDQpgYGB7cn0NCjIgKyAyIA0KYGBgDQoNCmBgYHtyLCBpbnN0YWxsIHJlbW90ZWx5LCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQojaW5zdGFsbC5wYWNrYWdlcygicmVtb3RlcyIpDQojcmVtb3Rlczo6aW5zdGFsbF9naXRodWIoInJsZXN1ci9rbGlwcHkiKQ0KYGBgDQoNCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9DQpsaWJyYXJ5KGtuaXRyKQ0KDQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpvcHRzX2NodW5rJHNldCh0aWR5Lm9wdHM9bGlzdCh3aWR0aC5jdXRvZmY9MTAwKSx0aWR5PVRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLGNvbW1lbnQgPSAiIz4iLCBjYWNoZT1UUlVFLCBjbGFzcy5zb3VyY2U9YygidGVzdCIpLCBjbGFzcy5vdXRwdXQ9YygidGVzdDIiKSkNCm9wdGlvbnMod2lkdGggPSAxMDApDQojaW5zdGFsbC5wYWNrYWdlcygicmdsIikNCnJnbDo6c2V0dXBLbml0cigpDQpgYGANCg0KYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9DQprbGlwcHk6OmtsaXBweShwb3NpdGlvbiA9IGMoJ3RvcCcsICdyaWdodCcpKQ0KI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQ0KI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQ0KYGBgDQoNCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQpgYGB7PWh0bWx9DQo8IS0tLSBUaGlzIGlzIHRoZSBiZXN0IHdheSB0byB3cml0ZSBhIGNvbW1lbnQuIA0KSXQgYWxzbyBkZW1vbnN0cmF0ZSwgeW91IGNhbiBhZGQgaHRtbCBkaXJlY3RseSBpbiB5b3VyIHJtYXJrZG93biBmaWxlLiBTZWU6IGh0dHBzOi8vd3d3Lnczc2Nob29scy5jb20vaHRtbC9odG1sX2NvbW1lbnRzLmFzcCAtLS0+DQpgYGANCg0KYGBgez1odG1sfQ0KPCEtLS0gdG8gdXNlIGEgbXVsdGkgY29sdW1uIHBhZ2Ugd2UgdXNlIFBhbmRvYydzIGZlbmNlZCBEaXYuIA0Kc2VlIGhlcmU6IGh0dHBzOi8vYm9va2Rvd24ub3JnL3lpaHVpL3JtYXJrZG93bi1jb29rYm9vay9tdWx0aS1jb2x1bW4uaHRtbCANCkJ1dCBwbGVhc2Ugbm90ZSwgd2UgYXJlIG5vdCBoZXJlIHRvIG1ha2UgYSBiZWF1dGlmdWwgd2Vic2l0ZSwgb3VyIGludGVudGlvbiBpcyBqdXN0IHRvIGhhdmUgYSBxdWljayBsYWIgam91cm5hbCB1cCBhbmQgcnVubmluZyAtLS0+DQpgYGANCg0KOjo6OjogY29sdW1ucw0KOjo6IHsuY29sdW1uIHdpZHRoPSI1MCUifQ0KIyBNeSBMYWIgSm91cm5hbA0KDQpMYXN0IGNvbXBpbGVkIG9uIGByIGZvcm1hdChTeXMudGltZSgpLCAnJUIsICVZJylgDQoNClRoaXMgd2Vic2l0ZSBjb250YWlucyBteSB3ZWVrbHkgbGFiIHJlcG9ydHMgYXMgd2VsbCBhcyB0aGUgZmluYWwgcmVzZWFyY2ggcGFwZXIgZm9yIHRoZSBjb3Vyc2UgU29jaWFsIE5ldHdvcmtzLg0KDQo8YnI+DQoNCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQojIyBPcGVuIFNjaWVuY2UNCg0KRXZlcnlvbmUgY2FuIGZvcmsgdGhpcyByZXBvc2l0b3J5LiBVc2UgdGhpcyBleGFtcGxlIHRvIGpvdXJuYWwgeW91ciBsYWIgd29yayBhbmQgYXNzaWdubWVudHMuDQoNCldlLCBKb2NoZW0gVG9sc21hIGFuZCBCYXMgSG9mc3RyYSwgdXNlIHRoaXMgcmVwb3NpdG9yeSBmb3Igb3VyIFNvY2lhbCBOZXR3b3JrIEFuYWx5c2lzIEZvciBTb2NpYWwgU2NpZW50aXN0cyBjb3Vyc2UgW0BTTkFTU10uIDwhLS0tIHRoaXMgaXMgYSByZWZlcmVuY2UsIHN0b3JlZCBpbiByZWZlcmVuY2VzLmJpYi4gSXQgd2lsbCBiZSBhdXRvbWF0aWNhbGx5IGFkZGVkIGF0IHRoZSBib3R0b20gb2YgdGhlIHBhZ2UgLS0tPg0KOjo6DQoNCjo6OiB7LmNvbHVtbiB3aWR0aD0iNTAlIn0NCiFbXShpbWFnZXMvY292ZXIuanBnKQ0KOjo6DQo6Ojo6Og0KDQojIyBIb3cgdG8gdXNlDQoNCjEuICBGb3JrIHRoZSByZXBvc2l0b3J5IGZvciB0aGlzIHdlYnNpdGUgYW5kIGZvbGxvdyBpbnN0cnVjdGlvbnMgb24gYFJFQURNRWAgdG8gZ2V0IHN0YXJ0ZWQgW2hlcmVdKGh0dHBzOi8vZ2l0aHViLmNvbS9Kb2NoZW1Ub2xzbWEvbGFiam91cm5hbCkuDQoNCjIuICBKb3VybmFsIHlvdXIgd29yaywgYnkgZWRpdGluZyB0aGUgLlJtZC1maWxlcw0KDQozLiAgLi4uDQoNCjQuICBDaGFuZ2UgZXZlcnl0aGluZyB0byBtYWtlIGl0IHlvdXIgb3duIQ0KDQo8YnI+DQoNClVzZSB0aGUgdG9wIG1lbnUgdG8gbmF2aWdhdGUgdGhyb3VnaCB0aGUgam91cm5hbC4NCg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCiMgUmVmZXJlbmNlcw0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGFNZXRob2RzIg0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTE1Ig0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQpiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliDQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KIyBEYXRhIGFuZCBNZXRob2RzDQoNCiMjIERhdGENCg0KVG8gYW5zd2VyIHRoZSByZXNlYXJjaCBxdWVzdGlvbnMsIEkgbWFrZSB1c2Ugb2YgdGhlIEZyaWVuZHNoaXAgYW5kIElkZW50aXR5IGluIFNjaG9vbCAoRklTKSBkYXRhc2V0IFtAbGVzemN6ZW5za3kyMDIyXS4gVGhlIGRhdGEgd2VyZSBjb2xsZWN0ZWQgaW4gc2l4IHdhdmVzIGJldHdlZW4gTWF5IDIwMTMgYW5kIE1hcmNoIDIwMTcgYW1vbmcgOSwyOTIgYWRvbGVzY2VudHMgYXQgdGVuIHNlY29uZGFyeSBzY2hvb2xzIGluIHRoZSBHZXJtYW4gZmVkZXJhbCBzdGF0ZSBOb3J0aCBSaGluZS1XZXN0cGhhbGlhLiBBIHNhbXBsaW5nIGZyYW1lIG9mIHNjaG9vbHMgd2FzIGRldmVsb3BlZCBiYXNlZCBvbiB0aGUgc2hhcmUgb2Ygc3R1ZGVudHMgd2l0aCBUdXJraXNoIG9yIG90aGVyd2lzZSBmb3JlaWduIGNpdGl6ZW5zaGlwIGluIG9yZGVyIHRvIGNhcHR1cmUgc2V0dGluZ3Mgd2l0aCBhbXBsZSBvcHBvcnR1bml0eSBmb3IgaW50ZXJldGhuaWMgY29udGFjdC4gUGFydGljaXBhbnRzIHdlcmUgaW4gdGhlIDV0aCwgNnRoLCBvciA3dGggZ3JhZGUgZHVyaW5nIHRoZSBmaXJzdCB3YXZlLiAqKmFkZCBzb21ldGhpbmcgYWJvdXQgc2Nob29sIHRyYW5zaXRpb24qKi4gU3R1ZGVudHMgZmlsbGVkIGluIHRoZSBwYXBlciBxdWVzdGlvbm5haXJlIGluLWNsYXNzLCByZXN1bHRpbmcgaW4gc3R1ZGVudCByZXNwb25zZSByYXRlcyBvZiA3Ni4zJS04Ny44JSBwZXIgd2F2ZS4gQW1vbmcgb3RoZXIgdG9waWNzLCBwYXJ0aWNpcGFudHMgd2VyZSBhc2tlZCBhYm91dCB2YXJpb3VzIHR5cGVzIG9mIHNvY2lhbCByZWxhdGlvbnNoaXBzIHdpdGggcGVlcnMgd2l0aGluIHRoZWlyIHNhbWUgZ3JhZGUsIGVuYWJsaW5nIHRoZSBjb25zdHJ1Y3Rpb24gb2YgZGlyZWN0ZWQgZ3JhZGUtbGV2ZWwgc29jaW9uZXRzLg0KDQojIyMgRnJpZW5kc2hpcCBOZXR3b3Jrcw0KDQpEaXJlY3RlZCBncmFkZS1sZXZlbCBmcmllbmRzaGlwIG5ldHdvcmtzIHdlcmUgY29uc3RydWN0ZWQgYmFzZWQgb24gdGhlIHBlZXJzIGVhY2ggc3R1ZGVudCBub21pbmF0ZWQgYXMgdGhlaXIgJ2Jlc3QgZnJpZW5kcycuIFN0dWRlbnRzIGNvdWxkIG5vbWluYXRlIHVwIHRvIHRlbiBiZXN0IGZyaWVuZHMgZnJvbSB3aXRoaW4gdGhlaXIgY2xhc3Mgb3Igb3RoZXIgY2xhc3NlcyB3aXRoaW4gdGhlIHNhbWUgZ3JhZGUuDQoNCiMjIyBOb2RlIGF0dHJpYnV0ZXMNCg0KKipHcm91cCBJZGVudGlmaWNhdGlvbioqDQoNCkdyb3VwIGlkZW50aWZpY2F0aW9uIHdhcyBtZWFzdXJlZCB1c2luZyB0aGUgcXVlc3Rpb246ICoiSG93IGRvIHlvdSBzZWUgeW91cnNlbGY/IiouIFBhcnRpY2lwYW50cyBjb3VsZCBjaG9vc2UgYmV0d2VlbiB0aGUgb3B0aW9ucyAqb25seSBhcyBHZXJtYW4qLCAqbW9yZSBhcyBHZXJtYW4qLCAqYm90aCBlcXVhbGx5KiwgKm1vcmUgYXMgYSBwZXJzb24gZnJvbSB0aGUgY291bnRyeSBvZiBvcmlnaW4gb2YgbXkgZmFtaWx5KiwgYW5kICpvbmx5IGFzIGEgcGVyc29uIGZyb20gdGhlIGNvdW50cnkgb2Ygb3JpZ2luIG9mIG15IGZhbWlseSouIFN0dWRlbnRzIHdlcmUgY2xhc3NpZmllZCBhcyBtZW1iZXJzIG9mIG9uZSBvZiBmb3VyIGdyb3Vwczogbm9uLW1pZ3JhdGlzZWQgbWFqb3JpdHkgYWRvbGVzY2VudHMsIGR1YWwgaWRlbnRpZnlpbmcgYWRvbGVzY2VudHMsIEdlcm1hbi1pZGVudGlmeWluZyBhZG9sZXNjZW50cyB3aXRoIG1pZ3JhbnQgaGVyaXRhZ2UsIGFuZCBvdGhlci10aGFuLUdlcm1hbi1pZGVudGlmeWluZyBhZG9sZXNjZW50cy4gU3R1ZGVudHMgd2VyZSBtYXJrZWQgYXMgbm9uLW1pZ3JhdGlzZWQgbWFqb3JpdHkgYWRvbGVzY2VudHMgaWYgbm9uZSBvZiB0aGVpciBwYXJlbnRzIGFuZCBncmFuZHBhcmVudHMgd2VyZSBib3JuIGluIGEgY291bnRyeSBvdGhlciB0aGFuIEdlcm1hbnkuIFRoZXNlIHBhcnRpY2lwYW50cyB3ZXJlIG5vdCBwb3NlZCBhbnkgZnVydGhlciBxdWVzdGlvbnMgYWJvdXQgZXRobmljL2N1bHR1cmFsIHNlbGYtaWRlbnRpZmljYXRpb24uIE9ubHkgc3R1ZGVudHMgd2hvIHJlcG9ydGVkIGlkZW50aWZ5aW5nIGVxdWFsbHkgYXMgR2VybWFuIGFuZCBhcyBhIHBlcnNvbiBmcm9tIHRoZWlyIGZhbWlseSdzIG9yaWdpbiBjb3VudHJ5IHdlcmUgY29uc2lkZXJlZCBkdWFsIGlkZW50aWZpZXJzLCBpbiBsaW5lIHdpdGggcHJldmlvdXMgc3R1ZGllcyBpbiB0aGUgR2VybWFuIGNvbnRleHQgW0BqdWdlcnQyMDE4XS4gU3R1ZGVudHMgd2hvIHJlcG9ydGVkIGhhdmluZyBvbmUgb3IgbW9yZSAoZ3JhbmQtKXBhcmVudCBib3JuIGFicm9hZCwgYnV0IHdobyBpZGVudGlmaWVkIG9ubHkgb3IgbW9yZSBhcyBHZXJtYW4sIHdlcmUgY29uc2lkZXJlZCBHZXJtYW4taWRlbnRpZnlpbmcgYWRvbGVzY2VudHMgd2l0aCBtaWdyYW50IGhlcml0YWdlLiBGaW5hbGx5LCBzdHVkZW50cyB3aG8gdmlld2VkIHRoZW1zZWx2ZXMgYXMgb25seSBvciBtb3JlIGFzIGEgcGVyc29uIGZyb20gdGhlaXIgZmFtaWx5J3Mgb3JpZ2luIGNvdW50cnkgd2VyZSBjYXRlZ29yaXNlZCBhcyBvdGhlci10aGFuLUdlcm1hbi1pZGVudGlmeWluZyBhZG9sZXNjZW50cy4gQSByb2J1c3RuZXNzIGNoZWNrIHdhcyBjb25kdWN0ZWQgaW4gd2hpY2ggc3R1ZGVudHMgaWRlbnRpZnlpbmcgYXMgbW9zdGx5IEdlcm1hbiBvciBtb3N0bHkgcGFydCBvZiB0aGVpciBmYW1pbHkncyBvcmlnaW4gY291bnRyeSB3ZXJlIGluY2x1ZGVkIGluIHRoZSBkdWFsIGlkZW50aWZpZXIgY2F0ZWdvcnkuIFNpbmNlIGlkZW50aXR5IGlzIGEgZHluYW1pYyBjb25zdHJ1Y3QsIHBhcnRpY3VsYXJseSBpbiB0aGUgYWRvbGVzY2VudCBwaGFzZSBvZiBkZXZlbG9wbWVudCwgZ3JvdXAgaWRlbnRpZmljYXRpb24gd2FzIHRyZWF0ZWQgYXMgYSB0aW1lLXZhcnlpbmcgYXR0cmlidXRlLg0KDQoqKkNvbnRyb2wgVmFyaWFibGVzKioNCg0KSW5mb3JtYXRpb24gYWJvdXQgc3R1ZGVudHMnIHByaW1hcnkgc2Nob29sLCBuZWlnaGJvdXJob29kIG9mIHJlc2lkZW5jZSwgYW5kIHNwZWNpZmljIGNsYXNzcm9vbSB3ZXJlIHVzZWQgdG8gY29udHJvbCBmb3IgY29udGFjdCBvcHBvcnR1bml0aWVzIHRoYXQgbWF5IGFmZmVjdCB0aGUgcHJldmFsZW5jZSBvZiBpbnRlcmdyb3VwIGZyaWVuZHNoaXAgYnV0IGFyZSBsaWtlbHkgdG8gYmUgcGFydCBvZiB0aGUgc29jaWFsIGluZmx1ZW5jZSBwcm9jZXNzIG9mIGludGVyZXN0LiBHZW5kZXIgd2FzIGluY2x1ZGVkIHRvIGNvbnRyb2wgZm9yIHRoZSB3ZWxsLWtub3duIHRlbmRlbmN5IGZvciBnZW5kZXIgaG9tb3BoaWx5IGFtb25nIGFkb2xlc2NlbnRzLg0KDQojIyBNZXRob2RzDQoNCmRlbnNpdHksIHJlY2lwLCB0cmFuc1RyaXAsIGlzb2xhdGVOZXQ/LCBhbHRYIGZvciBkdWFsIGlkZW50aWZpZXJzLCBzYW1lWCwgZGlmZlhPdXRBY3QgY29uZGl0aW9uYWwgb24gTWFqREkgZHlhZD8gdHJhbnNUcmlwWCBvciBkaWZmWFRyYW5zVHJpcCBvciBqdW1wWFRyYW5zVHJpcA0KDQojIyBSZWZlcmVuY2VzDQo=</div>
 
 
 </div>
@@ -548,7 +568,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("index.Rmd");
+  window.initializeSourceEmbed("DataMethods.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
