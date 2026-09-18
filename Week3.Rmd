@@ -427,16 +427,195 @@ First I'll try to calculate segregation (which is not working AAAAAAHHH)
 #dim(wave1)
 #orwg(wave1, genderlist)
 
-genderlist <- as.numeric(df_soc$gender == "female")
-genderlist
+#genderlist <- as.numeric(df_soc$gender == "female")
+#genderlist
 
-segregation <- sna::nacf(wave1, genderlist, type = "moran", neighborhood.type = "out", demean = TRUE)
-segregation
+#segregation <- sna::nacf(wave1, genderlist, type = "moran", neighborhood.type = "out", demean = TRUE)
+#segregation
 ```
+Okay I'll ask about segregation in class, because I'm not getting anywhere.
 
+Instead, let's take a look at relative influence.
 
 ```{r}
-gofi0 <- sienaGOF(ans, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
+# get parameters
+theta.eval <- ans$theta
+# and effects
+myeff.eval <- ans$effects
+
+# use sienaRI() --> doesn't exist. Maybe interpret_size?
+RI <- interpret_size(ans, data = mydata, theta = theta.eval, effects = myeff.eval)
+#plot it
+plot(RI, addPieChart = TRUE) #I can't see the full legend...
 ```
+
+Not sure how to fix the graph. For now, I'll move on to the micro-macro thing.
+
+```{r}
+#make new effects objects for simulation models
+myeff_obs <- myeff
+
+#set initial values based on estimated model
+myeff_obs <- setEffect(myeff_obs, density, initialValue = ans$theta[which(ans$effects$shortName == "density")])
+```
+```{r}
+myeff_obs <- setEffect(myeff_obs, recip, initialValue = ans$theta[which(ans$effects$shortName == "recip")])
+```
+```{r}
+myeff_obs <- setEffect(myeff_obs, transTrip, initialValue = ans$theta[which(ans$effects$shortName == "transTrip")])
+myeff_obs <- setEffect(myeff_obs, inPop, initialValue = ans$theta[which(ans$effects$shortName == "inPop")])
+myeff_obs <- setEffect(myeff_obs, outAct, initialValue = ans$theta[which(ans$effects$shortName == "outAct")])
+myeff_obs <- setEffect(myeff_obs, inAct, initialValue = ans$theta[which(ans$effects$shortName == "inAct")])
+myeff_obs <- setEffect(myeff_obs, isolateNet, initialValue = ans$theta[which(ans$effects$shortName == "isolateNet")])
+myeff_obs <- setEffect(myeff_obs, altX, interaction1 = "gender", initialValue = ans$theta[which(ans$effects$shortName == "altX")])
+myeff_obs <- setEffect(myeff_obs, egoX, interaction1 = "gender", initialValue = ans$theta[which(ans$effects$shortName == "egoX")])
+myeff_obs <- setEffect(myeff_obs, sameX, interaction1 = "gender", initialValue = ans$theta[which(ans$effects$shortName == "sameX")])
+```
+```{r}
+#fix effects at this value
+myeff_obs$fix[myeff_obs$include == TRUE] <- TRUE
+
+#additional models:
+myeff_no <- myeff_high <- myeff_obs
+
+#adjust inPop effect
+myeff_no <- setEffect(myeff_obs, inPop, initialValue = 0, fix = TRUE)
+```
+```{r}
+myeff_high <- setEffect(myeff_obs, inPop, initialValue = ans$theta[which(ans$effects$shortName == "inPop")] * 2, fix = TRUE)
+```
+```{r}
+#set up the simulation settings
+nIter <- 1000 # number of iterations
+
+sim_model <- sienaAlgorithmCreate(
+    projname = 'simulation',
+    cond = FALSE,
+    useStdInits = FALSE, nsub = 0,
+    n3 = nIter, 
+    seed=242452, # seed for replication
+    simOnly = TRUE)
+```
+```{r}
+#make vector to store gini across models (observed, no inPop, high inPop)
+#we also make vectors to calculate gini excluding the in-isolates
+
+gini_obs <- gini_no <- gini_high <- gini_obs2 <- gini_no2 <- gini_high2 <- rep(0, nIter)
+
+# simulation using estimated parameters
+sim_ans_obs <- siena07(sim_model,      # simulation settings
+                   data = mydata,      # data
+                   effects = myeff_obs,# defined effects and set parameters
+                   returnDeps = TRUE)  # return simulated networks
+  
+sim_ans_no <- siena07(sim_model,       # simulation settings
+                   data = mydata,      # data
+                   effects = myeff_no,# defined effects and set parameters
+                   returnDeps = TRUE)  # return simulated networks
+  
+sim_ans_high <- siena07(sim_model,     # simulation settings
+                   data = mydata,      # data
+                   effects = myeff_high,# defined effects and set parameters
+                   returnDeps = TRUE)  # return simulated networks
+
+#extract gini from simulation runs
+
+#no. of actors
+n <- length(mydata$nodeSets[[1]])
+
+#install.packages("DescTools")
+library(DescTools)
+
+#observed model
+for (i in 1:nIter) { 
+  #create empty adjacency matrix
+  adj <- matrix(0, n, n)
+  
+  #shorter notation for edge list for iteration i
+  edges <- sim_ans_obs$sims[[i]][[1]][[1]][[1]]
+
+  #The numbering is as follows: first the number of the simulation run (i); then the number of the group (1 in the usual case of single-group data structures); then the number of the dependent variable (here 1, because it is supposed that there only is a dependent network); then the period number (i.e., wave number minus 1). 
+  
+  #str(sim_ans_high$sims[[i]])
+  
+    #put edge values in desired place
+  adj[edges[, 1:2]] <- edges[, 3]
+  
+  #count number of indegrees
+  indegs <- colSums(adj)
+  gini_obs[i] <- DescTools::Gini(indegs)
+  
+  #exclude the 0s
+  gini_obs2[i] <- DescTools::Gini(indegs[!indegs==0])
+}
+
+#no inPop model
+for (i in 1:nIter) { 
+  #create empty adjacency matrix
+  adj <- matrix(0, n, n)
+  
+  #shorter notation for edge list for iteration i
+  edges <- sim_ans_no$sims[[i]][[1]][[1]][[1]]
+  #put edge values in desired place
+  adj[edges[, 1:2]] <- edges[, 3]
+  
+  #count number of indegrees
+  indegs <- colSums(adj)
+  gini_no[i] <- DescTools::Gini(indegs)
+  
+    #exclude the 0s
+  gini_no2[i] <- DescTools::Gini(indegs[!indegs==0])
+}
+
+#high inPop model
+for (i in 1:nIter) { 
+  #create empty adjacency matrix
+  adj <- matrix(0, n, n)
+  
+  #shorter notation for edge list for iteration i
+  edges <- sim_ans_high$sims[[i]][[1]][[1]][[1]]
+  
+  #put edge values in desired place
+  adj[edges[, 1:2]] <- edges[, 3]
+  
+  #count number of indegrees
+  indegs <- colSums(adj)
+  gini_high[i] <- DescTools::Gini(indegs)
+  
+    #exclude the 0s
+  gini_high2[i] <- DescTools::Gini(indegs[!indegs==0])
+}
+
+plotdata <- data.frame(condition = c(rep("obs", nIter), rep("no_inPop", nIter), rep("inPop_x2", nIter)),
+                       gini = c(gini_obs, gini_no, gini_high))
+plotdata$condition <- factor(plotdata$condition, levels = c("obs", "no_inPop", "inPop_x2"))
+
+#exclude in-isolates
+
+plotdata2 <- data.frame(condition = c(rep("obs", nIter), rep("no_inPop", nIter), rep("inPop_x2", nIter)),
+                       gini = c(gini_obs2, gini_no2, gini_high2))
+plotdata2$condition <- factor(plotdata$condition, levels = c("obs", "no_inPop", "inPop_x2"))
+
+p1 <- ggplot(plotdata, aes(x = condition, y = gini)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Gini of In-degrees over 1000 iterations, across simulation models",
+       x = "simulation model",
+       y = "Gini") +
+  ylim(0,1) +
+  theme_minimal()
+
+p2 <- ggplot(plotdata2, aes(x = condition, y = gini)) +
+  geom_boxplot() +
+  labs(x = "simulation model",
+       y = "Gini") +
+  ylim(0,1) +
+  theme_minimal()
+
+#install.packages("ggpubr")
+library(ggpubr)
+
+ggpubr::ggarrange(p1,p2, align = "h", labels = c("all actors", "excl. in-isolates"), vjust = 3)
+```
+I like this! Fun graph. Might be interesting to use in final project
 
 To do for next time: look at RSiena manual and read chapters, look at relative influence, update RQs and list of required data
