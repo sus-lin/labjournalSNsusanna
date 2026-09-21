@@ -18,7 +18,7 @@ Many youth however, by the very way they define their own identities, challenge 
 
 However, even if dual identifying adolescents do indeed form a bridge between differently identifying peer groups, the effect of this position remains unknown. Do dual identifiers influence the homophily tendency of mono-identifying friends? In this study, I take a longitudinal social network approach to investigate the influence dual identifying adolescents exert on their friends' friendship selection. To do so, I ask the following questions:
 
-*Do dual identifying adolescents in German secondary schools have a higher betweenness centrality than mono-identifying peers?* --\> needs to be workshopped. Do networks with a larger share of dual identifiers become less segregated over time?
+*How does ethnic network segregation develop over the course of the first years of secondary school?*
 
 *To what extent is majority adolescents' tendency for ethnic homophily in friendship selection influenced by having dual-identifying friends?*
 

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Susanna" />
+
+<meta name="date" content="2026-09-21" />
+
+<title>Week4</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Weekly journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Week1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="Week2.html">Week 2</a>
+    </li>
+    <li>
+      <a href="Week3.html">Week 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="DataMethods.html">Data and Methods</a>
+    </li>
+    <li>
+      <a href="DataConstruct.html">Data Construction</a>
+    </li>
+    <li>
+      <a href="Results.html">Results</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/sus-lin/labjournalSNsusanna">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Week4</h1>
+<h4 class="author">Susanna</h4>
+<h4 class="date">2026-09-21</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="playing-with-plots" class="section level3" number="0.0.1">
+<h3><span class="header-section-number">0.0.1</span> Playing with
+Plots</h3>
+<pre class="r"><code>require(igraph)
+g &lt;- make_graph(&quot;Zachary&quot;)
+plot(g)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Apparently, there’s a random component to how graphs are made:
+placement of nodes based on popularity.</p>
+<pre class="r"><code>gmat &lt;- as_adjacency_matrix(g, type = &quot;both&quot;, sparse = FALSE)
+gmat</code></pre>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14] [,15] [,16] [,17]
+##  [1,]    0    1    1    1    1    1    1    1    1     0     1     1     1     1     0     0     0
+##  [2,]    1    0    1    1    0    0    0    1    0     0     0     0     0     1     0     0     0
+##  [3,]    1    1    0    1    0    0    0    1    1     1     0     0     0     1     0     0     0
+##  [4,]    1    1    1    0    0    0    0    1    0     0     0     0     1     1     0     0     0
+##  [5,]    1    0    0    0    0    0    1    0    0     0     1     0     0     0     0     0     0
+##  [6,]    1    0    0    0    0    0    1    0    0     0     1     0     0     0     0     0     1
+##  [7,]    1    0    0    0    1    1    0    0    0     0     0     0     0     0     0     0     1
+##  [8,]    1    1    1    1    0    0    0    0    0     0     0     0     0     0     0     0     0
+##  [9,]    1    0    1    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [10,]    0    0    1    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [11,]    1    0    0    0    1    1    0    0    0     0     0     0     0     0     0     0     0
+## [12,]    1    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [13,]    1    0    0    1    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [14,]    1    1    1    1    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [15,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [16,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [17,]    0    0    0    0    0    1    1    0    0     0     0     0     0     0     0     0     0
+## [18,]    1    1    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [19,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [20,]    1    1    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [21,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [22,]    1    1    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [23,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [24,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [25,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [26,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [27,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [28,]    0    0    1    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [29,]    0    0    1    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [30,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [31,]    0    1    0    0    0    0    0    0    1     0     0     0     0     0     0     0     0
+## [32,]    1    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [33,]    0    0    1    0    0    0    0    0    1     0     0     0     0     0     1     1     0
+## [34,]    0    0    0    0    0    0    0    0    1     1     0     0     0     1     1     1     0
+##       [,18] [,19] [,20] [,21] [,22] [,23] [,24] [,25] [,26] [,27] [,28] [,29] [,30] [,31] [,32]
+##  [1,]     1     0     1     0     1     0     0     0     0     0     0     0     0     0     1
+##  [2,]     1     0     1     0     1     0     0     0     0     0     0     0     0     1     0
+##  [3,]     0     0     0     0     0     0     0     0     0     0     1     1     0     0     0
+##  [4,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [5,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [6,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [7,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [8,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [9,]     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0
+## [10,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [11,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [12,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [13,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [14,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [15,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [16,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [17,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [18,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [19,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [20,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [21,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [22,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [23,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [24,]     0     0     0     0     0     0     0     0     1     0     1     0     1     0     0
+## [25,]     0     0     0     0     0     0     0     0     1     0     1     0     0     0     1
+## [26,]     0     0     0     0     0     0     1     1     0     0     0     0     0     0     1
+## [27,]     0     0     0     0     0     0     0     0     0     0     0     0     1     0     0
+## [28,]     0     0     0     0     0     0     1     1     0     0     0     0     0     0     0
+## [29,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1
+## [30,]     0     0     0     0     0     0     1     0     0     1     0     0     0     0     0
+## [31,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [32,]     0     0     0     0     0     0     0     1     1     0     0     1     0     0     0
+## [33,]     0     1     0     1     0     1     1     0     0     0     0     0     1     1     1
+## [34,]     0     1     1     1     0     1     1     0     0     1     1     1     1     1     1
+##       [,33] [,34]
+##  [1,]     0     0
+##  [2,]     0     0
+##  [3,]     1     0
+##  [4,]     0     0
+##  [5,]     0     0
+##  [6,]     0     0
+##  [7,]     0     0
+##  [8,]     0     0
+##  [9,]     1     1
+## [10,]     0     1
+## [11,]     0     0
+## [12,]     0     0
+## [13,]     0     0
+## [14,]     0     1
+## [15,]     1     1
+## [16,]     1     1
+## [17,]     0     0
+## [18,]     0     0
+## [19,]     1     1
+## [20,]     0     1
+## [21,]     1     1
+## [22,]     0     0
+## [23,]     1     1
+## [24,]     1     1
+## [25,]     0     0
+## [26,]     0     0
+## [27,]     0     1
+## [28,]     0     1
+## [29,]     0     1
+## [30,]     1     1
+## [31,]     1     1
+## [32,]     1     1
+## [33,]     0     1
+## [34,]     1     0</code></pre>
+<p>g is in igraph format, we just turned it back into a matrix</p>
+<pre class="r"><code>isSymmetric(gmat)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>If symmetric, network is undirected</p>
+<pre class="r"><code># be aware that directed graphs are considered as undirected. but g is undirected.
+igraph::transitivity(g, type = c(&quot;localundirected&quot;), isolates = c(&quot;NaN&quot;, &quot;zero&quot;))</code></pre>
+<pre><code>##  [1] 0.1500000 0.3333333 0.2444444 0.6666667 0.6666667 0.5000000 0.5000000 1.0000000 0.5000000
+## [10] 0.0000000 0.6666667       NaN 1.0000000 0.6000000 1.0000000 1.0000000 1.0000000 1.0000000
+## [19] 1.0000000 0.3333333 1.0000000 1.0000000 1.0000000 0.4000000 0.3333333 0.3333333 1.0000000
+## [28] 0.1666667 0.3333333 0.6666667 0.5000000 0.2000000 0.1969697 0.1102941</code></pre>
+<p>We’re counting triangles now. No person is standing out.</p>
+<pre class="r"><code>igraph::betweenness(g, directed = FALSE)</code></pre>
+<pre><code>##  [1] 231.0714286  28.4785714  75.8507937   6.2880952   0.3333333  15.8333333  15.8333333   0.0000000
+##  [9]  29.5293651   0.4476190   0.3333333   0.0000000   0.0000000  24.2158730   0.0000000   0.0000000
+## [17]   0.0000000   0.0000000   0.0000000  17.1468254   0.0000000   0.0000000   0.0000000   9.3000000
+## [25]   1.1666667   2.0277778   0.0000000  11.7920635   0.9476190   1.5428571   7.6095238  73.0095238
+## [33]  76.6904762 160.5515873</code></pre>
+<p>1 and 34 have a VERY high betweenness score. Not very visible in
+initial graph, so if we want to focus on this finding, we want a graph
+where 1 and 34 do not overlap so much with other nodes. 3 is also
+interesting: bridge beween bridge?</p>
+<p><em>How can we emphasise this in visualisation?</em></p>
+<p>hue palet, vibrancy based on betweenness (standardised) size based on
+betweenness or change layout</p>
+<pre class="r"><code>igraph::dyad_census(g)</code></pre>
+<pre><code>## Warning: `dyad_census()` requires a directed graph.</code></pre>
+<pre><code>## $mut
+## [1] 78
+## 
+## $asym
+## [1] 0
+## 
+## $null
+## [1] 483</code></pre>
+<pre class="r"><code>igraph::triad_census(g)</code></pre>
+<pre><code>## Warning in triad_census_impl(graph = graph): Triad census called on an undirected graph. All connections will be treated as mutual.
+## Source: misc/motifs.c:1157</code></pre>
+<pre><code>##  [1] 3971    0 1575    0    0    0    0    0    0    0  393    0    0    0    0   45</code></pre>
+<pre class="r"><code># I will use sna because it shows the names of the triads as well.
+sna::triad.census(gmat)</code></pre>
+<pre><code>##       003 012  102 021D 021U 021C 111D 111U 030T 030C 201 120D 120U 120C 210 300
+## [1,] 3971   0 1575    0    0    0    0    0    0    0 393    0    0    0   0  45</code></pre>
+<pre class="r"><code>unloadNamespace(&quot;sna&quot;)  #I will detach this package again, otherwise it will interfere with all kind of functions from igraph, and my students will hate me for that.</code></pre>
+<p>Transitivity: how many triads are closed divided by the total amount
+of triads that are or could have been closed. 300 is fully closed: -
+last digit: number of dyads without ties - second digit: number of dyads
+with one tie - first digit: number of dyads with two ties (mutual dyads)
+- specific subtype: C: cyclic D: downward U: upward T: transitive</p>
+<p>Uitgaand van actorperspectief wordt één triade 3 keer geteld (één
+keer vanuit elke betrokken actor).</p>
+<p>Manually calculating global transitivity:</p>
+<pre class="r"><code>igraph::transitivity(g, type = &quot;global&quot;)</code></pre>
+<pre><code>## [1] 0.2556818</code></pre>
+<pre class="r"><code>sna::gtrans(gmat)</code></pre>
+<pre><code>## [1] 0.2556818</code></pre>
+<pre class="r"><code>triad_g &lt;- data.frame(sna::triad.census(gmat))
+
+transitivity_g &lt;- (3 * triad_g$X300)/(triad_g$X201 + 3 * triad_g$X300)
+transitivity_g</code></pre>
+<pre><code>## [1] 0.2556818</code></pre>
+<p>(local transitivity would be transitivity in network of ego)</p>
+<p>1 and 34 are not connected, both have high betweenness, but low local
+transitivity - let’s visualise that story:</p>
+<pre class="r"><code># changing V
+V(g)$size = betweenness(g, normalized = T, directed = FALSE) * 60 + 10  #after some trial and error
+plot(g, mode = &quot;undirected&quot;)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>V is about vertices, e is about edges</p>
+<p>To make it look nice in article, define size of plot window
+beforehand for alllll images!</p>
+<pre class="r"><code>set.seed(2345)
+l &lt;- layout_with_mds(g)  #https://igraph.org/r/doc/layout_with_mds.html
+plot(g, layout = l)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="r"><code>l  #let us take a look at the coordinates</code></pre>
+<pre><code>##               [,1]         [,2]
+##  [1,]  1.070931935 -0.172458113
+##  [2,]  0.732844464  0.754023309
+##  [3,]  0.100582299  0.397693607
+##  [4,]  0.708246655  0.570205545
+##  [5,]  1.816293170 -0.120778206
+##  [6,]  1.881329566 -0.135518854
+##  [7,]  1.881329566 -0.135518854
+##  [8,]  0.812606714  0.472619437
+##  [9,] -0.003769996  0.615513628
+## [10,] -0.685680315  0.621065149
+## [11,]  1.816293170 -0.120778206
+## [12,]  1.621247830 -0.065820692
+## [13,]  1.637845123  0.001789972
+## [14,]  0.067317230  0.681421148
+## [15,] -1.796316404  0.351417630
+## [16,] -1.796316404  0.351417630
+## [17,]  2.775260452 -0.124317652
+## [18,]  1.616210024  0.182510197
+## [19,] -1.796316404  0.351417630
+## [20,]  0.048362858  0.566654982
+## [21,] -1.796316404  0.351417630
+## [22,]  1.616210024  0.182510197
+## [23,] -1.796316404  0.351417630
+## [24,] -1.891240567 -0.799574907
+## [25,] -0.258345165 -2.006346563
+## [26,] -0.360530857 -2.131642875
+## [27,] -1.865177401  0.128596564
+## [28,] -0.760226022 -0.529392331
+## [29,] -0.710979936 -0.299960128
+## [30,] -1.898426916 -0.149398746
+## [31,] -0.568691923  0.804189411
+## [32,] -0.048136037 -0.870967614
+## [33,] -1.023681000 -0.035802363
+## [34,] -1.146442924 -0.037605192</code></pre>
+<pre class="r"><code>l[1, 1] &lt;- 4
+l[34, 1] &lt;- -3.5
+plot(g, layout = l)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+Second image suggests conflict, group being pulled apart by 34 and 1. In
+article: explain that 1 and 34 were manually placed at opposite sides of
+the network to illustrate the described process.</p>
+</div>
+<div id="plotting-on-ashwins-data" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Plotting On Ashwin’s
+data</h1>
+<pre class="r"><code>load(&quot;./data/IndividualCharacteristics.RData&quot;)
+load(&quot;./data/NetworkCharacteristics.RData&quot;)</code></pre>
+<pre class="r"><code># view(studying[[1]])
+studying_df_t1 &lt;- as.data.frame(studying[[1]][1])
+class(studying_df_t1)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code># view(weak_netw_t1)
+
+studying_df_t2 &lt;- as.data.frame(studying[[1]][2])
+class(studying_df_t2)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code># view(studying_df_t2)
+weak_netw_t2 &lt;- data.matrix(studying_df_t2)
+weak_netw_t2[weak_netw_t2==9]&lt;-NA
+class(weak_netw_t2)</code></pre>
+<pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
+<pre class="r"><code># view(hanging[[1]])
+hanging_df_t1 &lt;- as.data.frame(hanging[[1]][1])
+class(hanging_df_t1)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code># view(hanging_df_t1)
+strong_netw_t1 &lt;- data.matrix(hanging_df_t1)
+strong_netw_t1[strong_netw_t1==9]&lt;-NA
+class(strong_netw_t1)</code></pre>
+<pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
+<pre class="r"><code># view(strong_netw_t1)
+
+hanging_df_t2 &lt;- as.data.frame(hanging[[1]][2])
+class(hanging_df_t2)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code># view(hanging_df_t2)
+strong_netw_t2 &lt;- data.matrix(hanging_df_t2)
+strong_netw_t2[strong_netw_t2==9]&lt;-NA
+class(strong_netw_t2)</code></pre>
+<pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
+<p>Making own matrix</p>
+<pre class="r"><code>testm &lt;- matrix(NA, nrow = 4, ncol = 4)
+testm[1,1] &lt;- 0
+testm[1,2] &lt;- 0
+testm[1,3] &lt;- NA
+testm[3,1] &lt;- 1
+testm[3,2] &lt;- 1
+testm[4,2] &lt;- 0
+testm[4,2] &lt;- 1
+testm</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    0    0   NA   NA
+## [2,]   NA   NA   NA   NA
+## [3,]    1    1   NA   NA
+## [4,]   NA    1   NA   NA</code></pre>
+<pre class="r"><code>mrow &lt;- rowSums(is.na(testm)) == nrow(testm)
+mcol &lt;- colSums(is.na(testm)) == ncol(testm)
+mtot &lt;- which(mrow &amp; mcol)
+mtot</code></pre>
+<pre><code>## integer(0)</code></pre>
+<pre class="r"><code>testm[which(mrow), ] &lt;- 0
+testm</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    0    0   NA   NA
+## [2,]    0    0    0    0
+## [3,]    1    1   NA   NA
+## [4,]   NA    1   NA   NA</code></pre>
+<pre class="r"><code>require(igraph)
+uni1nona &lt;- strong_netw_t1
+uni1nona[is.na(uni1nona)] &lt;- 0
+uni1 &lt;- igraph::graph_from_adjacency_matrix(uni1nona, mode = &quot;directed&quot;, weighted = NULL, diag = TRUE, add.colnames = NA,
+    add.rownames = NA)
+
+plot(uni1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+Yay I have a graph!!!</p>
+<pre class="r"><code>V(uni1)$size = igraph::degree(uni1) * 1.05 + 5
+plot(uni1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<pre class="r"><code>plot(uni1, 
+     edge.arrow.size = 0.1,
+     vertex.label.cex = 0.4,
+     vertex.size = 10)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<pre class="r"><code>V(uni1)$size = igraph::degree(uni1)*0.5 + 5
+plot(uni1, 
+     edge.arrow.size = 0.1,
+     vertex.label.cex = 0.4)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<pre class="r"><code>w1international &lt;- international[[1]]
+w1international &lt;- w1international[, &quot;W1INTERNATIONAL&quot;]
+w1international</code></pre>
+<pre><code>## 30001 30002 30003 30004 30005 30006 30007 30008 30009 30010 30011 30012 30013 30014 30015 30016 
+##     2     2     2     2     2     2    NA     2     2     2     2     2     2     1     2     2 
+## 30017 30018 30019 30020 30021 30022 30023 30025 30026 30027 30028 30029 30030 30031 30032 30033 
+##     2     2     2     2     2     2     2     2     1     2     2     2     2     2     2     2 
+## 30034 30035 30036 30037 30038 30039 30040 30041 30042 30043 30044 30045 30046 30047 30048 30049 
+##    NA     2     2     2     2    NA    NA     2    NA     2     2     2     2     2     2     2 
+## 30050 30051 30052 30053 30054 30055 30056 30057 30058 30059 30060 30061 30062 30063 30064 30065 
+##     2     2    NA     2     2     2    NA     2     2     2    NA     2     2     2     2     2 
+## 30066 30067 30068 30069 30070 30071 30072 30073 30074 30075 30076 30077 30078 30079 30080 30081 
+##     2     2     2     2     2     2     2     2     2     2     2     2     2     2    NA     2 
+## 30082 30083 30084 30085 30086 30087 30088 30089 30090 30091 30092 30093 30094 30095 30096 30097 
+##     2     2     2     2     2     2     2     2     2     2     2    NA     2    NA     2     2 
+## 30098 30099 30100 30101 30102 30103 30104 30105 30106 30107 30108 30109 30110 30111 30112 30113 
+##     2     2     2     2     2     2     2     2     2     2    NA     2     2     2     2     2 
+## 30114 30115 30116 30117 30118 30119 30120 30121 30122 
+##     2    NA     2     2     2     2     2     2     1</code></pre>
+<pre class="r"><code>print(uni1)</code></pre>
+<pre><code>## IGRAPH 677996b D--- 121 395 -- 
+## + attr: size (v/n)
+## + edges from 677996b:
+##  [1]  1-&gt;  2  1-&gt; 24  1-&gt; 33  1-&gt; 68  1-&gt; 89  1-&gt;106  2-&gt; 89  2-&gt;106  3-&gt; 23  4-&gt; 81  5-&gt; 32  5-&gt; 50
+## [13]  5-&gt; 58  5-&gt; 63  5-&gt; 67  5-&gt; 77  5-&gt; 90  5-&gt; 92  6-&gt; 11  6-&gt; 45  6-&gt; 49  6-&gt; 62  6-&gt; 78  6-&gt; 99
+## [25]  6-&gt;118  8-&gt; 91  9-&gt; 13  9-&gt; 14  9-&gt; 36  9-&gt; 57  9-&gt; 80  9-&gt; 83  9-&gt; 88 12-&gt;  2 12-&gt; 11 12-&gt; 22
+## [37] 12-&gt; 37 12-&gt; 57 12-&gt; 60 12-&gt; 75 12-&gt;106 12-&gt;109 13-&gt;  9 13-&gt; 12 13-&gt; 57 13-&gt; 79 15-&gt; 19 16-&gt; 79
+## [49] 16-&gt; 88 16-&gt; 93 16-&gt; 97 17-&gt; 29 18-&gt; 88 18-&gt;102 19-&gt; 15 21-&gt;  4 21-&gt; 88 21-&gt;112 22-&gt; 48 22-&gt; 76
+## [61] 22-&gt;116 23-&gt;  3 23-&gt; 54 23-&gt; 83 23-&gt; 96 23-&gt;120 24-&gt;  2 24-&gt; 33 24-&gt; 50 24-&gt; 67 24-&gt; 77 24-&gt; 83
+## [73] 24-&gt; 89 24-&gt;106 25-&gt;  1 25-&gt; 33 25-&gt;110 29-&gt;  1 29-&gt; 17 29-&gt; 22 29-&gt; 25 29-&gt; 33 29-&gt;116 30-&gt;  8
+## [85] 30-&gt; 22 30-&gt; 56 30-&gt; 58 31-&gt;  4 31-&gt; 32 31-&gt; 40 31-&gt; 42 31-&gt; 46 31-&gt; 63 31-&gt; 66 31-&gt; 67 31-&gt;118
+## + ... omitted several edges</code></pre>
+<pre class="r"><code>#edges &lt;- igraph::as_data_frame(uni1, what = &quot;edges&quot;)
+#edges
+#uni2 &lt;- graph_from_data_frame(edges, directed = TRUE, vertices = studentids)
+#vertex_attr_names(uni1)
+
+#V(uni1)$international &lt;- w1international
+
+#V(uni1)$color &lt;- ifelse(V(uni1)$w1international == 1, &quot;blue&quot;, &quot;orange&quot;)
+length(w1international)</code></pre>
+<pre><code>## [1] 121</code></pre>
+<pre class="r"><code>length(V(uni1))</code></pre>
+<pre><code>## [1] 121</code></pre>
+<p>I think I lost the connection to the original IDs. Let’s try
+again</p>
+<pre class="r"><code>class(hanging_df_t2)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>hangingt2nona &lt;- hanging_df_t2
+hangingt2nona[hangingt2nona==9]&lt;- 0
+hangingt2nona &lt;- as.matrix(hangingt2nona)
+
+
+hangingt2 &lt;- graph_from_adjacency_matrix(hangingt2nona)
+plot(hangingt2)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<pre class="r"><code>V(hangingt2)$size = igraph::degree(hangingt2)*0.5 + 5
+plot(hangingt2, 
+     edge.arrow.size = 0.1,
+     vertex.label.cex = 0.4)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<pre class="r"><code>#check nina&#39;s lab journal</code></pre>
+</div>
+<div id="webscraping-tutorial" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Webscraping
+tutorial</h1>
+<pre class="r"><code>#install.packages(&quot;xml2&quot;)
+require(xml2)</code></pre>
+<pre><code>## Loading required package: xml2</code></pre>
+<pre><code>## Warning: package &#39;xml2&#39; was built under R version 4.5.3</code></pre>
+<pre class="r"><code>#install.packages(&quot;rvest&quot;)
+require(rvest)</code></pre>
+<pre><code>## Loading required package: rvest</code></pre>
+<pre><code>## Warning: package &#39;rvest&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;rvest&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     guess_encoding</code></pre>
+<pre class="r"><code>url &lt;- &quot;https://nos.nl/zoeken?q=meertaligheid&amp;page=1&quot;
+
+nos &lt;- read_html(url)
+
+
+#elements: alle elementen, element: één element
+lijst &lt;- nos %&gt;% html_elements(&quot;main&quot;) %&gt;%
+  html_elements(&quot;ul&quot;) %&gt;%
+  html_elements(&quot;li&quot;)
+
+lijst[1] %&gt;% html_children %&gt;% html_attr(name=&quot;href&quot;)</code></pre>
+<pre><code>## [1] &quot;/liveblog/2618709-trump-mag-wk-beker-uitreiken-neymar-ook-vraagteken-voor-tweede-duel-brazilie&quot;</code></pre>
+<pre class="r"><code>lijst[1] %&gt;% html_elements(&quot;time&quot;) %&gt;% 
+  html_attr(name=&quot;datetime&quot;)</code></pre>
+<pre><code>## [1] &quot;2026-06-15T15:50:52+0200&quot;</code></pre>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWs0Ig0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTIxIg0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KDQpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0NCmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpDQoja2xpcHB5OjprbGlwcHkoY29sb3IgPSAnZGFya3JlZCcpDQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpDQpgYGANCg0KIyMjIFBsYXlpbmcgd2l0aCBQbG90cw0KDQpgYGB7cn0NCnJlcXVpcmUoaWdyYXBoKQ0KZyA8LSBtYWtlX2dyYXBoKCJaYWNoYXJ5IikNCnBsb3QoZykNCmBgYA0KDQpBcHBhcmVudGx5LCB0aGVyZSdzIGEgcmFuZG9tIGNvbXBvbmVudCB0byBob3cgZ3JhcGhzIGFyZSBtYWRlOiBwbGFjZW1lbnQgb2Ygbm9kZXMgYmFzZWQgb24gcG9wdWxhcml0eS4NCg0KYGBge3J9DQpnbWF0IDwtIGFzX2FkamFjZW5jeV9tYXRyaXgoZywgdHlwZSA9ICJib3RoIiwgc3BhcnNlID0gRkFMU0UpDQpnbWF0DQpgYGANCg0KZyBpcyBpbiBpZ3JhcGggZm9ybWF0LCB3ZSBqdXN0IHR1cm5lZCBpdCBiYWNrIGludG8gYSBtYXRyaXgNCg0KYGBge3J9DQppc1N5bW1ldHJpYyhnbWF0KQ0KYGBgDQoNCklmIHN5bW1ldHJpYywgbmV0d29yayBpcyB1bmRpcmVjdGVkDQoNCmBgYHtyfQ0KIyBiZSBhd2FyZSB0aGF0IGRpcmVjdGVkIGdyYXBocyBhcmUgY29uc2lkZXJlZCBhcyB1bmRpcmVjdGVkLiBidXQgZyBpcyB1bmRpcmVjdGVkLg0KaWdyYXBoOjp0cmFuc2l0aXZpdHkoZywgdHlwZSA9IGMoImxvY2FsdW5kaXJlY3RlZCIpLCBpc29sYXRlcyA9IGMoIk5hTiIsICJ6ZXJvIikpDQpgYGANCldlJ3JlIGNvdW50aW5nIHRyaWFuZ2xlcyBub3cuIE5vIHBlcnNvbiBpcyBzdGFuZGluZyBvdXQuDQoNCmBgYHtyfQ0KaWdyYXBoOjpiZXR3ZWVubmVzcyhnLCBkaXJlY3RlZCA9IEZBTFNFKQ0KYGBgDQoxIGFuZCAzNCBoYXZlIGEgVkVSWSBoaWdoIGJldHdlZW5uZXNzIHNjb3JlLiBOb3QgdmVyeSB2aXNpYmxlIGluIGluaXRpYWwgZ3JhcGgsIHNvIGlmIHdlIHdhbnQgdG8gZm9jdXMgb24gdGhpcyBmaW5kaW5nLCB3ZSB3YW50IGEgZ3JhcGggd2hlcmUgMSBhbmQgMzQgZG8gbm90IG92ZXJsYXAgc28gbXVjaCB3aXRoIG90aGVyIG5vZGVzLiAzIGlzIGFsc28gaW50ZXJlc3Rpbmc6IGJyaWRnZSBiZXdlZW4gYnJpZGdlPw0KDQoqSG93IGNhbiB3ZSBlbXBoYXNpc2UgdGhpcyBpbiB2aXN1YWxpc2F0aW9uPyogDQoNCmh1ZSBwYWxldCwgdmlicmFuY3kgYmFzZWQgb24gYmV0d2Vlbm5lc3MgKHN0YW5kYXJkaXNlZCkNCnNpemUgYmFzZWQgb24gYmV0d2Vlbm5lc3MNCm9yIGNoYW5nZSBsYXlvdXQNCg0KYGBge3J9DQppZ3JhcGg6OmR5YWRfY2Vuc3VzKGcpDQpgYGANCmBgYHtyfQ0KaWdyYXBoOjp0cmlhZF9jZW5zdXMoZykNCiMgSSB3aWxsIHVzZSBzbmEgYmVjYXVzZSBpdCBzaG93cyB0aGUgbmFtZXMgb2YgdGhlIHRyaWFkcyBhcyB3ZWxsLg0Kc25hOjp0cmlhZC5jZW5zdXMoZ21hdCkNCnVubG9hZE5hbWVzcGFjZSgic25hIikgICNJIHdpbGwgZGV0YWNoIHRoaXMgcGFja2FnZSBhZ2Fpbiwgb3RoZXJ3aXNlIGl0IHdpbGwgaW50ZXJmZXJlIHdpdGggYWxsIGtpbmQgb2YgZnVuY3Rpb25zIGZyb20gaWdyYXBoLCBhbmQgbXkgc3R1ZGVudHMgd2lsbCBoYXRlIG1lIGZvciB0aGF0Lg0KYGBgDQoNClRyYW5zaXRpdml0eTogaG93IG1hbnkgdHJpYWRzIGFyZSBjbG9zZWQgZGl2aWRlZCBieSB0aGUgdG90YWwgYW1vdW50IG9mIHRyaWFkcyB0aGF0IGFyZSBvciBjb3VsZCBoYXZlIGJlZW4gY2xvc2VkLg0KMzAwIGlzIGZ1bGx5IGNsb3NlZDoNCi0gbGFzdCBkaWdpdDogbnVtYmVyIG9mIGR5YWRzIHdpdGhvdXQgdGllcw0KLSBzZWNvbmQgZGlnaXQ6IG51bWJlciBvZiBkeWFkcyB3aXRoIG9uZSB0aWUNCi0gZmlyc3QgZGlnaXQ6IG51bWJlciBvZiBkeWFkcyB3aXRoIHR3byB0aWVzIChtdXR1YWwgZHlhZHMpDQotIHNwZWNpZmljIHN1YnR5cGU6DQogIEM6IGN5Y2xpYw0KICBEOiBkb3dud2FyZA0KICBVOiB1cHdhcmQNCiAgVDogdHJhbnNpdGl2ZQ0KDQpVaXRnYWFuZCB2YW4gYWN0b3JwZXJzcGVjdGllZiB3b3JkdCDDqcOpbiB0cmlhZGUgMyBrZWVyIGdldGVsZCAow6nDqW4ga2VlciB2YW51aXQgZWxrZSBiZXRyb2trZW4gYWN0b3IpLg0KDQpNYW51YWxseSBjYWxjdWxhdGluZyBnbG9iYWwgdHJhbnNpdGl2aXR5Og0KDQpgYGB7cn0NCmlncmFwaDo6dHJhbnNpdGl2aXR5KGcsIHR5cGUgPSAiZ2xvYmFsIikNCnNuYTo6Z3RyYW5zKGdtYXQpDQoNCnRyaWFkX2cgPC0gZGF0YS5mcmFtZShzbmE6OnRyaWFkLmNlbnN1cyhnbWF0KSkNCg0KdHJhbnNpdGl2aXR5X2cgPC0gKDMgKiB0cmlhZF9nJFgzMDApLyh0cmlhZF9nJFgyMDEgKyAzICogdHJpYWRfZyRYMzAwKQ0KdHJhbnNpdGl2aXR5X2cNCmBgYA0KDQoobG9jYWwgdHJhbnNpdGl2aXR5IHdvdWxkIGJlIHRyYW5zaXRpdml0eSBpbiBuZXR3b3JrIG9mIGVnbykNCg0KMSBhbmQgMzQgYXJlIG5vdCBjb25uZWN0ZWQsIGJvdGggaGF2ZSBoaWdoIGJldHdlZW5uZXNzLCBidXQgbG93IGxvY2FsIHRyYW5zaXRpdml0eSAtIGxldCdzIHZpc3VhbGlzZSB0aGF0IHN0b3J5Og0KDQpgYGB7cn0NCiMgY2hhbmdpbmcgVg0KVihnKSRzaXplID0gYmV0d2Vlbm5lc3MoZywgbm9ybWFsaXplZCA9IFQsIGRpcmVjdGVkID0gRkFMU0UpICogNjAgKyAxMCAgI2FmdGVyIHNvbWUgdHJpYWwgYW5kIGVycm9yDQpwbG90KGcsIG1vZGUgPSAidW5kaXJlY3RlZCIpDQpgYGANCg0KViBpcyBhYm91dCB2ZXJ0aWNlcywgZSBpcyBhYm91dCBlZGdlcw0KDQpUbyBtYWtlIGl0IGxvb2sgbmljZSBpbiBhcnRpY2xlLCBkZWZpbmUgc2l6ZSBvZiBwbG90IHdpbmRvdyBiZWZvcmVoYW5kIGZvciBhbGxsbGwgaW1hZ2VzISANCg0KYGBge3J9DQpzZXQuc2VlZCgyMzQ1KQ0KbCA8LSBsYXlvdXRfd2l0aF9tZHMoZykgICNodHRwczovL2lncmFwaC5vcmcvci9kb2MvbGF5b3V0X3dpdGhfbWRzLmh0bWwNCnBsb3QoZywgbGF5b3V0ID0gbCkNCmBgYA0KYGBge3J9DQpsICAjbGV0IHVzIHRha2UgYSBsb29rIGF0IHRoZSBjb29yZGluYXRlcw0KbFsxLCAxXSA8LSA0DQpsWzM0LCAxXSA8LSAtMy41DQpwbG90KGcsIGxheW91dCA9IGwpDQpgYGANClNlY29uZCBpbWFnZSBzdWdnZXN0cyBjb25mbGljdCwgZ3JvdXAgYmVpbmcgcHVsbGVkIGFwYXJ0IGJ5IDM0IGFuZCAxLiANCkluIGFydGljbGU6IGV4cGxhaW4gdGhhdCAxIGFuZCAzNCB3ZXJlIG1hbnVhbGx5IHBsYWNlZCBhdCBvcHBvc2l0ZSBzaWRlcyBvZiB0aGUgbmV0d29yayB0byBpbGx1c3RyYXRlIHRoZSBkZXNjcmliZWQgcHJvY2Vzcy4NCg0KIyBQbG90dGluZyBPbiBBc2h3aW4ncyBkYXRhDQoNCmBgYHtyfQ0KbG9hZCgiLi9kYXRhL0luZGl2aWR1YWxDaGFyYWN0ZXJpc3RpY3MuUkRhdGEiKQ0KbG9hZCgiLi9kYXRhL05ldHdvcmtDaGFyYWN0ZXJpc3RpY3MuUkRhdGEiKQ0KYGBgDQoNCmBgYHtyfQ0KIyB2aWV3KHN0dWR5aW5nW1sxXV0pDQpzdHVkeWluZ19kZl90MSA8LSBhcy5kYXRhLmZyYW1lKHN0dWR5aW5nW1sxXV1bMV0pDQpjbGFzcyhzdHVkeWluZ19kZl90MSkNCmBgYA0KYGBge3J9DQojIHZpZXcod2Vha19uZXR3X3QxKQ0KDQpzdHVkeWluZ19kZl90MiA8LSBhcy5kYXRhLmZyYW1lKHN0dWR5aW5nW1sxXV1bMl0pDQpjbGFzcyhzdHVkeWluZ19kZl90MikNCmBgYA0KYGBge3J9DQojIHZpZXcoc3R1ZHlpbmdfZGZfdDIpDQp3ZWFrX25ldHdfdDIgPC0gZGF0YS5tYXRyaXgoc3R1ZHlpbmdfZGZfdDIpDQp3ZWFrX25ldHdfdDJbd2Vha19uZXR3X3QyPT05XTwtTkENCmNsYXNzKHdlYWtfbmV0d190MikNCmBgYA0KYGBge3J9DQojIHZpZXcoaGFuZ2luZ1tbMV1dKQ0KaGFuZ2luZ19kZl90MSA8LSBhcy5kYXRhLmZyYW1lKGhhbmdpbmdbWzFdXVsxXSkNCmNsYXNzKGhhbmdpbmdfZGZfdDEpDQpgYGANCmBgYHtyfQ0KIyB2aWV3KGhhbmdpbmdfZGZfdDEpDQpzdHJvbmdfbmV0d190MSA8LSBkYXRhLm1hdHJpeChoYW5naW5nX2RmX3QxKQ0Kc3Ryb25nX25ldHdfdDFbc3Ryb25nX25ldHdfdDE9PTldPC1OQQ0KY2xhc3Moc3Ryb25nX25ldHdfdDEpDQpgYGANCmBgYHtyfQ0KIyB2aWV3KHN0cm9uZ19uZXR3X3QxKQ0KDQpoYW5naW5nX2RmX3QyIDwtIGFzLmRhdGEuZnJhbWUoaGFuZ2luZ1tbMV1dWzJdKQ0KY2xhc3MoaGFuZ2luZ19kZl90MikNCmBgYA0KYGBge3J9DQojIHZpZXcoaGFuZ2luZ19kZl90MikNCnN0cm9uZ19uZXR3X3QyIDwtIGRhdGEubWF0cml4KGhhbmdpbmdfZGZfdDIpDQpzdHJvbmdfbmV0d190MltzdHJvbmdfbmV0d190Mj09OV08LU5BDQpjbGFzcyhzdHJvbmdfbmV0d190MikNCmBgYA0KTWFraW5nIG93biBtYXRyaXgNCg0KYGBge3J9DQp0ZXN0bSA8LSBtYXRyaXgoTkEsIG5yb3cgPSA0LCBuY29sID0gNCkNCnRlc3RtWzEsMV0gPC0gMA0KdGVzdG1bMSwyXSA8LSAwDQp0ZXN0bVsxLDNdIDwtIE5BDQp0ZXN0bVszLDFdIDwtIDENCnRlc3RtWzMsMl0gPC0gMQ0KdGVzdG1bNCwyXSA8LSAwDQp0ZXN0bVs0LDJdIDwtIDENCnRlc3RtDQptcm93IDwtIHJvd1N1bXMoaXMubmEodGVzdG0pKSA9PSBucm93KHRlc3RtKQ0KbWNvbCA8LSBjb2xTdW1zKGlzLm5hKHRlc3RtKSkgPT0gbmNvbCh0ZXN0bSkNCm10b3QgPC0gd2hpY2gobXJvdyAmIG1jb2wpDQptdG90DQp0ZXN0bVt3aGljaChtcm93KSwgXSA8LSAwDQp0ZXN0bQ0KYGBgDQoNCg0KYGBge3J9DQpyZXF1aXJlKGlncmFwaCkNCnVuaTFub25hIDwtIHN0cm9uZ19uZXR3X3QxDQp1bmkxbm9uYVtpcy5uYSh1bmkxbm9uYSldIDwtIDANCnVuaTEgPC0gaWdyYXBoOjpncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgodW5pMW5vbmEsIG1vZGUgPSAiZGlyZWN0ZWQiLCB3ZWlnaHRlZCA9IE5VTEwsIGRpYWcgPSBUUlVFLCBhZGQuY29sbmFtZXMgPSBOQSwNCiAgICBhZGQucm93bmFtZXMgPSBOQSkNCg0KcGxvdCh1bmkxKQ0KYGBgDQpZYXkgSSBoYXZlIGEgZ3JhcGghISENCg0KYGBge3J9DQpWKHVuaTEpJHNpemUgPSBpZ3JhcGg6OmRlZ3JlZSh1bmkxKSAqIDEuMDUgKyA1DQpwbG90KHVuaTEpDQpgYGANCmBgYHtyfQ0KcGxvdCh1bmkxLCANCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4xLA0KICAgICB2ZXJ0ZXgubGFiZWwuY2V4ID0gMC40LA0KICAgICB2ZXJ0ZXguc2l6ZSA9IDEwKQ0KYGBgDQpgYGB7cn0NClYodW5pMSkkc2l6ZSA9IGlncmFwaDo6ZGVncmVlKHVuaTEpKjAuNSArIDUNCnBsb3QodW5pMSwgDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMSwNCiAgICAgdmVydGV4LmxhYmVsLmNleCA9IDAuNCkNCmBgYA0KDQpgYGB7cn0NCncxaW50ZXJuYXRpb25hbCA8LSBpbnRlcm5hdGlvbmFsW1sxXV0NCncxaW50ZXJuYXRpb25hbCA8LSB3MWludGVybmF0aW9uYWxbLCAiVzFJTlRFUk5BVElPTkFMIl0NCncxaW50ZXJuYXRpb25hbA0KcHJpbnQodW5pMSkNCg0KI2VkZ2VzIDwtIGlncmFwaDo6YXNfZGF0YV9mcmFtZSh1bmkxLCB3aGF0ID0gImVkZ2VzIikNCiNlZGdlcw0KI3VuaTIgPC0gZ3JhcGhfZnJvbV9kYXRhX2ZyYW1lKGVkZ2VzLCBkaXJlY3RlZCA9IFRSVUUsIHZlcnRpY2VzID0gc3R1ZGVudGlkcykNCiN2ZXJ0ZXhfYXR0cl9uYW1lcyh1bmkxKQ0KDQojVih1bmkxKSRpbnRlcm5hdGlvbmFsIDwtIHcxaW50ZXJuYXRpb25hbA0KDQojVih1bmkxKSRjb2xvciA8LSBpZmVsc2UoVih1bmkxKSR3MWludGVybmF0aW9uYWwgPT0gMSwgImJsdWUiLCAib3JhbmdlIikNCmxlbmd0aCh3MWludGVybmF0aW9uYWwpDQpsZW5ndGgoVih1bmkxKSkNCg0KDQpgYGANCkkgdGhpbmsgSSBsb3N0IHRoZSBjb25uZWN0aW9uIHRvIHRoZSBvcmlnaW5hbCBJRHMuIExldCdzIHRyeSBhZ2Fpbg0KDQpgYGB7cn0NCmNsYXNzKGhhbmdpbmdfZGZfdDIpDQpoYW5naW5ndDJub25hIDwtIGhhbmdpbmdfZGZfdDINCmhhbmdpbmd0Mm5vbmFbaGFuZ2luZ3Qybm9uYT09OV08LSAwDQpoYW5naW5ndDJub25hIDwtIGFzLm1hdHJpeChoYW5naW5ndDJub25hKQ0KDQoNCmhhbmdpbmd0MiA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoaGFuZ2luZ3Qybm9uYSkNCnBsb3QoaGFuZ2luZ3QyKQ0KDQpgYGANCmBgYHtyfQ0KVihoYW5naW5ndDIpJHNpemUgPSBpZ3JhcGg6OmRlZ3JlZShoYW5naW5ndDIpKjAuNSArIDUNCnBsb3QoaGFuZ2luZ3QyLCANCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4xLA0KICAgICB2ZXJ0ZXgubGFiZWwuY2V4ID0gMC40KQ0KYGBgDQpgYGB7cn0NCiNjaGVjayBuaW5hJ3MgbGFiIGpvdXJuYWwNCmBgYA0KDQojIFdlYnNjcmFwaW5nIHR1dG9yaWFsDQoNCmBgYHtyfQ0KI2luc3RhbGwucGFja2FnZXMoInhtbDIiKQ0KcmVxdWlyZSh4bWwyKQ0KI2luc3RhbGwucGFja2FnZXMoInJ2ZXN0IikNCnJlcXVpcmUocnZlc3QpDQpgYGANCmBgYHtyfQ0KdXJsIDwtICJodHRwczovL25vcy5ubC96b2VrZW4/cT1tZWVydGFsaWdoZWlkJnBhZ2U9MSINCg0Kbm9zIDwtIHJlYWRfaHRtbCh1cmwpDQoNCg0KI2VsZW1lbnRzOiBhbGxlIGVsZW1lbnRlbiwgZWxlbWVudDogw6nDqW4gZWxlbWVudA0KbGlqc3QgPC0gbm9zICU+JSBodG1sX2VsZW1lbnRzKCJtYWluIikgJT4lDQogIGh0bWxfZWxlbWVudHMoInVsIikgJT4lDQogIGh0bWxfZWxlbWVudHMoImxpIikNCg0KbGlqc3RbMV0gJT4lIGh0bWxfY2hpbGRyZW4gJT4lIGh0bWxfYXR0cihuYW1lPSJocmVmIikNCg0KbGlqc3RbMV0gJT4lIGh0bWxfZWxlbWVudHMoInRpbWUiKSAlPiUgDQogIGh0bWxfYXR0cihuYW1lPSJkYXRldGltZSIpDQoNCmBgYA0KDQo=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("Week4.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
