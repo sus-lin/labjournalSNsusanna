@@ -1,0 +1,97 @@
+---
+title: "DataConstruct"
+author: "Susanna"
+date: "2026-09-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+# Load data
+
+# Creating Identification Variable
+Children who reported having no parent or grandparent born outside of Germany were instructed to skip the section on heritage identification. I therefore firstly need to make a distinction between children with no non-German ancestry and those who do have non-German ancestry. To do so, I make use of the generational status variable, coded by the data collectors based on the procedure set out by Dollmann et al. (2014). Only students with no non-German ancestry are coded as native. All others, regardless of generational status, are coded as having migrant ancestry. Cases of German-born children where information on parents or grandparents was missing were coded as incomplete. Cases where all information was missing were coded as missings (NA).
+
+Subsequently, within the migrant ancestry group, children were coded based on their identification as described in the Data section. Those who self-identified as only German and reported being seen as only German by Germans were included in the majority group, as their migrant ancestry in this case is unlikely to be relevant for their social situation. 
+This may for example apply to children with distant non-German ancestry (for example, who only have one grandparent born outside of Germany).
+
+Incomplete cases who did not respond to the identification question were assumed to be native-born following the instruction to skip this question. In other cases, they were treated the same way as children in the migrant ancestry group.
+
+For full missings on the ancestry data, identification was leading, with perceived other-categorisation by Germans used to differentiate migrantised German students from the majority group.
+
+```{r}
+#no parent/grandparent born abroad --> majority
+#if gen status is not in dataset: df$fammig <- ifelse(b7_coded_group==1 & b8_coded_group==1 & b9_1==1 & b9_2==1 & b9_3==1 & b9_4==1, "Maj", "Mig")
+
+#df$fammig <- df$ed_miggen_cils_narrow
+#df$fammig <- recode_values(fammig,
+                           #1 ~ "Mig",
+                          # 2 ~ "Mig",
+                          # 3 ~ "Mig",
+                          # 4 ~ "Mig",
+                          # 5 ~ "Mig",
+                          # 6 ~ "Mig",
+                          # 7 ~ "Mig",
+                          # 8 ~ "Mig",
+                          # 9 ~ "Mig",
+                          # 10 ~ "Mig",
+                          # 11 ~ "Mig",
+                          # 12 ~ "Mig",
+                          # 13 ~ "Mig",
+                          # 14 ~ "Maj",
+                          # 15 ~ "Mig",
+                          # 16 ~ "Mig",
+                          # 17 ~ "Mig",
+                          # 18 ~ "Mig",
+                          # 19 ~ "Incomplete",
+                          # 20 ~ "Incomplete",
+                          # 21 ~ NA)
+#identity groups (strict)
+#df$identity <- ifelse(c4==3 & fammig == "Mig", "Dual", ifelse((c4==4 | c4==5) & fammig == "Mig", "Heritage", ifelse((c4==1 | c4==2) & fammig == "Mig", "Mig", ifelse((c4==. | c4==.u) & fammig == "Mig", NA, "Maj"))))
+
+#alternative identity groups (strict)
+require(dplyr)
+#df$identity <- ifelse(fammig == "Maj", dplyr::recode(df$c4, 
+                                           # '.' = "Maj", 
+                                           # '.u' = "Maj",
+                                           # '1' = "Maj",
+                                           # '2' = "Maj",
+                                           # '3' = "Maj", 
+                                           # '4' = "Maj",
+                                          #  '5' = "Maj"),
+                      #dplyr::recode(df$c4,
+                                  #  '.' = "NA", 
+                                  #  '.u' = "NA",
+                                   # '1' = "Migrantised",
+                                    #'2' = "Migrantised",
+                                    #'3' = "Dual", 
+                                   # '4' = "Heritage",
+                                   # '5' = "Heritage"))
+
+#Another alternative (this is my favourite, others need to be updated to match)
+#df$identity <- df$fammig
+#df %>% mutate(identity = replace_when(identity, 
+                #identity == "Mig" & c4==3  ~ "Dual",
+                #identity == "Mig" & (c4==4 | c4==5) ~ "Heritage",
+                #identity == "Mig" & (c4==1 | c4==2) & c5_1 != 1 ~ "Migrantised",
+                #identity == "Mig" & (c4==1 | c4==2) & c5_1==1 ~ "Maj",
+                #identity == "Mig" & (c4==. | c4==.u) ~ NA,
+                #identity == "Incomplete" & (c4==. | c4==.u) ~ "Maj",
+                #identity == "Incomplete" & (c4==1 | c4==2) & c5_1 != 1 ~ "Migrantised",
+                #identity == "Incomplete" & (c4==1 | c4==2) & (c5_1==1) ~ "Maj",
+                #identity == "Incomplete" & c4==3 ~ "Dual",
+                #identity == "Incomplete" & (c4==4 | c4==5) ~ "Heritage",
+                #identity == NA & c4==1 & c5_1 != 1 ~ "Maj",
+                #identity == NA & (c4==1 | c4==2) & c5_1==1 ~ "Maj",
+                #identity == NA & c4==2 & c5_1 != 1 ~ "Migrantised",
+                #identity == NA & c4==3 ~ "Dual",
+                #identity == NA & (c4==4 | c4==5) ~ "Heritage"))
+```

@@ -16,7 +16,7 @@ klippy::klippy(position = c('top', 'right'))
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
 
-### Playing with Plots
+# Playing with Plots
 
 ```{r}
 require(igraph)
@@ -127,23 +127,6 @@ load("./data/NetworkCharacteristics.RData")
 ```
 
 ```{r}
-# view(studying[[1]])
-studying_df_t1 <- as.data.frame(studying[[1]][1])
-class(studying_df_t1)
-```
-```{r}
-# view(weak_netw_t1)
-
-studying_df_t2 <- as.data.frame(studying[[1]][2])
-class(studying_df_t2)
-```
-```{r}
-# view(studying_df_t2)
-weak_netw_t2 <- data.matrix(studying_df_t2)
-weak_netw_t2[weak_netw_t2==9]<-NA
-class(weak_netw_t2)
-```
-```{r}
 # view(hanging[[1]])
 hanging_df_t1 <- as.data.frame(hanging[[1]][1])
 class(hanging_df_t1)
@@ -243,19 +226,139 @@ hangingt2nona[hangingt2nona==9]<- 0
 hangingt2nona <- as.matrix(hangingt2nona)
 
 
-hangingt2 <- graph_from_adjacency_matrix(hangingt2nona)
+hangingt2 <- graph_from_adjacency_matrix(hangingt2nona, mode = "directed", weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
 plot(hangingt2)
 
 ```
+Ugly version succeeded. Now, change size based on degree and make it a little prettier:
 ```{r}
 V(hangingt2)$size = igraph::degree(hangingt2)*0.5 + 5
 plot(hangingt2, 
      edge.arrow.size = 0.1,
      vertex.label.cex = 0.4)
 ```
+Not bad!
+Okay this is what failed last time, let's see if Nina's code saves me:
 ```{r}
-#check nina's lab journal
+#first isolate international wave 2
+w2international <- international[[1]]
+w2international <- w2international[, "W2INTERNATIONAL"]
+w2international
+
+#credits to nina's lab journal
+colourinternational <- ifelse(w2international==1, "purple", "cyan4") #I thought I tried this before???
+plot(hangingt2,
+     vertex.color = colourinternational, # nice color for the vertices
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)
+
 ```
+Yay it worked! It automatically makes all NAs white - that's nice! I only see one international, and they're very isolated... :( 
+
+Let's try the same with a more equally distributed attribute like gender:
+```{r}
+#first isolate gender wave 2
+w2gender <- gender[[1]]
+w2gender <- w2gender[, "T2GENDER"]
+w2gender
+
+#colour based on gender
+colourgender <- ifelse(w2gender==1, "purple", "cyan4")
+
+#plot
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)
+```
+Oooooh fun! Interesting, it seems like there isn't a lot of gender segregation going on. I guess people have somewhat grown out of that by the time they start uni!
+
+I do feel like the size is a bit too small now. Let's see if we can do something about that:
+
+```{r}
+V(hangingt2)$size = igraph::degree(hangingt2) + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)
+```
+I like this! I feel like I'm seeing three clusters, two bigger ones and a smaller one. Particularly in the two bigger groups, there's people with a high degree. Towards the edge of the graph, degrees are smaller. 39 does not have a very high degree, but does seem to form a bridge between the two bigger groups. 
+Maybe I can do something with betweenness?
+
+```{r}
+V(hangingt2)$size = igraph::betweenness(hangingt2)*0.8 + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)
+```
+OOF. Looks like some people have such a high betweenness score that this does not work at all. Maybe if I normalise it though?
+
+```{r}
+V(hangingt2)$size = betweenness(hangingt2, normalized = T, directed = TRUE) * 60 + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)
+```
+Hmmm weird. We don't actually see huge differences now. I kind of want to take a look at the betweenness scores themselves...
+
+```{r}
+igraph::betweenness(hangingt2, directed = TRUE)
+```
+I do see a lot of variation in here. Not sure why that is not turning up in the graph. Maybe the normalised scores are very small. I could multiply with a higher number:
+
+```{r}
+V(hangingt2)$size = betweenness(hangingt2, normalized = T, directed = TRUE) * 250 + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)
+```
+That's better! We still see the two big groups, with members who have a high betweenness score. 13, 9, and 18 stand out with their middle position between the two groups. 39's betweenness score is actually not as large as I thought it would be. Good to know!
+
+Now let's try transitivity, which may be relevant to understand the closeness of the observed friend/'hanging' groups.
+
+```{r}
+V(hangingt2)$size = igraph::transitivity(hangingt2, type = "local", isolates = "zero")*10 + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)
+```
+Cool! 83 and 95, who had a very high degree, don't stand out now. What is their local transitivity score actually?
+```{r}
+igraph::transitivity(hangingt2, type = "local", isolates = "zero")
+```
+Yeah, their transitivity is very average. So we have two people (83 and 95) who are hanging out with lots of others, who sort of cluster around them. Their friends however are not necessarily super connected to one another, so it doesn't seem like they are super tight friend groups - just two popular kids. 83 and 95 are not hanging out together. 
 
 # Webscraping tutorial
 

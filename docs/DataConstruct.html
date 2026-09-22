@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Susanna" />
+
+<meta name="date" content="2026-09-22" />
+
+<title>DataConstruct</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Weekly journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Week1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="Week2.html">Week 2</a>
+    </li>
+    <li>
+      <a href="Week3.html">Week 3</a>
+    </li>
+    <li>
+      <a href="Week4.html">Week 4</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="DataMethods.html">Data and Methods</a>
+    </li>
+    <li>
+      <a href="DataConstruct.html">Data Construction</a>
+    </li>
+    <li>
+      <a href="Results.html">Results</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/sus-lin/labjournalSNsusanna">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">DataConstruct</h1>
+<h4 class="author">Susanna</h4>
+<h4 class="date">2026-09-22</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="load-data" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Load data</h1>
+</div>
+<div id="creating-identification-variable" class="section level1"
+number="2">
+<h1><span class="header-section-number">2</span> Creating Identification
+Variable</h1>
+<p>Children who reported having no parent or grandparent born outside of
+Germany were instructed to skip the section on heritage identification.
+I therefore firstly need to make a distinction between children with no
+non-German ancestry and those who do have non-German ancestry. To do so,
+I make use of the generational status variable, coded by the data
+collectors based on the procedure set out by Dollmann et al. (2014).
+Only students with no non-German ancestry are coded as native. All
+others, regardless of generational status, are coded as having migrant
+ancestry. Cases of German-born children where information on parents or
+grandparents was missing were coded as incomplete. Cases where all
+information was missing were coded as missings (NA).</p>
+<p>Subsequently, within the migrant ancestry group, children were coded
+based on their identification as described in the Data section. Those
+who self-identified as only German and reported being seen as only
+German by Germans were included in the majority group, as their migrant
+ancestry in this case is unlikely to be relevant for their social
+situation. This may for example apply to children with distant
+non-German ancestry (for example, who only have one grandparent born
+outside of Germany).</p>
+<p>Incomplete cases who did not respond to the identification question
+were assumed to be native-born following the instruction to skip this
+question. In other cases, they were treated the same way as children in
+the migrant ancestry group.</p>
+<p>For full missings on the ancestry data, identification was leading,
+with perceived other-categorisation by Germans used to differentiate
+migrantised German students from the majority group.</p>
+<pre class="r"><code>#no parent/grandparent born abroad --&gt; majority
+#if gen status is not in dataset: df$fammig &lt;- ifelse(b7_coded_group==1 &amp; b8_coded_group==1 &amp; b9_1==1 &amp; b9_2==1 &amp; b9_3==1 &amp; b9_4==1, &quot;Maj&quot;, &quot;Mig&quot;)
+
+#df$fammig &lt;- df$ed_miggen_cils_narrow
+#df$fammig &lt;- recode_values(fammig,
+                           #1 ~ &quot;Mig&quot;,
+                          # 2 ~ &quot;Mig&quot;,
+                          # 3 ~ &quot;Mig&quot;,
+                          # 4 ~ &quot;Mig&quot;,
+                          # 5 ~ &quot;Mig&quot;,
+                          # 6 ~ &quot;Mig&quot;,
+                          # 7 ~ &quot;Mig&quot;,
+                          # 8 ~ &quot;Mig&quot;,
+                          # 9 ~ &quot;Mig&quot;,
+                          # 10 ~ &quot;Mig&quot;,
+                          # 11 ~ &quot;Mig&quot;,
+                          # 12 ~ &quot;Mig&quot;,
+                          # 13 ~ &quot;Mig&quot;,
+                          # 14 ~ &quot;Maj&quot;,
+                          # 15 ~ &quot;Mig&quot;,
+                          # 16 ~ &quot;Mig&quot;,
+                          # 17 ~ &quot;Mig&quot;,
+                          # 18 ~ &quot;Mig&quot;,
+                          # 19 ~ &quot;Incomplete&quot;,
+                          # 20 ~ &quot;Incomplete&quot;,
+                          # 21 ~ NA)
+#identity groups (strict)
+#df$identity &lt;- ifelse(c4==3 &amp; fammig == &quot;Mig&quot;, &quot;Dual&quot;, ifelse((c4==4 | c4==5) &amp; fammig == &quot;Mig&quot;, &quot;Heritage&quot;, ifelse((c4==1 | c4==2) &amp; fammig == &quot;Mig&quot;, &quot;Mig&quot;, ifelse((c4==. | c4==.u) &amp; fammig == &quot;Mig&quot;, NA, &quot;Maj&quot;))))
+
+#alternative identity groups (strict)
+require(dplyr)</code></pre>
+<pre><code>## Loading required package: dplyr</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>#df$identity &lt;- ifelse(fammig == &quot;Maj&quot;, dplyr::recode(df$c4, 
+                                           # &#39;.&#39; = &quot;Maj&quot;, 
+                                           # &#39;.u&#39; = &quot;Maj&quot;,
+                                           # &#39;1&#39; = &quot;Maj&quot;,
+                                           # &#39;2&#39; = &quot;Maj&quot;,
+                                           # &#39;3&#39; = &quot;Maj&quot;, 
+                                           # &#39;4&#39; = &quot;Maj&quot;,
+                                          #  &#39;5&#39; = &quot;Maj&quot;),
+                      #dplyr::recode(df$c4,
+                                  #  &#39;.&#39; = &quot;NA&quot;, 
+                                  #  &#39;.u&#39; = &quot;NA&quot;,
+                                   # &#39;1&#39; = &quot;Migrantised&quot;,
+                                    #&#39;2&#39; = &quot;Migrantised&quot;,
+                                    #&#39;3&#39; = &quot;Dual&quot;, 
+                                   # &#39;4&#39; = &quot;Heritage&quot;,
+                                   # &#39;5&#39; = &quot;Heritage&quot;))
+
+#Another alternative (this is my favourite, others need to be updated to match)
+#df$identity &lt;- df$fammig
+#df %&gt;% mutate(identity = replace_when(identity, 
+                #identity == &quot;Mig&quot; &amp; c4==3  ~ &quot;Dual&quot;,
+                #identity == &quot;Mig&quot; &amp; (c4==4 | c4==5) ~ &quot;Heritage&quot;,
+                #identity == &quot;Mig&quot; &amp; (c4==1 | c4==2) &amp; c5_1 != 1 ~ &quot;Migrantised&quot;,
+                #identity == &quot;Mig&quot; &amp; (c4==1 | c4==2) &amp; c5_1==1 ~ &quot;Maj&quot;,
+                #identity == &quot;Mig&quot; &amp; (c4==. | c4==.u) ~ NA,
+                #identity == &quot;Incomplete&quot; &amp; (c4==. | c4==.u) ~ &quot;Maj&quot;,
+                #identity == &quot;Incomplete&quot; &amp; (c4==1 | c4==2) &amp; c5_1 != 1 ~ &quot;Migrantised&quot;,
+                #identity == &quot;Incomplete&quot; &amp; (c4==1 | c4==2) &amp; (c5_1==1) ~ &quot;Maj&quot;,
+                #identity == &quot;Incomplete&quot; &amp; c4==3 ~ &quot;Dual&quot;,
+                #identity == &quot;Incomplete&quot; &amp; (c4==4 | c4==5) ~ &quot;Heritage&quot;,
+                #identity == NA &amp; c4==1 &amp; c5_1 != 1 ~ &quot;Maj&quot;,
+                #identity == NA &amp; (c4==1 | c4==2) &amp; c5_1==1 ~ &quot;Maj&quot;,
+                #identity == NA &amp; c4==2 &amp; c5_1 != 1 ~ &quot;Migrantised&quot;,
+                #identity == NA &amp; c4==3 ~ &quot;Dual&quot;,
+                #identity == NA &amp; (c4==4 | c4==5) ~ &quot;Heritage&quot;))</code></pre>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGFDb25zdHJ1Y3QiDQphdXRob3I6ICJTdXNhbm5hIg0KZGF0ZTogIjIwMjYtMDktMjIiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0NCmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpDQoja2xpcHB5OjprbGlwcHkoY29sb3IgPSAnZGFya3JlZCcpDQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpDQpgYGANCg0KIyBMb2FkIGRhdGENCg0KIyBDcmVhdGluZyBJZGVudGlmaWNhdGlvbiBWYXJpYWJsZQ0KQ2hpbGRyZW4gd2hvIHJlcG9ydGVkIGhhdmluZyBubyBwYXJlbnQgb3IgZ3JhbmRwYXJlbnQgYm9ybiBvdXRzaWRlIG9mIEdlcm1hbnkgd2VyZSBpbnN0cnVjdGVkIHRvIHNraXAgdGhlIHNlY3Rpb24gb24gaGVyaXRhZ2UgaWRlbnRpZmljYXRpb24uIEkgdGhlcmVmb3JlIGZpcnN0bHkgbmVlZCB0byBtYWtlIGEgZGlzdGluY3Rpb24gYmV0d2VlbiBjaGlsZHJlbiB3aXRoIG5vIG5vbi1HZXJtYW4gYW5jZXN0cnkgYW5kIHRob3NlIHdobyBkbyBoYXZlIG5vbi1HZXJtYW4gYW5jZXN0cnkuIFRvIGRvIHNvLCBJIG1ha2UgdXNlIG9mIHRoZSBnZW5lcmF0aW9uYWwgc3RhdHVzIHZhcmlhYmxlLCBjb2RlZCBieSB0aGUgZGF0YSBjb2xsZWN0b3JzIGJhc2VkIG9uIHRoZSBwcm9jZWR1cmUgc2V0IG91dCBieSBEb2xsbWFubiBldCBhbC4gKDIwMTQpLiBPbmx5IHN0dWRlbnRzIHdpdGggbm8gbm9uLUdlcm1hbiBhbmNlc3RyeSBhcmUgY29kZWQgYXMgbmF0aXZlLiBBbGwgb3RoZXJzLCByZWdhcmRsZXNzIG9mIGdlbmVyYXRpb25hbCBzdGF0dXMsIGFyZSBjb2RlZCBhcyBoYXZpbmcgbWlncmFudCBhbmNlc3RyeS4gQ2FzZXMgb2YgR2VybWFuLWJvcm4gY2hpbGRyZW4gd2hlcmUgaW5mb3JtYXRpb24gb24gcGFyZW50cyBvciBncmFuZHBhcmVudHMgd2FzIG1pc3Npbmcgd2VyZSBjb2RlZCBhcyBpbmNvbXBsZXRlLiBDYXNlcyB3aGVyZSBhbGwgaW5mb3JtYXRpb24gd2FzIG1pc3Npbmcgd2VyZSBjb2RlZCBhcyBtaXNzaW5ncyAoTkEpLg0KDQpTdWJzZXF1ZW50bHksIHdpdGhpbiB0aGUgbWlncmFudCBhbmNlc3RyeSBncm91cCwgY2hpbGRyZW4gd2VyZSBjb2RlZCBiYXNlZCBvbiB0aGVpciBpZGVudGlmaWNhdGlvbiBhcyBkZXNjcmliZWQgaW4gdGhlIERhdGEgc2VjdGlvbi4gVGhvc2Ugd2hvIHNlbGYtaWRlbnRpZmllZCBhcyBvbmx5IEdlcm1hbiBhbmQgcmVwb3J0ZWQgYmVpbmcgc2VlbiBhcyBvbmx5IEdlcm1hbiBieSBHZXJtYW5zIHdlcmUgaW5jbHVkZWQgaW4gdGhlIG1ham9yaXR5IGdyb3VwLCBhcyB0aGVpciBtaWdyYW50IGFuY2VzdHJ5IGluIHRoaXMgY2FzZSBpcyB1bmxpa2VseSB0byBiZSByZWxldmFudCBmb3IgdGhlaXIgc29jaWFsIHNpdHVhdGlvbi4gDQpUaGlzIG1heSBmb3IgZXhhbXBsZSBhcHBseSB0byBjaGlsZHJlbiB3aXRoIGRpc3RhbnQgbm9uLUdlcm1hbiBhbmNlc3RyeSAoZm9yIGV4YW1wbGUsIHdobyBvbmx5IGhhdmUgb25lIGdyYW5kcGFyZW50IGJvcm4gb3V0c2lkZSBvZiBHZXJtYW55KS4NCg0KSW5jb21wbGV0ZSBjYXNlcyB3aG8gZGlkIG5vdCByZXNwb25kIHRvIHRoZSBpZGVudGlmaWNhdGlvbiBxdWVzdGlvbiB3ZXJlIGFzc3VtZWQgdG8gYmUgbmF0aXZlLWJvcm4gZm9sbG93aW5nIHRoZSBpbnN0cnVjdGlvbiB0byBza2lwIHRoaXMgcXVlc3Rpb24uIEluIG90aGVyIGNhc2VzLCB0aGV5IHdlcmUgdHJlYXRlZCB0aGUgc2FtZSB3YXkgYXMgY2hpbGRyZW4gaW4gdGhlIG1pZ3JhbnQgYW5jZXN0cnkgZ3JvdXAuDQoNCkZvciBmdWxsIG1pc3NpbmdzIG9uIHRoZSBhbmNlc3RyeSBkYXRhLCBpZGVudGlmaWNhdGlvbiB3YXMgbGVhZGluZywgd2l0aCBwZXJjZWl2ZWQgb3RoZXItY2F0ZWdvcmlzYXRpb24gYnkgR2VybWFucyB1c2VkIHRvIGRpZmZlcmVudGlhdGUgbWlncmFudGlzZWQgR2VybWFuIHN0dWRlbnRzIGZyb20gdGhlIG1ham9yaXR5IGdyb3VwLg0KDQpgYGB7cn0NCiNubyBwYXJlbnQvZ3JhbmRwYXJlbnQgYm9ybiBhYnJvYWQgLS0+IG1ham9yaXR5DQojaWYgZ2VuIHN0YXR1cyBpcyBub3QgaW4gZGF0YXNldDogZGYkZmFtbWlnIDwtIGlmZWxzZShiN19jb2RlZF9ncm91cD09MSAmIGI4X2NvZGVkX2dyb3VwPT0xICYgYjlfMT09MSAmIGI5XzI9PTEgJiBiOV8zPT0xICYgYjlfND09MSwgIk1haiIsICJNaWciKQ0KDQojZGYkZmFtbWlnIDwtIGRmJGVkX21pZ2dlbl9jaWxzX25hcnJvdw0KI2RmJGZhbW1pZyA8LSByZWNvZGVfdmFsdWVzKGZhbW1pZywNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICMxIH4gIk1pZyIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICMgMiB+ICJNaWciLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAjIDMgfiAiTWlnIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIyA0IH4gIk1pZyIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICMgNSB+ICJNaWciLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAjIDYgfiAiTWlnIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIyA3IH4gIk1pZyIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICMgOCB+ICJNaWciLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAjIDkgfiAiTWlnIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIyAxMCB+ICJNaWciLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAjIDExIH4gIk1pZyIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICMgMTIgfiAiTWlnIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIyAxMyB+ICJNaWciLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAjIDE0IH4gIk1haiIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICMgMTUgfiAiTWlnIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIyAxNiB+ICJNaWciLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAjIDE3IH4gIk1pZyIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICMgMTggfiAiTWlnIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIyAxOSB+ICJJbmNvbXBsZXRlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIyAyMCB+ICJJbmNvbXBsZXRlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIyAyMSB+IE5BKQ0KI2lkZW50aXR5IGdyb3VwcyAoc3RyaWN0KQ0KI2RmJGlkZW50aXR5IDwtIGlmZWxzZShjND09MyAmIGZhbW1pZyA9PSAiTWlnIiwgIkR1YWwiLCBpZmVsc2UoKGM0PT00IHwgYzQ9PTUpICYgZmFtbWlnID09ICJNaWciLCAiSGVyaXRhZ2UiLCBpZmVsc2UoKGM0PT0xIHwgYzQ9PTIpICYgZmFtbWlnID09ICJNaWciLCAiTWlnIiwgaWZlbHNlKChjND09LiB8IGM0PT0udSkgJiBmYW1taWcgPT0gIk1pZyIsIE5BLCAiTWFqIikpKSkNCg0KI2FsdGVybmF0aXZlIGlkZW50aXR5IGdyb3VwcyAoc3RyaWN0KQ0KcmVxdWlyZShkcGx5cikNCiNkZiRpZGVudGl0eSA8LSBpZmVsc2UoZmFtbWlnID09ICJNYWoiLCBkcGx5cjo6cmVjb2RlKGRmJGM0LCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICcuJyA9ICJNYWoiLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICcudScgPSAiTWFqIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICcxJyA9ICJNYWoiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgJzInID0gIk1haiIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyAnMycgPSAiTWFqIiwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyAnNCcgPSAiTWFqIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgICc1JyA9ICJNYWoiKSwNCiAgICAgICAgICAgICAgICAgICAgICAjZHBseXI6OnJlY29kZShkZiRjNCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICAnLicgPSAiTkEiLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICAnLnUnID0gIk5BIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyAnMScgPSAiTWlncmFudGlzZWQiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIycyJyA9ICJNaWdyYW50aXNlZCIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjJzMnID0gIkR1YWwiLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyAnNCcgPSAiSGVyaXRhZ2UiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICc1JyA9ICJIZXJpdGFnZSIpKQ0KDQojQW5vdGhlciBhbHRlcm5hdGl2ZSAodGhpcyBpcyBteSBmYXZvdXJpdGUsIG90aGVycyBuZWVkIHRvIGJlIHVwZGF0ZWQgdG8gbWF0Y2gpDQojZGYkaWRlbnRpdHkgPC0gZGYkZmFtbWlnDQojZGYgJT4lIG11dGF0ZShpZGVudGl0eSA9IHJlcGxhY2Vfd2hlbihpZGVudGl0eSwgDQogICAgICAgICAgICAgICAgI2lkZW50aXR5ID09ICJNaWciICYgYzQ9PTMgIH4gIkR1YWwiLA0KICAgICAgICAgICAgICAgICNpZGVudGl0eSA9PSAiTWlnIiAmIChjND09NCB8IGM0PT01KSB+ICJIZXJpdGFnZSIsDQogICAgICAgICAgICAgICAgI2lkZW50aXR5ID09ICJNaWciICYgKGM0PT0xIHwgYzQ9PTIpICYgYzVfMSAhPSAxIH4gIk1pZ3JhbnRpc2VkIiwNCiAgICAgICAgICAgICAgICAjaWRlbnRpdHkgPT0gIk1pZyIgJiAoYzQ9PTEgfCBjND09MikgJiBjNV8xPT0xIH4gIk1haiIsDQogICAgICAgICAgICAgICAgI2lkZW50aXR5ID09ICJNaWciICYgKGM0PT0uIHwgYzQ9PS51KSB+IE5BLA0KICAgICAgICAgICAgICAgICNpZGVudGl0eSA9PSAiSW5jb21wbGV0ZSIgJiAoYzQ9PS4gfCBjND09LnUpIH4gIk1haiIsDQogICAgICAgICAgICAgICAgI2lkZW50aXR5ID09ICJJbmNvbXBsZXRlIiAmIChjND09MSB8IGM0PT0yKSAmIGM1XzEgIT0gMSB+ICJNaWdyYW50aXNlZCIsDQogICAgICAgICAgICAgICAgI2lkZW50aXR5ID09ICJJbmNvbXBsZXRlIiAmIChjND09MSB8IGM0PT0yKSAmIChjNV8xPT0xKSB+ICJNYWoiLA0KICAgICAgICAgICAgICAgICNpZGVudGl0eSA9PSAiSW5jb21wbGV0ZSIgJiBjND09MyB+ICJEdWFsIiwNCiAgICAgICAgICAgICAgICAjaWRlbnRpdHkgPT0gIkluY29tcGxldGUiICYgKGM0PT00IHwgYzQ9PTUpIH4gIkhlcml0YWdlIiwNCiAgICAgICAgICAgICAgICAjaWRlbnRpdHkgPT0gTkEgJiBjND09MSAmIGM1XzEgIT0gMSB+ICJNYWoiLA0KICAgICAgICAgICAgICAgICNpZGVudGl0eSA9PSBOQSAmIChjND09MSB8IGM0PT0yKSAmIGM1XzE9PTEgfiAiTWFqIiwNCiAgICAgICAgICAgICAgICAjaWRlbnRpdHkgPT0gTkEgJiBjND09MiAmIGM1XzEgIT0gMSB+ICJNaWdyYW50aXNlZCIsDQogICAgICAgICAgICAgICAgI2lkZW50aXR5ID09IE5BICYgYzQ9PTMgfiAiRHVhbCIsDQogICAgICAgICAgICAgICAgI2lkZW50aXR5ID09IE5BICYgKGM0PT00IHwgYzQ9PTUpIH4gIkhlcml0YWdlIikpDQpgYGANCg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("DataConstruct.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -359,6 +359,9 @@ div.tocify {
     <li>
       <a href="Week3.html">Week 3</a>
     </li>
+    <li>
+      <a href="Week4.html">Week 4</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -472,6 +475,9 @@ fpackage.check(packages)</code></pre>
 <pre><code>## Warning: package &#39;igraph&#39; was built under R version 4.5.3</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     as_data_frame, groups, union</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
 ## 
 ##     decompose, spectrum</code></pre>
@@ -852,25 +858,23 @@ fpackage.check(packages)</code></pre>
 <pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.5.3</code></pre>
 <pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.5.3</code></pre>
 <pre><code>## Warning: package &#39;readr&#39; was built under R version 4.5.2</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.5.3</code></pre>
 <pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.5.3</code></pre>
 <pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.5.2</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ─────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.2.1     ✔ readr     2.1.6
-## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-## ✔ ggplot2   4.0.0     ✔ tibble    3.3.1
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-## ✔ purrr     1.1.0</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────── tidyverse_conflicts() ──
-## ✖ lubridate::%--%()      masks igraph::%--%()
-## ✖ purrr::accumulate()    masks foreach::accumulate()
-## ✖ dplyr::as_data_frame() masks tibble::as_data_frame(), igraph::as_data_frame()
-## ✖ purrr::compose()       masks igraph::compose()
-## ✖ tidyr::crossing()      masks igraph::crossing()
-## ✖ dplyr::filter()        masks stats::filter()
-## ✖ dplyr::lag()           masks stats::lag()
-## ✖ purrr::simplify()      masks igraph::simplify()
-## ✖ purrr::when()          masks foreach::when()
+<pre><code>## ── Attaching core tidyverse packages ────────── tidyverse 2.0.0 ──
+## ✔ forcats   1.0.1     ✔ readr     2.1.6
+## ✔ ggplot2   4.0.0     ✔ stringr   1.6.0
+## ✔ lubridate 1.9.4     ✔ tibble    3.3.1
+## ✔ purrr     1.1.0     ✔ tidyr     1.3.2</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────── tidyverse_conflicts() ──
+## ✖ lubridate::%--%()       masks igraph::%--%()
+## ✖ purrr::accumulate()     masks foreach::accumulate()
+## ✖ tibble::as_data_frame() masks igraph::as_data_frame(), dplyr::as_data_frame()
+## ✖ purrr::compose()        masks igraph::compose()
+## ✖ tidyr::crossing()       masks igraph::crossing()
+## ✖ dplyr::filter()         masks stats::filter()
+## ✖ dplyr::lag()            masks stats::lag()
+## ✖ purrr::simplify()       masks igraph::simplify()
+## ✖ purrr::when()           masks foreach::when()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
 ## Loading required package: stringdist</code></pre>
 <pre><code>## Warning: package &#39;stringdist&#39; was built under R version 4.5.2</code></pre>
@@ -951,24 +955,24 @@ effectsDocumentation(myeff)</code></pre>
 ##                                                Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0        Rate parameter          4.0171  ( 1.0037   )             
+##   0        Rate parameter          4.0732  ( 1.0048   )             
 ## 
 ## Other parameters: 
-##    1. eval outdegree (density)    -2.4885  ( 0.7027   )    0.0353   
-##    2. eval reciprocity             2.3694  ( 0.6124   )   -0.0124   
-##    3. eval transitive triplets     0.8009  ( 0.4065   )    0.0336   
-##    4. eval indegree - popularity   0.2240  ( 0.0617   )    0.0514   
-##    5. eval outdegree - activity    0.0165  ( 0.0964   )    0.0181   
-##    6. eval indegree - activity(1) -0.4257  ( 0.2510   )    0.0143   
-##    7. eval network-isolate         2.4080  ( 1.4986   )   -0.0492   
-##    8. eval gender alter           -0.4082  ( 0.3248   )   -0.0386   
-##    9. eval gender ego              0.1658  ( 0.3666   )    0.0429   
-##   10. eval same gender             0.1671  ( 0.2749   )    0.0436   
+##    1. eval outdegree (density)    -2.4460  ( 0.7968   )   -0.0346   
+##    2. eval reciprocity             2.3252  ( 0.5643   )   -0.0885   
+##    3. eval transitive triplets     0.7809  ( 0.3642   )   -0.0531   
+##    4. eval indegree - popularity   0.2170  ( 0.0581   )   -0.0149   
+##    5. eval outdegree - activity    0.0166  ( 0.1017   )   -0.0376   
+##    6. eval indegree - activity(1) -0.4208  ( 0.2882   )   -0.0801   
+##    7. eval network-isolate         2.4585  ( 1.2358   )   -0.0310   
+##    8. eval gender alter           -0.4136  ( 0.2940   )   -0.0235   
+##    9. eval gender ego              0.1557  ( 0.3838   )    0.0430   
+##   10. eval same gender             0.1607  ( 0.2990   )   -0.0281   
 ## 
-## Overall maximum convergence ratio:    0.1026 
+## Overall maximum convergence ratio:    0.1286 
 ## 
 ## 
-## Total of 2358 iteration steps.</code></pre>
+## Total of 2750 iteration steps.</code></pre>
 <pre class="r"><code># (the outer parentheses lead to printing the obtained result on the screen) if necessary, estimate
 # further
 (ans &lt;- siena07(myAlgorithm, data = mydata, effects = myeff, prevAns = ans, returnDeps = TRUE)) #estimating something based on algorithm on my data</code></pre>
@@ -978,24 +982,24 @@ effectsDocumentation(myeff)</code></pre>
 ##                                                Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0        Rate parameter          4.0848  ( 1.0196   )             
+##   0        Rate parameter          4.0025  ( 0.9665   )             
 ## 
 ## Other parameters: 
-##    1. eval outdegree (density)    -2.4118  ( 0.6814   )   -0.0258   
-##    2. eval reciprocity             2.3576  ( 0.6696   )   -0.0508   
-##    3. eval transitive triplets     0.7875  ( 0.3855   )   -0.0270   
-##    4. eval indegree - popularity   0.2220  ( 0.0554   )   -0.0087   
-##    5. eval outdegree - activity    0.0122  ( 0.0885   )   -0.0132   
-##    6. eval indegree - activity(1) -0.4381  ( 0.3694   )   -0.0739   
-##    7. eval network-isolate         2.5364  ( 1.1097   )    0.0160   
-##    8. eval gender alter           -0.3816  ( 0.2867   )    0.0330   
-##    9. eval gender ego              0.1405  ( 0.3877   )   -0.0016   
-##   10. eval same gender             0.1538  ( 0.2578   )   -0.0462   
+##    1. eval outdegree (density)    -2.4119  ( 0.8039   )    0.0228   
+##    2. eval reciprocity             2.3684  ( 0.6496   )    0.0353   
+##    3. eval transitive triplets     0.8279  ( 0.3445   )    0.0332   
+##    4. eval indegree - popularity   0.2176  ( 0.0625   )   -0.0140   
+##    5. eval outdegree - activity    0.0094  ( 0.1115   )    0.0204   
+##    6. eval indegree - activity(1) -0.4449  ( 0.3039   )    0.0195   
+##    7. eval network-isolate         2.4885  ( 1.2107   )   -0.0398   
+##    8. eval gender alter           -0.4178  ( 0.2990   )   -0.0322   
+##    9. eval gender ego              0.1489  ( 0.3933   )   -0.0593   
+##   10. eval same gender             0.1657  ( 0.2872   )    0.0675   
 ## 
-## Overall maximum convergence ratio:    0.1261 
+## Overall maximum convergence ratio:    0.1400 
 ## 
 ## 
-## Total of 2660 iteration steps.</code></pre>
+## Total of 2503 iteration steps.</code></pre>
 <p>The rate parameter is the average amount of mini-steps taken per
 agent, which is 4.0795 in my case. Outdegree effect is quite strongly
 negative, so we have a network with a low density. Reciprocity has a
@@ -1018,25 +1022,25 @@ have any ties are unlikely to make or receive new ones).</p>
 ##                                                Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0        Rate parameter          4.0183  ( 1.0106   )             
+##   0        Rate parameter          4.0830  ( 1.0308   )             
 ## 
 ## Other parameters: 
-##    1. eval outdegree (density)    -2.3563  ( 0.7654   )    0.0433   
-##    2. eval reciprocity             2.3707  ( 0.6056   )    0.0023   
-##    3. eval transitive triplets     0.7819  ( 0.3827   )    0.0630   
-##    4. eval shared popularity       0.1379  ( 0.2275   )    0.0756   
-##    5. eval indegree - popularity   0.2098  ( 0.0623   )    0.0696   
-##    6. eval outdegree - activity   -0.0137  ( 0.1149   )    0.0340   
-##    7. eval indegree - activity(1) -0.4243  ( 0.2639   )    0.0144   
-##    8. eval network-isolate         2.4526  ( 1.2264   )   -0.0021   
-##    9. eval gender alter           -0.3886  ( 0.3189   )   -0.0753   
-##   10. eval gender ego              0.1688  ( 0.3687   )    0.0429   
-##   11. eval same gender             0.1630  ( 0.2603   )    0.0174   
+##    1. eval outdegree (density)    -2.3777  ( 0.7607   )    0.0347   
+##    2. eval reciprocity             2.3392  ( 0.5941   )   -0.0163   
+##    3. eval transitive triplets     0.7529  ( 0.4962   )    0.0354   
+##    4. eval shared popularity       0.1192  ( 0.2002   )    0.0341   
+##    5. eval indegree - popularity   0.2117  ( 0.0661   )    0.0644   
+##    6. eval outdegree - activity   -0.0078  ( 0.1098   )    0.0257   
+##    7. eval indegree - activity(1) -0.4084  ( 0.2885   )    0.0148   
+##    8. eval network-isolate         2.5001  ( 1.1218   )    0.0380   
+##    9. eval gender alter           -0.3808  ( 0.3013   )   -0.0639   
+##   10. eval gender ego              0.1711  ( 0.3540   )    0.0059   
+##   11. eval same gender             0.1699  ( 0.2717   )    0.0617   
 ## 
-## Overall maximum convergence ratio:    0.1375 
+## Overall maximum convergence ratio:    0.1284 
 ## 
 ## 
-## Total of 2481 iteration steps.</code></pre>
+## Total of 2626 iteration steps.</code></pre>
 <pre class="r"><code>(ans &lt;- siena07(myAlgorithm2, data = mydata, effects = myeff, prevAns = ans, returnDeps = TRUE)) #estimating something based on algorithm on my data</code></pre>
 <pre><code>## Estimates, standard errors and convergence t-ratios
 ## 
@@ -1044,25 +1048,25 @@ have any ties are unlikely to make or receive new ones).</p>
 ##                                                Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0        Rate parameter          4.1060  ( 1.0314   )             
+##   0        Rate parameter          4.1354  ( 1.0349   )             
 ## 
 ## Other parameters: 
-##    1. eval outdegree (density)    -2.4118  ( 0.8041   )   -0.0036   
-##    2. eval reciprocity             2.3262  ( 0.6382   )    0.0338   
-##    3. eval transitive triplets     0.7008  ( 0.3999   )   -0.0062   
-##    4. eval shared popularity       0.1347  ( 0.1716   )    0.0186   
-##    5. eval indegree - popularity   0.2069  ( 0.0605   )    0.0106   
-##    6. eval outdegree - activity   -0.0003  ( 0.1162   )    0.0061   
-##    7. eval indegree - activity(1) -0.3904  ( 0.2826   )    0.0497   
-##    8. eval network-isolate         2.4269  ( 1.4574   )    0.0610   
-##    9. eval gender alter           -0.3786  ( 0.2941   )   -0.0163   
-##   10. eval gender ego              0.1572  ( 0.3891   )   -0.0776   
-##   11. eval same gender             0.1521  ( 0.2891   )    0.0021   
+##    1. eval outdegree (density)    -2.3688  ( 0.8172   )   -0.0665   
+##    2. eval reciprocity             2.3006  ( 0.6076   )    0.0018   
+##    3. eval transitive triplets     0.7446  ( 0.3465   )    0.0269   
+##    4. eval shared popularity       0.1351  ( 0.2101   )   -0.0101   
+##    5. eval indegree - popularity   0.2021  ( 0.0675   )   -0.0970   
+##    6. eval outdegree - activity   -0.0087  ( 0.1190   )   -0.0282   
+##    7. eval indegree - activity(1) -0.3955  ( 0.2411   )    0.0073   
+##    8. eval network-isolate         2.4478  ( 1.5065   )    0.0683   
+##    9. eval gender alter           -0.3921  ( 0.3101   )    0.0698   
+##   10. eval gender ego              0.1637  ( 0.3266   )   -0.0368   
+##   11. eval same gender             0.1618  ( 0.2796   )   -0.0484   
 ## 
-## Overall maximum convergence ratio:    0.1721 
+## Overall maximum convergence ratio:    0.1810 
 ## 
 ## 
-## Total of 2884 iteration steps.</code></pre>
+## Total of 2864 iteration steps.</code></pre>
 <p>Yay I managed to add the shared popularity effect! It’s not
 significant :(.</p>
 <p><em>Okay, now I’d like to try the whole fit thing.</em></p>
@@ -1131,34 +1135,34 @@ myeff_obs &lt;- myeff
 #set initial values based on estimated model
 myeff_obs &lt;- setEffect(myeff_obs, density, initialValue = ans$theta[which(ans$effects$shortName == &quot;density&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName          shortName include fix   test  initialValue parm
-## 1 12           outdegree (density) density   TRUE    FALSE FALSE   -2.41177   0</code></pre>
+## 1 12           outdegree (density) density   TRUE    FALSE FALSE   -2.36878   0</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, recip, initialValue = ans$theta[which(ans$effects$shortName == &quot;recip&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName  shortName include fix   test  initialValue parm
-## 1 15           reciprocity recip     TRUE    FALSE FALSE    2.32618   0</code></pre>
+## 1 15           reciprocity recip     TRUE    FALSE FALSE    2.30065   0</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, transTrip, initialValue = ans$theta[which(ans$effects$shortName == &quot;transTrip&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName          shortName include fix   test  initialValue parm
-## 1 21           transitive triplets transTrip TRUE    FALSE FALSE    0.70081   0</code></pre>
+## 1 21           transitive triplets transTrip TRUE    FALSE FALSE    0.74464   0</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, inPop, initialValue = ans$theta[which(ans$effects$shortName == &quot;inPop&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName            shortName include fix   test  initialValue parm
-## 1 78           indegree - popularity inPop     TRUE    FALSE FALSE    0.20686   0</code></pre>
+## 1 78           indegree - popularity inPop     TRUE    FALSE FALSE    0.20209   0</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, outAct, initialValue = ans$theta[which(ans$effects$shortName == &quot;outAct&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName           shortName include fix   test  initialValue parm
-## 1 115          outdegree - activity outAct    TRUE    FALSE FALSE   -0.00033   0</code></pre>
+## 1 115          outdegree - activity outAct    TRUE    FALSE FALSE   -0.00867   0</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, inAct, initialValue = ans$theta[which(ans$effects$shortName == &quot;inAct&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName             shortName include fix   test  initialValue parm
-## 1 124          indegree - activity(1) inAct     TRUE    FALSE FALSE   -0.39041   1</code></pre>
+## 1 124          indegree - activity(1) inAct     TRUE    FALSE FALSE   -0.39545   1</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, isolateNet, initialValue = ans$theta[which(ans$effects$shortName == &quot;isolateNet&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName      shortName  include fix   test  initialValue parm
-## 1 158          network-isolate isolateNet TRUE    FALSE FALSE    2.42695   0</code></pre>
+## 1 158          network-isolate isolateNet TRUE    FALSE FALSE    2.44777   0</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, altX, interaction1 = &quot;gender&quot;, initialValue = ans$theta[which(ans$effects$shortName == &quot;altX&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName   shortName include fix   test  initialValue parm
-## 1 262          gender alter altX      TRUE    FALSE FALSE    -0.3786   0</code></pre>
+## 1 262          gender alter altX      TRUE    FALSE FALSE   -0.39215   0</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, egoX, interaction1 = &quot;gender&quot;, initialValue = ans$theta[which(ans$effects$shortName == &quot;egoX&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName shortName include fix   test  initialValue parm
-## 1 277          gender ego egoX      TRUE    FALSE FALSE    0.15723   0</code></pre>
+## 1 277          gender ego egoX      TRUE    FALSE FALSE    0.16369   0</code></pre>
 <pre class="r"><code>myeff_obs &lt;- setEffect(myeff_obs, sameX, interaction1 = &quot;gender&quot;, initialValue = ans$theta[which(ans$effects$shortName == &quot;sameX&quot;)])</code></pre>
 <pre><code>##   effectNumber effectName  shortName include fix   test  initialValue parm
-## 1 333          same gender sameX     TRUE    FALSE FALSE    0.15215   0</code></pre>
+## 1 333          same gender sameX     TRUE    FALSE FALSE    0.16176   0</code></pre>
 <pre class="r"><code>#fix effects at this value
 myeff_obs$fix[myeff_obs$include == TRUE] &lt;- TRUE
 
@@ -1171,7 +1175,7 @@ myeff_no &lt;- setEffect(myeff_obs, inPop, initialValue = 0, fix = TRUE)</code><
 ## 1 78           indegree - popularity inPop     TRUE    TRUE FALSE          0   0</code></pre>
 <pre class="r"><code>myeff_high &lt;- setEffect(myeff_obs, inPop, initialValue = ans$theta[which(ans$effects$shortName == &quot;inPop&quot;)] * 2, fix = TRUE)</code></pre>
 <pre><code>##   effectNumber effectName            shortName include fix  test  initialValue parm
-## 1 78           indegree - popularity inPop     TRUE    TRUE FALSE    0.41372   0</code></pre>
+## 1 78           indegree - popularity inPop     TRUE    TRUE FALSE    0.40419   0</code></pre>
 <pre class="r"><code>#set up the simulation settings
 nIter &lt;- 1000 # number of iterations
 

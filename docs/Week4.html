@@ -359,6 +359,9 @@ div.tocify {
     <li>
       <a href="Week3.html">Week 3</a>
     </li>
+    <li>
+      <a href="Week4.html">Week 4</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -420,9 +423,8 @@ div.tocify {
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
-<div id="playing-with-plots" class="section level3" number="0.0.1">
-<h3><span class="header-section-number">0.0.1</span> Playing with
-Plots</h3>
+<div id="playing-with-plots" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Playing with Plots</h1>
 <pre class="r"><code>require(igraph)
 g &lt;- make_graph(&quot;Zachary&quot;)
 plot(g)</code></pre>
@@ -654,25 +656,11 @@ Second image suggests conflict, group being pulled apart by 34 and 1. In
 article: explain that 1 and 34 were manually placed at opposite sides of
 the network to illustrate the described process.</p>
 </div>
-<div id="plotting-on-ashwins-data" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Plotting On Ashwin’s
+<div id="plotting-on-ashwins-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Plotting On Ashwin’s
 data</h1>
 <pre class="r"><code>load(&quot;./data/IndividualCharacteristics.RData&quot;)
 load(&quot;./data/NetworkCharacteristics.RData&quot;)</code></pre>
-<pre class="r"><code># view(studying[[1]])
-studying_df_t1 &lt;- as.data.frame(studying[[1]][1])
-class(studying_df_t1)</code></pre>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<pre class="r"><code># view(weak_netw_t1)
-
-studying_df_t2 &lt;- as.data.frame(studying[[1]][2])
-class(studying_df_t2)</code></pre>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<pre class="r"><code># view(studying_df_t2)
-weak_netw_t2 &lt;- data.matrix(studying_df_t2)
-weak_netw_t2[weak_netw_t2==9]&lt;-NA
-class(weak_netw_t2)</code></pre>
-<pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
 <pre class="r"><code># view(hanging[[1]])
 hanging_df_t1 &lt;- as.data.frame(hanging[[1]][1])
 class(hanging_df_t1)</code></pre>
@@ -726,21 +714,21 @@ uni1 &lt;- igraph::graph_from_adjacency_matrix(uni1nona, mode = &quot;directed&q
     add.rownames = NA)
 
 plot(uni1)</code></pre>
-<p><img src="Week4_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<p><img src="Week4_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 Yay I have a graph!!!</p>
 <pre class="r"><code>V(uni1)$size = igraph::degree(uni1) * 1.05 + 5
 plot(uni1)</code></pre>
-<p><img src="Week4_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="Week4_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>plot(uni1, 
      edge.arrow.size = 0.1,
      vertex.label.cex = 0.4,
      vertex.size = 10)</code></pre>
-<p><img src="Week4_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="Week4_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <pre class="r"><code>V(uni1)$size = igraph::degree(uni1)*0.5 + 5
 plot(uni1, 
      edge.arrow.size = 0.1,
      vertex.label.cex = 0.4)</code></pre>
-<p><img src="Week4_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="Week4_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <pre class="r"><code>w1international &lt;- international[[1]]
 w1international &lt;- w1international[, &quot;W1INTERNATIONAL&quot;]
 w1international</code></pre>
@@ -761,9 +749,9 @@ w1international</code></pre>
 ## 30114 30115 30116 30117 30118 30119 30120 30121 30122 
 ##     2    NA     2     2     2     2     2     2     1</code></pre>
 <pre class="r"><code>print(uni1)</code></pre>
-<pre><code>## IGRAPH 677996b D--- 121 395 -- 
+<pre><code>## IGRAPH 0624f62 D--- 121 395 -- 
 ## + attr: size (v/n)
-## + edges from 677996b:
+## + edges from 0624f62:
 ##  [1]  1-&gt;  2  1-&gt; 24  1-&gt; 33  1-&gt; 68  1-&gt; 89  1-&gt;106  2-&gt; 89  2-&gt;106  3-&gt; 23  4-&gt; 81  5-&gt; 32  5-&gt; 50
 ## [13]  5-&gt; 58  5-&gt; 63  5-&gt; 67  5-&gt; 77  5-&gt; 90  5-&gt; 92  6-&gt; 11  6-&gt; 45  6-&gt; 49  6-&gt; 62  6-&gt; 78  6-&gt; 99
 ## [25]  6-&gt;118  8-&gt; 91  9-&gt; 13  9-&gt; 14  9-&gt; 36  9-&gt; 57  9-&gt; 80  9-&gt; 83  9-&gt; 88 12-&gt;  2 12-&gt; 11 12-&gt; 22
@@ -794,18 +782,205 @@ hangingt2nona[hangingt2nona==9]&lt;- 0
 hangingt2nona &lt;- as.matrix(hangingt2nona)
 
 
-hangingt2 &lt;- graph_from_adjacency_matrix(hangingt2nona)
+hangingt2 &lt;- graph_from_adjacency_matrix(hangingt2nona, mode = &quot;directed&quot;, weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
 plot(hangingt2)</code></pre>
-<p><img src="Week4_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="Week4_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+Ugly version succeeded. Now, change size based on degree and make it a
+little prettier:</p>
 <pre class="r"><code>V(hangingt2)$size = igraph::degree(hangingt2)*0.5 + 5
 plot(hangingt2, 
      edge.arrow.size = 0.1,
      vertex.label.cex = 0.4)</code></pre>
-<p><img src="Week4_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
-<pre class="r"><code>#check nina&#39;s lab journal</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+Not bad! Okay this is what failed last time, let’s see if Nina’s code
+saves me:</p>
+<pre class="r"><code>#first isolate international wave 2
+w2international &lt;- international[[1]]
+w2international &lt;- w2international[, &quot;W2INTERNATIONAL&quot;]
+w2international</code></pre>
+<pre><code>## 30001 30002 30003 30004 30005 30006 30007 30008 30009 30010 30011 30012 30013 30014 30015 30016 
+##     2     2    NA    NA     2     2     2     2     2    NA     2     2     2     1     2     2 
+## 30017 30018 30019 30020 30021 30022 30023 30025 30026 30027 30028 30029 30030 30031 30032 30033 
+##     2     2     2     2     2     2     2    NA    NA     2     2     2     2    NA    NA     2 
+## 30034 30035 30036 30037 30038 30039 30040 30041 30042 30043 30044 30045 30046 30047 30048 30049 
+##    NA     2     2     2     2     2     2     2     2     2     2     2     2     2     2     2 
+## 30050 30051 30052 30053 30054 30055 30056 30057 30058 30059 30060 30061 30062 30063 30064 30065 
+##     2     2     2     2     2     2     2     2     2    NA     2     2     2     2     2     2 
+## 30066 30067 30068 30069 30070 30071 30072 30073 30074 30075 30076 30077 30078 30079 30080 30081 
+##     2     2    NA     2     2     2     2     2     2     2     2    NA     2     2    NA     2 
+## 30082 30083 30084 30085 30086 30087 30088 30089 30090 30091 30092 30093 30094 30095 30096 30097 
+##     2     2     2     2     2     2     2     2    NA     2     2    NA     2     2     2     2 
+## 30098 30099 30100 30101 30102 30103 30104 30105 30106 30107 30108 30109 30110 30111 30112 30113 
+##     2     2     2     2    NA     2     2     2     2     2     2     2     2     2     2     2 
+## 30114 30115 30116 30117 30118 30119 30120 30121 30122 
+##     2     2     2     2     2     2     2     2     2</code></pre>
+<pre class="r"><code>#credits to nina&#39;s lab journal
+colourinternational &lt;- ifelse(w2international==1, &quot;purple&quot;, &quot;cyan4&quot;) #I thought I tried this before???
+plot(hangingt2,
+     vertex.color = colourinternational, # nice color for the vertices
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a gray frame around vertices
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+Yay it worked! It automatically makes all NAs white - that’s nice! I
+only see one international, and they’re very isolated… :(</p>
+<p>Let’s try the same with a more equally distributed attribute like
+gender:</p>
+<pre class="r"><code>#first isolate gender wave 2
+w2gender &lt;- gender[[1]]
+w2gender &lt;- w2gender[, &quot;T2GENDER&quot;]
+w2gender</code></pre>
+<pre><code>## 30001 30002 30003 30004 30005 30006 30007 30008 30009 30010 30011 30012 30013 30014 30015 30016 
+##     2     2    NA     2     1     2     1     2     2    NA     2     1     2     2     2     2 
+## 30017 30018 30019 30020 30021 30022 30023 30025 30026 30027 30028 30029 30030 30031 30032 30033 
+##     2     2     2     2     2     1     2     1     1     1     2     1     2     2    NA     2 
+## 30034 30035 30036 30037 30038 30039 30040 30041 30042 30043 30044 30045 30046 30047 30048 30049 
+##     2     2     2     2     1     2     1     2     2     2     2     2     1     2     1     2 
+## 30050 30051 30052 30053 30054 30055 30056 30057 30058 30059 30060 30061 30062 30063 30064 30065 
+##     2     1     1     1     2     2     2     2     2     1     1     2     2     2     2     1 
+## 30066 30067 30068 30069 30070 30071 30072 30073 30074 30075 30076 30077 30078 30079 30080 30081 
+##     1     2    NA     1     2     2     1     1     1     1     1    NA     1     2     2     2 
+## 30082 30083 30084 30085 30086 30087 30088 30089 30090 30091 30092 30093 30094 30095 30096 30097 
+##     2     1     1     2     1     2     2     2    NA     1     2    NA     2     1     2     2 
+## 30098 30099 30100 30101 30102 30103 30104 30105 30106 30107 30108 30109 30110 30111 30112 30113 
+##     2     1     2     2     2     2     2     2     2     2     2     1     1     1     2     2 
+## 30114 30115 30116 30117 30118 30119 30120 30121 30122 
+##     2     2     1     2     2     2     2     2     1</code></pre>
+<pre class="r"><code>#colour based on gender
+colourgender &lt;- ifelse(w2gender==1, &quot;purple&quot;, &quot;cyan4&quot;)
+
+#plot
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a gray frame around vertices
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+Oooooh fun! Interesting, it seems like there isn’t a lot of gender
+segregation going on. I guess people have somewhat grown out of that by
+the time they start uni!</p>
+<p>I do feel like the size is a bit too small now. Let’s see if we can
+do something about that:</p>
+<pre class="r"><code>V(hangingt2)$size = igraph::degree(hangingt2) + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a gray frame around vertices
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.5,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+I like this! I feel like I’m seeing three clusters, two bigger ones and
+a smaller one. Particularly in the two bigger groups, there’s people
+with a high degree. Towards the edge of the graph, degrees are smaller.
+39 does not have a very high degree, but does seem to form a bridge
+between the two bigger groups. Maybe I can do something with
+betweenness?</p>
+<pre class="r"><code>V(hangingt2)$size = igraph::betweenness(hangingt2)*0.8 + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a gray frame around vertices
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+OOF. Looks like some people have such a high betweenness score that this
+does not work at all. Maybe if I normalise it though?</p>
+<pre class="r"><code>V(hangingt2)$size = betweenness(hangingt2, normalized = T, directed = TRUE) * 60 + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a gray frame around vertices
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+Hmmm weird. We don’t actually see huge differences now. I kind of want
+to take a look at the betweenness scores themselves…</p>
+<pre class="r"><code>igraph::betweenness(hangingt2, directed = TRUE)</code></pre>
+<pre><code>##   [1]    1.000000    0.000000    0.000000    0.000000    3.500000   52.000000  391.184921
+##   [8]    0.000000  577.538889    0.000000    0.000000  983.977778  890.077778    0.000000
+##  [15]    1.000000   79.422222    3.000000   73.500000    0.000000    0.000000    0.000000
+##  [22]  139.500000    0.000000  340.385714    0.000000    0.000000    0.000000    0.000000
+##  [29]    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+##  [36]  129.000000   13.500000    0.000000   29.000000  152.190079    0.000000   79.339683
+##  [43]    0.000000    0.000000  265.630556  233.002381   85.950000  232.994444  249.874603
+##  [50]   74.928571    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+##  [57]    0.000000    0.000000    0.000000  102.422222   29.533333   62.000000  105.339683
+##  [64]    0.000000    0.000000    0.000000    0.000000    0.000000  142.088889    0.000000
+##  [71]    0.000000   48.983333   80.900000    0.000000   18.500000    0.000000    0.000000
+##  [78]    0.000000    0.000000  347.538889    0.000000   13.852381 1164.787302    0.000000
+##  [85]   10.000000    0.000000   47.000000    0.000000    0.000000    3.285714  275.483333
+##  [92]    0.000000  390.483333    0.000000  827.777778  314.206349  157.422222    0.000000
+##  [99]  100.619048    0.000000    0.000000   14.666667  132.000000    0.000000   50.116667
+## [106]  248.500000    0.000000    9.000000  209.400000    0.000000    0.000000   54.119048
+## [113]    0.000000    0.500000    0.000000   37.416667  171.300000   88.476190   88.950000
+## [120]   84.833333    0.000000</code></pre>
+<p>I do see a lot of variation in here. Not sure why that is not turning
+up in the graph. Maybe the normalised scores are very small. I could
+multiply with a higher number:</p>
+<pre class="r"><code>V(hangingt2)$size = betweenness(hangingt2, normalized = T, directed = TRUE) * 250 + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a gray frame around vertices
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.9,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+That’s better! We still see the two big groups, with members who have a
+high betweenness score. 13, 9, and 18 stand out with their middle
+position between the two groups. 39’s betweenness score is actually not
+as large as I thought it would be. Good to know!</p>
+<p>Now let’s try transitivity, which may be relevant to understand the
+closeness of the observed friend/‘hanging’ groups.</p>
+<pre class="r"><code>V(hangingt2)$size = igraph::transitivity(hangingt2, type = &quot;local&quot;, isolates = &quot;zero&quot;)*10 + 8
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = &quot;gray&quot;,  # we&#39;ll put a gray frame around vertices
+     vertex.label.color = &quot;black&quot;,  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.5,  # we&#39;ll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1)</code></pre>
+<p><img src="Week4_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+Cool! 83 and 95, who had a very high degree, don’t stand out now. What
+is their local transitivity score actually?</p>
+<pre class="r"><code>igraph::transitivity(hangingt2, type = &quot;local&quot;, isolates = &quot;zero&quot;)</code></pre>
+<pre><code>##   [1] 0.5000000 1.0000000 0.0000000 0.6000000 0.8333333 0.3333333 0.3611111 1.0000000 0.2000000
+##  [10] 0.0000000 0.0000000 0.2380952 0.3333333 0.0000000 0.0000000 0.0000000 0.0000000 0.3333333
+##  [19] 0.0000000 0.0000000 0.0000000 0.2777778 0.0000000 0.4285714 0.3333333 0.0000000 0.0000000
+##  [28] 0.0000000 0.0000000 0.0000000 0.0000000 0.5000000 0.1785714 0.0000000 0.0000000 0.0000000
+##  [37] 0.6666667 0.3333333 0.0000000 0.2000000 1.0000000 0.4761905 1.0000000 0.0000000 0.5000000
+##  [46] 0.2444444 0.2000000 0.6666667 0.6666667 0.2500000 0.3333333 0.0000000 1.0000000 0.5714286
+##  [55] 0.0000000 0.0000000 0.0000000 0.1000000 0.0000000 0.0000000 0.0000000 0.3333333 0.3571429
+##  [64] 0.0000000 1.0000000 1.0000000 0.0000000 0.5000000 0.2000000 0.0000000 0.0000000 0.2000000
+##  [73] 0.1785714 0.0000000 0.6666667 0.0000000 0.6000000 1.0000000 0.0000000 0.6666667 1.0000000
+##  [82] 0.6000000 0.1500000 1.0000000 0.6666667 0.0000000 0.0000000 0.3333333 0.0000000 0.8333333
+##  [91] 0.2000000 0.0000000 0.0952381 0.0000000 0.4000000 0.5238095 0.0000000 0.0000000 0.1666667
+## [100] 0.0000000 0.0000000 0.3333333 0.3333333 1.0000000 0.3333333 0.2666667 0.0000000 0.3333333
+## [109] 0.2000000 0.0000000 0.0000000 0.3333333 0.3333333 0.6666667 0.0000000 0.6190476 0.3333333
+## [118] 0.4000000 0.5714286 0.3333333 0.0000000</code></pre>
+<p>Yeah, their transitivity is very average. So we have two people (83
+and 95) who are hanging out with lots of others, who sort of cluster
+around them. Their friends however are not necessarily super connected
+to one another, so it doesn’t seem like they are super tight friend
+groups - just two popular kids. 83 and 95 are not hanging out
+together.</p>
 </div>
-<div id="webscraping-tutorial" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Webscraping
+<div id="webscraping-tutorial" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Webscraping
 tutorial</h1>
 <pre class="r"><code>#install.packages(&quot;xml2&quot;)
 require(xml2)</code></pre>
@@ -837,7 +1012,7 @@ lijst[1] %&gt;% html_children %&gt;% html_attr(name=&quot;href&quot;)</code></pr
 <pre><code>## [1] &quot;2026-06-15T15:50:52+0200&quot;</code></pre>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWs0Ig0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTIxIg0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KDQpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0NCmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpDQoja2xpcHB5OjprbGlwcHkoY29sb3IgPSAnZGFya3JlZCcpDQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpDQpgYGANCg0KIyMjIFBsYXlpbmcgd2l0aCBQbG90cw0KDQpgYGB7cn0NCnJlcXVpcmUoaWdyYXBoKQ0KZyA8LSBtYWtlX2dyYXBoKCJaYWNoYXJ5IikNCnBsb3QoZykNCmBgYA0KDQpBcHBhcmVudGx5LCB0aGVyZSdzIGEgcmFuZG9tIGNvbXBvbmVudCB0byBob3cgZ3JhcGhzIGFyZSBtYWRlOiBwbGFjZW1lbnQgb2Ygbm9kZXMgYmFzZWQgb24gcG9wdWxhcml0eS4NCg0KYGBge3J9DQpnbWF0IDwtIGFzX2FkamFjZW5jeV9tYXRyaXgoZywgdHlwZSA9ICJib3RoIiwgc3BhcnNlID0gRkFMU0UpDQpnbWF0DQpgYGANCg0KZyBpcyBpbiBpZ3JhcGggZm9ybWF0LCB3ZSBqdXN0IHR1cm5lZCBpdCBiYWNrIGludG8gYSBtYXRyaXgNCg0KYGBge3J9DQppc1N5bW1ldHJpYyhnbWF0KQ0KYGBgDQoNCklmIHN5bW1ldHJpYywgbmV0d29yayBpcyB1bmRpcmVjdGVkDQoNCmBgYHtyfQ0KIyBiZSBhd2FyZSB0aGF0IGRpcmVjdGVkIGdyYXBocyBhcmUgY29uc2lkZXJlZCBhcyB1bmRpcmVjdGVkLiBidXQgZyBpcyB1bmRpcmVjdGVkLg0KaWdyYXBoOjp0cmFuc2l0aXZpdHkoZywgdHlwZSA9IGMoImxvY2FsdW5kaXJlY3RlZCIpLCBpc29sYXRlcyA9IGMoIk5hTiIsICJ6ZXJvIikpDQpgYGANCldlJ3JlIGNvdW50aW5nIHRyaWFuZ2xlcyBub3cuIE5vIHBlcnNvbiBpcyBzdGFuZGluZyBvdXQuDQoNCmBgYHtyfQ0KaWdyYXBoOjpiZXR3ZWVubmVzcyhnLCBkaXJlY3RlZCA9IEZBTFNFKQ0KYGBgDQoxIGFuZCAzNCBoYXZlIGEgVkVSWSBoaWdoIGJldHdlZW5uZXNzIHNjb3JlLiBOb3QgdmVyeSB2aXNpYmxlIGluIGluaXRpYWwgZ3JhcGgsIHNvIGlmIHdlIHdhbnQgdG8gZm9jdXMgb24gdGhpcyBmaW5kaW5nLCB3ZSB3YW50IGEgZ3JhcGggd2hlcmUgMSBhbmQgMzQgZG8gbm90IG92ZXJsYXAgc28gbXVjaCB3aXRoIG90aGVyIG5vZGVzLiAzIGlzIGFsc28gaW50ZXJlc3Rpbmc6IGJyaWRnZSBiZXdlZW4gYnJpZGdlPw0KDQoqSG93IGNhbiB3ZSBlbXBoYXNpc2UgdGhpcyBpbiB2aXN1YWxpc2F0aW9uPyogDQoNCmh1ZSBwYWxldCwgdmlicmFuY3kgYmFzZWQgb24gYmV0d2Vlbm5lc3MgKHN0YW5kYXJkaXNlZCkNCnNpemUgYmFzZWQgb24gYmV0d2Vlbm5lc3MNCm9yIGNoYW5nZSBsYXlvdXQNCg0KYGBge3J9DQppZ3JhcGg6OmR5YWRfY2Vuc3VzKGcpDQpgYGANCmBgYHtyfQ0KaWdyYXBoOjp0cmlhZF9jZW5zdXMoZykNCiMgSSB3aWxsIHVzZSBzbmEgYmVjYXVzZSBpdCBzaG93cyB0aGUgbmFtZXMgb2YgdGhlIHRyaWFkcyBhcyB3ZWxsLg0Kc25hOjp0cmlhZC5jZW5zdXMoZ21hdCkNCnVubG9hZE5hbWVzcGFjZSgic25hIikgICNJIHdpbGwgZGV0YWNoIHRoaXMgcGFja2FnZSBhZ2Fpbiwgb3RoZXJ3aXNlIGl0IHdpbGwgaW50ZXJmZXJlIHdpdGggYWxsIGtpbmQgb2YgZnVuY3Rpb25zIGZyb20gaWdyYXBoLCBhbmQgbXkgc3R1ZGVudHMgd2lsbCBoYXRlIG1lIGZvciB0aGF0Lg0KYGBgDQoNClRyYW5zaXRpdml0eTogaG93IG1hbnkgdHJpYWRzIGFyZSBjbG9zZWQgZGl2aWRlZCBieSB0aGUgdG90YWwgYW1vdW50IG9mIHRyaWFkcyB0aGF0IGFyZSBvciBjb3VsZCBoYXZlIGJlZW4gY2xvc2VkLg0KMzAwIGlzIGZ1bGx5IGNsb3NlZDoNCi0gbGFzdCBkaWdpdDogbnVtYmVyIG9mIGR5YWRzIHdpdGhvdXQgdGllcw0KLSBzZWNvbmQgZGlnaXQ6IG51bWJlciBvZiBkeWFkcyB3aXRoIG9uZSB0aWUNCi0gZmlyc3QgZGlnaXQ6IG51bWJlciBvZiBkeWFkcyB3aXRoIHR3byB0aWVzIChtdXR1YWwgZHlhZHMpDQotIHNwZWNpZmljIHN1YnR5cGU6DQogIEM6IGN5Y2xpYw0KICBEOiBkb3dud2FyZA0KICBVOiB1cHdhcmQNCiAgVDogdHJhbnNpdGl2ZQ0KDQpVaXRnYWFuZCB2YW4gYWN0b3JwZXJzcGVjdGllZiB3b3JkdCDDqcOpbiB0cmlhZGUgMyBrZWVyIGdldGVsZCAow6nDqW4ga2VlciB2YW51aXQgZWxrZSBiZXRyb2trZW4gYWN0b3IpLg0KDQpNYW51YWxseSBjYWxjdWxhdGluZyBnbG9iYWwgdHJhbnNpdGl2aXR5Og0KDQpgYGB7cn0NCmlncmFwaDo6dHJhbnNpdGl2aXR5KGcsIHR5cGUgPSAiZ2xvYmFsIikNCnNuYTo6Z3RyYW5zKGdtYXQpDQoNCnRyaWFkX2cgPC0gZGF0YS5mcmFtZShzbmE6OnRyaWFkLmNlbnN1cyhnbWF0KSkNCg0KdHJhbnNpdGl2aXR5X2cgPC0gKDMgKiB0cmlhZF9nJFgzMDApLyh0cmlhZF9nJFgyMDEgKyAzICogdHJpYWRfZyRYMzAwKQ0KdHJhbnNpdGl2aXR5X2cNCmBgYA0KDQoobG9jYWwgdHJhbnNpdGl2aXR5IHdvdWxkIGJlIHRyYW5zaXRpdml0eSBpbiBuZXR3b3JrIG9mIGVnbykNCg0KMSBhbmQgMzQgYXJlIG5vdCBjb25uZWN0ZWQsIGJvdGggaGF2ZSBoaWdoIGJldHdlZW5uZXNzLCBidXQgbG93IGxvY2FsIHRyYW5zaXRpdml0eSAtIGxldCdzIHZpc3VhbGlzZSB0aGF0IHN0b3J5Og0KDQpgYGB7cn0NCiMgY2hhbmdpbmcgVg0KVihnKSRzaXplID0gYmV0d2Vlbm5lc3MoZywgbm9ybWFsaXplZCA9IFQsIGRpcmVjdGVkID0gRkFMU0UpICogNjAgKyAxMCAgI2FmdGVyIHNvbWUgdHJpYWwgYW5kIGVycm9yDQpwbG90KGcsIG1vZGUgPSAidW5kaXJlY3RlZCIpDQpgYGANCg0KViBpcyBhYm91dCB2ZXJ0aWNlcywgZSBpcyBhYm91dCBlZGdlcw0KDQpUbyBtYWtlIGl0IGxvb2sgbmljZSBpbiBhcnRpY2xlLCBkZWZpbmUgc2l6ZSBvZiBwbG90IHdpbmRvdyBiZWZvcmVoYW5kIGZvciBhbGxsbGwgaW1hZ2VzISANCg0KYGBge3J9DQpzZXQuc2VlZCgyMzQ1KQ0KbCA8LSBsYXlvdXRfd2l0aF9tZHMoZykgICNodHRwczovL2lncmFwaC5vcmcvci9kb2MvbGF5b3V0X3dpdGhfbWRzLmh0bWwNCnBsb3QoZywgbGF5b3V0ID0gbCkNCmBgYA0KYGBge3J9DQpsICAjbGV0IHVzIHRha2UgYSBsb29rIGF0IHRoZSBjb29yZGluYXRlcw0KbFsxLCAxXSA8LSA0DQpsWzM0LCAxXSA8LSAtMy41DQpwbG90KGcsIGxheW91dCA9IGwpDQpgYGANClNlY29uZCBpbWFnZSBzdWdnZXN0cyBjb25mbGljdCwgZ3JvdXAgYmVpbmcgcHVsbGVkIGFwYXJ0IGJ5IDM0IGFuZCAxLiANCkluIGFydGljbGU6IGV4cGxhaW4gdGhhdCAxIGFuZCAzNCB3ZXJlIG1hbnVhbGx5IHBsYWNlZCBhdCBvcHBvc2l0ZSBzaWRlcyBvZiB0aGUgbmV0d29yayB0byBpbGx1c3RyYXRlIHRoZSBkZXNjcmliZWQgcHJvY2Vzcy4NCg0KIyBQbG90dGluZyBPbiBBc2h3aW4ncyBkYXRhDQoNCmBgYHtyfQ0KbG9hZCgiLi9kYXRhL0luZGl2aWR1YWxDaGFyYWN0ZXJpc3RpY3MuUkRhdGEiKQ0KbG9hZCgiLi9kYXRhL05ldHdvcmtDaGFyYWN0ZXJpc3RpY3MuUkRhdGEiKQ0KYGBgDQoNCmBgYHtyfQ0KIyB2aWV3KHN0dWR5aW5nW1sxXV0pDQpzdHVkeWluZ19kZl90MSA8LSBhcy5kYXRhLmZyYW1lKHN0dWR5aW5nW1sxXV1bMV0pDQpjbGFzcyhzdHVkeWluZ19kZl90MSkNCmBgYA0KYGBge3J9DQojIHZpZXcod2Vha19uZXR3X3QxKQ0KDQpzdHVkeWluZ19kZl90MiA8LSBhcy5kYXRhLmZyYW1lKHN0dWR5aW5nW1sxXV1bMl0pDQpjbGFzcyhzdHVkeWluZ19kZl90MikNCmBgYA0KYGBge3J9DQojIHZpZXcoc3R1ZHlpbmdfZGZfdDIpDQp3ZWFrX25ldHdfdDIgPC0gZGF0YS5tYXRyaXgoc3R1ZHlpbmdfZGZfdDIpDQp3ZWFrX25ldHdfdDJbd2Vha19uZXR3X3QyPT05XTwtTkENCmNsYXNzKHdlYWtfbmV0d190MikNCmBgYA0KYGBge3J9DQojIHZpZXcoaGFuZ2luZ1tbMV1dKQ0KaGFuZ2luZ19kZl90MSA8LSBhcy5kYXRhLmZyYW1lKGhhbmdpbmdbWzFdXVsxXSkNCmNsYXNzKGhhbmdpbmdfZGZfdDEpDQpgYGANCmBgYHtyfQ0KIyB2aWV3KGhhbmdpbmdfZGZfdDEpDQpzdHJvbmdfbmV0d190MSA8LSBkYXRhLm1hdHJpeChoYW5naW5nX2RmX3QxKQ0Kc3Ryb25nX25ldHdfdDFbc3Ryb25nX25ldHdfdDE9PTldPC1OQQ0KY2xhc3Moc3Ryb25nX25ldHdfdDEpDQpgYGANCmBgYHtyfQ0KIyB2aWV3KHN0cm9uZ19uZXR3X3QxKQ0KDQpoYW5naW5nX2RmX3QyIDwtIGFzLmRhdGEuZnJhbWUoaGFuZ2luZ1tbMV1dWzJdKQ0KY2xhc3MoaGFuZ2luZ19kZl90MikNCmBgYA0KYGBge3J9DQojIHZpZXcoaGFuZ2luZ19kZl90MikNCnN0cm9uZ19uZXR3X3QyIDwtIGRhdGEubWF0cml4KGhhbmdpbmdfZGZfdDIpDQpzdHJvbmdfbmV0d190MltzdHJvbmdfbmV0d190Mj09OV08LU5BDQpjbGFzcyhzdHJvbmdfbmV0d190MikNCmBgYA0KTWFraW5nIG93biBtYXRyaXgNCg0KYGBge3J9DQp0ZXN0bSA8LSBtYXRyaXgoTkEsIG5yb3cgPSA0LCBuY29sID0gNCkNCnRlc3RtWzEsMV0gPC0gMA0KdGVzdG1bMSwyXSA8LSAwDQp0ZXN0bVsxLDNdIDwtIE5BDQp0ZXN0bVszLDFdIDwtIDENCnRlc3RtWzMsMl0gPC0gMQ0KdGVzdG1bNCwyXSA8LSAwDQp0ZXN0bVs0LDJdIDwtIDENCnRlc3RtDQptcm93IDwtIHJvd1N1bXMoaXMubmEodGVzdG0pKSA9PSBucm93KHRlc3RtKQ0KbWNvbCA8LSBjb2xTdW1zKGlzLm5hKHRlc3RtKSkgPT0gbmNvbCh0ZXN0bSkNCm10b3QgPC0gd2hpY2gobXJvdyAmIG1jb2wpDQptdG90DQp0ZXN0bVt3aGljaChtcm93KSwgXSA8LSAwDQp0ZXN0bQ0KYGBgDQoNCg0KYGBge3J9DQpyZXF1aXJlKGlncmFwaCkNCnVuaTFub25hIDwtIHN0cm9uZ19uZXR3X3QxDQp1bmkxbm9uYVtpcy5uYSh1bmkxbm9uYSldIDwtIDANCnVuaTEgPC0gaWdyYXBoOjpncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgodW5pMW5vbmEsIG1vZGUgPSAiZGlyZWN0ZWQiLCB3ZWlnaHRlZCA9IE5VTEwsIGRpYWcgPSBUUlVFLCBhZGQuY29sbmFtZXMgPSBOQSwNCiAgICBhZGQucm93bmFtZXMgPSBOQSkNCg0KcGxvdCh1bmkxKQ0KYGBgDQpZYXkgSSBoYXZlIGEgZ3JhcGghISENCg0KYGBge3J9DQpWKHVuaTEpJHNpemUgPSBpZ3JhcGg6OmRlZ3JlZSh1bmkxKSAqIDEuMDUgKyA1DQpwbG90KHVuaTEpDQpgYGANCmBgYHtyfQ0KcGxvdCh1bmkxLCANCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4xLA0KICAgICB2ZXJ0ZXgubGFiZWwuY2V4ID0gMC40LA0KICAgICB2ZXJ0ZXguc2l6ZSA9IDEwKQ0KYGBgDQpgYGB7cn0NClYodW5pMSkkc2l6ZSA9IGlncmFwaDo6ZGVncmVlKHVuaTEpKjAuNSArIDUNCnBsb3QodW5pMSwgDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMSwNCiAgICAgdmVydGV4LmxhYmVsLmNleCA9IDAuNCkNCmBgYA0KDQpgYGB7cn0NCncxaW50ZXJuYXRpb25hbCA8LSBpbnRlcm5hdGlvbmFsW1sxXV0NCncxaW50ZXJuYXRpb25hbCA8LSB3MWludGVybmF0aW9uYWxbLCAiVzFJTlRFUk5BVElPTkFMIl0NCncxaW50ZXJuYXRpb25hbA0KcHJpbnQodW5pMSkNCg0KI2VkZ2VzIDwtIGlncmFwaDo6YXNfZGF0YV9mcmFtZSh1bmkxLCB3aGF0ID0gImVkZ2VzIikNCiNlZGdlcw0KI3VuaTIgPC0gZ3JhcGhfZnJvbV9kYXRhX2ZyYW1lKGVkZ2VzLCBkaXJlY3RlZCA9IFRSVUUsIHZlcnRpY2VzID0gc3R1ZGVudGlkcykNCiN2ZXJ0ZXhfYXR0cl9uYW1lcyh1bmkxKQ0KDQojVih1bmkxKSRpbnRlcm5hdGlvbmFsIDwtIHcxaW50ZXJuYXRpb25hbA0KDQojVih1bmkxKSRjb2xvciA8LSBpZmVsc2UoVih1bmkxKSR3MWludGVybmF0aW9uYWwgPT0gMSwgImJsdWUiLCAib3JhbmdlIikNCmxlbmd0aCh3MWludGVybmF0aW9uYWwpDQpsZW5ndGgoVih1bmkxKSkNCg0KDQpgYGANCkkgdGhpbmsgSSBsb3N0IHRoZSBjb25uZWN0aW9uIHRvIHRoZSBvcmlnaW5hbCBJRHMuIExldCdzIHRyeSBhZ2Fpbg0KDQpgYGB7cn0NCmNsYXNzKGhhbmdpbmdfZGZfdDIpDQpoYW5naW5ndDJub25hIDwtIGhhbmdpbmdfZGZfdDINCmhhbmdpbmd0Mm5vbmFbaGFuZ2luZ3Qybm9uYT09OV08LSAwDQpoYW5naW5ndDJub25hIDwtIGFzLm1hdHJpeChoYW5naW5ndDJub25hKQ0KDQoNCmhhbmdpbmd0MiA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoaGFuZ2luZ3Qybm9uYSkNCnBsb3QoaGFuZ2luZ3QyKQ0KDQpgYGANCmBgYHtyfQ0KVihoYW5naW5ndDIpJHNpemUgPSBpZ3JhcGg6OmRlZ3JlZShoYW5naW5ndDIpKjAuNSArIDUNCnBsb3QoaGFuZ2luZ3QyLCANCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4xLA0KICAgICB2ZXJ0ZXgubGFiZWwuY2V4ID0gMC40KQ0KYGBgDQpgYGB7cn0NCiNjaGVjayBuaW5hJ3MgbGFiIGpvdXJuYWwNCmBgYA0KDQojIFdlYnNjcmFwaW5nIHR1dG9yaWFsDQoNCmBgYHtyfQ0KI2luc3RhbGwucGFja2FnZXMoInhtbDIiKQ0KcmVxdWlyZSh4bWwyKQ0KI2luc3RhbGwucGFja2FnZXMoInJ2ZXN0IikNCnJlcXVpcmUocnZlc3QpDQpgYGANCmBgYHtyfQ0KdXJsIDwtICJodHRwczovL25vcy5ubC96b2VrZW4/cT1tZWVydGFsaWdoZWlkJnBhZ2U9MSINCg0Kbm9zIDwtIHJlYWRfaHRtbCh1cmwpDQoNCg0KI2VsZW1lbnRzOiBhbGxlIGVsZW1lbnRlbiwgZWxlbWVudDogw6nDqW4gZWxlbWVudA0KbGlqc3QgPC0gbm9zICU+JSBodG1sX2VsZW1lbnRzKCJtYWluIikgJT4lDQogIGh0bWxfZWxlbWVudHMoInVsIikgJT4lDQogIGh0bWxfZWxlbWVudHMoImxpIikNCg0KbGlqc3RbMV0gJT4lIGh0bWxfY2hpbGRyZW4gJT4lIGh0bWxfYXR0cihuYW1lPSJocmVmIikNCg0KbGlqc3RbMV0gJT4lIGh0bWxfZWxlbWVudHMoInRpbWUiKSAlPiUgDQogIGh0bWxfYXR0cihuYW1lPSJkYXRldGltZSIpDQoNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWs0Ig0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTIxIg0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KDQpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0NCmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpDQoja2xpcHB5OjprbGlwcHkoY29sb3IgPSAnZGFya3JlZCcpDQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpDQpgYGANCg0KIyBQbGF5aW5nIHdpdGggUGxvdHMNCg0KYGBge3J9DQpyZXF1aXJlKGlncmFwaCkNCmcgPC0gbWFrZV9ncmFwaCgiWmFjaGFyeSIpDQpwbG90KGcpDQpgYGANCg0KQXBwYXJlbnRseSwgdGhlcmUncyBhIHJhbmRvbSBjb21wb25lbnQgdG8gaG93IGdyYXBocyBhcmUgbWFkZTogcGxhY2VtZW50IG9mIG5vZGVzIGJhc2VkIG9uIHBvcHVsYXJpdHkuDQoNCmBgYHtyfQ0KZ21hdCA8LSBhc19hZGphY2VuY3lfbWF0cml4KGcsIHR5cGUgPSAiYm90aCIsIHNwYXJzZSA9IEZBTFNFKQ0KZ21hdA0KYGBgDQoNCmcgaXMgaW4gaWdyYXBoIGZvcm1hdCwgd2UganVzdCB0dXJuZWQgaXQgYmFjayBpbnRvIGEgbWF0cml4DQoNCmBgYHtyfQ0KaXNTeW1tZXRyaWMoZ21hdCkNCmBgYA0KDQpJZiBzeW1tZXRyaWMsIG5ldHdvcmsgaXMgdW5kaXJlY3RlZA0KDQpgYGB7cn0NCiMgYmUgYXdhcmUgdGhhdCBkaXJlY3RlZCBncmFwaHMgYXJlIGNvbnNpZGVyZWQgYXMgdW5kaXJlY3RlZC4gYnV0IGcgaXMgdW5kaXJlY3RlZC4NCmlncmFwaDo6dHJhbnNpdGl2aXR5KGcsIHR5cGUgPSBjKCJsb2NhbHVuZGlyZWN0ZWQiKSwgaXNvbGF0ZXMgPSBjKCJOYU4iLCAiemVybyIpKQ0KYGBgDQpXZSdyZSBjb3VudGluZyB0cmlhbmdsZXMgbm93LiBObyBwZXJzb24gaXMgc3RhbmRpbmcgb3V0Lg0KDQpgYGB7cn0NCmlncmFwaDo6YmV0d2Vlbm5lc3MoZywgZGlyZWN0ZWQgPSBGQUxTRSkNCmBgYA0KMSBhbmQgMzQgaGF2ZSBhIFZFUlkgaGlnaCBiZXR3ZWVubmVzcyBzY29yZS4gTm90IHZlcnkgdmlzaWJsZSBpbiBpbml0aWFsIGdyYXBoLCBzbyBpZiB3ZSB3YW50IHRvIGZvY3VzIG9uIHRoaXMgZmluZGluZywgd2Ugd2FudCBhIGdyYXBoIHdoZXJlIDEgYW5kIDM0IGRvIG5vdCBvdmVybGFwIHNvIG11Y2ggd2l0aCBvdGhlciBub2Rlcy4gMyBpcyBhbHNvIGludGVyZXN0aW5nOiBicmlkZ2UgYmV3ZWVuIGJyaWRnZT8NCg0KKkhvdyBjYW4gd2UgZW1waGFzaXNlIHRoaXMgaW4gdmlzdWFsaXNhdGlvbj8qIA0KDQpodWUgcGFsZXQsIHZpYnJhbmN5IGJhc2VkIG9uIGJldHdlZW5uZXNzIChzdGFuZGFyZGlzZWQpDQpzaXplIGJhc2VkIG9uIGJldHdlZW5uZXNzDQpvciBjaGFuZ2UgbGF5b3V0DQoNCmBgYHtyfQ0KaWdyYXBoOjpkeWFkX2NlbnN1cyhnKQ0KYGBgDQpgYGB7cn0NCmlncmFwaDo6dHJpYWRfY2Vuc3VzKGcpDQojIEkgd2lsbCB1c2Ugc25hIGJlY2F1c2UgaXQgc2hvd3MgdGhlIG5hbWVzIG9mIHRoZSB0cmlhZHMgYXMgd2VsbC4NCnNuYTo6dHJpYWQuY2Vuc3VzKGdtYXQpDQp1bmxvYWROYW1lc3BhY2UoInNuYSIpICAjSSB3aWxsIGRldGFjaCB0aGlzIHBhY2thZ2UgYWdhaW4sIG90aGVyd2lzZSBpdCB3aWxsIGludGVyZmVyZSB3aXRoIGFsbCBraW5kIG9mIGZ1bmN0aW9ucyBmcm9tIGlncmFwaCwgYW5kIG15IHN0dWRlbnRzIHdpbGwgaGF0ZSBtZSBmb3IgdGhhdC4NCmBgYA0KDQpUcmFuc2l0aXZpdHk6IGhvdyBtYW55IHRyaWFkcyBhcmUgY2xvc2VkIGRpdmlkZWQgYnkgdGhlIHRvdGFsIGFtb3VudCBvZiB0cmlhZHMgdGhhdCBhcmUgb3IgY291bGQgaGF2ZSBiZWVuIGNsb3NlZC4NCjMwMCBpcyBmdWxseSBjbG9zZWQ6DQotIGxhc3QgZGlnaXQ6IG51bWJlciBvZiBkeWFkcyB3aXRob3V0IHRpZXMNCi0gc2Vjb25kIGRpZ2l0OiBudW1iZXIgb2YgZHlhZHMgd2l0aCBvbmUgdGllDQotIGZpcnN0IGRpZ2l0OiBudW1iZXIgb2YgZHlhZHMgd2l0aCB0d28gdGllcyAobXV0dWFsIGR5YWRzKQ0KLSBzcGVjaWZpYyBzdWJ0eXBlOg0KICBDOiBjeWNsaWMNCiAgRDogZG93bndhcmQNCiAgVTogdXB3YXJkDQogIFQ6IHRyYW5zaXRpdmUNCg0KVWl0Z2FhbmQgdmFuIGFjdG9ycGVyc3BlY3RpZWYgd29yZHQgw6nDqW4gdHJpYWRlIDMga2VlciBnZXRlbGQgKMOpw6luIGtlZXIgdmFudWl0IGVsa2UgYmV0cm9ra2VuIGFjdG9yKS4NCg0KTWFudWFsbHkgY2FsY3VsYXRpbmcgZ2xvYmFsIHRyYW5zaXRpdml0eToNCg0KYGBge3J9DQppZ3JhcGg6OnRyYW5zaXRpdml0eShnLCB0eXBlID0gImdsb2JhbCIpDQpzbmE6Omd0cmFucyhnbWF0KQ0KDQp0cmlhZF9nIDwtIGRhdGEuZnJhbWUoc25hOjp0cmlhZC5jZW5zdXMoZ21hdCkpDQoNCnRyYW5zaXRpdml0eV9nIDwtICgzICogdHJpYWRfZyRYMzAwKS8odHJpYWRfZyRYMjAxICsgMyAqIHRyaWFkX2ckWDMwMCkNCnRyYW5zaXRpdml0eV9nDQpgYGANCg0KKGxvY2FsIHRyYW5zaXRpdml0eSB3b3VsZCBiZSB0cmFuc2l0aXZpdHkgaW4gbmV0d29yayBvZiBlZ28pDQoNCjEgYW5kIDM0IGFyZSBub3QgY29ubmVjdGVkLCBib3RoIGhhdmUgaGlnaCBiZXR3ZWVubmVzcywgYnV0IGxvdyBsb2NhbCB0cmFuc2l0aXZpdHkgLSBsZXQncyB2aXN1YWxpc2UgdGhhdCBzdG9yeToNCg0KYGBge3J9DQojIGNoYW5naW5nIFYNClYoZykkc2l6ZSA9IGJldHdlZW5uZXNzKGcsIG5vcm1hbGl6ZWQgPSBULCBkaXJlY3RlZCA9IEZBTFNFKSAqIDYwICsgMTAgICNhZnRlciBzb21lIHRyaWFsIGFuZCBlcnJvcg0KcGxvdChnLCBtb2RlID0gInVuZGlyZWN0ZWQiKQ0KYGBgDQoNClYgaXMgYWJvdXQgdmVydGljZXMsIGUgaXMgYWJvdXQgZWRnZXMNCg0KVG8gbWFrZSBpdCBsb29rIG5pY2UgaW4gYXJ0aWNsZSwgZGVmaW5lIHNpemUgb2YgcGxvdCB3aW5kb3cgYmVmb3JlaGFuZCBmb3IgYWxsbGxsIGltYWdlcyEgDQoNCmBgYHtyfQ0Kc2V0LnNlZWQoMjM0NSkNCmwgPC0gbGF5b3V0X3dpdGhfbWRzKGcpICAjaHR0cHM6Ly9pZ3JhcGgub3JnL3IvZG9jL2xheW91dF93aXRoX21kcy5odG1sDQpwbG90KGcsIGxheW91dCA9IGwpDQpgYGANCmBgYHtyfQ0KbCAgI2xldCB1cyB0YWtlIGEgbG9vayBhdCB0aGUgY29vcmRpbmF0ZXMNCmxbMSwgMV0gPC0gNA0KbFszNCwgMV0gPC0gLTMuNQ0KcGxvdChnLCBsYXlvdXQgPSBsKQ0KYGBgDQpTZWNvbmQgaW1hZ2Ugc3VnZ2VzdHMgY29uZmxpY3QsIGdyb3VwIGJlaW5nIHB1bGxlZCBhcGFydCBieSAzNCBhbmQgMS4gDQpJbiBhcnRpY2xlOiBleHBsYWluIHRoYXQgMSBhbmQgMzQgd2VyZSBtYW51YWxseSBwbGFjZWQgYXQgb3Bwb3NpdGUgc2lkZXMgb2YgdGhlIG5ldHdvcmsgdG8gaWxsdXN0cmF0ZSB0aGUgZGVzY3JpYmVkIHByb2Nlc3MuDQoNCiMgUGxvdHRpbmcgT24gQXNod2luJ3MgZGF0YQ0KDQpgYGB7cn0NCmxvYWQoIi4vZGF0YS9JbmRpdmlkdWFsQ2hhcmFjdGVyaXN0aWNzLlJEYXRhIikNCmxvYWQoIi4vZGF0YS9OZXR3b3JrQ2hhcmFjdGVyaXN0aWNzLlJEYXRhIikNCmBgYA0KDQpgYGB7cn0NCiMgdmlldyhoYW5naW5nW1sxXV0pDQpoYW5naW5nX2RmX3QxIDwtIGFzLmRhdGEuZnJhbWUoaGFuZ2luZ1tbMV1dWzFdKQ0KY2xhc3MoaGFuZ2luZ19kZl90MSkNCmBgYA0KYGBge3J9DQojIHZpZXcoaGFuZ2luZ19kZl90MSkNCnN0cm9uZ19uZXR3X3QxIDwtIGRhdGEubWF0cml4KGhhbmdpbmdfZGZfdDEpDQpzdHJvbmdfbmV0d190MVtzdHJvbmdfbmV0d190MT09OV08LU5BDQpjbGFzcyhzdHJvbmdfbmV0d190MSkNCmBgYA0KYGBge3J9DQojIHZpZXcoc3Ryb25nX25ldHdfdDEpDQoNCmhhbmdpbmdfZGZfdDIgPC0gYXMuZGF0YS5mcmFtZShoYW5naW5nW1sxXV1bMl0pDQpjbGFzcyhoYW5naW5nX2RmX3QyKQ0KYGBgDQpgYGB7cn0NCiMgdmlldyhoYW5naW5nX2RmX3QyKQ0Kc3Ryb25nX25ldHdfdDIgPC0gZGF0YS5tYXRyaXgoaGFuZ2luZ19kZl90MikNCnN0cm9uZ19uZXR3X3QyW3N0cm9uZ19uZXR3X3QyPT05XTwtTkENCmNsYXNzKHN0cm9uZ19uZXR3X3QyKQ0KYGBgDQpNYWtpbmcgb3duIG1hdHJpeA0KDQpgYGB7cn0NCnRlc3RtIDwtIG1hdHJpeChOQSwgbnJvdyA9IDQsIG5jb2wgPSA0KQ0KdGVzdG1bMSwxXSA8LSAwDQp0ZXN0bVsxLDJdIDwtIDANCnRlc3RtWzEsM10gPC0gTkENCnRlc3RtWzMsMV0gPC0gMQ0KdGVzdG1bMywyXSA8LSAxDQp0ZXN0bVs0LDJdIDwtIDANCnRlc3RtWzQsMl0gPC0gMQ0KdGVzdG0NCm1yb3cgPC0gcm93U3Vtcyhpcy5uYSh0ZXN0bSkpID09IG5yb3codGVzdG0pDQptY29sIDwtIGNvbFN1bXMoaXMubmEodGVzdG0pKSA9PSBuY29sKHRlc3RtKQ0KbXRvdCA8LSB3aGljaChtcm93ICYgbWNvbCkNCm10b3QNCnRlc3RtW3doaWNoKG1yb3cpLCBdIDwtIDANCnRlc3RtDQpgYGANCg0KDQpgYGB7cn0NCnJlcXVpcmUoaWdyYXBoKQ0KdW5pMW5vbmEgPC0gc3Ryb25nX25ldHdfdDENCnVuaTFub25hW2lzLm5hKHVuaTFub25hKV0gPC0gMA0KdW5pMSA8LSBpZ3JhcGg6OmdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeCh1bmkxbm9uYSwgbW9kZSA9ICJkaXJlY3RlZCIsIHdlaWdodGVkID0gTlVMTCwgZGlhZyA9IFRSVUUsIGFkZC5jb2xuYW1lcyA9IE5BLA0KICAgIGFkZC5yb3duYW1lcyA9IE5BKQ0KDQpwbG90KHVuaTEpDQpgYGANCllheSBJIGhhdmUgYSBncmFwaCEhIQ0KDQpgYGB7cn0NClYodW5pMSkkc2l6ZSA9IGlncmFwaDo6ZGVncmVlKHVuaTEpICogMS4wNSArIDUNCnBsb3QodW5pMSkNCmBgYA0KYGBge3J9DQpwbG90KHVuaTEsIA0KICAgICBlZGdlLmFycm93LnNpemUgPSAwLjEsDQogICAgIHZlcnRleC5sYWJlbC5jZXggPSAwLjQsDQogICAgIHZlcnRleC5zaXplID0gMTApDQpgYGANCmBgYHtyfQ0KVih1bmkxKSRzaXplID0gaWdyYXBoOjpkZWdyZWUodW5pMSkqMC41ICsgNQ0KcGxvdCh1bmkxLCANCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4xLA0KICAgICB2ZXJ0ZXgubGFiZWwuY2V4ID0gMC40KQ0KYGBgDQoNCmBgYHtyfQ0KdzFpbnRlcm5hdGlvbmFsIDwtIGludGVybmF0aW9uYWxbWzFdXQ0KdzFpbnRlcm5hdGlvbmFsIDwtIHcxaW50ZXJuYXRpb25hbFssICJXMUlOVEVSTkFUSU9OQUwiXQ0KdzFpbnRlcm5hdGlvbmFsDQpwcmludCh1bmkxKQ0KDQojZWRnZXMgPC0gaWdyYXBoOjphc19kYXRhX2ZyYW1lKHVuaTEsIHdoYXQgPSAiZWRnZXMiKQ0KI2VkZ2VzDQojdW5pMiA8LSBncmFwaF9mcm9tX2RhdGFfZnJhbWUoZWRnZXMsIGRpcmVjdGVkID0gVFJVRSwgdmVydGljZXMgPSBzdHVkZW50aWRzKQ0KI3ZlcnRleF9hdHRyX25hbWVzKHVuaTEpDQoNCiNWKHVuaTEpJGludGVybmF0aW9uYWwgPC0gdzFpbnRlcm5hdGlvbmFsDQoNCiNWKHVuaTEpJGNvbG9yIDwtIGlmZWxzZShWKHVuaTEpJHcxaW50ZXJuYXRpb25hbCA9PSAxLCAiYmx1ZSIsICJvcmFuZ2UiKQ0KbGVuZ3RoKHcxaW50ZXJuYXRpb25hbCkNCmxlbmd0aChWKHVuaTEpKQ0KDQoNCmBgYA0KSSB0aGluayBJIGxvc3QgdGhlIGNvbm5lY3Rpb24gdG8gdGhlIG9yaWdpbmFsIElEcy4gTGV0J3MgdHJ5IGFnYWluDQoNCmBgYHtyfQ0KY2xhc3MoaGFuZ2luZ19kZl90MikNCmhhbmdpbmd0Mm5vbmEgPC0gaGFuZ2luZ19kZl90Mg0KaGFuZ2luZ3Qybm9uYVtoYW5naW5ndDJub25hPT05XTwtIDANCmhhbmdpbmd0Mm5vbmEgPC0gYXMubWF0cml4KGhhbmdpbmd0Mm5vbmEpDQoNCg0KaGFuZ2luZ3QyIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChoYW5naW5ndDJub25hLCBtb2RlID0gImRpcmVjdGVkIiwgd2VpZ2h0ZWQgPSBOVUxMLCBkaWFnID0gVFJVRSwgYWRkLmNvbG5hbWVzID0gTkEsIGFkZC5yb3duYW1lcyA9IE5BKQ0KcGxvdChoYW5naW5ndDIpDQoNCmBgYA0KVWdseSB2ZXJzaW9uIHN1Y2NlZWRlZC4gTm93LCBjaGFuZ2Ugc2l6ZSBiYXNlZCBvbiBkZWdyZWUgYW5kIG1ha2UgaXQgYSBsaXR0bGUgcHJldHRpZXI6DQpgYGB7cn0NClYoaGFuZ2luZ3QyKSRzaXplID0gaWdyYXBoOjpkZWdyZWUoaGFuZ2luZ3QyKSowLjUgKyA1DQpwbG90KGhhbmdpbmd0MiwgDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMSwNCiAgICAgdmVydGV4LmxhYmVsLmNleCA9IDAuNCkNCmBgYA0KTm90IGJhZCENCk9rYXkgdGhpcyBpcyB3aGF0IGZhaWxlZCBsYXN0IHRpbWUsIGxldCdzIHNlZSBpZiBOaW5hJ3MgY29kZSBzYXZlcyBtZToNCmBgYHtyfQ0KI2ZpcnN0IGlzb2xhdGUgaW50ZXJuYXRpb25hbCB3YXZlIDINCncyaW50ZXJuYXRpb25hbCA8LSBpbnRlcm5hdGlvbmFsW1sxXV0NCncyaW50ZXJuYXRpb25hbCA8LSB3MmludGVybmF0aW9uYWxbLCAiVzJJTlRFUk5BVElPTkFMIl0NCncyaW50ZXJuYXRpb25hbA0KDQojY3JlZGl0cyB0byBuaW5hJ3MgbGFiIGpvdXJuYWwNCmNvbG91cmludGVybmF0aW9uYWwgPC0gaWZlbHNlKHcyaW50ZXJuYXRpb25hbD09MSwgInB1cnBsZSIsICJjeWFuNCIpICNJIHRob3VnaHQgSSB0cmllZCB0aGlzIGJlZm9yZT8/Pw0KcGxvdChoYW5naW5ndDIsDQogICAgIHZlcnRleC5jb2xvciA9IGNvbG91cmludGVybmF0aW9uYWwsICMgbmljZSBjb2xvciBmb3IgdGhlIHZlcnRpY2VzDQogICAgIHZlcnRleC5mcmFtZS5jb2xvciA9ICJncmF5IiwgICMgd2UnbGwgcHV0IGEgZ3JheSBmcmFtZSBhcm91bmQgdmVydGljZXMNCiAgICAgdmVydGV4LmxhYmVsLmNvbG9yID0gImJsYWNrIiwgICMgbm90IHRoYXQgdWdseSBibHVlIGNvbG9yIGZvciB0aGUgbGFiZWxzIChuYW1lcykNCiAgICAgdmVydGV4LmxhYmVsLmNleCA9IDAuNCwgICMgbWFrZSB0aGUgbGFiZWwgYSBiaXQgc21hbGxlciB0b28NCiAgICAgdmVydGV4LmxhYmVsLmRpc3QgPSAwLjksICAjIHdlJ2xsIHB1bGwgdGhlIGxhYmVscyBhIGJpdCBhd2F5IGZyb20gdGhlIHZlcnRpY2VzDQogICAgIGVkZ2UuY3VydmVkID0gMC4yLCAjIGN1cnZlZCBlZGdlcyBpcyBhbHdheXMgYSBuaWNlIHRvdWNoDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMSkNCg0KYGBgDQpZYXkgaXQgd29ya2VkISBJdCBhdXRvbWF0aWNhbGx5IG1ha2VzIGFsbCBOQXMgd2hpdGUgLSB0aGF0J3MgbmljZSEgSSBvbmx5IHNlZSBvbmUgaW50ZXJuYXRpb25hbCwgYW5kIHRoZXkncmUgdmVyeSBpc29sYXRlZC4uLiA6KCANCg0KTGV0J3MgdHJ5IHRoZSBzYW1lIHdpdGggYSBtb3JlIGVxdWFsbHkgZGlzdHJpYnV0ZWQgYXR0cmlidXRlIGxpa2UgZ2VuZGVyOg0KYGBge3J9DQojZmlyc3QgaXNvbGF0ZSBnZW5kZXIgd2F2ZSAyDQp3MmdlbmRlciA8LSBnZW5kZXJbWzFdXQ0KdzJnZW5kZXIgPC0gdzJnZW5kZXJbLCAiVDJHRU5ERVIiXQ0KdzJnZW5kZXINCg0KI2NvbG91ciBiYXNlZCBvbiBnZW5kZXINCmNvbG91cmdlbmRlciA8LSBpZmVsc2UodzJnZW5kZXI9PTEsICJwdXJwbGUiLCAiY3lhbjQiKQ0KDQojcGxvdA0KcGxvdChoYW5naW5ndDIsDQogICAgIHZlcnRleC5jb2xvciA9IGNvbG91cmdlbmRlciwgIyBuaWNlIGNvbG9yIGZvciB0aGUgdmVydGljZXMNCiAgICAgdmVydGV4LmZyYW1lLmNvbG9yID0gImdyYXkiLCAgIyB3ZSdsbCBwdXQgYSBncmF5IGZyYW1lIGFyb3VuZCB2ZXJ0aWNlcw0KICAgICB2ZXJ0ZXgubGFiZWwuY29sb3IgPSAiYmxhY2siLCAgIyBub3QgdGhhdCB1Z2x5IGJsdWUgY29sb3IgZm9yIHRoZSBsYWJlbHMgKG5hbWVzKQ0KICAgICB2ZXJ0ZXgubGFiZWwuY2V4ID0gMC40LCAgIyBtYWtlIHRoZSBsYWJlbCBhIGJpdCBzbWFsbGVyIHRvbw0KICAgICB2ZXJ0ZXgubGFiZWwuZGlzdCA9IDAuOSwgICMgd2UnbGwgcHVsbCB0aGUgbGFiZWxzIGEgYml0IGF3YXkgZnJvbSB0aGUgdmVydGljZXMNCiAgICAgZWRnZS5jdXJ2ZWQgPSAwLjIsICMgY3VydmVkIGVkZ2VzIGlzIGFsd2F5cyBhIG5pY2UgdG91Y2gNCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4xKQ0KYGBgDQpPb29vb2ggZnVuISBJbnRlcmVzdGluZywgaXQgc2VlbXMgbGlrZSB0aGVyZSBpc24ndCBhIGxvdCBvZiBnZW5kZXIgc2VncmVnYXRpb24gZ29pbmcgb24uIEkgZ3Vlc3MgcGVvcGxlIGhhdmUgc29tZXdoYXQgZ3Jvd24gb3V0IG9mIHRoYXQgYnkgdGhlIHRpbWUgdGhleSBzdGFydCB1bmkhDQoNCkkgZG8gZmVlbCBsaWtlIHRoZSBzaXplIGlzIGEgYml0IHRvbyBzbWFsbCBub3cuIExldCdzIHNlZSBpZiB3ZSBjYW4gZG8gc29tZXRoaW5nIGFib3V0IHRoYXQ6DQoNCmBgYHtyfQ0KVihoYW5naW5ndDIpJHNpemUgPSBpZ3JhcGg6OmRlZ3JlZShoYW5naW5ndDIpICsgOA0KcGxvdChoYW5naW5ndDIsDQogICAgIHZlcnRleC5jb2xvciA9IGNvbG91cmdlbmRlciwgIyBuaWNlIGNvbG9yIGZvciB0aGUgdmVydGljZXMNCiAgICAgdmVydGV4LmZyYW1lLmNvbG9yID0gImdyYXkiLCAgIyB3ZSdsbCBwdXQgYSBncmF5IGZyYW1lIGFyb3VuZCB2ZXJ0aWNlcw0KICAgICB2ZXJ0ZXgubGFiZWwuY29sb3IgPSAiYmxhY2siLCAgIyBub3QgdGhhdCB1Z2x5IGJsdWUgY29sb3IgZm9yIHRoZSBsYWJlbHMgKG5hbWVzKQ0KICAgICB2ZXJ0ZXgubGFiZWwuY2V4ID0gMC40LCAgIyBtYWtlIHRoZSBsYWJlbCBhIGJpdCBzbWFsbGVyIHRvbw0KICAgICB2ZXJ0ZXgubGFiZWwuZGlzdCA9IDAuNSwgICMgd2UnbGwgcHVsbCB0aGUgbGFiZWxzIGEgYml0IGF3YXkgZnJvbSB0aGUgdmVydGljZXMNCiAgICAgZWRnZS5jdXJ2ZWQgPSAwLjIsICMgY3VydmVkIGVkZ2VzIGlzIGFsd2F5cyBhIG5pY2UgdG91Y2gNCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4xKQ0KYGBgDQpJIGxpa2UgdGhpcyEgSSBmZWVsIGxpa2UgSSdtIHNlZWluZyB0aHJlZSBjbHVzdGVycywgdHdvIGJpZ2dlciBvbmVzIGFuZCBhIHNtYWxsZXIgb25lLiBQYXJ0aWN1bGFybHkgaW4gdGhlIHR3byBiaWdnZXIgZ3JvdXBzLCB0aGVyZSdzIHBlb3BsZSB3aXRoIGEgaGlnaCBkZWdyZWUuIFRvd2FyZHMgdGhlIGVkZ2Ugb2YgdGhlIGdyYXBoLCBkZWdyZWVzIGFyZSBzbWFsbGVyLiAzOSBkb2VzIG5vdCBoYXZlIGEgdmVyeSBoaWdoIGRlZ3JlZSwgYnV0IGRvZXMgc2VlbSB0byBmb3JtIGEgYnJpZGdlIGJldHdlZW4gdGhlIHR3byBiaWdnZXIgZ3JvdXBzLiANCk1heWJlIEkgY2FuIGRvIHNvbWV0aGluZyB3aXRoIGJldHdlZW5uZXNzPw0KDQpgYGB7cn0NClYoaGFuZ2luZ3QyKSRzaXplID0gaWdyYXBoOjpiZXR3ZWVubmVzcyhoYW5naW5ndDIpKjAuOCArIDgNCnBsb3QoaGFuZ2luZ3QyLA0KICAgICB2ZXJ0ZXguY29sb3IgPSBjb2xvdXJnZW5kZXIsICMgbmljZSBjb2xvciBmb3IgdGhlIHZlcnRpY2VzDQogICAgIHZlcnRleC5mcmFtZS5jb2xvciA9ICJncmF5IiwgICMgd2UnbGwgcHV0IGEgZ3JheSBmcmFtZSBhcm91bmQgdmVydGljZXMNCiAgICAgdmVydGV4LmxhYmVsLmNvbG9yID0gImJsYWNrIiwgICMgbm90IHRoYXQgdWdseSBibHVlIGNvbG9yIGZvciB0aGUgbGFiZWxzIChuYW1lcykNCiAgICAgdmVydGV4LmxhYmVsLmNleCA9IDAuNCwgICMgbWFrZSB0aGUgbGFiZWwgYSBiaXQgc21hbGxlciB0b28NCiAgICAgdmVydGV4LmxhYmVsLmRpc3QgPSAwLjksICAjIHdlJ2xsIHB1bGwgdGhlIGxhYmVscyBhIGJpdCBhd2F5IGZyb20gdGhlIHZlcnRpY2VzDQogICAgIGVkZ2UuY3VydmVkID0gMC4yLCAjIGN1cnZlZCBlZGdlcyBpcyBhbHdheXMgYSBuaWNlIHRvdWNoDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMSkNCmBgYA0KT09GLiBMb29rcyBsaWtlIHNvbWUgcGVvcGxlIGhhdmUgc3VjaCBhIGhpZ2ggYmV0d2Vlbm5lc3Mgc2NvcmUgdGhhdCB0aGlzIGRvZXMgbm90IHdvcmsgYXQgYWxsLiBNYXliZSBpZiBJIG5vcm1hbGlzZSBpdCB0aG91Z2g/DQoNCmBgYHtyfQ0KVihoYW5naW5ndDIpJHNpemUgPSBiZXR3ZWVubmVzcyhoYW5naW5ndDIsIG5vcm1hbGl6ZWQgPSBULCBkaXJlY3RlZCA9IFRSVUUpICogNjAgKyA4DQpwbG90KGhhbmdpbmd0MiwNCiAgICAgdmVydGV4LmNvbG9yID0gY29sb3VyZ2VuZGVyLCAjIG5pY2UgY29sb3IgZm9yIHRoZSB2ZXJ0aWNlcw0KICAgICB2ZXJ0ZXguZnJhbWUuY29sb3IgPSAiZ3JheSIsICAjIHdlJ2xsIHB1dCBhIGdyYXkgZnJhbWUgYXJvdW5kIHZlcnRpY2VzDQogICAgIHZlcnRleC5sYWJlbC5jb2xvciA9ICJibGFjayIsICAjIG5vdCB0aGF0IHVnbHkgYmx1ZSBjb2xvciBmb3IgdGhlIGxhYmVscyAobmFtZXMpDQogICAgIHZlcnRleC5sYWJlbC5jZXggPSAwLjQsICAjIG1ha2UgdGhlIGxhYmVsIGEgYml0IHNtYWxsZXIgdG9vDQogICAgIHZlcnRleC5sYWJlbC5kaXN0ID0gMC45LCAgIyB3ZSdsbCBwdWxsIHRoZSBsYWJlbHMgYSBiaXQgYXdheSBmcm9tIHRoZSB2ZXJ0aWNlcw0KICAgICBlZGdlLmN1cnZlZCA9IDAuMiwgIyBjdXJ2ZWQgZWRnZXMgaXMgYWx3YXlzIGEgbmljZSB0b3VjaA0KICAgICBlZGdlLmFycm93LnNpemUgPSAwLjEpDQpgYGANCkhtbW0gd2VpcmQuIFdlIGRvbid0IGFjdHVhbGx5IHNlZSBodWdlIGRpZmZlcmVuY2VzIG5vdy4gSSBraW5kIG9mIHdhbnQgdG8gdGFrZSBhIGxvb2sgYXQgdGhlIGJldHdlZW5uZXNzIHNjb3JlcyB0aGVtc2VsdmVzLi4uDQoNCmBgYHtyfQ0KaWdyYXBoOjpiZXR3ZWVubmVzcyhoYW5naW5ndDIsIGRpcmVjdGVkID0gVFJVRSkNCmBgYA0KSSBkbyBzZWUgYSBsb3Qgb2YgdmFyaWF0aW9uIGluIGhlcmUuIE5vdCBzdXJlIHdoeSB0aGF0IGlzIG5vdCB0dXJuaW5nIHVwIGluIHRoZSBncmFwaC4gTWF5YmUgdGhlIG5vcm1hbGlzZWQgc2NvcmVzIGFyZSB2ZXJ5IHNtYWxsLiBJIGNvdWxkIG11bHRpcGx5IHdpdGggYSBoaWdoZXIgbnVtYmVyOg0KDQpgYGB7cn0NClYoaGFuZ2luZ3QyKSRzaXplID0gYmV0d2Vlbm5lc3MoaGFuZ2luZ3QyLCBub3JtYWxpemVkID0gVCwgZGlyZWN0ZWQgPSBUUlVFKSAqIDI1MCArIDgNCnBsb3QoaGFuZ2luZ3QyLA0KICAgICB2ZXJ0ZXguY29sb3IgPSBjb2xvdXJnZW5kZXIsICMgbmljZSBjb2xvciBmb3IgdGhlIHZlcnRpY2VzDQogICAgIHZlcnRleC5mcmFtZS5jb2xvciA9ICJncmF5IiwgICMgd2UnbGwgcHV0IGEgZ3JheSBmcmFtZSBhcm91bmQgdmVydGljZXMNCiAgICAgdmVydGV4LmxhYmVsLmNvbG9yID0gImJsYWNrIiwgICMgbm90IHRoYXQgdWdseSBibHVlIGNvbG9yIGZvciB0aGUgbGFiZWxzIChuYW1lcykNCiAgICAgdmVydGV4LmxhYmVsLmNleCA9IDAuNCwgICMgbWFrZSB0aGUgbGFiZWwgYSBiaXQgc21hbGxlciB0b28NCiAgICAgdmVydGV4LmxhYmVsLmRpc3QgPSAwLjksICAjIHdlJ2xsIHB1bGwgdGhlIGxhYmVscyBhIGJpdCBhd2F5IGZyb20gdGhlIHZlcnRpY2VzDQogICAgIGVkZ2UuY3VydmVkID0gMC4yLCAjIGN1cnZlZCBlZGdlcyBpcyBhbHdheXMgYSBuaWNlIHRvdWNoDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMSkNCmBgYA0KVGhhdCdzIGJldHRlciEgV2Ugc3RpbGwgc2VlIHRoZSB0d28gYmlnIGdyb3Vwcywgd2l0aCBtZW1iZXJzIHdobyBoYXZlIGEgaGlnaCBiZXR3ZWVubmVzcyBzY29yZS4gMTMsIDksIGFuZCAxOCBzdGFuZCBvdXQgd2l0aCB0aGVpciBtaWRkbGUgcG9zaXRpb24gYmV0d2VlbiB0aGUgdHdvIGdyb3Vwcy4gMzkncyBiZXR3ZWVubmVzcyBzY29yZSBpcyBhY3R1YWxseSBub3QgYXMgbGFyZ2UgYXMgSSB0aG91Z2h0IGl0IHdvdWxkIGJlLiBHb29kIHRvIGtub3chDQoNCk5vdyBsZXQncyB0cnkgdHJhbnNpdGl2aXR5LCB3aGljaCBtYXkgYmUgcmVsZXZhbnQgdG8gdW5kZXJzdGFuZCB0aGUgY2xvc2VuZXNzIG9mIHRoZSBvYnNlcnZlZCBmcmllbmQvJ2hhbmdpbmcnIGdyb3Vwcy4NCg0KYGBge3J9DQpWKGhhbmdpbmd0Mikkc2l6ZSA9IGlncmFwaDo6dHJhbnNpdGl2aXR5KGhhbmdpbmd0MiwgdHlwZSA9ICJsb2NhbCIsIGlzb2xhdGVzID0gInplcm8iKSoxMCArIDgNCnBsb3QoaGFuZ2luZ3QyLA0KICAgICB2ZXJ0ZXguY29sb3IgPSBjb2xvdXJnZW5kZXIsICMgbmljZSBjb2xvciBmb3IgdGhlIHZlcnRpY2VzDQogICAgIHZlcnRleC5mcmFtZS5jb2xvciA9ICJncmF5IiwgICMgd2UnbGwgcHV0IGEgZ3JheSBmcmFtZSBhcm91bmQgdmVydGljZXMNCiAgICAgdmVydGV4LmxhYmVsLmNvbG9yID0gImJsYWNrIiwgICMgbm90IHRoYXQgdWdseSBibHVlIGNvbG9yIGZvciB0aGUgbGFiZWxzIChuYW1lcykNCiAgICAgdmVydGV4LmxhYmVsLmNleCA9IDAuNCwgICMgbWFrZSB0aGUgbGFiZWwgYSBiaXQgc21hbGxlciB0b28NCiAgICAgdmVydGV4LmxhYmVsLmRpc3QgPSAwLjUsICAjIHdlJ2xsIHB1bGwgdGhlIGxhYmVscyBhIGJpdCBhd2F5IGZyb20gdGhlIHZlcnRpY2VzDQogICAgIGVkZ2UuY3VydmVkID0gMC4yLCAjIGN1cnZlZCBlZGdlcyBpcyBhbHdheXMgYSBuaWNlIHRvdWNoDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMSkNCmBgYA0KQ29vbCEgODMgYW5kIDk1LCB3aG8gaGFkIGEgdmVyeSBoaWdoIGRlZ3JlZSwgZG9uJ3Qgc3RhbmQgb3V0IG5vdy4gV2hhdCBpcyB0aGVpciBsb2NhbCB0cmFuc2l0aXZpdHkgc2NvcmUgYWN0dWFsbHk/DQpgYGB7cn0NCmlncmFwaDo6dHJhbnNpdGl2aXR5KGhhbmdpbmd0MiwgdHlwZSA9ICJsb2NhbCIsIGlzb2xhdGVzID0gInplcm8iKQ0KYGBgDQpZZWFoLCB0aGVpciB0cmFuc2l0aXZpdHkgaXMgdmVyeSBhdmVyYWdlLiBTbyB3ZSBoYXZlIHR3byBwZW9wbGUgKDgzIGFuZCA5NSkgd2hvIGFyZSBoYW5naW5nIG91dCB3aXRoIGxvdHMgb2Ygb3RoZXJzLCB3aG8gc29ydCBvZiBjbHVzdGVyIGFyb3VuZCB0aGVtLiBUaGVpciBmcmllbmRzIGhvd2V2ZXIgYXJlIG5vdCBuZWNlc3NhcmlseSBzdXBlciBjb25uZWN0ZWQgdG8gb25lIGFub3RoZXIsIHNvIGl0IGRvZXNuJ3Qgc2VlbSBsaWtlIHRoZXkgYXJlIHN1cGVyIHRpZ2h0IGZyaWVuZCBncm91cHMgLSBqdXN0IHR3byBwb3B1bGFyIGtpZHMuIDgzIGFuZCA5NSBhcmUgbm90IGhhbmdpbmcgb3V0IHRvZ2V0aGVyLiANCg0KIyBXZWJzY3JhcGluZyB0dXRvcmlhbA0KDQpgYGB7cn0NCiNpbnN0YWxsLnBhY2thZ2VzKCJ4bWwyIikNCnJlcXVpcmUoeG1sMikNCiNpbnN0YWxsLnBhY2thZ2VzKCJydmVzdCIpDQpyZXF1aXJlKHJ2ZXN0KQ0KYGBgDQpgYGB7cn0NCnVybCA8LSAiaHR0cHM6Ly9ub3Mubmwvem9la2VuP3E9bWVlcnRhbGlnaGVpZCZwYWdlPTEiDQoNCm5vcyA8LSByZWFkX2h0bWwodXJsKQ0KDQoNCiNlbGVtZW50czogYWxsZSBlbGVtZW50ZW4sIGVsZW1lbnQ6IMOpw6luIGVsZW1lbnQNCmxpanN0IDwtIG5vcyAlPiUgaHRtbF9lbGVtZW50cygibWFpbiIpICU+JQ0KICBodG1sX2VsZW1lbnRzKCJ1bCIpICU+JQ0KICBodG1sX2VsZW1lbnRzKCJsaSIpDQoNCmxpanN0WzFdICU+JSBodG1sX2NoaWxkcmVuICU+JSBodG1sX2F0dHIobmFtZT0iaHJlZiIpDQoNCmxpanN0WzFdICU+JSBodG1sX2VsZW1lbnRzKCJ0aW1lIikgJT4lIA0KICBodG1sX2F0dHIobmFtZT0iZGF0ZXRpbWUiKQ0KDQpgYGANCg0K</div>
 
 
 </div>
