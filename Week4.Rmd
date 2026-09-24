@@ -267,7 +267,7 @@ w2gender <- w2gender[, "T2GENDER"]
 w2gender
 
 #colour based on gender
-colourgender <- ifelse(w2gender==1, "purple", "cyan4")
+colourgender <- ifelse(w2gender==1, "thistle1", "aquamarine")
 
 #plot
 plot(hangingt2,
@@ -284,7 +284,7 @@ Oooooh fun! Interesting, it seems like there isn't a lot of gender segregation g
 I do feel like the size is a bit too small now. Let's see if we can do something about that:
 
 ```{r}
-V(hangingt2)$size = igraph::degree(hangingt2) + 8
+V(hangingt2)$size = igraph::degree(hangingt2)*0.7 + 7
 plot(hangingt2,
      vertex.color = colourgender, # nice color for the vertices
      vertex.frame.color = "gray",  # we'll put a gray frame around vertices
@@ -294,11 +294,27 @@ plot(hangingt2,
      edge.curved = 0.2, # curved edges is always a nice touch
      edge.arrow.size = 0.1)
 ```
+
+Trying some other things in graphic design of plot:
+```{r}
+V(hangingt2)$size = igraph::degree(hangingt2)*0.7 + 7
+plot(hangingt2,
+     vertex.color = colourgender, # nice color for the vertices
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     vertex.label.dist = 0.5,  # we'll pull the labels a bit away from the vertices
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1,
+     edge.color = "grey75")
+```
+
+
 I like this! I feel like I'm seeing three clusters, two bigger ones and a smaller one. Particularly in the two bigger groups, there's people with a high degree. Towards the edge of the graph, degrees are smaller. 39 does not have a very high degree, but does seem to form a bridge between the two bigger groups. 
 Maybe I can do something with betweenness?
 
 ```{r}
-V(hangingt2)$size = igraph::betweenness(hangingt2)*0.8 + 8
+V(hangingt2)$size = igraph::betweenness(hangingt2)*0.7 + 7
 plot(hangingt2,
      vertex.color = colourgender, # nice color for the vertices
      vertex.frame.color = "gray",  # we'll put a gray frame around vertices
@@ -311,7 +327,7 @@ plot(hangingt2,
 OOF. Looks like some people have such a high betweenness score that this does not work at all. Maybe if I normalise it though?
 
 ```{r}
-V(hangingt2)$size = betweenness(hangingt2, normalized = T, directed = TRUE) * 60 + 8
+V(hangingt2)$size = betweenness(hangingt2, normalized = T, directed = TRUE) * 60 + 7
 plot(hangingt2,
      vertex.color = colourgender, # nice color for the vertices
      vertex.frame.color = "gray",  # we'll put a gray frame around vertices
@@ -329,7 +345,7 @@ igraph::betweenness(hangingt2, directed = TRUE)
 I do see a lot of variation in here. Not sure why that is not turning up in the graph. Maybe the normalised scores are very small. I could multiply with a higher number:
 
 ```{r}
-V(hangingt2)$size = betweenness(hangingt2, normalized = T, directed = TRUE) * 250 + 8
+V(hangingt2)$size = betweenness(hangingt2, normalized = T, directed = TRUE) * 250 + 7
 plot(hangingt2,
      vertex.color = colourgender, # nice color for the vertices
      vertex.frame.color = "gray",  # we'll put a gray frame around vertices
@@ -344,7 +360,7 @@ That's better! We still see the two big groups, with members who have a high bet
 Now let's try transitivity, which may be relevant to understand the closeness of the observed friend/'hanging' groups.
 
 ```{r}
-V(hangingt2)$size = igraph::transitivity(hangingt2, type = "local", isolates = "zero")*10 + 8
+V(hangingt2)$size = igraph::transitivity(hangingt2, type = "local", isolates = "zero")*10 + 7
 plot(hangingt2,
      vertex.color = colourgender, # nice color for the vertices
      vertex.frame.color = "gray",  # we'll put a gray frame around vertices
@@ -354,7 +370,7 @@ plot(hangingt2,
      edge.curved = 0.2, # curved edges is always a nice touch
      edge.arrow.size = 0.1)
 ```
-Cool! 83 and 95, who had a very high degree, don't stand out now. What is their local transitivity score actually?
+Cool! The triads at the edges of the graph have a relatively high transitivity score. 83 and 95, who had a very high degree, don't stand out now. What is their local transitivity score actually?
 ```{r}
 igraph::transitivity(hangingt2, type = "local", isolates = "zero")
 ```

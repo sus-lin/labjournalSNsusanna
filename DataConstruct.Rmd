@@ -15,7 +15,56 @@ klippy::klippy(position = c('top', 'right'))
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
 
-# Load data
+# Construct social network
+
+Taken from FIS data manual:
+
+rm(list=ls())
+packages <- c("sna","tidyverse","haven")
+lapply(packages, require, character.only=T)
+rm(packages)
+path_in <- "PATH_TO_DATA"
+
+fis.orig <- read_dta(paste(path_in,"/fis_long.dta",sep=""))
+fis.comp <- read_dta(paste(path_in,"/fis_composition.dta",sep=""))
+
+ # Specify Set of Network Characteristics (10 friendship nominations)
+netw <- c("a1_0101","a1_0102","a1_0103","a1_0104","a1_0105",
+"a1_0106","a1_0107","a1_0108","a1_0109","a1_0110")
+ # Specify Covariate for Node Color: ed_a6 (gender)
+cova <- c("ed_a6")
+ # Specify Individual Identifier
+iden <- c("id_p")
+ # Specify Grade and Wave
+g <- 1
+w <- 1
+
+comp.g.w <- filter(fis.comp,wave == w, id_g == g)
+fis.g.w <- filter(fis.orig,wave == w, id_g == g) %>%
+select(iden,netw,cova) %>%
+mutate(right = 1)
+fis.g.w <- left_join(comp.g.w,fis.g.w,by="id_p") %>% arrange(id_p)
+
+fis.fr.g.w <- select(fis.g.w,iden,netw)
+ids <- unlist(select(fis.fr.g.w,"id_p")) # extract all IDs
+34
+ids.s <- sort(ids) # sorts unique IDs
+ids.tr <- cbind(ids.s,1:length(ids)) # generates matching IDs from 1 onwards
+
+miss.w <- ids[unlist(is.na(select(fis.g.w,right)))]
+
+f <- 0
+for (i in ids.s) {
+f <- f + 1
+fis.fr.g.w[fis.fr.g.w == i] <- f
+}
+miss.w.tr <- ids.tr[,2][ids.s %in% miss.w]
+
+edge.w <- cbind(unlist(fis.fr.g.w[, 1]), unlist(c(fis.fr.g.w[, -1]))) # generate edgelist
+mat.w <- matrix(0,nrow=length(ids),ncol=length(ids)) # generate empty adjacency matrix
+mat.w[edge.w] <- 1 # fill adjacency matrix
+mat.w[miss.w.tr,] <- NA # fill missing actors with NAs
+mat.adj.w <- as.network(mat.w,matrix.type="adjacency") # transform to R adjacency matrix
 
 # Creating Identification Variable
 Children who reported having no parent or grandparent born outside of Germany were instructed to skip the section on heritage identification. I therefore firstly need to make a distinction between children with no non-German ancestry and those who do have non-German ancestry. To do so, I make use of the generational status variable, coded by the data collectors based on the procedure set out by Dollmann et al. (2014). Only students with no non-German ancestry are coded as native. All others, regardless of generational status, are coded as having migrant ancestry. Cases of German-born children where information on parents or grandparents was missing were coded as incomplete. Cases where all information was missing were coded as missings (NA).
@@ -54,44 +103,66 @@ For full missings on the ancestry data, identification was leading, with perceiv
                           # 19 ~ "Incomplete",
                           # 20 ~ "Incomplete",
                           # 21 ~ NA)
-#identity groups (strict)
-#df$identity <- ifelse(c4==3 & fammig == "Mig", "Dual", ifelse((c4==4 | c4==5) & fammig == "Mig", "Heritage", ifelse((c4==1 | c4==2) & fammig == "Mig", "Mig", ifelse((c4==. | c4==.u) & fammig == "Mig", NA, "Maj"))))
 
-#alternative identity groups (strict)
-require(dplyr)
-#df$identity <- ifelse(fammig == "Maj", dplyr::recode(df$c4, 
-                                           # '.' = "Maj", 
-                                           # '.u' = "Maj",
-                                           # '1' = "Maj",
-                                           # '2' = "Maj",
-                                           # '3' = "Maj", 
-                                           # '4' = "Maj",
-                                          #  '5' = "Maj"),
-                      #dplyr::recode(df$c4,
-                                  #  '.' = "NA", 
-                                  #  '.u' = "NA",
-                                   # '1' = "Migrantised",
-                                    #'2' = "Migrantised",
-                                    #'3' = "Dual", 
-                                   # '4' = "Heritage",
-                                   # '5' = "Heritage"))
-
-#Another alternative (this is my favourite, others need to be updated to match)
+#creating identity groups, strict requirement for dual identity
 #df$identity <- df$fammig
 #df %>% mutate(identity = replace_when(identity, 
-                #identity == "Mig" & c4==3  ~ "Dual",
-                #identity == "Mig" & (c4==4 | c4==5) ~ "Heritage",
-                #identity == "Mig" & (c4==1 | c4==2) & c5_1 != 1 ~ "Migrantised",
-                #identity == "Mig" & (c4==1 | c4==2) & c5_1==1 ~ "Maj",
-                #identity == "Mig" & (c4==. | c4==.u) ~ NA,
-                #identity == "Incomplete" & (c4==. | c4==.u) ~ "Maj",
-                #identity == "Incomplete" & (c4==1 | c4==2) & c5_1 != 1 ~ "Migrantised",
-                #identity == "Incomplete" & (c4==1 | c4==2) & (c5_1==1) ~ "Maj",
-                #identity == "Incomplete" & c4==3 ~ "Dual",
-                #identity == "Incomplete" & (c4==4 | c4==5) ~ "Heritage",
-                #identity == NA & c4==1 & c5_1 != 1 ~ "Maj",
-                #identity == NA & (c4==1 | c4==2) & c5_1==1 ~ "Maj",
-                #identity == NA & c4==2 & c5_1 != 1 ~ "Migrantised",
-                #identity == NA & c4==3 ~ "Dual",
-                #identity == NA & (c4==4 | c4==5) ~ "Heritage"))
+        #identity == "Mig" & c4==3  ~ "3",
+        #identity == "Mig" & (c4==4 | c4==5) ~ "4",
+        #identity == "Mig" & (c4==1 | c4==2) & c5_1 >= 2 ~ "2",
+        #identity == "Mig" & (c4==1 | c4==2) & (c5_1==1 | c5_1==. | c5_1==.u) ~ "1",
+        #identity == "Mig" & (c4==. | c4==.u) ~ NA,
+        #identity == "Incomplete" & (c4==. | c4==.u) & (c5_1==. | c5_1==.u) ~ "1",
+        #identity == "Incomplete" & (c4==. | c4==.u) & c5_1 !=. & c5_1 != .u ~ NA,
+        #identity == "Incomplete" & (c4==1 | c4==2) & c5_1 >= 2 ~ "2",
+        #identity == "Incomplete" & (c4==1 | c4==2) & (c5_1==1 | c5_1==. | c5_1==.u) ~ "1",
+        #identity == "Incomplete" & c4==3 ~ "3",
+        #identity == "Incomplete" & (c4==4 | c4==5) ~ "4",
+        #identity == NA & (c4==1 | c4==2) & (c5_1 == 1 | c5_1==. | c5_1==.u) ~ "1",
+        #identity == NA & (c4==1 | c4==2) & c5_1 >= 2 ~ "2",
+        #identity == NA & c4==3 ~ "3",
+        #identity == NA & (c4==4 | c4==5) ~ "4"))
+#levels(df$identity)
+#summary(df$identity)
+
+#1 is majority, 2 is migrantised, 3 is dual, 4 is heritage
+
+#df$dual <- ifelse(identity == NA, NA, ifelse(identity == 3, 1, 0))
+#levels(df$dual)
+#summary(df$dual)
+
+#1 is dual identifier, 0 is mono-identifier
 ```
+
+For robustness check with lenient dual identity definition:
+
+```{r}
+#df$identityrob <- df$fammig
+#df %>% mutate(identityrob = replace_when(identityrob, 
+        #identityrob == "Mig" & (c4==2 | c4==3 | c4==4) ~ "3",
+        #identityrob == "Mig" & (c4==5) ~ "4",
+        #identityrob == "Mig" & (c4==1) & c5_1 >= 2 ~ "2",
+        #identityrob == "Mig" & (c4==1) & (c5_1==1 | c5_1==. | c5_1==.u) ~ "1",
+        #identityrob == "Mig" & (c4==. | c4==.u) ~ NA,
+        #identityrob == "Incomplete" & (c4==. | c4==.u) & (c5_1==. | c5_1==.u) ~ "1",
+        #identityrob == "Incomplete" & (c4==. | c4==.u) & c5_1 !=. & c5_1 != .u ~ NA,
+        #identityrob == "Incomplete" & c4==1 & c5_1 >= 2 ~ "2",
+        #identityrob == "Incomplete" & c4==1 & (c5_1==1 | c5_1==. | c5_1==.u) ~ "1",
+        #identityrob == "Incomplete" & (c4==2 | c4==3 | c4==4) ~ "3",
+        #identityrob == "Incomplete" & c4==5 ~ "4",
+        #identityrob == NA & c4==1 & (c5_1 == 1 | c5_1==. | c5_1==.u) ~ "1",
+        #identityrob == NA & c4==1 & c5_1 >= 2 ~ "2",
+        #identityrob == NA & (c4==2 | c4==3 | c4==4) ~ "3",
+        #identityrob == NA & c4==5 ~ "4"))
+#levels(df$identityrob)
+#summary(df$identityrob)
+
+#1 is majority, 2 is migrantised, 3 is dual, 4 is heritage
+
+#df$dualrob <- ifelse(identityrob == NA, NA, ifelse(identityrob == 3, 1, 0))
+#levels(df$dualrob)
+#summary(df$dualrob)
+
+#1 is dual identifier, 0 is mono-identifier
+```
+
