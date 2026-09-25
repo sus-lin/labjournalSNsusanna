@@ -9231,3 +9231,1119 @@ covariance/correlation matrix of X can be found using
 summary(ans) within R, or by using the 'verbose' option in Siena07.
  
 Total computation time 19.64 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 25/09/2026 11:47:55
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Random initialization of random number stream.
+Current random number seed is 75779.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is   62 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           2.6988
+  1. eval:  outdegree (density)                            -1.6452
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  transitive triplets                             0.0000
+  4. eval:  indegree - popularity                           0.0000
+  5. eval:  outdegree - activity                            0.0000
+  6. eval:  indegree - activity(1)                          0.0000
+  7. eval:  network-isolate                                 0.0000
+  8. eval:  gender alter                                    0.0000
+  9. eval:  gender ego                                      0.0000
+ 10. eval:  same gender                                     0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                      59.0000
+  2. Number of reciprocated ties                                         12.0000
+  3. Number of transitive triplets                                       15.0000
+  4. Sum of squared indegrees                                           279.0000
+  5. Sum of squared outdegrees                                          165.0000
+  6. Sum of crossproducts indegree x outdegree                           80.0000
+  7. Number of isolates                                                  11.0000
+  8. Sum indegrees x gender                                             -15.7826
+  9. Sum outdegrees x gender                                              1.2174
+ 10. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 10 parameters, 10 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2570 iterations.
+Parameter estimates based on 1570 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   0.2940   9.3790   0.0313 
+  2.  -0.0320   4.2588  -0.0075 
+  3.   0.1190   9.2258   0.0129 
+  4.   9.0560 166.7848   0.0543 
+  5.   0.5700  46.5722   0.0122 
+  6.   0.4000  23.5647   0.0170 
+  7.  -0.0770   2.8424  -0.0271 
+  8.  -0.3501   5.7206  -0.0612 
+  9.   0.3070   4.0353   0.0761 
+ 10.   0.2710   5.3066   0.0511 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1734 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2570 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            4.0268  (   0.9566)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.4740  (   0.7982)
+ 2. eval:  reciprocity                                             2.3599  (   0.6244)
+ 3. eval:  transitive triplets                                     0.7885  (   0.4018)
+ 4. eval:  indegree - popularity                                   0.2249  (   0.0594)
+ 5. eval:  outdegree - activity                                    0.0152  (   0.1094)
+ 6. eval:  indegree - activity(1)                                 -0.4195  (   0.2975)
+ 7. eval:  network-isolate                                         2.4693  (   1.3480)
+ 8. eval:  gender alter                                           -0.3996  (   0.2917)
+ 9. eval:  gender ego                                              0.1642  (   0.3496)
+10. eval:  same gender                                             0.1639  (   0.2937)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.637     -0.116      0.027     -0.012     -0.077     -0.121      0.917      0.010     -0.049     -0.015
+    -0.233      0.390      0.067      0.012      0.014     -0.091     -0.220      0.007     -0.010      0.018
+     0.085      0.266      0.161      0.002     -0.011     -0.052     -0.035      0.004     -0.020      0.011
+    -0.247      0.323      0.102      0.004      0.001     -0.003     -0.003      0.007     -0.001      0.000
+    -0.878      0.203     -0.257      0.090      0.012      0.013     -0.115      0.001      0.001     -0.005
+    -0.510     -0.490     -0.431     -0.192      0.415      0.089     -0.155     -0.009      0.030     -0.008
+     0.853     -0.261     -0.065     -0.043     -0.780     -0.386      1.817     -0.003      0.000      0.026
+     0.044      0.036      0.038      0.404      0.021     -0.101     -0.009      0.085     -0.018     -0.014
+    -0.174     -0.048     -0.144     -0.062      0.020      0.291      0.000     -0.177      0.122      0.047
+    -0.066      0.100      0.096      0.004     -0.151     -0.086      0.066     -0.161      0.457      0.086
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 8.18 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 25/09/2026 11:48:02
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Random initialization of random number stream.
+Current random number seed is 445939.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is   62 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           4.0268
+  1. eval:  outdegree (density)                            -2.4740
+  2. eval:  reciprocity                                     2.3599
+  3. eval:  transitive triplets                             0.7885
+  4. eval:  indegree - popularity                           0.2249
+  5. eval:  outdegree - activity                            0.0152
+  6. eval:  indegree - activity(1)                         -0.4195
+  7. eval:  network-isolate                                 2.4693
+  8. eval:  gender alter                                   -0.3996
+  9. eval:  gender ego                                      0.1642
+ 10. eval:  same gender                                     0.1639
+
+
+Values of target statistics are
+  1. Number of ties                                                      59.0000
+  2. Number of reciprocated ties                                         12.0000
+  3. Number of transitive triplets                                       15.0000
+  4. Sum of squared indegrees                                           279.0000
+  5. Sum of squared outdegrees                                          165.0000
+  6. Sum of crossproducts indegree x outdegree                           80.0000
+  7. Number of isolates                                                  11.0000
+  8. Sum indegrees x gender                                             -15.7826
+  9. Sum outdegrees x gender                                              1.2174
+ 10. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 10 parameters, 10 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2824 iterations.
+Parameter estimates based on 1824 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   0.4580   9.0521   0.0506 
+  2.   0.1960   4.4278   0.0443 
+  3.   0.0810   9.9995   0.0081 
+  4.  -3.4860 147.4217  -0.0236 
+  5.   0.2960  46.4816   0.0064 
+  6.   1.4570  24.0111   0.0607 
+  7.  -0.1090   2.6826  -0.0406 
+  8.   0.0716   5.4170   0.0132 
+  9.   0.1665   3.8989   0.0427 
+ 10.   0.0710   5.2915   0.0134 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1899 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2824 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            4.0431  (   0.9798)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.3845  (   0.8326)
+ 2. eval:  reciprocity                                             2.3296  (   0.6282)
+ 3. eval:  transitive triplets                                     0.7923  (   0.4524)
+ 4. eval:  indegree - popularity                                   0.2180  (   0.0598)
+ 5. eval:  outdegree - activity                                    0.0058  (   0.1055)
+ 6. eval:  indegree - activity(1)                                 -0.4235  (   0.3846)
+ 7. eval:  network-isolate                                         2.5706  (   1.3048)
+ 8. eval:  gender alter                                           -0.4086  (   0.2898)
+ 9. eval:  gender ego                                              0.1730  (   0.3903)
+10. eval:  same gender                                             0.1600  (   0.2792)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.693      0.108      0.100     -0.004     -0.077     -0.234      0.919      0.050     -0.134     -0.048
+     0.206      0.395      0.100      0.012     -0.013     -0.152      0.131      0.029     -0.018      0.018
+     0.265      0.353      0.205     -0.004     -0.017     -0.094      0.039      0.008     -0.023      0.019
+    -0.083      0.323     -0.138      0.004      0.000     -0.004      0.014      0.006     -0.001     -0.001
+    -0.879     -0.193     -0.365     -0.003      0.011      0.024     -0.103     -0.004      0.009      0.000
+    -0.730     -0.630     -0.539     -0.177      0.591      0.148     -0.314     -0.030      0.066      0.002
+     0.845      0.159      0.067      0.183     -0.747     -0.626      1.702      0.080     -0.149     -0.041
+     0.207      0.162      0.059      0.362     -0.127     -0.273      0.213      0.084     -0.024     -0.008
+    -0.413     -0.073     -0.130     -0.033      0.207      0.442     -0.292     -0.215      0.152      0.039
+    -0.206      0.100      0.154     -0.057     -0.002      0.015     -0.111     -0.100      0.362      0.078
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 8.14 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 25/09/2026 11:48:11
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Random initialization of random number stream.
+Current random number seed is 700404.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is   62 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           2.6988
+  1. eval:  outdegree (density)                            -1.6452
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  transitive triplets                             0.0000
+  4. eval:  shared popularity                               0.0000
+  5. eval:  indegree - popularity                           0.0000
+  6. eval:  outdegree - activity                            0.0000
+  7. eval:  indegree - activity(1)                          0.0000
+  8. eval:  network-isolate                                 0.0000
+  9. eval:  gender alter                                    0.0000
+ 10. eval:  gender ego                                      0.0000
+ 11. eval:  same gender                                     0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                      59.0000
+  2. Number of reciprocated ties                                         12.0000
+  3. Number of transitive triplets                                       15.0000
+  4. (Number 2 2PU)^1/1)                                                 18.0000
+  5. Sum of squared indegrees                                           279.0000
+  6. Sum of squared outdegrees                                          165.0000
+  7. Sum of crossproducts indegree x outdegree                           80.0000
+  8. Number of isolates                                                  11.0000
+  9. Sum indegrees x gender                                             -15.7826
+ 10. Sum outdegrees x gender                                              1.2174
+ 11. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 11 parameters, 11 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2684 iterations.
+Parameter estimates based on 1684 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   1.3260  10.0953   0.1313 
+  2.  -0.1280   4.4158  -0.0290 
+  3.   1.4270  11.6025   0.1230 
+  4.   3.0070  24.1385   0.1246 
+  5.  27.6460 175.0797   0.1579 
+  6.   6.3440  54.8715   0.1156 
+  7.   1.3040  25.8558   0.0504 
+  8.  -0.1820   2.7071  -0.0672 
+  9.  -0.6344   5.8468  -0.1085 
+ 10.   0.2191   3.9523   0.0554 
+ 11.   0.5790   5.7523   0.1007 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1799 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2684 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            3.9822  (    0.994)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.3708  (   0.8340)
+ 2. eval:  reciprocity                                             2.3700  (   0.6244)
+ 3. eval:  transitive triplets                                     0.7702  (   0.4394)
+ 4. eval:  shared popularity                                       0.1392  (   0.2052)
+ 5. eval:  indegree - popularity                                   0.2137  (   0.0619)
+ 6. eval:  outdegree - activity                                   -0.0114  (   0.1200)
+ 7. eval:  indegree - activity(1)                                 -0.4286  (   0.2912)
+ 8. eval:  network-isolate                                         2.4257  (   1.3968)
+ 9. eval:  gender alter                                           -0.3801  (   0.2999)
+10. eval:  gender ego                                              0.1536  (   0.3993)
+11. eval:  same gender                                             0.1543  (   0.2807)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.696     -0.071      0.095      0.051     -0.020     -0.089     -0.144      0.847     -0.016     -0.114     -0.045
+    -0.136      0.390      0.087      0.002      0.007      0.005     -0.092     -0.278     -0.018     -0.065     -0.025
+     0.258      0.317      0.193     -0.001     -0.002     -0.020     -0.071     -0.048     -0.025     -0.074     -0.022
+     0.298      0.015     -0.014      0.042     -0.006     -0.010     -0.010      0.003     -0.001     -0.012     -0.001
+    -0.389      0.183     -0.073     -0.445      0.004      0.002      0.001     -0.004      0.007      0.002      0.000
+    -0.893      0.072     -0.388     -0.407      0.302      0.014      0.018     -0.102      0.003      0.013      0.001
+    -0.592     -0.505     -0.556     -0.160      0.052      0.521      0.085     -0.116      0.011      0.067      0.016
+     0.727     -0.319     -0.079      0.010     -0.049     -0.610     -0.285      1.951      0.022      0.012      0.021
+    -0.066     -0.097     -0.190     -0.010      0.362      0.078      0.126      0.051      0.090      0.011      0.001
+    -0.342     -0.263     -0.422     -0.146      0.078      0.267      0.579      0.022      0.091      0.159      0.051
+    -0.191     -0.143     -0.179     -0.021     -0.011      0.030      0.199      0.055      0.015      0.453      0.079
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 8.33 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 25/09/2026 11:48:19
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Random initialization of random number stream.
+Current random number seed is 8935.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is   62 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           3.9822
+  1. eval:  outdegree (density)                            -2.3708
+  2. eval:  reciprocity                                     2.3700
+  3. eval:  transitive triplets                             0.7702
+  4. eval:  shared popularity                               0.1392
+  5. eval:  indegree - popularity                           0.2137
+  6. eval:  outdegree - activity                           -0.0114
+  7. eval:  indegree - activity(1)                         -0.4286
+  8. eval:  network-isolate                                 2.4257
+  9. eval:  gender alter                                   -0.3801
+ 10. eval:  gender ego                                      0.1536
+ 11. eval:  same gender                                     0.1543
+
+
+Values of target statistics are
+  1. Number of ties                                                      59.0000
+  2. Number of reciprocated ties                                         12.0000
+  3. Number of transitive triplets                                       15.0000
+  4. (Number 2 2PU)^1/1)                                                 18.0000
+  5. Sum of squared indegrees                                           279.0000
+  6. Sum of squared outdegrees                                          165.0000
+  7. Sum of crossproducts indegree x outdegree                           80.0000
+  8. Number of isolates                                                  11.0000
+  9. Sum indegrees x gender                                             -15.7826
+ 10. Sum outdegrees x gender                                              1.2174
+ 11. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 11 parameters, 11 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2768 iterations.
+Parameter estimates based on 1768 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   0.5280   9.8887   0.0534 
+  2.  -0.2560   4.3728  -0.0585 
+  3.   0.3620  11.1419   0.0325 
+  4.   1.4870  23.2908   0.0638 
+  5.   2.7160 152.8461   0.0178 
+  6.   4.0300  53.5768   0.0752 
+  7.   0.1150  24.5850   0.0047 
+  8.  -0.0790   2.8261  -0.0280 
+  9.  -0.0076   5.9949  -0.0013 
+ 10.   0.2381   4.1808   0.0569 
+ 11.   0.1410   5.4095   0.0261 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1505 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2768 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            4.0335  (   0.9997)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.3659  (   0.7392)
+ 2. eval:  reciprocity                                             2.3342  (   0.6098)
+ 3. eval:  transitive triplets                                     0.7466  (   0.3720)
+ 4. eval:  shared popularity                                       0.1315  (   0.1584)
+ 5. eval:  indegree - popularity                                   0.2045  (   0.0592)
+ 6. eval:  outdegree - activity                                   -0.0069  (   0.1026)
+ 7. eval:  indegree - activity(1)                                 -0.4150  (   0.2811)
+ 8. eval:  network-isolate                                         2.4652  (   1.1243)
+ 9. eval:  gender alter                                           -0.3830  (   0.2983)
+10. eval:  gender ego                                              0.1615  (   0.3568)
+11. eval:  same gender                                             0.1675  (   0.2701)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.546     -0.047      0.010      0.015     -0.012     -0.063     -0.114      0.652      0.021     -0.067     -0.037
+    -0.105      0.372      0.058     -0.003      0.010      0.004     -0.090     -0.069     -0.007     -0.012      0.012
+     0.037      0.255      0.138     -0.003      0.002     -0.010     -0.034     -0.079      0.003     -0.027     -0.004
+     0.125     -0.032     -0.055      0.025     -0.004     -0.004      0.001     -0.020      0.004     -0.002      0.002
+    -0.284      0.271      0.072     -0.428      0.004      0.001     -0.002      0.002      0.006      0.000      0.001
+    -0.830      0.065     -0.257     -0.257      0.189      0.011      0.011     -0.069     -0.001      0.003     -0.001
+    -0.546     -0.526     -0.324      0.014     -0.144      0.387      0.079     -0.142     -0.008      0.038      0.000
+     0.785     -0.101     -0.189     -0.111      0.028     -0.600     -0.448      1.264      0.017     -0.007      0.013
+     0.097     -0.037      0.027      0.085      0.314     -0.033     -0.096      0.051      0.089     -0.016     -0.006
+    -0.255     -0.054     -0.202     -0.043     -0.017      0.093      0.383     -0.017     -0.150      0.127      0.035
+    -0.187      0.071     -0.036      0.038      0.066     -0.032      0.000      0.041     -0.070      0.360      0.073
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 8.64 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 25/09/2026 11:50:27
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Random initialization of random number stream.
+Current random number seed is 122988.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is   62 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           2.6988
+  1. eval:  outdegree (density)                            -1.6452
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  transitive triplets                             0.0000
+  4. eval:  indegree - popularity                           0.0000
+  5. eval:  outdegree - activity                            0.0000
+  6. eval:  indegree - activity(1)                          0.0000
+  7. eval:  network-isolate                                 0.0000
+  8. eval:  gender alter                                    0.0000
+  9. eval:  gender ego                                      0.0000
+ 10. eval:  same gender                                     0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                      59.0000
+  2. Number of reciprocated ties                                         12.0000
+  3. Number of transitive triplets                                       15.0000
+  4. Sum of squared indegrees                                           279.0000
+  5. Sum of squared outdegrees                                          165.0000
+  6. Sum of crossproducts indegree x outdegree                           80.0000
+  7. Number of isolates                                                  11.0000
+  8. Sum indegrees x gender                                             -15.7826
+  9. Sum outdegrees x gender                                              1.2174
+ 10. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 10 parameters, 10 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2378 iterations.
+Parameter estimates based on 1378 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   0.4120   9.4885   0.0434 
+  2.  -0.0620   4.4717  -0.0139 
+  3.   0.7910   9.9274   0.0797 
+  4.  16.5100 170.3337   0.0969 
+  5.   1.3960  47.8732   0.0292 
+  6.   1.0910  23.6962   0.0460 
+  7.   0.0100   2.7946   0.0036 
+  8.  -0.2778   5.6361  -0.0493 
+  9.  -0.0977   3.9391  -0.0248 
+ 10.   0.3500   5.4576   0.0641 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1375 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2378 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            4.0415  (    1.045)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.4807  (   0.8945)
+ 2. eval:  reciprocity                                             2.3462  (   0.6670)
+ 3. eval:  transitive triplets                                     0.7717  (   0.4132)
+ 4. eval:  indegree - popularity                                   0.2239  (   0.0649)
+ 5. eval:  outdegree - activity                                    0.0176  (   0.1161)
+ 6. eval:  indegree - activity(1)                                 -0.4128  (   0.3237)
+ 7. eval:  network-isolate                                         2.4498  (   1.6172)
+ 8. eval:  gender alter                                           -0.4023  (   0.3010)
+ 9. eval:  gender ego                                              0.1531  (   0.3501)
+10. eval:  same gender                                             0.1597  (   0.2916)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.800     -0.224      0.016     -0.018     -0.093     -0.098      1.255      0.036     -0.062     -0.057
+    -0.376      0.445      0.086      0.020      0.025     -0.112     -0.405      0.008     -0.017      0.057
+     0.044      0.314      0.171      0.004     -0.007     -0.077     -0.057      0.010     -0.032      0.022
+    -0.311      0.464      0.137      0.004      0.001     -0.007     -0.015      0.008     -0.001      0.004
+    -0.900      0.325     -0.146      0.146      0.013      0.010     -0.153     -0.003      0.004      0.001
+    -0.339     -0.519     -0.576     -0.333      0.275      0.105     -0.126     -0.023      0.043     -0.019
+     0.867     -0.375     -0.086     -0.138     -0.815     -0.242      2.615      0.060     -0.012     -0.029
+     0.135      0.038      0.082      0.395     -0.079     -0.238      0.123      0.091     -0.022     -0.005
+    -0.199     -0.074     -0.219     -0.039      0.088      0.383     -0.021     -0.204      0.123      0.026
+    -0.218      0.291      0.179      0.194      0.033     -0.201     -0.061     -0.055      0.251      0.085
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 8.87 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 25/09/2026 11:50:36
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Random initialization of random number stream.
+Current random number seed is 164658.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is   62 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           4.0415
+  1. eval:  outdegree (density)                            -2.4807
+  2. eval:  reciprocity                                     2.3462
+  3. eval:  transitive triplets                             0.7717
+  4. eval:  indegree - popularity                           0.2239
+  5. eval:  outdegree - activity                            0.0176
+  6. eval:  indegree - activity(1)                         -0.4128
+  7. eval:  network-isolate                                 2.4498
+  8. eval:  gender alter                                   -0.4023
+  9. eval:  gender ego                                      0.1531
+ 10. eval:  same gender                                     0.1597
+
+
+Values of target statistics are
+  1. Number of ties                                                      59.0000
+  2. Number of reciprocated ties                                         12.0000
+  3. Number of transitive triplets                                       15.0000
+  4. Sum of squared indegrees                                           279.0000
+  5. Sum of squared outdegrees                                          165.0000
+  6. Sum of crossproducts indegree x outdegree                           80.0000
+  7. Number of isolates                                                  11.0000
+  8. Sum indegrees x gender                                             -15.7826
+  9. Sum outdegrees x gender                                              1.2174
+ 10. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 10 parameters, 10 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2708 iterations.
+Parameter estimates based on 1708 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.0060   9.0061  -0.0007 
+  2.   0.2920   4.5536   0.0641 
+  3.   0.2970   9.8787   0.0301 
+  4.   0.5100 149.7641   0.0034 
+  5.   0.0400  45.2585   0.0009 
+  6.   1.2480  24.0120   0.0520 
+  7.   0.2390   2.7712   0.0862 
+  8.   0.3200   5.3495   0.0598 
+  9.   0.0522   3.9184   0.0133 
+ 10.   0.1800   5.5298   0.0326 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1577 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2708 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            4.0813  (   0.9579)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.4157  (   0.7097)
+ 2. eval:  reciprocity                                             2.3481  (   0.5527)
+ 3. eval:  transitive triplets                                     0.7892  (   0.3979)
+ 4. eval:  indegree - popularity                                   0.2215  (   0.0605)
+ 5. eval:  outdegree - activity                                    0.0095  (   0.1013)
+ 6. eval:  indegree - activity(1)                                 -0.4273  (   0.2925)
+ 7. eval:  network-isolate                                         2.5559  (   1.1352)
+ 8. eval:  gender alter                                           -0.3987  (   0.3056)
+ 9. eval:  gender ego                                              0.1610  (   0.3411)
+10. eval:  same gender                                             0.1601  (   0.2684)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.504      0.011      0.067     -0.014     -0.062     -0.119      0.636     -0.048     -0.036     -0.035
+     0.028      0.305      0.059      0.008     -0.003     -0.097      0.030     -0.020     -0.005      0.012
+     0.237      0.266      0.158     -0.004     -0.014     -0.060     -0.007     -0.013     -0.014      0.007
+    -0.323      0.253     -0.148      0.004      0.001     -0.002     -0.003      0.006     -0.001     -0.002
+    -0.859     -0.060     -0.351      0.203      0.010      0.013     -0.081      0.009      0.000     -0.002
+    -0.571     -0.599     -0.518     -0.089      0.443      0.086     -0.150      0.012      0.026      0.004
+     0.789      0.048     -0.016     -0.044     -0.704     -0.452      1.289     -0.109      0.007     -0.015
+    -0.219     -0.121     -0.105      0.347      0.293      0.140     -0.313      0.093     -0.009     -0.013
+    -0.148     -0.025     -0.100     -0.055     -0.013      0.258      0.019     -0.090      0.116      0.033
+    -0.183      0.081      0.062     -0.094     -0.070      0.049     -0.050     -0.155      0.360      0.072
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 9 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 25/09/2026 11:50:45
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Random initialization of random number stream.
+Current random number seed is 738985.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is   62 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           2.6988
+  1. eval:  outdegree (density)                            -1.6452
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  transitive triplets                             0.0000
+  4. eval:  shared popularity                               0.0000
+  5. eval:  indegree - popularity                           0.0000
+  6. eval:  outdegree - activity                            0.0000
+  7. eval:  indegree - activity(1)                          0.0000
+  8. eval:  network-isolate                                 0.0000
+  9. eval:  gender alter                                    0.0000
+ 10. eval:  gender ego                                      0.0000
+ 11. eval:  same gender                                     0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                      59.0000
+  2. Number of reciprocated ties                                         12.0000
+  3. Number of transitive triplets                                       15.0000
+  4. (Number 2 2PU)^1/1)                                                 18.0000
+  5. Sum of squared indegrees                                           279.0000
+  6. Sum of squared outdegrees                                          165.0000
+  7. Sum of crossproducts indegree x outdegree                           80.0000
+  8. Number of isolates                                                  11.0000
+  9. Sum indegrees x gender                                             -15.7826
+ 10. Sum outdegrees x gender                                              1.2174
+ 11. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 11 parameters, 11 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2578 iterations.
+Parameter estimates based on 1578 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.5920  10.1217  -0.0585 
+  2.  -0.2080   4.4892  -0.0463 
+  3.  -0.7960  10.4535  -0.0761 
+  4.  -1.0500  21.3314  -0.0492 
+  5.  -8.0260 148.2530  -0.0541 
+  6.  -3.6980  53.0919  -0.0697 
+  7.  -2.5470  24.8491  -0.1025 
+  8.   0.1800   2.8851   0.0624 
+  9.   0.3443   5.9463   0.0579 
+ 10.   0.0360   3.9752   0.0091 
+ 11.  -0.3380   5.7204  -0.0591 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1976 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2578 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            4.1299  (   1.0196)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.2929  (   0.9065)
+ 2. eval:  reciprocity                                             2.3494  (   0.6326)
+ 3. eval:  transitive triplets                                     0.7509  (   0.4156)
+ 4. eval:  shared popularity                                       0.1317  (   0.1963)
+ 5. eval:  indegree - popularity                                   0.2086  (   0.0703)
+ 6. eval:  outdegree - activity                                   -0.0189  (   0.1327)
+ 7. eval:  indegree - activity(1)                                 -0.4360  (   0.3790)
+ 8. eval:  network-isolate                                         2.5629  (   1.3710)
+ 9. eval:  gender alter                                           -0.3754  (   0.2842)
+10. eval:  gender ego                                              0.1441  (   0.3474)
+11. eval:  same gender                                             0.1591  (   0.2697)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.822      0.015      0.124      0.042     -0.020     -0.106     -0.217      1.054      0.003     -0.073     -0.010
+     0.026      0.400      0.080     -0.019      0.017      0.002     -0.145     -0.007      0.011     -0.053     -0.003
+     0.330      0.306      0.173     -0.011      0.004     -0.024     -0.079      0.113      0.005     -0.028      0.010
+     0.239     -0.153     -0.132      0.039     -0.007     -0.008      0.003      0.007     -0.001      0.003     -0.004
+    -0.308      0.389      0.125     -0.504      0.005      0.002     -0.004     -0.010      0.007     -0.002     -0.001
+    -0.885      0.027     -0.443     -0.299      0.204      0.018      0.022     -0.135      0.000      0.003     -0.004
+    -0.633     -0.607     -0.502      0.042     -0.156      0.447      0.144     -0.279     -0.007      0.057     -0.003
+     0.848     -0.008      0.199      0.024     -0.102     -0.744     -0.537      1.880     -0.002     -0.042      0.043
+     0.012      0.061      0.039     -0.012      0.333      0.004     -0.069     -0.004      0.081     -0.016     -0.008
+    -0.233     -0.242     -0.191      0.042     -0.087      0.059      0.435     -0.088     -0.164      0.121      0.031
+    -0.040     -0.019      0.092     -0.079     -0.031     -0.105     -0.033      0.117     -0.103      0.329      0.073
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 9.18 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 25/09/2026 11:50:54
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Random initialization of random number stream.
+Current random number seed is 25269.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is   62 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           4.1299
+  1. eval:  outdegree (density)                            -2.2929
+  2. eval:  reciprocity                                     2.3494
+  3. eval:  transitive triplets                             0.7509
+  4. eval:  shared popularity                               0.1317
+  5. eval:  indegree - popularity                           0.2086
+  6. eval:  outdegree - activity                           -0.0189
+  7. eval:  indegree - activity(1)                         -0.4360
+  8. eval:  network-isolate                                 2.5629
+  9. eval:  gender alter                                   -0.3754
+ 10. eval:  gender ego                                      0.1441
+ 11. eval:  same gender                                     0.1591
+
+
+Values of target statistics are
+  1. Number of ties                                                      59.0000
+  2. Number of reciprocated ties                                         12.0000
+  3. Number of transitive triplets                                       15.0000
+  4. (Number 2 2PU)^1/1)                                                 18.0000
+  5. Sum of squared indegrees                                           279.0000
+  6. Sum of squared outdegrees                                          165.0000
+  7. Sum of crossproducts indegree x outdegree                           80.0000
+  8. Number of isolates                                                  11.0000
+  9. Sum indegrees x gender                                             -15.7826
+ 10. Sum outdegrees x gender                                              1.2174
+ 11. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 11 parameters, 11 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 2807 iterations.
+Parameter estimates based on 1807 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 1000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.6940   9.8116  -0.0707 
+  2.  -0.0560   4.4901  -0.0125 
+  3.  -1.2110  10.0345  -0.1207 
+  4.  -2.6140  17.6675  -0.1480 
+  5. -15.4500 143.1602  -0.1079 
+  6.  -3.9560  50.4268  -0.0785 
+  7.  -0.8880  24.7857  -0.0358 
+  8.   0.0420   2.8845   0.0146 
+  9.   0.5157   5.8013   0.0889 
+ 10.   0.0637   4.1537   0.0153 
+ 11.  -0.3530   5.9137  -0.0597 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1888 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 2807 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            4.1774  (   1.0457)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.3919  (   0.7343)
+ 2. eval:  reciprocity                                             2.3191  (   0.6097)
+ 3. eval:  transitive triplets                                     0.7089  (   0.3682)
+ 4. eval:  shared popularity                                       0.1219  (   0.2166)
+ 5. eval:  indegree - popularity                                   0.2054  (   0.0687)
+ 6. eval:  outdegree - activity                                   -0.0017  (   0.1076)
+ 7. eval:  indegree - activity(1)                                 -0.3949  (   0.2543)
+ 8. eval:  network-isolate                                         2.4595  (   1.1290)
+ 9. eval:  gender alter                                           -0.3813  (   0.3026)
+10. eval:  gender ego                                              0.1694  (   0.3561)
+11. eval:  same gender                                             0.1631  (   0.2641)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.539     -0.090      0.034      0.034     -0.021     -0.068     -0.066      0.662     -0.026     -0.027     -0.054
+    -0.202      0.372      0.032     -0.003      0.010      0.012     -0.091     -0.158      0.004     -0.027      0.014
+     0.125      0.142      0.136     -0.003      0.001     -0.010     -0.031      0.000      0.004     -0.018     -0.005
+     0.217     -0.021     -0.043      0.047     -0.005     -0.009      0.000      0.020      0.004      0.003     -0.001
+    -0.411      0.246      0.029     -0.336      0.005      0.002     -0.002     -0.009      0.008     -0.001      0.001
+    -0.866      0.188     -0.247     -0.365      0.273      0.012      0.006     -0.088      0.003     -0.003      0.002
+    -0.356     -0.587     -0.334      0.004     -0.140      0.208      0.065     -0.061     -0.007      0.039      0.004
+     0.798     -0.229     -0.001      0.083     -0.112     -0.722     -0.213      1.275     -0.061      0.053     -0.026
+    -0.115      0.024      0.039      0.055      0.403      0.098     -0.094     -0.179      0.092     -0.022      0.000
+    -0.104     -0.122     -0.135      0.045     -0.035     -0.082      0.433      0.133     -0.201      0.127      0.033
+    -0.278      0.084     -0.055     -0.025      0.067      0.072      0.065     -0.088      0.004      0.356      0.070
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 9.61 seconds.

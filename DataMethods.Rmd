@@ -38,8 +38,7 @@ density, recip, transTrip, isolateNet?, altX for dual identifiers, sameX, diffXO
 
 altX (sum of the covariate over all actors to whom i has a tie) interacted with sameX
 
-covariate-difference or covariate-related difference (diffX), defined by the alter-minus
-ego difference of the covariate over all actors to whom i has a tie,
+covariate-difference or covariate-related difference (diffX), defined by the alter-minus ego difference of the covariate over all actors to whom i has a tie,
 
 **Question**: it seems like the effects are mostly based on similarity/difference, not specific combinations. Does this mean that instead of marking identities as different levels of the same variable, I should make one binary variable of dual identity?
 
