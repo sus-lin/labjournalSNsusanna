@@ -15,7 +15,7 @@ klippy::klippy(position = c('top', 'right'))
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
 
-# Construct social network
+# Construct social network for graph
 
 Taken from FIS data manual:
 
@@ -39,6 +39,7 @@ iden <- c("id_p")
 g <- 1
 w <- 1
 
+ #something about joiners and leavers
 comp.g.w <- filter(fis.comp,wave == w, id_g == g)
 fis.g.w <- filter(fis.orig,wave == w, id_g == g) %>%
 select(iden,netw,cova) %>%
@@ -47,7 +48,6 @@ fis.g.w <- left_join(comp.g.w,fis.g.w,by="id_p") %>% arrange(id_p)
 
 fis.fr.g.w <- select(fis.g.w,iden,netw)
 ids <- unlist(select(fis.fr.g.w,"id_p")) # extract all IDs
-34
 ids.s <- sort(ids) # sorts unique IDs
 ids.tr <- cbind(ids.s,1:length(ids)) # generates matching IDs from 1 onwards
 
@@ -65,6 +65,11 @@ mat.w <- matrix(0,nrow=length(ids),ncol=length(ids)) # generate empty adjacency 
 mat.w[edge.w] <- 1 # fill adjacency matrix
 mat.w[miss.w.tr,] <- NA # fill missing actors with NAs
 mat.adj.w <- as.network(mat.w,matrix.type="adjacency") # transform to R adjacency matrix
+
+#Construct social network for analysis
+
+ #first load the data
+ #then separate the waves
 
 # Creating Identification Variable
 Children who reported having no parent or grandparent born outside of Germany were instructed to skip the section on heritage identification. I therefore firstly need to make a distinction between children with no non-German ancestry and those who do have non-German ancestry. To do so, I make use of the generational status variable, coded by the data collectors based on the procedure set out by Dollmann et al. (2014). Only students with no non-German ancestry are coded as native. All others, regardless of generational status, are coded as having migrant ancestry. Cases of German-born children where information on parents or grandparents was missing were coded as incomplete. Cases where all information was missing were coded as missings (NA).

@@ -217,7 +217,8 @@ length(V(uni1))
 
 
 ```
-I think I lost the connection to the original IDs. Let's try again
+
+## I think I lost the connection to the original IDs. Let's try again
 
 ```{r}
 class(hanging_df_t2)
@@ -397,6 +398,59 @@ plot(hangingt2,
      layout=layout.fruchterman.reingold, main="fruchterman.reingold") #based on attraction between connected notes and repulsion between non-connected nodes
 ```
 
+```{r}
+colourgender2 <- ifelse(w2gender==1, "goldenrod1", "firebrick")
+V(hangingt2)$size = igraph::degree(hangingt2)*0.9 + 7
+E(hangingt2)$width <- edge_betweenness(hangingt2) * 0.01 # Edge width based on betweenness
+layout <- layout_with_mds(hangingt2, dist = NULL, dim = 2)
+plot(hangingt2,
+     vertex.color = adjustcolor(colourgender2, alpha.f = .4),
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1,
+     edge.color = "gray",
+     layout= norm_coords(layout, xmin = -100, xmax = 100, ymin = -100, ymax = 100)) #based on attraction between connected notes and repulsion between non-connected nodes
+```
+
+layout_with_mds(G1, dist = NULL, dim = 2, k = 2.5)
+norm_coords(layout, xmin = -50, xmax = 50, ymin = -50, ymax = 50)
+
+Nope not better.
+
+```{r}
+colourgender2 <- ifelse(w2gender==1, "goldenrod1", "firebrick")
+V(hangingt2)$size = igraph::degree(hangingt2)*0.9 + 7
+E(hangingt2)$width <- edge_betweenness(hangingt2) * 0.01 # Edge width based on betweenness
+layoutkk <- layout_with_kk(hangingt2)
+plot(hangingt2,
+     vertex.color = adjustcolor(colourgender2, alpha.f = .4),
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label.color = "black",  # not that ugly blue color for the labels (names)
+     vertex.label.cex = 0.4,  # make the label a bit smaller too
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1,
+     edge.color = "gray",
+     layout= norm_coords(layoutkk, xmin = -100, xmax = 100, ymin = -100, ymax = 100))
+```
+
+```{r}
+colourgender2 <- ifelse(w2gender==1, "goldenrod1", "firebrick")
+V(hangingt2)$size = igraph::degree(hangingt2)*0.9 + 7
+E(hangingt2)$width <- edge_betweenness(hangingt2) * 0.01 # Edge width based on betweenness
+plot(hangingt2,
+     vertex.color = adjustcolor(colourgender2, alpha.f = .4),
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label = NA,
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1,
+     edge.color = "gray",
+     layout=layout.fruchterman.reingold, main="fruchterman.reingold") #based on attraction between connected notes and repulsion between non-connected nodes
+legend(x = -1, y = -1, c("Men", "Women"), pch = 21, col = "#777777", pt.bg = c("goldenrod1", "firebrick"), pt.cex = 2,
+    cex = 0.8, bty = "n", ncol = 2)
+```
+
 # Webscraping tutorial
 
 ```{r}
@@ -423,3 +477,14 @@ lijst[1] %>% html_elements("time") %>%
 
 ```
 
+# Plot Feedback
+
+Next time: define size of plot window in advance. Then download plot as png, load as image.
+If direction is not part of story, don't need to plot it.
+Get rid of numbers?
+Don't forget about the legend! --> plot separately in article, in our case in lab journal better to plot within image
+Center betweenness within wave
+Make sure to look at Moran's I and development of network segregation
+Show nodes that joined/left network? Cross in bauble
+Layout with mds
+3D netwerk plotten???

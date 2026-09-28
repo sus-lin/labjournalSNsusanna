@@ -1,0 +1,14 @@
+---
+title: "Theory"
+author: "Susanna"
+date: "2026-09-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Identity complexity:**
+
+One person identifies with various social groups. These social groups do not necessarily overlap. More overlap --\> higher complexity. Higher complexity –\> positive intergroup attitudes. Diffuses distinctions between in-groups and out-groups!!!
