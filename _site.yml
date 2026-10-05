@@ -30,8 +30,8 @@ navbar:
         href: DataMethods.html
       - text: "Data Construction"
         href: DataConstruct.html
-      - text: "Results"
-        href: Results.html
+      - text: "Analyses and Results"
+        href: AnalysesResults.html
       - text: "Theory"
         href: Theory.html
         

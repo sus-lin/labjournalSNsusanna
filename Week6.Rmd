@@ -1,0 +1,110 @@
+---
+title: "Week6"
+author: "Susanna"
+date: "2026-10-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+# Interpretations
+
+Small repeat: evaluation function is sum of parameters multiplied by network statistics
+
+Probability of choosing network (x=xa) = exp f(xa) / sum (exp(f(x)))
+
+To go to P divided by P: divided by same thing, but for xb
+
+-   Means you can get rid of sum(exp(f(x)))!
+
+-   P/P = exp (f(xa)) / exp (f(xb)) = exp (f(xa) - f(xb))
+
+-   Pxa = exp(some parameter) \* Pxb
+
+Feedback mechanisms, interdependencies, etc –\> effect relevant on micro level does not necessarily mean that it is relevant on macro level. Simulation (with one effect off) to sort of test this
+
+Large effect does not necessarily mean that it is also actually relevant (maybe no opportunity)
+
+In end product:
+
+-   Start interpretation on individual level. What does that mean for choice?
+
+-   What is the aggregated effect: relative influence
+
+-   Does it actually play a role in network evolution: simulation
+
+    -   Only for most important parameters
+
+# Moran's I
+
+Sum of xi - average x multiplied by (sum of xj divided by nj minus average x)
+
+-   Divided by something to normalise it
+
+-   Almost the same as a correlation! Correlation between your own score and your neighbours' score.
+
+Sum of xj divided by nj minus average x
+
+-   Need to use matrix stuff for this
+
+**Rowstandardising** means that people with lots of ties weigh equally as people with less ties. Disregards agent's network size! Means that for people with lots of ties, one tie is less influential.
+
+Don't rowstandardise if you think that every friend has the same effect, regardless of amount of friends.
+
+What if we want to take into account friends of friends? Weighing based on path length. The further away, the smaller the weight - but how much smaller exactly?
+
+Be transparent about row-standardising and use of **distance decay**!
+
+# Network Statistics
+
+**TransTrip**
+
+Includes various mechanisms:
+
+-   You become friends with people that your friends are friends with
+
+-   You become friends with other people who like your friends
+
+**TransTrip1**
+
+Elementary effect instead of network effect
+
+-   Starts with counting unclosed triplet options at t1, then looks at t2 for triplets
+
+-   First bit (xij) is the tie that closes the triplet
+
+**gwespFF**
+
+Making the tie ij can close multiple triplets at once.
+
+-   EPFFik counts the number of triplets possibly being closed by tie ij
+
+-   We're counting all triplets, no matter the direction of ties (backward/forward)
+
+Set parameter value by changing alpha
+
+-   Smaller alpha, stronger diminishing marginal returns
+
+-   Alpha at infinity –\> linear (no diminishing marginal returns)
+
+How to decide this? Try and see what fits best.
+
+-   Default is 0.69
+
+Usually we're not very interested in this effect, but know that it plays a role –\> ease of interpretation becomes a bit less important.
+
+***Careful not to overfit - too many control variables may hide your effect of interest!***
+
+-   First look at model with effects of interest, then add control variables
+
+# To do next week
+
+Research question, first RSiena results, any questions/concerns

@@ -34,6 +34,8 @@ Information about students' primary school, neighbourhood of residence, and spec
 
 ## Methods
 
+Typically added controls: outAct, inPop, inAct (is interaction between outAct and inPop), recip, GWESP. Als onderkant van distribution niet goed fit, isolate effect
+
 density, recip, transTrip, isolateNet?, altX for dual identifiers, sameX, diffXOutAct conditional on MajDI dyad? transTripX or diffXTransTrip or jumpXTransTrip. diffXTransTripX? diffXTransTrip = transitive closure i-h-j-i where i and j have different covariate values, while transTripX = transitive closure i-h-j-i weighted by covariate value of h I need to ask Jochem about this.
 
 altX (sum of the covariate over all actors to whom i has a tie) interacted with sameX
@@ -57,5 +59,7 @@ Migrantised German? 0/1/NA
 In this case, we include altX Dual, and interact it with sameX Maj to see if the number of dual identifying friends influences majority students' tendency to befriend other majority students (as well as non-majority students to befriend other non-majority students). Also interact with X to see if the influence of befriending a dual identifier differs based on students' own identity.
 
 OR: make one binary dual identity variable, and one ordinal identity variable that includes all groups as different levels. Then interact altX Dual with simX identity. Answers the question: does the number of dual identifying friends influence students' tendency to befriend students with an identity more similar to their own. Still, potential of interacting with X as well. –\> currently, this would be my choice I think
+
+Other option - code two dyadic attributes to specify the maj - DI and maj - min ties
 
 ## References

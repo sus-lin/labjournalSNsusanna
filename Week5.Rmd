@@ -244,3 +244,501 @@ fMoran.I(w2gender, scaled = FALSE, weight = weights2, na.rm = TRUE, rowstandardi
 ```
 
 Yay. I figured this out!
+
+# Everything I prepared for the FIS dataset
+
+## Construct social network for graph
+
+
+rm(list=ls())
+load("C:/FIS_data/fis_cuf_110/fis_data/fis-cuf.RData")
+packages <- c("sna","tidyverse","haven")
+lapply(packages, require, character.only=T)
+```
+
+### Wave 1
+
+
+#Only wave 1
+w1 <- droplevels(subset(survey, wave == 1))
+#Now only friendships
+w1_soc <- dplyr::select(w1, c(id_p, a1_0101:a1_0110))
+head(w1_soc)
+w1_soc$id_p <- as.factor(w1_soc$id_p)
+#To long format
+w1soclong <- reshape(data = w1_soc, direction = "long"
+  , timevar = "nomination1:10"
+  , times = names(w1_soc)[2:11] 
+  , idvar = "id_p"
+  , v.names = "receiver"
+  , varying = 2:11
+  , new.row.names = 1:870
+  )
+#Only sender + receiver. Then I'll have an edge list
+w1edgelist <- dplyr::select(w1soclong, c(id_p, receiver))
+w1edgelist$receiver <- as.character(w1edgelist$receiver)
+w1edgelist$id_p <- as.character(w1edgelist$id_p)
+head(w1edgelist)
+summary(w1edgelist)
+w1edgelistnona <- droplevels(w1edgelist[-which(is.na(w1edgelist$receiver) == TRUE),])
+summary(w1edgelistnona)
+```
+
+#### From edge list to plot
+
+require(igraph)
+w1elmat <- as.matrix(w1edgelistnona)
+w1graph <- graph_from_data_frame(w1edgelistnona)
+w1adjmat <- as_adjacency_matrix(w1graph)
+print(w1graph)
+plot(w1graph)
+```
+
+#something with joiners and leavers
+composition2 <- composition
+composition2$c_w1 <- composition$id_c
+composition2$c_w2 <- composition$id_c
+composition2$c_w3 <- composition$id_c
+composition2$c_w4 <- composition$id_c
+composition2$c_w5 <- composition$id_c
+composition2$c_w6 <- composition$id_c
+composition2 <- composition2 %>%
+  group_by(id_p) %>%
+  summarise(across(id_c:c_w6, .fns = ~.[. != 0][1])) %>%
+  ungroup()
+composition$id_p <- as.factor(composition$id_p)
+summary(composition$id_p) #finding the people who appear twice
+#composition2 %>% mutate(c_w2 = replace_when(c_w2, 
+#                            composition2$id_p == "6142" ~ NA))
+#composition2 %>% mutate(c_w3 = replace_when(c_w3, 
+#                            composition2$id_p == "6142" ~ "3"))
+#composition2 %>% mutate(c_w4 = replace_when(c_w4, 
+#                            composition2$id_p == "6142" ~ "3"))
+#composition2 %>% mutate(c_w5 = replace_when(c_w5, 
+#                            composition2$id_p == "6142" ~ "3"))
+w1graph2 <- graph_from_data_frame(d=w1edgelistnona, directed = TRUE, vertices = composition2) #issue is that kids who switched classes are named twice in composition df...
+```
+
+
+
+colournative <- ifelse(w1$native==1, "white", "steelblue1") #white is native
+shapenative <- ifelse(w1$native==1, "circle", "square") #circle is native
+shapegender <- ifelse(is.na(w1$ed_a6), "csquare", ifelse(w1$ed_a6==1, "circle", "square")) #circle is girl?
+colourclass <- ifelse(is.na(w1$id_c), "gray", ifelse(w1$id_c==1, "mediumorchid1", ifelse(w1$id_c==2, "hotpink", "mediumpurple1")))
+rangewarm <- colorRampPalette(c("grey91", "#fecc5c", "#fd8d3c", "#e31a1c"))
+nbins <- 5
+colourbetweenness <- rangewarm(nbins)
+plot(w1graph,
+     vertex.color = adjustcolor(colournative, alpha.f = .4),
+     vertex.shape = shapegender,
+     vertex.size = 10,
+     vertex.frame.color = adjustcolor(colourclass),
+     vertex.frame.width = 2,
+     vertex.label = NA,
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.3,
+     edge.color = colourbetweenness[cut(igraph::edge.betweenness(w1graph), breaks=nbins )],
+     layout = layout.fruchterman.reingold, 
+     main = "Wave 1")
+```
+
+### Wave 2
+
+
+#Only wave 2
+w2 <- droplevels(subset(survey, wave == 2))
+#Now only friendships
+w2_soc <- dplyr::select(w2, c(id_p, a1_0101:a1_0110))
+head(w2_soc)
+w2_soc$id_p <- as.factor(w2_soc$id_p)
+#To long format
+w2soclong <- reshape(data = w2_soc, direction = "long"
+  , timevar = "nomination1:10"
+  , times = names(w2_soc)[2:11] 
+  , idvar = "id_p"
+  , v.names = "receiver"
+  , varying = 2:11
+  , new.row.names = 1:870
+  )
+#Only sender + receiver. Then I'll have an edge list
+w2edgelist <- dplyr::select(w2soclong, c(id_p, receiver))
+w2edgelist$receiver <- as.character(w2edgelist$receiver)
+w2edgelist$id_p <- as.character(w2edgelist$id_p)
+head(w2edgelist)
+summary(w2edgelist)
+w2edgelistnona <- droplevels(w2edgelist[-which(is.na(w2edgelist$receiver) == TRUE),])
+summary(w2edgelistnona)
+```
+
+require(igraph)
+w2elmat <- as.matrix(w2edgelistnona)
+w2graph <- graph_from_data_frame(w2edgelistnona)
+w2adjmat <- as_adjacency_matrix(w2graph)
+plot(w2graph)
+```
+
+colournative2 <- ifelse(w2$native==1, "white", "steelblue1") #green is native
+shapenative2 <- ifelse(w2$native==1, "circle", "square") #circle is native
+shapegender2 <- ifelse(is.na(w2$ed_a6), "csquare", ifelse(w2$ed_a6==1, "circle", "square")) #circle is girl?
+colourclass2 <- ifelse(is.na(w2$id_c), "gray", ifelse(w2$id_c==1, "mediumorchid1", ifelse(w2$id_c==2, "hotpink", "mediumpurple1")))
+rangewarm <- colorRampPalette(c("grey91", "#fecc5c", "#fd8d3c", "#e31a1c"))
+nbins <- 5
+colourbetweenness <- rangewarm(nbins)
+plot(w2graph,
+     vertex.color = adjustcolor(colournative, alpha.f = .4),
+     vertex.shape = shapegender,
+     vertex.size = 10,
+     vertex.frame.color = adjustcolor(colourclass),
+     vertex.frame.width = 2,
+     vertex.label = NA,
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.3,
+     edge.color = colourbetweenness[cut(igraph::edge.betweenness(w2graph), breaks=nbins )],
+     layout = layout.fruchterman.reingold, 
+     main = "Wave 2")
+```
+
+### Wave 3 class 1
+
+#Now only wave 3
+c1w3 <- droplevels(subset(class1, wave == 3))
+#Now only friendships
+c1w3_soc <- dplyr::select(c1w3, c(id_p, a1_0101:a1_0110))
+c1w3_soc$id_p <- as.factor(c1w3_soc$id_p)
+#To long format
+c1w3soclong <- reshape(data = c1w3_soc, direction = "long"
+  , timevar = "nomination1:10"
+  , times = names(c1w3_soc)[2:11] 
+  , idvar = "id_p"
+  , v.names = "receiver"
+  , varying = 2:11
+  , new.row.names = 1:290
+  )
+#Only sender + receiver. Then I'll have an edge list
+c1w3edgelist <- dplyr::select(c1w3soclong, c(id_p, receiver))
+c1w3edgelist$receiver <- as.factor(c1w3edgelist$receiver)
+summary(c1w3edgelist)
+```
+
+require(igraph)
+c1w3elmat <- as.matrix(c1w3edgelist)
+c1w3elmatnona <- c1w3elmat
+c1w3elmatnona[is.na(c1w3elmatnona)] <- 0
+c1w3graph <- graph_from_edgelist(c1w3elmatnona)
+plot(c1w3graph)
+```
+
+colournativew3 <- ifelse(c1w3$native==1, "palegreen", "steelblue1") #green is native
+#V(c1w1graph)$size = igraph::betweenness(c1w1graph)*0.05 + 7
+plot(c1w3graph,
+     vertex.color = adjustcolor(colournativew3, alpha.f = .4),
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label = NA,
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.1,
+     edge.color = "gray",
+     layout=layout.fruchterman.reingold, main="fruchterman.reingold")
+legend(x = -1, y = -1, c("Native", "Migrant_Background"), pch = 21, col = "#777777", pt.bg = c("palegreen", "steelblue1"), pt.cex = 2, cex = 0.8, bty = "n", ncol = 2)
+```
+
+plot(c1w3graph,
+     vertex.color = adjustcolor(colournativew3, alpha.f = .4),
+     vertex.size = 10,
+     vertex.frame.color = "gray",  # we'll put a gray frame around vertices
+     vertex.label = NA,
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.3,
+     edge.color = colourbetweenness[cut(igraph::edge.betweenness(c1w3graph), breaks=nbins )],
+     layout=layout.fruchterman.reingold,
+     main = "Class 1 Wave 3")
+legend(x = -1, y = -1, c("Native", "Migrant_Background"), pch = 21, col = "#777777", pt.bg = c("palegreen", "steelblue1"), pt.cex = 2, cex = 0.8, bty = "n", ncol = 2)
+```
+
+
+
+
+ #install.packages("reshape")
+ #require(reshape)
+ #class1long <- melt(class1, id = c("id_p"), measured = c("a1_0101", "a1_0102", "a1_0103", "a1_0104", "a1_0105", "a1_0106", "a1_0107", "a1_0108", "a1_0109", "a1_0110", "ed_a6", "native", "identification", "gpa"))
+
+Taken from FIS data manual:
+
+rm(list=ls())
+packages <- c("sna","tidyverse","haven")
+lapply(packages, require, character.only=T)
+rm(packages)
+path_in <- "PATH_TO_DATA"
+
+fis.orig <- read_dta(paste(path_in,"/fis_long.dta",sep=""))
+fis.comp <- read_dta(paste(path_in,"/fis_composition.dta",sep=""))
+
+ # Specify Set of Network Characteristics (10 friendship nominations)
+netw <- c("a1_0101","a1_0102","a1_0103","a1_0104","a1_0105",
+"a1_0106","a1_0107","a1_0108","a1_0109","a1_0110")
+ # Specify Covariate for Node Color: ed_a6 (gender)
+cova <- c("ed_a6")
+ # Specify Individual Identifier
+iden <- c("id_p")
+ # Specify Grade and Wave
+g <- 1
+w <- 1
+
+ #something about joiners and leavers
+comp.g.w <- filter(fis.comp,wave == w, id_g == g)
+fis.g.w <- filter(fis.orig,wave == w, id_g == g) %>%
+select(iden,netw,cova) %>%
+mutate(right = 1)
+fis.g.w <- left_join(comp.g.w,fis.g.w,by="id_p") %>% arrange(id_p)
+
+fis.fr.g.w <- select(fis.g.w,iden,netw)
+ids <- unlist(select(fis.fr.g.w,"id_p")) # extract all IDs
+ids.s <- sort(ids) # sorts unique IDs
+ids.tr <- cbind(ids.s,1:length(ids)) # generates matching IDs from 1 onwards
+
+miss.w <- ids[unlist(is.na(select(fis.g.w,right)))]
+
+f <- 0
+for (i in ids.s) {
+f <- f + 1
+fis.fr.g.w[fis.fr.g.w == i] <- f
+}
+miss.w.tr <- ids.tr[,2][ids.s %in% miss.w]
+
+edge.w <- cbind(unlist(fis.fr.g.w[, 1]), unlist(c(fis.fr.g.w[, -1]))) # generate edgelist
+mat.w <- matrix(0,nrow=length(ids),ncol=length(ids)) # generate empty adjacency matrix
+mat.w[edge.w] <- 1 # fill adjacency matrix
+mat.w[miss.w.tr,] <- NA # fill missing actors with NAs
+mat.adj.w <- as.network(mat.w,matrix.type="adjacency") # transform to R adjacency matrix
+
+##Construct social network for analysis
+
+ #first load the data
+ #then separate the waves
+
+## Creating Identification Variable
+Children who reported having no parent or grandparent born outside of Germany were instructed to skip the section on heritage identification. I therefore firstly need to make a distinction between children with no non-German ancestry and those who do have non-German ancestry. To do so, I make use of the generational status variable, coded by the data collectors based on the procedure set out by Dollmann et al. (2014). Only students with no non-German ancestry are coded as native. All others, regardless of generational status, are coded as having migrant ancestry. Cases of German-born children where information on parents or grandparents was missing were coded as incomplete. Cases where all information was missing were coded as missings (NA).
+
+Subsequently, within the migrant ancestry group, children were coded based on their identification as described in the Data section. Those who self-identified as only German and reported being seen as only German by Germans were included in the majority group, as their migrant ancestry in this case is unlikely to be relevant for their social situation. 
+This may for example apply to children with distant non-German ancestry (for example, who only have one grandparent born outside of Germany).
+
+Incomplete cases who did not respond to the identification question were assumed to be native-born following the instruction to skip this question. In other cases, they were treated the same way as children in the migrant ancestry group.
+
+For full missings on the ancestry data, identification was leading, with perceived other-categorisation by Germans used to differentiate migrantised German students from the majority group.
+
+```{r}
+#no parent/grandparent born abroad --> majority
+#if gen status is not in dataset: df$fammig <- ifelse(b7_coded_group==1 & b8_coded_group==1 & b9_1==1 & b9_2==1 & b9_3==1 & b9_4==1, "Maj", "Mig")
+
+#df$fammig <- df$ed_miggen_cils_narrow
+#df$fammig <- recode_values(fammig,
+                           #1 ~ "Mig",
+                          # 2 ~ "Mig",
+                          # 3 ~ "Mig",
+                          # 4 ~ "Mig",
+                          # 5 ~ "Mig",
+                          # 6 ~ "Mig",
+                          # 7 ~ "Mig",
+                          # 8 ~ "Mig",
+                          # 9 ~ "Mig",
+                          # 10 ~ "Mig",
+                          # 11 ~ "Mig",
+                          # 12 ~ "Mig",
+                          # 13 ~ "Mig",
+                          # 14 ~ "Maj",
+                          # 15 ~ "Mig",
+                          # 16 ~ "Mig",
+                          # 17 ~ "Mig",
+                          # 18 ~ "Mig",
+                          # 19 ~ "Incomplete",
+                          # 20 ~ "Incomplete",
+                          # 21 ~ NA)
+
+#creating identity groups, strict requirement for dual identity
+#df$identity <- df$fammig
+#df %>% mutate(identity = replace_when(identity, 
+        #identity == "Mig" & c4==3  ~ "3",
+        #identity == "Mig" & (c4==4 | c4==5) ~ "4",
+        #identity == "Mig" & (c4==1 | c4==2) & c5_1 >= 2 ~ "2",
+        #identity == "Mig" & (c4==1 | c4==2) & (c5_1==1 | c5_1==. | c5_1==.u) ~ "1",
+        #identity == "Mig" & (c4==. | c4==.u) ~ NA,
+        #identity == "Incomplete" & (c4==. | c4==.u) & (c5_1==. | c5_1==.u) ~ "1",
+        #identity == "Incomplete" & (c4==. | c4==.u) & c5_1 !=. & c5_1 != .u ~ NA,
+        #identity == "Incomplete" & (c4==1 | c4==2) & c5_1 >= 2 ~ "2",
+        #identity == "Incomplete" & (c4==1 | c4==2) & (c5_1==1 | c5_1==. | c5_1==.u) ~ "1",
+        #identity == "Incomplete" & c4==3 ~ "3",
+        #identity == "Incomplete" & (c4==4 | c4==5) ~ "4",
+        #identity == NA & (c4==1 | c4==2) & (c5_1 == 1 | c5_1==. | c5_1==.u) ~ "1",
+        #identity == NA & (c4==1 | c4==2) & c5_1 >= 2 ~ "2",
+        #identity == NA & c4==3 ~ "3",
+        #identity == NA & (c4==4 | c4==5) ~ "4"))
+#levels(df$identity)
+#summary(df$identity)
+
+#1 is majority, 2 is migrantised, 3 is dual, 4 is heritage
+
+#df$dual <- ifelse(identity == NA, NA, ifelse(identity == 3, 1, 0))
+#levels(df$dual)
+#summary(df$dual)
+
+#1 is dual identifier, 0 is mono-identifier
+```
+
+For robustness check with lenient dual identity definition:
+
+```{r}
+#df$identityrob <- df$fammig
+#df %>% mutate(identityrob = replace_when(identityrob, 
+        #identityrob == "Mig" & (c4==2 | c4==3 | c4==4) ~ "3",
+        #identityrob == "Mig" & (c4==5) ~ "4",
+        #identityrob == "Mig" & (c4==1) & c5_1 >= 2 ~ "2",
+        #identityrob == "Mig" & (c4==1) & (c5_1==1 | c5_1==. | c5_1==.u) ~ "1",
+        #identityrob == "Mig" & (c4==. | c4==.u) ~ NA,
+        #identityrob == "Incomplete" & (c4==. | c4==.u) & (c5_1==. | c5_1==.u) ~ "1",
+        #identityrob == "Incomplete" & (c4==. | c4==.u) & c5_1 !=. & c5_1 != .u ~ NA,
+        #identityrob == "Incomplete" & c4==1 & c5_1 >= 2 ~ "2",
+        #identityrob == "Incomplete" & c4==1 & (c5_1==1 | c5_1==. | c5_1==.u) ~ "1",
+        #identityrob == "Incomplete" & (c4==2 | c4==3 | c4==4) ~ "3",
+        #identityrob == "Incomplete" & c4==5 ~ "4",
+        #identityrob == NA & c4==1 & (c5_1 == 1 | c5_1==. | c5_1==.u) ~ "1",
+        #identityrob == NA & c4==1 & c5_1 >= 2 ~ "2",
+        #identityrob == NA & (c4==2 | c4==3 | c4==4) ~ "3",
+        #identityrob == NA & c4==5 ~ "4"))
+#levels(df$identityrob)
+#summary(df$identityrob)
+
+#1 is majority, 2 is migrantised, 3 is dual, 4 is heritage
+
+#df$dualrob <- ifelse(identityrob == NA, NA, ifelse(identityrob == 3, 1, 0))
+#levels(df$dualrob)
+#summary(df$dualrob)
+
+#1 is dual identifier, 0 is mono-identifier
+```
+
+## Segregation on FIS
+
+# Descriptive Analysis
+
+
+load("C:/FIS_data/fis_cuf_110/fis_data/fis-cuf.RData")
+packages <- c("sna","ape", "network")
+lapply(packages, require, character.only=T)
+```
+
+w1 <- droplevels(subset(survey, wave == 1))
+genderw1 <- w1$ed_a6
+w1_network <- as.network(w1adjmat)
+```
+
+
+# step 1: calculate distances
+geodistances <- geodist(w1_network, count.paths = TRUE)
+geodistances <- geodistances$gdist
+# set the distance to yourself as Inf
+diag(geodistances) <- Inf
+
+
+# step 2: define a distance decay function. This one is pretty standard in the spatial
+# autocorrelation literature but actually pretty arbitrary.
+weights2 <- exp(-geodistances)
+```
+
+
+#Jochem's formula for Moran's I
+
+fMoran.I <- function(x, weight, scaled = FALSE, na.rm = FALSE, alternative = "two.sided", rowstandardize = TRUE) {
+    if (rowstandardize) {
+        if (dim(weight)[1] != dim(weight)[2])
+            stop("'weight' must be a square matrix")
+        n <- length(x)
+        if (dim(weight)[1] != n)
+            stop("'weight' must have as many rows as observations in 'x'")
+        ei <- -1/(n - 1)
+        nas <- is.na(x)
+        if (any(nas)) {
+            if (na.rm) {
+                x <- x[!nas]
+                n <- length(x)
+                weight <- weight[!nas, !nas]
+            } else {
+                warning("'x' has missing values: maybe you wanted to set na.rm = TRUE?")
+                return(list(observed = NA, expected = ei, sd = NA, p.value = NA))
+            }
+        }
+        ROWSUM <- rowSums(weight)
+        ROWSUM[ROWSUM == 0] <- 1
+        weight <- weight/ROWSUM
+        s <- sum(weight)
+        m <- mean(x)
+        y <- x - m
+        cv <- sum(weight * y %o% y)
+        v <- sum(y^2)
+        obs <- (n/s) * (cv/v)
+        if (scaled) {
+            i.max <- (n/s) * (sd(rowSums(weight) * y)/sqrt(v/(n - 1)))
+            obs <- obs/i.max
+        }
+        S1 <- 0.5 * sum((weight + t(weight))^2)
+        S2 <- sum((apply(weight, 1, sum) + apply(weight, 2, sum))^2)
+        s.sq <- s^2
+        k <- (sum(y^4)/n)/(v/n)^2
+        sdi <- sqrt((n * ((n^2 - 3 * n + 3) * S1 - n * S2 + 3 * s.sq) - k * (n * (n - 1) * S1 - 2 * n *
+            S2 + 6 * s.sq))/((n - 1) * (n - 2) * (n - 3) * s.sq) - 1/((n - 1)^2))
+        alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+        pv <- pnorm(obs, mean = ei, sd = sdi)
+        if (alternative == "two.sided")
+            pv <- if (obs <= ei)
+                2 * pv else 2 * (1 - pv)
+        if (alternative == "greater")
+            pv <- 1 - pv
+        list(observed = obs, expected = ei, sd = sdi, p.value = pv)
+    } else {
+        if (dim(weight)[1] != dim(weight)[2])
+            stop("'weight' must be a square matrix")
+        n <- length(x)
+        if (dim(weight)[1] != n)
+            stop("'weight' must have as many rows as observations in 'x'")
+        ei <- -1/(n - 1)
+        nas <- is.na(x)
+        if (any(nas)) {
+            if (na.rm) {
+                x <- x[!nas]
+                n <- length(x)
+                weight <- weight[!nas, !nas]
+            } else {
+                warning("'x' has missing values: maybe you wanted to set na.rm = TRUE?")
+                return(list(observed = NA, expected = ei, sd = NA, p.value = NA))
+            }
+        }
+        # ROWSUM <- rowSums(weight) ROWSUM[ROWSUM == 0] <- 1 weight <- weight/ROWSUM
+        s <- sum(weight)
+        m <- mean(x)
+        y <- x - m
+        cv <- sum(weight * y %o% y)
+        v <- sum(y^2)
+        obs <- (n/s) * (cv/v)
+        if (scaled) {
+            i.max <- (n/s) * (sd(rowSums(weight) * y)/sqrt(v/(n - 1)))
+            obs <- obs/i.max
+        }
+        S1 <- 0.5 * sum((weight + t(weight))^2)
+        S2 <- sum((apply(weight, 1, sum) + apply(weight, 2, sum))^2)
+        s.sq <- s^2
+        k <- (sum(y^4)/n)/(v/n)^2
+        sdi <- sqrt((n * ((n^2 - 3 * n + 3) * S1 - n * S2 + 3 * s.sq) - k * (n * (n - 1) * S1 - 2 * n *
+            S2 + 6 * s.sq))/((n - 1) * (n - 2) * (n - 3) * s.sq) - 1/((n - 1)^2))
+        alternative <- match.arg(alternative, c("two.sided", "less", "greater"))
+        pv <- pnorm(obs, mean = ei, sd = sdi)
+        if (alternative == "two.sided")
+            pv <- if (obs <= ei)
+                2 * pv else 2 * (1 - pv)
+        if (alternative == "greater")
+            pv <- 1 - pv
+        list(observed = obs, expected = ei, sd = sdi, p.value = pv)
+    }
+
+
+}
+
+fMoran.I(genderw1, scaled = FALSE, weight = weights2, na.rm = TRUE, rowstandardize = FALSE)
+```
