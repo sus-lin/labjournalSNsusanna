@@ -365,6 +365,9 @@ div.tocify {
     <li>
       <a href="Week5.html">Week 5</a>
     </li>
+    <li>
+      <a href="Week6.html">Week 6</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -381,7 +384,10 @@ div.tocify {
       <a href="DataMethods.html">Data and Methods</a>
     </li>
     <li>
-      <a href="DataConstruct.html">Data Construction</a>
+      <a href="DataConstruct.html">Unused Data Construction FIS</a>
+    </li>
+    <li>
+      <a href="DataConstruct2.html">Data Construction</a>
     </li>
     <li>
       <a href="AnalysesResults.html">Analyses and Results</a>
@@ -437,26 +443,7 @@ network for graph</h2>
 load(&quot;C:/FIS_data/fis_cuf_110/fis_data/fis-cuf.RData&quot;)
 packages &lt;- c(&quot;sna&quot;,&quot;tidyverse&quot;,&quot;haven&quot;)
 lapply(packages, require, character.only=T)</code></pre>
-<pre><code>## Loading required package: tidyverse</code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.5.3</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.5.3</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.5.3</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.5.2</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.5.3</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.5.3</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.5.2</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.2.1     ✔ readr     2.1.6
-## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-## ✔ ggplot2   4.0.0     ✔ tibble    3.3.1
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-## ✔ purrr     1.1.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ✖ dplyr::where()  masks ape::where()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-## Loading required package: haven</code></pre>
+<pre><code>## Loading required package: haven</code></pre>
 <pre><code>## Warning: package &#39;haven&#39; was built under R version 4.5.2</code></pre>
 <pre><code>## [[1]]
 ## [1] TRUE
@@ -500,6 +487,41 @@ summary(composition$id_p) #finding the people who appear twice: 6142, 6171, 6175
 ##       1       1       1       1       1       1       1       1       1       1 
 ##    6224    6225    6226    6227    6228    6229    6230    6231    6232 (Other) 
 ##       1       1       1       1       1       1       1       1       1      31</code></pre>
+<pre class="r"><code>#composition2$c_w2 &lt;- as.factor(composition2$c_w2) This did not work
+#composition2$c_w3 &lt;- as.factor(composition2$c_w3)
+#make everything character
+composition_char &lt;- composition2
+composition_char %&gt;% mutate(across(everything(), as.character)) # not doing anything</code></pre>
+<pre><code>## # A tibble: 130 × 14
+##    id_p  id_c  wave1 wave2 wave3 wave4 wave5 wave6 c_w1  c_w2  c_w3  c_w4  c_w5 
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 6134  1     1     1     1     1     1     1     1     1     1     1     1    
+##  2 6135  1     1     1     1     1     1     1     1     1     1     1     1    
+##  3 6136  1     1     1     1     1     1     1     1     1     1     1     1    
+##  4 6137  1     1     1     1     1     1     1     1     1     1     1     1    
+##  5 6138  1     1     1     1     1     1     1     1     1     1     1     1    
+##  6 6139  1     1     1     1     1     1     1     1     1     1     1     1    
+##  7 6140  1     1     1     1     1     1     1     1     1     1     1     1    
+##  8 6141  1     1     1     1     1     1     1     1     1     1     1     1    
+##  9 6142  1     1     &lt;NA&gt;  1     1     1     1     1     1     1     1     1    
+## 10 6143  1     1     1     1     1     1     1     1     1     1     1     1    
+## # ℹ 120 more rows
+## # ℹ 1 more variable: c_w6 &lt;chr&gt;</code></pre>
+<pre class="r"><code>composition_char$id_p &lt;- as.character(composition2$id_p)
+composition_char$c_w2 &lt;- as.character(composition2$c_w2)
+
+#composition_char |&gt; mutate(c_w2 = replace_when(c_w2,
+                           # c_w2 == &quot;1&quot; &amp; id_p == &quot;6142&quot; ~ NA)) #not working
+#composition2 %&gt;% mutate(c_w3 = replace_when(c_w3, 
+                           # c_w3 == &quot;1&quot; &amp; id_p == &quot;6142&quot; ~ &quot;3&quot;))
+#composition2 %&gt;% mutate(c_w4 = replace_when(c_w4, 
+                           # composition2$id_p == &quot;6142&quot; ~ &quot;3&quot;))
+#composition2 %&gt;% mutate(c_w5 = replace_when(c_w5, 
+                           # composition2$id_p == &quot;6142&quot; ~ &quot;3&quot;))
+#composition2 %&gt;% mutate(c_w6 = replace_when(c_w6, 
+                           # composition2$id_p == &quot;6142&quot; ~ &quot;3&quot;))</code></pre>
+<pre class="r"><code>compw1 &lt;- droplevels(subset(composition2, wave1 == 1)) #only people existing in w1
+compw1 &lt;- dplyr::select(compw1, c(id_p, c_w1))</code></pre>
 <div id="wave-1" class="section level3" number="1.1">
 <h3><span class="header-section-number">1.1</span> Wave 1</h3>
 <pre class="r"><code>#Only wave 1
@@ -562,49 +584,33 @@ summary(w1edgelistnona)</code></pre>
 ##  Length:614         Length:614        
 ##  Class :character   Class :character  
 ##  Mode  :character   Mode  :character</code></pre>
-<pre class="r"><code>require(igraph)</code></pre>
-<pre><code>## Loading required package: igraph</code></pre>
-<pre><code>## Warning: package &#39;igraph&#39; was built under R version 4.5.3</code></pre>
-<pre><code>## 
-## Attaching package: &#39;igraph&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:lubridate&#39;:
-## 
-##     %--%, union</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     as_data_frame, groups, union</code></pre>
-<pre><code>## The following objects are masked from &#39;package:purrr&#39;:
-## 
-##     compose, simplify</code></pre>
-<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
-## 
-##     crossing</code></pre>
-<pre><code>## The following object is masked from &#39;package:tibble&#39;:
-## 
-##     as_data_frame</code></pre>
-<pre><code>## The following objects are masked from &#39;package:ape&#39;:
-## 
-##     degree, edges, mst, ring</code></pre>
-<pre><code>## The following objects are masked from &#39;package:sna&#39;:
-## 
-##     betweenness, bonpow, closeness, components, degree, dyad.census,
-##     evcent, hierarchy, is.connected, neighborhood, triad.census</code></pre>
-<pre><code>## The following objects are masked from &#39;package:network&#39;:
-## 
-##     %c%, %s%, add.edges, add.vertices, delete.edges, delete.vertices,
-##     get.edge.attribute, get.edges, get.vertex.attribute, is.bipartite,
-##     is.directed, list.edge.attributes, list.vertex.attributes,
-##     set.edge.attribute, set.vertex.attribute</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     decompose, spectrum</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     union</code></pre>
-<pre class="r"><code>w1graph &lt;- graph_from_data_frame(w1edgelistnona)
+<pre class="r"><code>require(igraph)
+w1graph &lt;- graph_from_data_frame(w1edgelistnona)
 w1adjmat &lt;- as_adjacency_matrix(w1graph)
 plot(w1graph)</code></pre>
-<p><img src="DataConstruct_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="DataConstruct_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>#plot wave 1
+colournative &lt;- ifelse(w1$native==1, &quot;white&quot;, &quot;purple&quot;) #white is native
+shapenative &lt;- ifelse(w1$native==1, &quot;circle&quot;, &quot;square&quot;) #circle is native
+shapegender &lt;- ifelse(is.na(w1$ed_a6), &quot;csquare&quot;, ifelse(w1$ed_a6==1, &quot;circle&quot;, &quot;square&quot;)) #circle is girl?
+colourclass &lt;- ifelse(is.na(w1$id_c), &quot;gray&quot;, ifelse(w1$id_c==1, &quot;thistle&quot;, ifelse(w1$id_c==2, &quot;skyblue1&quot;, &quot;aquamarine&quot;)))
+rangewarm &lt;- colorRampPalette(c(&quot;grey91&quot;, &quot;grey50&quot;, &quot;grey30&quot;, &quot;black&quot;))
+nbins &lt;- 5
+colourbetweenness &lt;- rangewarm(nbins)
+
+V(w1graph)$size = igraph::betweenness(w1graph, normalized = T, directed = T)*50 + 5
+
+plot(w1graph,
+     vertex.color = adjustcolor(colournative, alpha.f = .4),
+     vertex.frame.color = adjustcolor(colourclass),
+     vertex.frame.width = 2,
+     vertex.label = NA,
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.3,
+     edge.color = colourbetweenness[cut(igraph::edge_betweenness(w1graph), breaks=nbins )],
+     layout = layout.fruchterman.reingold, 
+     main = &quot;Wave 1&quot;)</code></pre>
+<p><img src="DataConstruct_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>#Continuing with the matrix
 class(w1adjmat)</code></pre>
 <pre><code>## [1] &quot;dgCMatrix&quot;
@@ -615,7 +621,7 @@ matw1 &lt;- matrix(0,nrow=length(composition$id_p)-5,ncol=length(composition$id_
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGFDb25zdHJ1Y3QiDQphdXRob3I6ICJTdXNhbm5hIg0KZGF0ZTogIjIwMjYtMDktMjIiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0NCmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpDQoja2xpcHB5OjprbGlwcHkoY29sb3IgPSAnZGFya3JlZCcpDQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpDQpgYGANCg0KIyMgQ29uc3RydWN0IHNvY2lhbCBuZXR3b3JrIGZvciBncmFwaA0KDQpgYGB7cn0NCnJtKGxpc3Q9bHMoKSkNCmxvYWQoIkM6L0ZJU19kYXRhL2Zpc19jdWZfMTEwL2Zpc19kYXRhL2Zpcy1jdWYuUkRhdGEiKQ0KcGFja2FnZXMgPC0gYygic25hIiwidGlkeXZlcnNlIiwiaGF2ZW4iKQ0KbGFwcGx5KHBhY2thZ2VzLCByZXF1aXJlLCBjaGFyYWN0ZXIub25seT1UKQ0KYGBgDQoNCiMjRmlndXJlIG91dCBjb21wb3NpdGlvbg0KYGBge3J9DQpjb21wb3NpdGlvbjIgPC0gY29tcG9zaXRpb24NCmNvbXBvc2l0aW9uMiRjX3cxIDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3cyIDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3czIDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3c0IDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3c1IDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3c2IDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiA8LSBjb21wb3NpdGlvbjIgJT4lDQogIGdyb3VwX2J5KGlkX3ApICU+JQ0KICBzdW1tYXJpc2UoYWNyb3NzKGlkX2M6Y193NiwgLmZucyA9IH4uWy4gIT0gMF1bMV0pKSAlPiUNCiAgdW5ncm91cCgpDQpjb21wb3NpdGlvbiRpZF9wIDwtIGFzLmZhY3Rvcihjb21wb3NpdGlvbiRpZF9wKQ0Kc3VtbWFyeShjb21wb3NpdGlvbiRpZF9wKSAjZmluZGluZyB0aGUgcGVvcGxlIHdobyBhcHBlYXIgdHdpY2U6IDYxNDIsIDYxNzEsIDYxNzUsIDYyMTksIDYyMzgNCmBgYA0KDQoNCiMjIyBXYXZlIDENCg0KYGBge3J9DQojT25seSB3YXZlIDENCncxIDwtIGRyb3BsZXZlbHMoc3Vic2V0KHN1cnZleSwgd2F2ZSA9PSAxKSkNCiNOb3cgb25seSBmcmllbmRzaGlwcw0KdzFfc29jIDwtIGRwbHlyOjpzZWxlY3QodzEsIGMoaWRfcCwgYTFfMDEwMTphMV8wMTEwKSkNCmhlYWQodzFfc29jKQ0KdzFfc29jJGlkX3AgPC0gYXMuZmFjdG9yKHcxX3NvYyRpZF9wKQ0KI1RvIGxvbmcgZm9ybWF0DQp3MXNvY2xvbmcgPC0gcmVzaGFwZShkYXRhID0gdzFfc29jLCBkaXJlY3Rpb24gPSAibG9uZyINCiAgLCB0aW1ldmFyID0gIm5vbWluYXRpb24xOjEwIg0KICAsIHRpbWVzID0gbmFtZXModzFfc29jKVsyOjExXSANCiAgLCBpZHZhciA9ICJpZF9wIg0KICAsIHYubmFtZXMgPSAicmVjZWl2ZXIiDQogICwgdmFyeWluZyA9IDI6MTENCiAgLCBuZXcucm93Lm5hbWVzID0gMTo4NzANCiAgKQ0KI09ubHkgc2VuZGVyICsgcmVjZWl2ZXIuIFRoZW4gSSdsbCBoYXZlIGFuIGVkZ2UgbGlzdA0KdzFlZGdlbGlzdCA8LSBkcGx5cjo6c2VsZWN0KHcxc29jbG9uZywgYyhpZF9wLCByZWNlaXZlcikpDQp3MWVkZ2VsaXN0JHJlY2VpdmVyIDwtIGFzLmNoYXJhY3Rlcih3MWVkZ2VsaXN0JHJlY2VpdmVyKQ0KdzFlZGdlbGlzdCRpZF9wIDwtIGFzLmNoYXJhY3Rlcih3MWVkZ2VsaXN0JGlkX3ApDQpoZWFkKHcxZWRnZWxpc3QpDQpzdW1tYXJ5KHcxZWRnZWxpc3QpDQp3MWVkZ2VsaXN0bm9uYSA8LSBkcm9wbGV2ZWxzKHcxZWRnZWxpc3RbLXdoaWNoKGlzLm5hKHcxZWRnZWxpc3QkcmVjZWl2ZXIpID09IFRSVUUpLF0pICNyZW1vdmluZyB0aGUgdW51c2VkIG5vbWluYXRpb24gb3Bwb3J0dW5pdGllcw0Kc3VtbWFyeSh3MWVkZ2VsaXN0bm9uYSkNCmBgYA0KYGBge3J9DQpyZXF1aXJlKGlncmFwaCkNCncxZ3JhcGggPC0gZ3JhcGhfZnJvbV9kYXRhX2ZyYW1lKHcxZWRnZWxpc3Rub25hKQ0KdzFhZGptYXQgPC0gYXNfYWRqYWNlbmN5X21hdHJpeCh3MWdyYXBoKQ0KcGxvdCh3MWdyYXBoKQ0KYGBgDQpgYGB7cn0NCiNDb250aW51aW5nIHdpdGggdGhlIG1hdHJpeA0KY2xhc3ModzFhZGptYXQpDQpgYGANCg0KDQpgYGB7cn0NCiNBbHRlcm5hdGl2ZSB3YXkgb2YgbWFraW5nIGEgbWF0cml4Pw0KbWF0dzEgPC0gbWF0cml4KDAsbnJvdz1sZW5ndGgoY29tcG9zaXRpb24kaWRfcCktNSxuY29sPWxlbmd0aChjb21wb3NpdGlvbiRpZF9wKS01KSAjIGdlbmVyYXRlIGVtcHR5IGFkamFjZW5jeSBtYXRyaXgNCmBgYA0KDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGFDb25zdHJ1Y3QiDQphdXRob3I6ICJTdXNhbm5hIg0KZGF0ZTogIjIwMjYtMDktMjIiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0NCmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpDQoja2xpcHB5OjprbGlwcHkoY29sb3IgPSAnZGFya3JlZCcpDQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpDQpgYGANCg0KIyMgQ29uc3RydWN0IHNvY2lhbCBuZXR3b3JrIGZvciBncmFwaA0KDQpgYGB7cn0NCnJtKGxpc3Q9bHMoKSkNCmxvYWQoIkM6L0ZJU19kYXRhL2Zpc19jdWZfMTEwL2Zpc19kYXRhL2Zpcy1jdWYuUkRhdGEiKQ0KcGFja2FnZXMgPC0gYygic25hIiwidGlkeXZlcnNlIiwiaGF2ZW4iKQ0KbGFwcGx5KHBhY2thZ2VzLCByZXF1aXJlLCBjaGFyYWN0ZXIub25seT1UKQ0KYGBgDQoNCiMjRmlndXJlIG91dCBjb21wb3NpdGlvbg0KYGBge3J9DQpjb21wb3NpdGlvbjIgPC0gY29tcG9zaXRpb24NCmNvbXBvc2l0aW9uMiRjX3cxIDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3cyIDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3czIDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3c0IDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3c1IDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiRjX3c2IDwtIGNvbXBvc2l0aW9uJGlkX2MNCmNvbXBvc2l0aW9uMiA8LSBjb21wb3NpdGlvbjIgJT4lDQogIGdyb3VwX2J5KGlkX3ApICU+JQ0KICBzdW1tYXJpc2UoYWNyb3NzKGlkX2M6Y193NiwgLmZucyA9IH4uWy4gIT0gMF1bMV0pKSAlPiUNCiAgdW5ncm91cCgpDQpjb21wb3NpdGlvbiRpZF9wIDwtIGFzLmZhY3Rvcihjb21wb3NpdGlvbiRpZF9wKQ0Kc3VtbWFyeShjb21wb3NpdGlvbiRpZF9wKSAjZmluZGluZyB0aGUgcGVvcGxlIHdobyBhcHBlYXIgdHdpY2U6IDYxNDIsIDYxNzEsIDYxNzUsIDYyMTksIDYyMzgNCiNjb21wb3NpdGlvbjIkY193MiA8LSBhcy5mYWN0b3IoY29tcG9zaXRpb24yJGNfdzIpIFRoaXMgZGlkIG5vdCB3b3JrDQojY29tcG9zaXRpb24yJGNfdzMgPC0gYXMuZmFjdG9yKGNvbXBvc2l0aW9uMiRjX3czKQ0KI21ha2UgZXZlcnl0aGluZyBjaGFyYWN0ZXINCmNvbXBvc2l0aW9uX2NoYXIgPC0gY29tcG9zaXRpb24yDQpjb21wb3NpdGlvbl9jaGFyICU+JSBtdXRhdGUoYWNyb3NzKGV2ZXJ5dGhpbmcoKSwgYXMuY2hhcmFjdGVyKSkgIyBub3QgZG9pbmcgYW55dGhpbmcNCmNvbXBvc2l0aW9uX2NoYXIkaWRfcCA8LSBhcy5jaGFyYWN0ZXIoY29tcG9zaXRpb24yJGlkX3ApDQpjb21wb3NpdGlvbl9jaGFyJGNfdzIgPC0gYXMuY2hhcmFjdGVyKGNvbXBvc2l0aW9uMiRjX3cyKQ0KDQojY29tcG9zaXRpb25fY2hhciB8PiBtdXRhdGUoY193MiA9IHJlcGxhY2Vfd2hlbihjX3cyLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIyBjX3cyID09ICIxIiAmIGlkX3AgPT0gIjYxNDIiIH4gTkEpKSAjbm90IHdvcmtpbmcNCiNjb21wb3NpdGlvbjIgJT4lIG11dGF0ZShjX3czID0gcmVwbGFjZV93aGVuKGNfdzMsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIyBjX3czID09ICIxIiAmIGlkX3AgPT0gIjYxNDIiIH4gIjMiKSkNCiNjb21wb3NpdGlvbjIgJT4lIG11dGF0ZShjX3c0ID0gcmVwbGFjZV93aGVuKGNfdzQsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIyBjb21wb3NpdGlvbjIkaWRfcCA9PSAiNjE0MiIgfiAiMyIpKQ0KI2NvbXBvc2l0aW9uMiAlPiUgbXV0YXRlKGNfdzUgPSByZXBsYWNlX3doZW4oY193NSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAjIGNvbXBvc2l0aW9uMiRpZF9wID09ICI2MTQyIiB+ICIzIikpDQojY29tcG9zaXRpb24yICU+JSBtdXRhdGUoY193NiA9IHJlcGxhY2Vfd2hlbihjX3c2LCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICMgY29tcG9zaXRpb24yJGlkX3AgPT0gIjYxNDIiIH4gIjMiKSkNCmBgYA0KYGBge3J9DQpjb21wdzEgPC0gZHJvcGxldmVscyhzdWJzZXQoY29tcG9zaXRpb24yLCB3YXZlMSA9PSAxKSkgI29ubHkgcGVvcGxlIGV4aXN0aW5nIGluIHcxDQpjb21wdzEgPC0gZHBseXI6OnNlbGVjdChjb21wdzEsIGMoaWRfcCwgY193MSkpDQpgYGANCg0KDQojIyMgV2F2ZSAxDQoNCmBgYHtyfQ0KI09ubHkgd2F2ZSAxDQp3MSA8LSBkcm9wbGV2ZWxzKHN1YnNldChzdXJ2ZXksIHdhdmUgPT0gMSkpDQojTm93IG9ubHkgZnJpZW5kc2hpcHMNCncxX3NvYyA8LSBkcGx5cjo6c2VsZWN0KHcxLCBjKGlkX3AsIGExXzAxMDE6YTFfMDExMCkpDQpoZWFkKHcxX3NvYykNCncxX3NvYyRpZF9wIDwtIGFzLmZhY3Rvcih3MV9zb2MkaWRfcCkNCiNUbyBsb25nIGZvcm1hdA0KdzFzb2Nsb25nIDwtIHJlc2hhcGUoZGF0YSA9IHcxX3NvYywgZGlyZWN0aW9uID0gImxvbmciDQogICwgdGltZXZhciA9ICJub21pbmF0aW9uMToxMCINCiAgLCB0aW1lcyA9IG5hbWVzKHcxX3NvYylbMjoxMV0gDQogICwgaWR2YXIgPSAiaWRfcCINCiAgLCB2Lm5hbWVzID0gInJlY2VpdmVyIg0KICAsIHZhcnlpbmcgPSAyOjExDQogICwgbmV3LnJvdy5uYW1lcyA9IDE6ODcwDQogICkNCiNPbmx5IHNlbmRlciArIHJlY2VpdmVyLiBUaGVuIEknbGwgaGF2ZSBhbiBlZGdlIGxpc3QNCncxZWRnZWxpc3QgPC0gZHBseXI6OnNlbGVjdCh3MXNvY2xvbmcsIGMoaWRfcCwgcmVjZWl2ZXIpKQ0KdzFlZGdlbGlzdCRyZWNlaXZlciA8LSBhcy5jaGFyYWN0ZXIodzFlZGdlbGlzdCRyZWNlaXZlcikNCncxZWRnZWxpc3QkaWRfcCA8LSBhcy5jaGFyYWN0ZXIodzFlZGdlbGlzdCRpZF9wKQ0KaGVhZCh3MWVkZ2VsaXN0KQ0Kc3VtbWFyeSh3MWVkZ2VsaXN0KQ0KdzFlZGdlbGlzdG5vbmEgPC0gZHJvcGxldmVscyh3MWVkZ2VsaXN0Wy13aGljaChpcy5uYSh3MWVkZ2VsaXN0JHJlY2VpdmVyKSA9PSBUUlVFKSxdKSAjcmVtb3ZpbmcgdGhlIHVudXNlZCBub21pbmF0aW9uIG9wcG9ydHVuaXRpZXMNCnN1bW1hcnkodzFlZGdlbGlzdG5vbmEpDQpgYGANCmBgYHtyfQ0KcmVxdWlyZShpZ3JhcGgpDQp3MWdyYXBoIDwtIGdyYXBoX2Zyb21fZGF0YV9mcmFtZSh3MWVkZ2VsaXN0bm9uYSkNCncxYWRqbWF0IDwtIGFzX2FkamFjZW5jeV9tYXRyaXgodzFncmFwaCkNCnBsb3QodzFncmFwaCkNCmBgYA0KYGBge3J9DQojcGxvdCB3YXZlIDENCmNvbG91cm5hdGl2ZSA8LSBpZmVsc2UodzEkbmF0aXZlPT0xLCAid2hpdGUiLCAicHVycGxlIikgI3doaXRlIGlzIG5hdGl2ZQ0Kc2hhcGVuYXRpdmUgPC0gaWZlbHNlKHcxJG5hdGl2ZT09MSwgImNpcmNsZSIsICJzcXVhcmUiKSAjY2lyY2xlIGlzIG5hdGl2ZQ0Kc2hhcGVnZW5kZXIgPC0gaWZlbHNlKGlzLm5hKHcxJGVkX2E2KSwgImNzcXVhcmUiLCBpZmVsc2UodzEkZWRfYTY9PTEsICJjaXJjbGUiLCAic3F1YXJlIikpICNjaXJjbGUgaXMgZ2lybD8NCmNvbG91cmNsYXNzIDwtIGlmZWxzZShpcy5uYSh3MSRpZF9jKSwgImdyYXkiLCBpZmVsc2UodzEkaWRfYz09MSwgInRoaXN0bGUiLCBpZmVsc2UodzEkaWRfYz09MiwgInNreWJsdWUxIiwgImFxdWFtYXJpbmUiKSkpDQpyYW5nZXdhcm0gPC0gY29sb3JSYW1wUGFsZXR0ZShjKCJncmV5OTEiLCAiZ3JleTUwIiwgImdyZXkzMCIsICJibGFjayIpKQ0KbmJpbnMgPC0gNQ0KY29sb3VyYmV0d2Vlbm5lc3MgPC0gcmFuZ2V3YXJtKG5iaW5zKQ0KDQpWKHcxZ3JhcGgpJHNpemUgPSBpZ3JhcGg6OmJldHdlZW5uZXNzKHcxZ3JhcGgsIG5vcm1hbGl6ZWQgPSBULCBkaXJlY3RlZCA9IFQpKjUwICsgNQ0KDQpwbG90KHcxZ3JhcGgsDQogICAgIHZlcnRleC5jb2xvciA9IGFkanVzdGNvbG9yKGNvbG91cm5hdGl2ZSwgYWxwaGEuZiA9IC40KSwNCiAgICAgdmVydGV4LmZyYW1lLmNvbG9yID0gYWRqdXN0Y29sb3IoY29sb3VyY2xhc3MpLA0KICAgICB2ZXJ0ZXguZnJhbWUud2lkdGggPSAyLA0KICAgICB2ZXJ0ZXgubGFiZWwgPSBOQSwNCiAgICAgZWRnZS5jdXJ2ZWQgPSAwLjIsICMgY3VydmVkIGVkZ2VzIGlzIGFsd2F5cyBhIG5pY2UgdG91Y2gNCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4zLA0KICAgICBlZGdlLmNvbG9yID0gY29sb3VyYmV0d2Vlbm5lc3NbY3V0KGlncmFwaDo6ZWRnZV9iZXR3ZWVubmVzcyh3MWdyYXBoKSwgYnJlYWtzPW5iaW5zICldLA0KICAgICBsYXlvdXQgPSBsYXlvdXQuZnJ1Y2h0ZXJtYW4ucmVpbmdvbGQsIA0KICAgICBtYWluID0gIldhdmUgMSIpDQoNCmBgYA0KDQoNCmBgYHtyfQ0KI0NvbnRpbnVpbmcgd2l0aCB0aGUgbWF0cml4DQpjbGFzcyh3MWFkam1hdCkNCmBgYA0KDQoNCmBgYHtyfQ0KI0FsdGVybmF0aXZlIHdheSBvZiBtYWtpbmcgYSBtYXRyaXg/DQptYXR3MSA8LSBtYXRyaXgoMCxucm93PWxlbmd0aChjb21wb3NpdGlvbiRpZF9wKS01LG5jb2w9bGVuZ3RoKGNvbXBvc2l0aW9uJGlkX3ApLTUpICMgZ2VuZXJhdGUgZW1wdHkgYWRqYWNlbmN5IG1hdHJpeA0KYGBgDQoNCg0K</div>
 
 
 </div>

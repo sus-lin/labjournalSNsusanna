@@ -365,6 +365,9 @@ div.tocify {
     <li>
       <a href="Week5.html">Week 5</a>
     </li>
+    <li>
+      <a href="Week6.html">Week 6</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -381,7 +384,10 @@ div.tocify {
       <a href="DataMethods.html">Data and Methods</a>
     </li>
     <li>
-      <a href="DataConstruct.html">Data Construction</a>
+      <a href="DataConstruct.html">Unused Data Construction FIS</a>
+    </li>
+    <li>
+      <a href="DataConstruct2.html">Data Construction</a>
     </li>
     <li>
       <a href="AnalysesResults.html">Analyses and Results</a>
@@ -429,11 +435,44 @@ div.tocify {
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
-<div id="descriptive-analysis" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Descriptive
-Analysis</h1>
-<pre class="r"><code>load(&quot;C:/FIS_data/fis_cuf_110/fis_data/fis-cuf.RData&quot;)
-packages &lt;- c(&quot;sna&quot;,&quot;ape&quot;, &quot;network&quot;)
+<p>#add cleaning environment + checking package code from Jochem</p>
+<pre class="r"><code>rm(list = ls())
+
+fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, datename, file, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}
+
+colorize &lt;- function(x, color) {
+    sprintf(&quot;&lt;span style=&#39;color: %s;&#39;&gt;%s&lt;/span&gt;&quot;, color, x)
+}
+
+packages &lt;- c(&quot;sna&quot;,&quot;ape&quot;, &quot;network&quot;, &quot;devtools&quot;, &quot;igraph&quot;, &quot;RSiena&quot;, &quot;tidyverse&quot;, &quot;stringdist&quot;, &quot;stringi&quot;)
 lapply(packages, require, character.only=T)</code></pre>
 <pre><code>## Loading required package: sna</code></pre>
 <pre><code>## Warning: package &#39;sna&#39; was built under R version 4.5.3</code></pre>
@@ -463,6 +502,70 @@ lapply(packages, require, character.only=T)</code></pre>
 <pre><code>## The following objects are masked from &#39;package:sna&#39;:
 ## 
 ##     consensus, degree</code></pre>
+<pre><code>## Loading required package: devtools</code></pre>
+<pre><code>## Warning: package &#39;devtools&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Loading required package: usethis</code></pre>
+<pre><code>## Warning: package &#39;usethis&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Loading required package: igraph</code></pre>
+<pre><code>## Warning: package &#39;igraph&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ape&#39;:
+## 
+##     degree, edges, mst, ring</code></pre>
+<pre><code>## The following objects are masked from &#39;package:sna&#39;:
+## 
+##     betweenness, bonpow, closeness, components, degree, dyad.census,
+##     evcent, hierarchy, is.connected, neighborhood, triad.census</code></pre>
+<pre><code>## The following objects are masked from &#39;package:network&#39;:
+## 
+##     %c%, %s%, add.edges, add.vertices, delete.edges, delete.vertices,
+##     get.edge.attribute, get.edges, get.vertex.attribute, is.bipartite,
+##     is.directed, list.edge.attributes, list.vertex.attributes,
+##     set.edge.attribute, set.vertex.attribute</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     union</code></pre>
+<pre><code>## Loading required package: RSiena</code></pre>
+<pre><code>## Warning: package &#39;RSiena&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Loading required package: tidyverse</code></pre>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.5.2</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.5.3</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.5.2</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.2.1     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.0     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.1.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────── tidyverse_conflicts() ──
+## ✖ lubridate::%--%()      masks igraph::%--%()
+## ✖ dplyr::as_data_frame() masks tibble::as_data_frame(), igraph::as_data_frame()
+## ✖ purrr::compose()       masks igraph::compose()
+## ✖ tidyr::crossing()      masks igraph::crossing()
+## ✖ dplyr::filter()        masks stats::filter()
+## ✖ dplyr::lag()           masks stats::lag()
+## ✖ purrr::simplify()      masks igraph::simplify()
+## ✖ dplyr::where()         masks ape::where()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+## Loading required package: stringdist</code></pre>
+<pre><code>## Warning: package &#39;stringdist&#39; was built under R version 4.5.2</code></pre>
+<pre><code>## 
+## Attaching package: &#39;stringdist&#39;
+## 
+## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract
+## 
+## Loading required package: stringi</code></pre>
+<pre><code>## Warning: package &#39;stringi&#39; was built under R version 4.5.3</code></pre>
 <pre><code>## [[1]]
 ## [1] TRUE
 ## 
@@ -470,21 +573,47 @@ lapply(packages, require, character.only=T)</code></pre>
 ## [1] TRUE
 ## 
 ## [[3]]
+## [1] TRUE
+## 
+## [[4]]
+## [1] TRUE
+## 
+## [[5]]
+## [1] TRUE
+## 
+## [[6]]
+## [1] TRUE
+## 
+## [[7]]
+## [1] TRUE
+## 
+## [[8]]
+## [1] TRUE
+## 
+## [[9]]
 ## [1] TRUE</code></pre>
-<pre class="r"><code>w1 &lt;- droplevels(subset(survey, wave == 1))
-genderw1 &lt;- w1$ed_a6
-w1_network &lt;- as.network(w1adjmat)</code></pre>
-<pre><code>## Loading required namespace: Matrix</code></pre>
+<pre class="r"><code>load(&quot;./data/EduBridgeforRSiena.RData&quot;)</code></pre>
+<div id="descriptive-analysis" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Descriptive
+Analysis</h1>
+</div>
+<div id="visualisation" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Visualisation</h1>
+<p>Inside colour based on average parental education, outside colour
+based on difference in parental education Shape based on gender?</p>
+</div>
+<div id="segregation" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Segregation</h1>
 <pre class="r"><code># step 1: calculate distances
-geodistances &lt;- geodist(w1_network, count.paths = TRUE)
-geodistances &lt;- geodistances$gdist
+#geodistances &lt;- geodist(w1_network, count.paths = TRUE)
+#geodistances &lt;- geodistances$gdist
 # set the distance to yourself as Inf
-diag(geodistances) &lt;- Inf
+#diag(geodistances) &lt;- Inf
 
 
 # step 2: define a distance decay function. This one is pretty standard in the spatial
 # autocorrelation literature but actually pretty arbitrary.
-weights2 &lt;- exp(-geodistances)</code></pre>
+#weights2 &lt;- exp(-geodistances)</code></pre>
 <pre class="r"><code>#Jochem&#39;s formula for Moran&#39;s I
 
 fMoran.I &lt;- function(x, weight, scaled = FALSE, na.rm = FALSE, alternative = &quot;two.sided&quot;, rowstandardize = TRUE) {
@@ -583,8 +712,220 @@ fMoran.I &lt;- function(x, weight, scaled = FALSE, na.rm = FALSE, alternative = 
 
 #fMoran.I(genderw1, scaled = FALSE, weight = weights2, na.rm = TRUE, rowstandardize = FALSE)</code></pre>
 </div>
+<div id="rsiena" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> RSiena</h1>
+<div id="hanging-out-network" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Hanging Out
+Network</h2>
+<div id="get-network-separate-waves" class="section level3"
+number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Get Network,
+Separate waves</h3>
+<pre class="r"><code>#wave 1 = hangingt1, wave 2 = hangingt2
+hangingt1m &lt;- as.matrix(hanging_df_t1)
+hangingt2m &lt;- as.matrix(hanging_df_t2)
+#diagonals to zero
+diag(hangingt1m) &lt;- 0
+diag(hangingt2m) &lt;- 0
+#missings to NA
+hangingt1mwna &lt;- hangingt1m
+hangingt1mwna[hangingt1mwna == 9] &lt;- NA
+hangingt2mwna &lt;- hangingt2m
+hangingt2mwna[hangingt2mwna == 9] &lt;- NA
+#missings to 0
+hangingt1mnona &lt;- hangingt1m
+hangingt1mnona[hangingt1mnona == 9] &lt;- 0
+hangingt2mnona &lt;- hangingt2m
+hangingt2mnona[hangingt2mnona == 9] &lt;- 0
+#nets into array
+hanging_array &lt;- array(data = c(hangingt1mnona, hangingt2mnona), dim = c(dim(hangingt1mnona), 2))
+hanging_arraynona &lt;- array(data = c(hangingt1mnona, hangingt2mnona), dim = c(dim(hangingt1mnona), 2))
+#dependent
+net &lt;- sienaDependent(hanging_array)</code></pre>
+</div>
+</div>
+<div id="covariates-parenteduav-parentedudif-ethnew-gendernew"
+class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Covariates:
+parenteduav, parentedudif, ethnew, gendernew</h2>
+<pre class="r"><code>gendercov &lt;- coCovar(gendernew) #constant covariate
+ethcov &lt;- coCovar(ethnew)
+parentedudifcov &lt;- coCovar(parentedudif)
+parenteduavcov &lt;- coCovar(parenteduav)
+mydata &lt;- sienaDataCreate(net, gendercov, ethcov, parentedudifcov, parenteduavcov)</code></pre>
+</div>
+<div id="effects" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Effects</h2>
+<pre class="r"><code>myeff0910 &lt;- getEffects(mydata)
+effectsDocumentation(myeff0910)</code></pre>
+<pre><code>## Effects documentation written to file myeff0910.html .</code></pre>
+<pre class="r"><code>ifelse(!dir.exists(&quot;results&quot;), dir.create(&quot;results&quot;), FALSE)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>print01Report(mydata, modelname = &quot;./results/edu_bridge&quot;)</code></pre>
+<p>First some basic effects that are not really of theoretical
+interest:</p>
+<pre class="r"><code>myeff &lt;- includeEffects(myeff0910, outAct, inPop, inAct, recip, GWESPFF)  </code></pre>
+<pre><code>##   effectNumber effectName             shortName include fix   test 
+## 1  18          reciprocity            recip     TRUE    FALSE FALSE
+## 2  81          indegree - popularity  inPop     TRUE    FALSE FALSE
+## 3 118          outdegree - activity   outAct    TRUE    FALSE FALSE
+## 4 127          indegree - activity(#) inAct     TRUE    FALSE FALSE
+##   initialValue parm
+## 1          0   0   
+## 2          0   0   
+## 3          0   0   
+## 4          0   1</code></pre>
+<p>Now I’ll introduce homophily:</p>
+<pre class="r"><code>myeff &lt;- includeEffects(myeff, simX, egoX, altX, interaction1 = &quot;parenteduavcov&quot;)</code></pre>
+<pre><code>##   effectNumber effectName                shortName include fix   test 
+## 1 817          parenteduavcov alter      altX      TRUE    FALSE FALSE
+## 2 832          parenteduavcov ego        egoX      TRUE    FALSE FALSE
+## 3 878          parenteduavcov similarity simX      TRUE    FALSE FALSE
+##   initialValue parm
+## 1          0   0   
+## 2          0   0   
+## 3          0   0</code></pre>
+<pre class="r"><code>myeff</code></pre>
+<pre><code>##   effectName                include fix   test  initialValue parm
+## 1 basic rate parameter net  TRUE    FALSE FALSE    6.21791   0   
+## 2 outdegree (density)       TRUE    FALSE FALSE   -1.72530   0   
+## 3 reciprocity               TRUE    FALSE FALSE    0.00000   0   
+## 4 indegree - popularity     TRUE    FALSE FALSE    0.00000   0   
+## 5 outdegree - activity      TRUE    FALSE FALSE    0.00000   0   
+## 6 indegree - activity(#)    TRUE    FALSE FALSE    0.00000   1   
+## 7 parenteduavcov alter      TRUE    FALSE FALSE    0.00000   0   
+## 8 parenteduavcov ego        TRUE    FALSE FALSE    0.00000   0   
+## 9 parenteduavcov similarity TRUE    FALSE FALSE    0.00000   0</code></pre>
+<pre class="r"><code>myAlgorithm &lt;- sienaAlgorithmCreate(projname = &quot;edu_bridge&quot;,
+                                    MaxDegree = c(net = 10),
+                                    seed = 30000)</code></pre>
+<pre><code>## If you use this algorithm object, siena07 will create/use an output file edu_bridge.txt .</code></pre>
+<pre class="r"><code>mod1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff) 
+mod1</code></pre>
+<pre><code>## Estimates, standard errors and convergence t-ratios
+## 
+##                                     Estimate   Standard   Convergence 
+##                                                  Error      t-ratio   
+## 
+## Rate parameters: 
+##   0       Rate parameter             7.3378  ( 0.5856   )             
+## 
+## Other parameters: 
+##   1. eval outdegree (density)       -3.5629  ( 0.1906   )   -0.0094   
+##   2. eval reciprocity                3.0377  ( 0.3055   )   -0.0833   
+##   3. eval indegree - popularity      0.0884  ( 0.0264   )   -0.0177   
+##   4. eval outdegree - activity       0.1496  ( 0.0198   )    0.0283   
+##   5. eval indegree - activity(1)    -0.2699  ( 0.0732   )   -0.0522   
+##   6. eval parenteduavcov alter       0.0211  ( 0.0261   )   -0.0038   
+##   7. eval parenteduavcov ego         0.0038  ( 0.0285   )   -0.0586   
+##   8. eval parenteduavcov similarity  0.0030  ( 0.2787   )   -0.0166   
+## 
+## Overall maximum convergence ratio:    0.1394 
+## 
+## 
+## Degrees constrained to maximum values:
+## net : 10 
+## 
+## 
+## Total of 2803 iteration steps.</code></pre>
+<p>The overall convergence ratio is under .25, which is acceptable.
+Convergence of individual parameters is also sufficient. The rate
+parameter value is 7.34, indicating that each actor had, on average,
+7.34 options for change within the simulation.</p>
+<pre class="r"><code>test_parameter(mod1, tested=8) #Wald-type significance test</code></pre>
+<pre><code>## Tested effects:
+##  parenteduavcov similarity 
+## chi-squared = 0.00, d.f. = 1; standard error of linear combination = 0.279; one-sided Z = 0.01; two-sided p = 0.991.</code></pre>
+<p>The estimate for homophily based on average parental educational
+attainment is positive, but relatively low and with a large standard
+error, indicating uncertainty. The Wald-type significance test indicates
+that the effect of similarity in average parental educational attainment
+is insignificant, p = .991.</p>
+<pre class="r"><code>myeff2 &lt;- includeEffects(myeff, egoX, interaction1 = &quot;parentedudifcov&quot;)</code></pre>
+<pre><code>##   effectNumber effectName          shortName include fix   test  initialValue
+## 1 648          parentedudifcov ego egoX      TRUE    FALSE FALSE          0  
+##   parm
+## 1 0</code></pre>
+<pre class="r"><code>myeff2</code></pre>
+<pre><code>##    effectName                include fix   test  initialValue parm
+## 1  basic rate parameter net  TRUE    FALSE FALSE    6.21791   0   
+## 2  outdegree (density)       TRUE    FALSE FALSE   -1.72530   0   
+## 3  reciprocity               TRUE    FALSE FALSE    0.00000   0   
+## 4  indegree - popularity     TRUE    FALSE FALSE    0.00000   0   
+## 5  outdegree - activity      TRUE    FALSE FALSE    0.00000   0   
+## 6  indegree - activity(#)    TRUE    FALSE FALSE    0.00000   1   
+## 7  parentedudifcov ego       TRUE    FALSE FALSE    0.00000   0   
+## 8  parenteduavcov alter      TRUE    FALSE FALSE    0.00000   0   
+## 9  parenteduavcov ego        TRUE    FALSE FALSE    0.00000   0   
+## 10 parenteduavcov similarity TRUE    FALSE FALSE    0.00000   0</code></pre>
+<pre class="r"><code>myeff2 &lt;-  set_interaction(myeff2, list(simX, egoX), covar1=c(&quot;parenteduavcov&quot;, &quot;parentedudifcov&quot;))</code></pre>
+<pre><code>##   effectNumber effectName                                      shortName
+## 1  648         parentedudifcov ego                             egoX     
+## 2  878         parenteduavcov similarity                       simX     
+## 3 1001         parentedudifcov ego x parenteduavcov similarity unspInt  
+##   include fix   test  initialValue parm effect1 effect2
+## 1 TRUE    FALSE FALSE          0   0      0       0    
+## 2 TRUE    FALSE FALSE          0   0      0       0    
+## 3 TRUE    FALSE FALSE          0   0    878     648</code></pre>
+<pre class="r"><code>myeff2</code></pre>
+<pre><code>##    effectName                                      include fix   test 
+## 1  basic rate parameter net                        TRUE    FALSE FALSE
+## 2  outdegree (density)                             TRUE    FALSE FALSE
+## 3  reciprocity                                     TRUE    FALSE FALSE
+## 4  indegree - popularity                           TRUE    FALSE FALSE
+## 5  outdegree - activity                            TRUE    FALSE FALSE
+## 6  indegree - activity(1)                          TRUE    FALSE FALSE
+## 7  parentedudifcov ego                             TRUE    FALSE FALSE
+## 8  parenteduavcov alter                            TRUE    FALSE FALSE
+## 9  parenteduavcov ego                              TRUE    FALSE FALSE
+## 10 parenteduavcov similarity                       TRUE    FALSE FALSE
+## 11 parentedudifcov ego x parenteduavcov similarity TRUE    FALSE FALSE
+##    initialValue parm effect1 effect2
+## 1     6.21791   0      0       0    
+## 2    -1.72530   0      0       0    
+## 3     0.00000   0      0       0    
+## 4     0.00000   0      0       0    
+## 5     0.00000   0      0       0    
+## 6     0.00000   1      0       0    
+## 7     0.00000   0      0       0    
+## 8     0.00000   0      0       0    
+## 9     0.00000   0      0       0    
+## 10    0.00000   0      0       0    
+## 11    0.00000   0    878     648</code></pre>
+<pre class="r"><code>mod2 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff2) 
+mod2</code></pre>
+<pre><code>## Estimates, standard errors and convergence t-ratios
+## 
+##                                                            Estimate   Standard   Convergence 
+##                                                                         Error      t-ratio   
+## 
+## Rate parameters: 
+##   0        Rate parameter                                   7.3009  ( 0.5913   )             
+## 
+## Other parameters: 
+##    1. eval outdegree (density)                             -3.5611  ( 0.1797   )    0.0966   
+##    2. eval reciprocity                                      3.0291  ( 0.3110   )    0.0768   
+##    3. eval indegree - popularity                            0.0874  ( 0.0246   )    0.0683   
+##    4. eval outdegree - activity                             0.1482  ( 0.0224   )    0.1051   
+##    5. eval indegree - activity(1)                          -0.2624  ( 0.0757   )    0.1088   
+##    6. eval parentedudifcov ego                             -0.0617  ( 0.0594   )   -0.0385   
+##    7. eval parenteduavcov alter                             0.0354  ( 0.0278   )    0.0516   
+##    8. eval parenteduavcov ego                               0.0019  ( 0.0279   )    0.0147   
+##    9. eval parenteduavcov similarity                       -0.2115  ( 0.3364   )    0.0479   
+##   10. eval parentedudifcov ego x parenteduavcov similarity -0.6903  ( 0.3311   )    0.0626   
+## 
+## Overall maximum convergence ratio:    0.1673 
+## 
+## 
+## Degrees constrained to maximum values:
+## net : 10 
+## 
+## 
+## Total of 2926 iteration steps.</code></pre>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFuYWx5c2VzIGFuZCBSZXN1bHRzIg0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTI5Ig0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9DQprbGlwcHk6OmtsaXBweShwb3NpdGlvbiA9IGMoJ3RvcCcsICdyaWdodCcpKQ0KI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQ0KI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQ0KYGBgDQoNCiMgRGVzY3JpcHRpdmUgQW5hbHlzaXMNCg0KYGBge3J9DQpsb2FkKCJDOi9GSVNfZGF0YS9maXNfY3VmXzExMC9maXNfZGF0YS9maXMtY3VmLlJEYXRhIikNCnBhY2thZ2VzIDwtIGMoInNuYSIsImFwZSIsICJuZXR3b3JrIikNCmxhcHBseShwYWNrYWdlcywgcmVxdWlyZSwgY2hhcmFjdGVyLm9ubHk9VCkNCmBgYA0KYGBge3J9DQp3MSA8LSBkcm9wbGV2ZWxzKHN1YnNldChzdXJ2ZXksIHdhdmUgPT0gMSkpDQpnZW5kZXJ3MSA8LSB3MSRlZF9hNg0KdzFfbmV0d29yayA8LSBhcy5uZXR3b3JrKHcxYWRqbWF0KQ0KYGBgDQoNCmBgYHtyfQ0KIyBzdGVwIDE6IGNhbGN1bGF0ZSBkaXN0YW5jZXMNCmdlb2Rpc3RhbmNlcyA8LSBnZW9kaXN0KHcxX25ldHdvcmssIGNvdW50LnBhdGhzID0gVFJVRSkNCmdlb2Rpc3RhbmNlcyA8LSBnZW9kaXN0YW5jZXMkZ2Rpc3QNCiMgc2V0IHRoZSBkaXN0YW5jZSB0byB5b3Vyc2VsZiBhcyBJbmYNCmRpYWcoZ2VvZGlzdGFuY2VzKSA8LSBJbmYNCg0KDQojIHN0ZXAgMjogZGVmaW5lIGEgZGlzdGFuY2UgZGVjYXkgZnVuY3Rpb24uIFRoaXMgb25lIGlzIHByZXR0eSBzdGFuZGFyZCBpbiB0aGUgc3BhdGlhbA0KIyBhdXRvY29ycmVsYXRpb24gbGl0ZXJhdHVyZSBidXQgYWN0dWFsbHkgcHJldHR5IGFyYml0cmFyeS4NCndlaWdodHMyIDwtIGV4cCgtZ2VvZGlzdGFuY2VzKQ0KYGBgDQoNCmBgYHtyfQ0KI0pvY2hlbSdzIGZvcm11bGEgZm9yIE1vcmFuJ3MgSQ0KDQpmTW9yYW4uSSA8LSBmdW5jdGlvbih4LCB3ZWlnaHQsIHNjYWxlZCA9IEZBTFNFLCBuYS5ybSA9IEZBTFNFLCBhbHRlcm5hdGl2ZSA9ICJ0d28uc2lkZWQiLCByb3dzdGFuZGFyZGl6ZSA9IFRSVUUpIHsNCiAgICBpZiAocm93c3RhbmRhcmRpemUpIHsNCiAgICAgICAgaWYgKGRpbSh3ZWlnaHQpWzFdICE9IGRpbSh3ZWlnaHQpWzJdKQ0KICAgICAgICAgICAgc3RvcCgiJ3dlaWdodCcgbXVzdCBiZSBhIHNxdWFyZSBtYXRyaXgiKQ0KICAgICAgICBuIDwtIGxlbmd0aCh4KQ0KICAgICAgICBpZiAoZGltKHdlaWdodClbMV0gIT0gbikNCiAgICAgICAgICAgIHN0b3AoIid3ZWlnaHQnIG11c3QgaGF2ZSBhcyBtYW55IHJvd3MgYXMgb2JzZXJ2YXRpb25zIGluICd4JyIpDQogICAgICAgIGVpIDwtIC0xLyhuIC0gMSkNCiAgICAgICAgbmFzIDwtIGlzLm5hKHgpDQogICAgICAgIGlmIChhbnkobmFzKSkgew0KICAgICAgICAgICAgaWYgKG5hLnJtKSB7DQogICAgICAgICAgICAgICAgeCA8LSB4WyFuYXNdDQogICAgICAgICAgICAgICAgbiA8LSBsZW5ndGgoeCkNCiAgICAgICAgICAgICAgICB3ZWlnaHQgPC0gd2VpZ2h0WyFuYXMsICFuYXNdDQogICAgICAgICAgICB9IGVsc2Ugew0KICAgICAgICAgICAgICAgIHdhcm5pbmcoIid4JyBoYXMgbWlzc2luZyB2YWx1ZXM6IG1heWJlIHlvdSB3YW50ZWQgdG8gc2V0IG5hLnJtID0gVFJVRT8iKQ0KICAgICAgICAgICAgICAgIHJldHVybihsaXN0KG9ic2VydmVkID0gTkEsIGV4cGVjdGVkID0gZWksIHNkID0gTkEsIHAudmFsdWUgPSBOQSkpDQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgUk9XU1VNIDwtIHJvd1N1bXMod2VpZ2h0KQ0KICAgICAgICBST1dTVU1bUk9XU1VNID09IDBdIDwtIDENCiAgICAgICAgd2VpZ2h0IDwtIHdlaWdodC9ST1dTVU0NCiAgICAgICAgcyA8LSBzdW0od2VpZ2h0KQ0KICAgICAgICBtIDwtIG1lYW4oeCkNCiAgICAgICAgeSA8LSB4IC0gbQ0KICAgICAgICBjdiA8LSBzdW0od2VpZ2h0ICogeSAlbyUgeSkNCiAgICAgICAgdiA8LSBzdW0oeV4yKQ0KICAgICAgICBvYnMgPC0gKG4vcykgKiAoY3YvdikNCiAgICAgICAgaWYgKHNjYWxlZCkgew0KICAgICAgICAgICAgaS5tYXggPC0gKG4vcykgKiAoc2Qocm93U3Vtcyh3ZWlnaHQpICogeSkvc3FydCh2LyhuIC0gMSkpKQ0KICAgICAgICAgICAgb2JzIDwtIG9icy9pLm1heA0KICAgICAgICB9DQogICAgICAgIFMxIDwtIDAuNSAqIHN1bSgod2VpZ2h0ICsgdCh3ZWlnaHQpKV4yKQ0KICAgICAgICBTMiA8LSBzdW0oKGFwcGx5KHdlaWdodCwgMSwgc3VtKSArIGFwcGx5KHdlaWdodCwgMiwgc3VtKSleMikNCiAgICAgICAgcy5zcSA8LSBzXjINCiAgICAgICAgayA8LSAoc3VtKHleNCkvbikvKHYvbileMg0KICAgICAgICBzZGkgPC0gc3FydCgobiAqICgobl4yIC0gMyAqIG4gKyAzKSAqIFMxIC0gbiAqIFMyICsgMyAqIHMuc3EpIC0gayAqIChuICogKG4gLSAxKSAqIFMxIC0gMiAqIG4gKg0KICAgICAgICAgICAgUzIgKyA2ICogcy5zcSkpLygobiAtIDEpICogKG4gLSAyKSAqIChuIC0gMykgKiBzLnNxKSAtIDEvKChuIC0gMSleMikpDQogICAgICAgIGFsdGVybmF0aXZlIDwtIG1hdGNoLmFyZyhhbHRlcm5hdGl2ZSwgYygidHdvLnNpZGVkIiwgImxlc3MiLCAiZ3JlYXRlciIpKQ0KICAgICAgICBwdiA8LSBwbm9ybShvYnMsIG1lYW4gPSBlaSwgc2QgPSBzZGkpDQogICAgICAgIGlmIChhbHRlcm5hdGl2ZSA9PSAidHdvLnNpZGVkIikNCiAgICAgICAgICAgIHB2IDwtIGlmIChvYnMgPD0gZWkpDQogICAgICAgICAgICAgICAgMiAqIHB2IGVsc2UgMiAqICgxIC0gcHYpDQogICAgICAgIGlmIChhbHRlcm5hdGl2ZSA9PSAiZ3JlYXRlciIpDQogICAgICAgICAgICBwdiA8LSAxIC0gcHYNCiAgICAgICAgbGlzdChvYnNlcnZlZCA9IG9icywgZXhwZWN0ZWQgPSBlaSwgc2QgPSBzZGksIHAudmFsdWUgPSBwdikNCiAgICB9IGVsc2Ugew0KICAgICAgICBpZiAoZGltKHdlaWdodClbMV0gIT0gZGltKHdlaWdodClbMl0pDQogICAgICAgICAgICBzdG9wKCInd2VpZ2h0JyBtdXN0IGJlIGEgc3F1YXJlIG1hdHJpeCIpDQogICAgICAgIG4gPC0gbGVuZ3RoKHgpDQogICAgICAgIGlmIChkaW0od2VpZ2h0KVsxXSAhPSBuKQ0KICAgICAgICAgICAgc3RvcCgiJ3dlaWdodCcgbXVzdCBoYXZlIGFzIG1hbnkgcm93cyBhcyBvYnNlcnZhdGlvbnMgaW4gJ3gnIikNCiAgICAgICAgZWkgPC0gLTEvKG4gLSAxKQ0KICAgICAgICBuYXMgPC0gaXMubmEoeCkNCiAgICAgICAgaWYgKGFueShuYXMpKSB7DQogICAgICAgICAgICBpZiAobmEucm0pIHsNCiAgICAgICAgICAgICAgICB4IDwtIHhbIW5hc10NCiAgICAgICAgICAgICAgICBuIDwtIGxlbmd0aCh4KQ0KICAgICAgICAgICAgICAgIHdlaWdodCA8LSB3ZWlnaHRbIW5hcywgIW5hc10NCiAgICAgICAgICAgIH0gZWxzZSB7DQogICAgICAgICAgICAgICAgd2FybmluZygiJ3gnIGhhcyBtaXNzaW5nIHZhbHVlczogbWF5YmUgeW91IHdhbnRlZCB0byBzZXQgbmEucm0gPSBUUlVFPyIpDQogICAgICAgICAgICAgICAgcmV0dXJuKGxpc3Qob2JzZXJ2ZWQgPSBOQSwgZXhwZWN0ZWQgPSBlaSwgc2QgPSBOQSwgcC52YWx1ZSA9IE5BKSkNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICAjIFJPV1NVTSA8LSByb3dTdW1zKHdlaWdodCkgUk9XU1VNW1JPV1NVTSA9PSAwXSA8LSAxIHdlaWdodCA8LSB3ZWlnaHQvUk9XU1VNDQogICAgICAgIHMgPC0gc3VtKHdlaWdodCkNCiAgICAgICAgbSA8LSBtZWFuKHgpDQogICAgICAgIHkgPC0geCAtIG0NCiAgICAgICAgY3YgPC0gc3VtKHdlaWdodCAqIHkgJW8lIHkpDQogICAgICAgIHYgPC0gc3VtKHleMikNCiAgICAgICAgb2JzIDwtIChuL3MpICogKGN2L3YpDQogICAgICAgIGlmIChzY2FsZWQpIHsNCiAgICAgICAgICAgIGkubWF4IDwtIChuL3MpICogKHNkKHJvd1N1bXMod2VpZ2h0KSAqIHkpL3NxcnQodi8obiAtIDEpKSkNCiAgICAgICAgICAgIG9icyA8LSBvYnMvaS5tYXgNCiAgICAgICAgfQ0KICAgICAgICBTMSA8LSAwLjUgKiBzdW0oKHdlaWdodCArIHQod2VpZ2h0KSleMikNCiAgICAgICAgUzIgPC0gc3VtKChhcHBseSh3ZWlnaHQsIDEsIHN1bSkgKyBhcHBseSh3ZWlnaHQsIDIsIHN1bSkpXjIpDQogICAgICAgIHMuc3EgPC0gc14yDQogICAgICAgIGsgPC0gKHN1bSh5XjQpL24pLyh2L24pXjINCiAgICAgICAgc2RpIDwtIHNxcnQoKG4gKiAoKG5eMiAtIDMgKiBuICsgMykgKiBTMSAtIG4gKiBTMiArIDMgKiBzLnNxKSAtIGsgKiAobiAqIChuIC0gMSkgKiBTMSAtIDIgKiBuICoNCiAgICAgICAgICAgIFMyICsgNiAqIHMuc3EpKS8oKG4gLSAxKSAqIChuIC0gMikgKiAobiAtIDMpICogcy5zcSkgLSAxLygobiAtIDEpXjIpKQ0KICAgICAgICBhbHRlcm5hdGl2ZSA8LSBtYXRjaC5hcmcoYWx0ZXJuYXRpdmUsIGMoInR3by5zaWRlZCIsICJsZXNzIiwgImdyZWF0ZXIiKSkNCiAgICAgICAgcHYgPC0gcG5vcm0ob2JzLCBtZWFuID0gZWksIHNkID0gc2RpKQ0KICAgICAgICBpZiAoYWx0ZXJuYXRpdmUgPT0gInR3by5zaWRlZCIpDQogICAgICAgICAgICBwdiA8LSBpZiAob2JzIDw9IGVpKQ0KICAgICAgICAgICAgICAgIDIgKiBwdiBlbHNlIDIgKiAoMSAtIHB2KQ0KICAgICAgICBpZiAoYWx0ZXJuYXRpdmUgPT0gImdyZWF0ZXIiKQ0KICAgICAgICAgICAgcHYgPC0gMSAtIHB2DQogICAgICAgIGxpc3Qob2JzZXJ2ZWQgPSBvYnMsIGV4cGVjdGVkID0gZWksIHNkID0gc2RpLCBwLnZhbHVlID0gcHYpDQogICAgfQ0KDQoNCn0NCg0KI2ZNb3Jhbi5JKGdlbmRlcncxLCBzY2FsZWQgPSBGQUxTRSwgd2VpZ2h0ID0gd2VpZ2h0czIsIG5hLnJtID0gVFJVRSwgcm93c3RhbmRhcmRpemUgPSBGQUxTRSkNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFuYWx5c2VzIGFuZCBSZXN1bHRzIg0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTI5Ig0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9DQprbGlwcHk6OmtsaXBweShwb3NpdGlvbiA9IGMoJ3RvcCcsICdyaWdodCcpKQ0KI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQ0KI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQ0KYGBgDQojYWRkIGNsZWFuaW5nIGVudmlyb25tZW50ICsgY2hlY2tpbmcgcGFja2FnZSBjb2RlIGZyb20gSm9jaGVtDQoNCmBgYHtyfQ0Kcm0obGlzdCA9IGxzKCkpDQoNCmZwYWNrYWdlLmNoZWNrIDwtIGZ1bmN0aW9uKHBhY2thZ2VzKSB7DQogICAgbGFwcGx5KHBhY2thZ2VzLCBGVU4gPSBmdW5jdGlvbih4KSB7DQogICAgICAgIGlmICghcmVxdWlyZSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpKSB7DQogICAgICAgICAgICBpbnN0YWxsLnBhY2thZ2VzKHgsIGRlcGVuZGVuY2llcyA9IFRSVUUpDQogICAgICAgICAgICBsaWJyYXJ5KHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkNCiAgICAgICAgfQ0KICAgIH0pDQp9DQoNCmZzYXZlIDwtIGZ1bmN0aW9uKHgsIGZpbGUgPSBOVUxMLCBsb2NhdGlvbiA9ICIuL2RhdGEvcHJvY2Vzc2VkLyIpIHsNCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEiKSwgZGlyLmNyZWF0ZSgiZGF0YSIpLCBGQUxTRSkNCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEvcHJvY2Vzc2VkIiksIGRpci5jcmVhdGUoImRhdGEvcHJvY2Vzc2VkIiksIEZBTFNFKQ0KICAgIGlmIChpcy5udWxsKGZpbGUpKQ0KICAgICAgICBmaWxlID0gZGVwYXJzZShzdWJzdGl0dXRlKHgpKQ0KICAgIGRhdGVuYW1lIDwtIHN1YnN0cihnc3ViKCJbOi1dIiwgIiIsIFN5cy50aW1lKCkpLCAxLCA4KQ0KICAgIHRvdGFsbmFtZSA8LSBwYXN0ZShsb2NhdGlvbiwgZGF0ZW5hbWUsIGZpbGUsICIucmRhIiwgc2VwID0gIiIpDQogICAgc2F2ZSh4LCBmaWxlID0gdG90YWxuYW1lKSAgI25lZWQgdG8gZml4IGlmIGZpbGUgaXMgcmVsb2FkZWQgYXMgaW5wdXQgbmFtZSwgbm90IGFzIHguIA0KfQ0KDQpmbG9hZCA8LSBmdW5jdGlvbihmaWxlbmFtZSkgew0KICAgIGxvYWQoZmlsZW5hbWUpDQogICAgZ2V0KGxzKClbbHMoKSAhPSAiZmlsZW5hbWUiXSkNCn0NCg0KZnNob3dkZiA8LSBmdW5jdGlvbih4LCAuLi4pIHsNCiAgICBrbml0cjo6a2FibGUoeCwgZGlnaXRzID0gMiwgImh0bWwiLCAuLi4pICU+JQ0KICAgICAgICBrYWJsZUV4dHJhOjprYWJsZV9zdHlsaW5nKGJvb3RzdHJhcF9vcHRpb25zID0gYygic3RyaXBlZCIsICJob3ZlciIpKSAlPiUNCiAgICAgICAga2FibGVFeHRyYTo6c2Nyb2xsX2JveCh3aWR0aCA9ICIxMDAlIiwgaGVpZ2h0ID0gIjMwMHB4IikNCn0NCg0KY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHsNCiAgICBzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpDQp9DQoNCnBhY2thZ2VzIDwtIGMoInNuYSIsImFwZSIsICJuZXR3b3JrIiwgImRldnRvb2xzIiwgImlncmFwaCIsICJSU2llbmEiLCAidGlkeXZlcnNlIiwgInN0cmluZ2Rpc3QiLCAic3RyaW5naSIpDQpsYXBwbHkocGFja2FnZXMsIHJlcXVpcmUsIGNoYXJhY3Rlci5vbmx5PVQpDQoNCmBgYA0KYGBge3J9DQpsb2FkKCIuL2RhdGEvRWR1QnJpZGdlZm9yUlNpZW5hLlJEYXRhIikNCmBgYA0KDQojIERlc2NyaXB0aXZlIEFuYWx5c2lzDQoNCmBgYHtyfQ0KDQpgYGANCiMgVmlzdWFsaXNhdGlvbg0KDQpJbnNpZGUgY29sb3VyIGJhc2VkIG9uIGF2ZXJhZ2UgcGFyZW50YWwgZWR1Y2F0aW9uLCBvdXRzaWRlIGNvbG91ciBiYXNlZCBvbiBkaWZmZXJlbmNlIGluIHBhcmVudGFsIGVkdWNhdGlvbg0KU2hhcGUgYmFzZWQgb24gZ2VuZGVyPw0KDQojIFNlZ3JlZ2F0aW9uDQoNCmBgYHtyfQ0KIyBzdGVwIDE6IGNhbGN1bGF0ZSBkaXN0YW5jZXMNCiNnZW9kaXN0YW5jZXMgPC0gZ2VvZGlzdCh3MV9uZXR3b3JrLCBjb3VudC5wYXRocyA9IFRSVUUpDQojZ2VvZGlzdGFuY2VzIDwtIGdlb2Rpc3RhbmNlcyRnZGlzdA0KIyBzZXQgdGhlIGRpc3RhbmNlIHRvIHlvdXJzZWxmIGFzIEluZg0KI2RpYWcoZ2VvZGlzdGFuY2VzKSA8LSBJbmYNCg0KDQojIHN0ZXAgMjogZGVmaW5lIGEgZGlzdGFuY2UgZGVjYXkgZnVuY3Rpb24uIFRoaXMgb25lIGlzIHByZXR0eSBzdGFuZGFyZCBpbiB0aGUgc3BhdGlhbA0KIyBhdXRvY29ycmVsYXRpb24gbGl0ZXJhdHVyZSBidXQgYWN0dWFsbHkgcHJldHR5IGFyYml0cmFyeS4NCiN3ZWlnaHRzMiA8LSBleHAoLWdlb2Rpc3RhbmNlcykNCmBgYA0KDQpgYGB7cn0NCiNKb2NoZW0ncyBmb3JtdWxhIGZvciBNb3JhbidzIEkNCg0KZk1vcmFuLkkgPC0gZnVuY3Rpb24oeCwgd2VpZ2h0LCBzY2FsZWQgPSBGQUxTRSwgbmEucm0gPSBGQUxTRSwgYWx0ZXJuYXRpdmUgPSAidHdvLnNpZGVkIiwgcm93c3RhbmRhcmRpemUgPSBUUlVFKSB7DQogICAgaWYgKHJvd3N0YW5kYXJkaXplKSB7DQogICAgICAgIGlmIChkaW0od2VpZ2h0KVsxXSAhPSBkaW0od2VpZ2h0KVsyXSkNCiAgICAgICAgICAgIHN0b3AoIid3ZWlnaHQnIG11c3QgYmUgYSBzcXVhcmUgbWF0cml4IikNCiAgICAgICAgbiA8LSBsZW5ndGgoeCkNCiAgICAgICAgaWYgKGRpbSh3ZWlnaHQpWzFdICE9IG4pDQogICAgICAgICAgICBzdG9wKCInd2VpZ2h0JyBtdXN0IGhhdmUgYXMgbWFueSByb3dzIGFzIG9ic2VydmF0aW9ucyBpbiAneCciKQ0KICAgICAgICBlaSA8LSAtMS8obiAtIDEpDQogICAgICAgIG5hcyA8LSBpcy5uYSh4KQ0KICAgICAgICBpZiAoYW55KG5hcykpIHsNCiAgICAgICAgICAgIGlmIChuYS5ybSkgew0KICAgICAgICAgICAgICAgIHggPC0geFshbmFzXQ0KICAgICAgICAgICAgICAgIG4gPC0gbGVuZ3RoKHgpDQogICAgICAgICAgICAgICAgd2VpZ2h0IDwtIHdlaWdodFshbmFzLCAhbmFzXQ0KICAgICAgICAgICAgfSBlbHNlIHsNCiAgICAgICAgICAgICAgICB3YXJuaW5nKCIneCcgaGFzIG1pc3NpbmcgdmFsdWVzOiBtYXliZSB5b3Ugd2FudGVkIHRvIHNldCBuYS5ybSA9IFRSVUU/IikNCiAgICAgICAgICAgICAgICByZXR1cm4obGlzdChvYnNlcnZlZCA9IE5BLCBleHBlY3RlZCA9IGVpLCBzZCA9IE5BLCBwLnZhbHVlID0gTkEpKQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIFJPV1NVTSA8LSByb3dTdW1zKHdlaWdodCkNCiAgICAgICAgUk9XU1VNW1JPV1NVTSA9PSAwXSA8LSAxDQogICAgICAgIHdlaWdodCA8LSB3ZWlnaHQvUk9XU1VNDQogICAgICAgIHMgPC0gc3VtKHdlaWdodCkNCiAgICAgICAgbSA8LSBtZWFuKHgpDQogICAgICAgIHkgPC0geCAtIG0NCiAgICAgICAgY3YgPC0gc3VtKHdlaWdodCAqIHkgJW8lIHkpDQogICAgICAgIHYgPC0gc3VtKHleMikNCiAgICAgICAgb2JzIDwtIChuL3MpICogKGN2L3YpDQogICAgICAgIGlmIChzY2FsZWQpIHsNCiAgICAgICAgICAgIGkubWF4IDwtIChuL3MpICogKHNkKHJvd1N1bXMod2VpZ2h0KSAqIHkpL3NxcnQodi8obiAtIDEpKSkNCiAgICAgICAgICAgIG9icyA8LSBvYnMvaS5tYXgNCiAgICAgICAgfQ0KICAgICAgICBTMSA8LSAwLjUgKiBzdW0oKHdlaWdodCArIHQod2VpZ2h0KSleMikNCiAgICAgICAgUzIgPC0gc3VtKChhcHBseSh3ZWlnaHQsIDEsIHN1bSkgKyBhcHBseSh3ZWlnaHQsIDIsIHN1bSkpXjIpDQogICAgICAgIHMuc3EgPC0gc14yDQogICAgICAgIGsgPC0gKHN1bSh5XjQpL24pLyh2L24pXjINCiAgICAgICAgc2RpIDwtIHNxcnQoKG4gKiAoKG5eMiAtIDMgKiBuICsgMykgKiBTMSAtIG4gKiBTMiArIDMgKiBzLnNxKSAtIGsgKiAobiAqIChuIC0gMSkgKiBTMSAtIDIgKiBuICoNCiAgICAgICAgICAgIFMyICsgNiAqIHMuc3EpKS8oKG4gLSAxKSAqIChuIC0gMikgKiAobiAtIDMpICogcy5zcSkgLSAxLygobiAtIDEpXjIpKQ0KICAgICAgICBhbHRlcm5hdGl2ZSA8LSBtYXRjaC5hcmcoYWx0ZXJuYXRpdmUsIGMoInR3by5zaWRlZCIsICJsZXNzIiwgImdyZWF0ZXIiKSkNCiAgICAgICAgcHYgPC0gcG5vcm0ob2JzLCBtZWFuID0gZWksIHNkID0gc2RpKQ0KICAgICAgICBpZiAoYWx0ZXJuYXRpdmUgPT0gInR3by5zaWRlZCIpDQogICAgICAgICAgICBwdiA8LSBpZiAob2JzIDw9IGVpKQ0KICAgICAgICAgICAgICAgIDIgKiBwdiBlbHNlIDIgKiAoMSAtIHB2KQ0KICAgICAgICBpZiAoYWx0ZXJuYXRpdmUgPT0gImdyZWF0ZXIiKQ0KICAgICAgICAgICAgcHYgPC0gMSAtIHB2DQogICAgICAgIGxpc3Qob2JzZXJ2ZWQgPSBvYnMsIGV4cGVjdGVkID0gZWksIHNkID0gc2RpLCBwLnZhbHVlID0gcHYpDQogICAgfSBlbHNlIHsNCiAgICAgICAgaWYgKGRpbSh3ZWlnaHQpWzFdICE9IGRpbSh3ZWlnaHQpWzJdKQ0KICAgICAgICAgICAgc3RvcCgiJ3dlaWdodCcgbXVzdCBiZSBhIHNxdWFyZSBtYXRyaXgiKQ0KICAgICAgICBuIDwtIGxlbmd0aCh4KQ0KICAgICAgICBpZiAoZGltKHdlaWdodClbMV0gIT0gbikNCiAgICAgICAgICAgIHN0b3AoIid3ZWlnaHQnIG11c3QgaGF2ZSBhcyBtYW55IHJvd3MgYXMgb2JzZXJ2YXRpb25zIGluICd4JyIpDQogICAgICAgIGVpIDwtIC0xLyhuIC0gMSkNCiAgICAgICAgbmFzIDwtIGlzLm5hKHgpDQogICAgICAgIGlmIChhbnkobmFzKSkgew0KICAgICAgICAgICAgaWYgKG5hLnJtKSB7DQogICAgICAgICAgICAgICAgeCA8LSB4WyFuYXNdDQogICAgICAgICAgICAgICAgbiA8LSBsZW5ndGgoeCkNCiAgICAgICAgICAgICAgICB3ZWlnaHQgPC0gd2VpZ2h0WyFuYXMsICFuYXNdDQogICAgICAgICAgICB9IGVsc2Ugew0KICAgICAgICAgICAgICAgIHdhcm5pbmcoIid4JyBoYXMgbWlzc2luZyB2YWx1ZXM6IG1heWJlIHlvdSB3YW50ZWQgdG8gc2V0IG5hLnJtID0gVFJVRT8iKQ0KICAgICAgICAgICAgICAgIHJldHVybihsaXN0KG9ic2VydmVkID0gTkEsIGV4cGVjdGVkID0gZWksIHNkID0gTkEsIHAudmFsdWUgPSBOQSkpDQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgIyBST1dTVU0gPC0gcm93U3Vtcyh3ZWlnaHQpIFJPV1NVTVtST1dTVU0gPT0gMF0gPC0gMSB3ZWlnaHQgPC0gd2VpZ2h0L1JPV1NVTQ0KICAgICAgICBzIDwtIHN1bSh3ZWlnaHQpDQogICAgICAgIG0gPC0gbWVhbih4KQ0KICAgICAgICB5IDwtIHggLSBtDQogICAgICAgIGN2IDwtIHN1bSh3ZWlnaHQgKiB5ICVvJSB5KQ0KICAgICAgICB2IDwtIHN1bSh5XjIpDQogICAgICAgIG9icyA8LSAobi9zKSAqIChjdi92KQ0KICAgICAgICBpZiAoc2NhbGVkKSB7DQogICAgICAgICAgICBpLm1heCA8LSAobi9zKSAqIChzZChyb3dTdW1zKHdlaWdodCkgKiB5KS9zcXJ0KHYvKG4gLSAxKSkpDQogICAgICAgICAgICBvYnMgPC0gb2JzL2kubWF4DQogICAgICAgIH0NCiAgICAgICAgUzEgPC0gMC41ICogc3VtKCh3ZWlnaHQgKyB0KHdlaWdodCkpXjIpDQogICAgICAgIFMyIDwtIHN1bSgoYXBwbHkod2VpZ2h0LCAxLCBzdW0pICsgYXBwbHkod2VpZ2h0LCAyLCBzdW0pKV4yKQ0KICAgICAgICBzLnNxIDwtIHNeMg0KICAgICAgICBrIDwtIChzdW0oeV40KS9uKS8odi9uKV4yDQogICAgICAgIHNkaSA8LSBzcXJ0KChuICogKChuXjIgLSAzICogbiArIDMpICogUzEgLSBuICogUzIgKyAzICogcy5zcSkgLSBrICogKG4gKiAobiAtIDEpICogUzEgLSAyICogbiAqDQogICAgICAgICAgICBTMiArIDYgKiBzLnNxKSkvKChuIC0gMSkgKiAobiAtIDIpICogKG4gLSAzKSAqIHMuc3EpIC0gMS8oKG4gLSAxKV4yKSkNCiAgICAgICAgYWx0ZXJuYXRpdmUgPC0gbWF0Y2guYXJnKGFsdGVybmF0aXZlLCBjKCJ0d28uc2lkZWQiLCAibGVzcyIsICJncmVhdGVyIikpDQogICAgICAgIHB2IDwtIHBub3JtKG9icywgbWVhbiA9IGVpLCBzZCA9IHNkaSkNCiAgICAgICAgaWYgKGFsdGVybmF0aXZlID09ICJ0d28uc2lkZWQiKQ0KICAgICAgICAgICAgcHYgPC0gaWYgKG9icyA8PSBlaSkNCiAgICAgICAgICAgICAgICAyICogcHYgZWxzZSAyICogKDEgLSBwdikNCiAgICAgICAgaWYgKGFsdGVybmF0aXZlID09ICJncmVhdGVyIikNCiAgICAgICAgICAgIHB2IDwtIDEgLSBwdg0KICAgICAgICBsaXN0KG9ic2VydmVkID0gb2JzLCBleHBlY3RlZCA9IGVpLCBzZCA9IHNkaSwgcC52YWx1ZSA9IHB2KQ0KICAgIH0NCg0KDQp9DQoNCiNmTW9yYW4uSShnZW5kZXJ3MSwgc2NhbGVkID0gRkFMU0UsIHdlaWdodCA9IHdlaWdodHMyLCBuYS5ybSA9IFRSVUUsIHJvd3N0YW5kYXJkaXplID0gRkFMU0UpDQpgYGANCg0KIyBSU2llbmENCg0KIyMgSGFuZ2luZyBPdXQgTmV0d29yaw0KDQojIyMgR2V0IE5ldHdvcmssIFNlcGFyYXRlIHdhdmVzDQoNCmBgYHtyfQ0KI3dhdmUgMSA9IGhhbmdpbmd0MSwgd2F2ZSAyID0gaGFuZ2luZ3QyDQpoYW5naW5ndDFtIDwtIGFzLm1hdHJpeChoYW5naW5nX2RmX3QxKQ0KaGFuZ2luZ3QybSA8LSBhcy5tYXRyaXgoaGFuZ2luZ19kZl90MikNCiNkaWFnb25hbHMgdG8gemVybw0KZGlhZyhoYW5naW5ndDFtKSA8LSAwDQpkaWFnKGhhbmdpbmd0Mm0pIDwtIDANCiNtaXNzaW5ncyB0byBOQQ0KaGFuZ2luZ3QxbXduYSA8LSBoYW5naW5ndDFtDQpoYW5naW5ndDFtd25hW2hhbmdpbmd0MW13bmEgPT0gOV0gPC0gTkENCmhhbmdpbmd0Mm13bmEgPC0gaGFuZ2luZ3QybQ0KaGFuZ2luZ3QybXduYVtoYW5naW5ndDJtd25hID09IDldIDwtIE5BDQojbWlzc2luZ3MgdG8gMA0KaGFuZ2luZ3QxbW5vbmEgPC0gaGFuZ2luZ3QxbQ0KaGFuZ2luZ3QxbW5vbmFbaGFuZ2luZ3QxbW5vbmEgPT0gOV0gPC0gMA0KaGFuZ2luZ3QybW5vbmEgPC0gaGFuZ2luZ3QybQ0KaGFuZ2luZ3QybW5vbmFbaGFuZ2luZ3QybW5vbmEgPT0gOV0gPC0gMA0KI25ldHMgaW50byBhcnJheQ0KaGFuZ2luZ19hcnJheSA8LSBhcnJheShkYXRhID0gYyhoYW5naW5ndDFtbm9uYSwgaGFuZ2luZ3QybW5vbmEpLCBkaW0gPSBjKGRpbShoYW5naW5ndDFtbm9uYSksIDIpKQ0KaGFuZ2luZ19hcnJheW5vbmEgPC0gYXJyYXkoZGF0YSA9IGMoaGFuZ2luZ3QxbW5vbmEsIGhhbmdpbmd0Mm1ub25hKSwgZGltID0gYyhkaW0oaGFuZ2luZ3QxbW5vbmEpLCAyKSkNCiNkZXBlbmRlbnQNCm5ldCA8LSBzaWVuYURlcGVuZGVudChoYW5naW5nX2FycmF5KQ0KYGBgDQoNCiMjIENvdmFyaWF0ZXM6IHBhcmVudGVkdWF2LCBwYXJlbnRlZHVkaWYsIGV0aG5ldywgZ2VuZGVybmV3DQoNCmBgYHtyfQ0KZ2VuZGVyY292IDwtIGNvQ292YXIoZ2VuZGVybmV3KSAjY29uc3RhbnQgY292YXJpYXRlDQpldGhjb3YgPC0gY29Db3ZhcihldGhuZXcpDQpwYXJlbnRlZHVkaWZjb3YgPC0gY29Db3ZhcihwYXJlbnRlZHVkaWYpDQpwYXJlbnRlZHVhdmNvdiA8LSBjb0NvdmFyKHBhcmVudGVkdWF2KQ0KbXlkYXRhIDwtIHNpZW5hRGF0YUNyZWF0ZShuZXQsIGdlbmRlcmNvdiwgZXRoY292LCBwYXJlbnRlZHVkaWZjb3YsIHBhcmVudGVkdWF2Y292KQ0KYGBgDQoNCiMjIEVmZmVjdHMNCg0KYGBge3J9DQpteWVmZjA5MTAgPC0gZ2V0RWZmZWN0cyhteWRhdGEpDQplZmZlY3RzRG9jdW1lbnRhdGlvbihteWVmZjA5MTApDQpgYGANCmBgYHtyfQ0KaWZlbHNlKCFkaXIuZXhpc3RzKCJyZXN1bHRzIiksIGRpci5jcmVhdGUoInJlc3VsdHMiKSwgRkFMU0UpDQpwcmludDAxUmVwb3J0KG15ZGF0YSwgbW9kZWxuYW1lID0gIi4vcmVzdWx0cy9lZHVfYnJpZGdlIikNCmBgYA0KRmlyc3Qgc29tZSBiYXNpYyBlZmZlY3RzIHRoYXQgYXJlIG5vdCByZWFsbHkgb2YgdGhlb3JldGljYWwgaW50ZXJlc3Q6DQpgYGB7cn0NCm15ZWZmIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmMDkxMCwgb3V0QWN0LCBpblBvcCwgaW5BY3QsIHJlY2lwLCBHV0VTUEZGKSAgDQpgYGANCk5vdyBJJ2xsIGludHJvZHVjZSBob21vcGhpbHk6DQpgYGB7cn0NCm15ZWZmIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmLCBzaW1YLCBlZ29YLCBhbHRYLCBpbnRlcmFjdGlvbjEgPSAicGFyZW50ZWR1YXZjb3YiKQ0KbXllZmYNCmBgYA0KYGBge3J9DQpteUFsZ29yaXRobSA8LSBzaWVuYUFsZ29yaXRobUNyZWF0ZShwcm9qbmFtZSA9ICJlZHVfYnJpZGdlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1heERlZ3JlZSA9IGMobmV0ID0gMTApLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VlZCA9IDMwMDAwKQ0KbW9kMSA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYpIA0KbW9kMQ0KYGBgDQpUaGUgb3ZlcmFsbCBjb252ZXJnZW5jZSByYXRpbyBpcyB1bmRlciAuMjUsIHdoaWNoIGlzIGFjY2VwdGFibGUuIENvbnZlcmdlbmNlIG9mIGluZGl2aWR1YWwgcGFyYW1ldGVycyBpcyBhbHNvIHN1ZmZpY2llbnQuIFRoZSByYXRlIHBhcmFtZXRlciB2YWx1ZSBpcyA3LjM0LCBpbmRpY2F0aW5nIHRoYXQgZWFjaCBhY3RvciBoYWQsIG9uIGF2ZXJhZ2UsIDcuMzQgb3B0aW9ucyBmb3IgY2hhbmdlIHdpdGhpbiB0aGUgc2ltdWxhdGlvbi4NCmBgYHtyfQ0KdGVzdF9wYXJhbWV0ZXIobW9kMSwgdGVzdGVkPTgpICNXYWxkLXR5cGUgc2lnbmlmaWNhbmNlIHRlc3QNCmBgYA0KVGhlIGVzdGltYXRlIGZvciBob21vcGhpbHkgYmFzZWQgb24gYXZlcmFnZSBwYXJlbnRhbCBlZHVjYXRpb25hbCBhdHRhaW5tZW50IGlzIHBvc2l0aXZlLCBidXQgcmVsYXRpdmVseSBsb3cgYW5kIHdpdGggYSBsYXJnZSBzdGFuZGFyZCBlcnJvciwgaW5kaWNhdGluZyB1bmNlcnRhaW50eS4gVGhlIFdhbGQtdHlwZSBzaWduaWZpY2FuY2UgdGVzdCBpbmRpY2F0ZXMgdGhhdCB0aGUgZWZmZWN0IG9mIHNpbWlsYXJpdHkgaW4gYXZlcmFnZSBwYXJlbnRhbCBlZHVjYXRpb25hbCBhdHRhaW5tZW50IGlzIGluc2lnbmlmaWNhbnQsIHAgPSAuOTkxLiANCmBgYHtyfQ0KbXllZmYyIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmLCBlZ29YLCBpbnRlcmFjdGlvbjEgPSAicGFyZW50ZWR1ZGlmY292IikNCm15ZWZmMg0KYGBgDQpgYGB7cn0NCm15ZWZmMiA8LSAgc2V0X2ludGVyYWN0aW9uKG15ZWZmMiwgbGlzdChzaW1YLCBlZ29YKSwgY292YXIxPWMoInBhcmVudGVkdWF2Y292IiwgInBhcmVudGVkdWRpZmNvdiIpKQ0KbXllZmYyDQpgYGANCmBgYHtyfQ0KbW9kMiA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYyKSANCm1vZDINCmBgYA0KDQo=</div>
 
 
 </div>

@@ -22,14 +22,18 @@ navbar:
         href: Week4.html
       - text: "Week 5"
         href: Week5.html
+      - text: "Week 6"
+        href: Week6.html
     - text: "Final research paper"
       menu:
       - text: "Introduction"
         href: Introduction.html
       - text: "Data and Methods"
         href: DataMethods.html
-      - text: "Data Construction"
+      - text: "Unused Data Construction FIS"
         href: DataConstruct.html
+      - text: "Data Construction"
+        href: DataConstruct2.html
       - text: "Analyses and Results"
         href: AnalysesResults.html
       - text: "Theory"

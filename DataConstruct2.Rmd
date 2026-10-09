@@ -1,0 +1,114 @@
+---
+title: "DataConstruct2"
+author: "Susanna"
+date: "2026-10-07"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+```{r}
+rm(list=ls())
+load("./data/IndividualCharacteristics.RData")
+load("./data/NetworkCharacteristics.RData")
+packages <- c("sna","tidyverse","haven", "igraph")
+lapply(packages, require, character.only=T)
+```
+# Creating the Network
+
+```{r}
+#hanging networks
+hanging_df_t1 <- as.data.frame(hanging[[1]][1])
+hanging_df_t2 <- as.data.frame(hanging[[1]][2])
+```
+
+```{r}
+hangingt1nona <- hanging_df_t1
+hangingt1nona[hangingt1nona==9]<- 0
+hangingt1nona <- as.matrix(hangingt1nona)
+
+
+hangingt1 <- graph_from_adjacency_matrix(hangingt1nona, mode = "directed", weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
+plot(hangingt1)
+```
+
+
+```{r}
+hangingt2nona <- hanging_df_t2
+hangingt2nona[hangingt2nona==9]<- 0
+hangingt2nona <- as.matrix(hangingt2nona)
+
+
+hangingt2 <- graph_from_adjacency_matrix(hangingt2nona, mode = "directed", weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
+plot(hangingt2)
+```
+
+# Making the Variables
+
+```{r}
+# Parental education
+parentedu_df <- as.data.frame(parentedu[[1]])
+parentedu_df$w1p1nona <- ifelse(is.na(parentedu_df$W1PAR1EDU), parentedu_df$W2PAR1EDU,
+                                parentedu_df$W1PAR1EDU)
+parentedu_df$w2p1nona <- ifelse(is.na(parentedu_df$W2PAR1EDU), parentedu_df$W1PAR1EDU,
+                                parentedu_df$W2PAR1EDU)
+parentedu_df$w1p2nona <- ifelse(is.na(parentedu_df$W1PAR2EDU), parentedu_df$W2PAR2EDU,
+                                parentedu_df$W1PAR2EDU)
+parentedu_df$w2p2nona <- ifelse(is.na(parentedu_df$W2PAR2EDU), parentedu_df$W1PAR2EDU,
+                                parentedu_df$W2PAR2EDU)
+##to account for change in reported parental education level:
+parentedu_df$p1nona <- (parentedu_df$w1p1nona + parentedu_df$w2p1nona)/2 
+parentedu_df$p2nona <- (parentedu_df$w1p2nona + parentedu_df$w2p2nona)/2
+
+# Difference in parents' educational levels
+parentedu_df$pardiffedu <- abs(parentedu_df$p1nona - parentedu_df$p2nona)
+summary(parentedu_df$pardiffedu)
+parentedudif <- dplyr::select(parentedu_df, pardiffedu)
+#parentedudif$pardiffedu <- scale(parentedudif$pardiffedu): check with Jochem
+parentedudif <- as.vector(parentedudif$pardiffedu)
+
+##Not sure if I'll use this: binary big difference vs not big difference
+#parentedu_nona <- droplevels(parentedu_df[-which(is.na(parentedu_df$pardiffedu) == TRUE),])
+#densityPlot(parentedu_nona$pardiffedu)
+#sd(parentedu_df$pardiffedu, na.rm = TRUE)
+#parentedu_df$diffedubin <- ifelse(is.na(parentedu_df$pardiffedu), NA, ifelse(parentedu_df$pardiffedu < 3, 0, 1))
+#parentedu_df$diffedubin <- as.factor(parentedu_df$diffedubin)
+#summary(parentedu_df$diffedubin)
+
+# Average parental educational level
+parentedu_df$parent1ifnone <- ifelse(is.na(parentedu_df$p1nona), parentedu_df$p2nona,
+                                   parentedu_df$p1nona)
+parentedu_df$parent2ifnone <- ifelse(is.na(parentedu_df$p2nona), parentedu_df$p1nona,
+                                   parentedu_df$p2nona)
+parentedu_df$parenteduav <- (parentedu_df$parent1ifnone + parentedu_df$parent2ifnone)/2
+parenteduav <- dplyr::select(parentedu_df, parenteduav)
+#parenteduav$parenteduav <- scale(parenteduav$parenteduav): check with Jochem
+parenteduav <- as.vector(parenteduav$parenteduav)
+###NOTE TO SELF: CHECK WITH JOCHEM IF THIS IS OK
+
+#ethnicity
+ethcomp <- as.data.frame(ethnic)
+ethcomp$ethnicity <- ifelse(is.na(ethcomp$T1ETHNICITY), ethcomp$T2ETHNICITY, ethcomp$T1ETHNICITY)
+ethnew <- dplyr::select(ethcomp, ethnicity)
+ethnew <- as.numeric(ethnew$ethnicity)
+ethnew <- as.vector(ethnew)
+
+#gender
+gendernew <- as.data.frame(gender)
+gendernew$gender <- ifelse(is.na(gendernew$T1GENDER), gendernew$T2GENDER, gendernew$T1GENDER)
+gendernew <- dplyr::select(gendernew, gender)
+gendernew <- as.numeric(gendernew$gender)
+gendernew <- as.vector(gendernew)
+```
+```{r}
+#save everything
+save(hanging_df_t1, hanging_df_t2, parentedudif, parenteduav, ethnew, gendernew, studentids, file = "./data/EduBridgeforRSiena.RData")
+```
+

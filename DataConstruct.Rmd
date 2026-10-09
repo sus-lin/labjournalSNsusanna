@@ -39,6 +39,28 @@ composition2 <- composition2 %>%
   ungroup()
 composition$id_p <- as.factor(composition$id_p)
 summary(composition$id_p) #finding the people who appear twice: 6142, 6171, 6175, 6219, 6238
+#composition2$c_w2 <- as.factor(composition2$c_w2) This did not work
+#composition2$c_w3 <- as.factor(composition2$c_w3)
+#make everything character
+composition_char <- composition2
+composition_char %>% mutate(across(everything(), as.character)) # not doing anything
+composition_char$id_p <- as.character(composition2$id_p)
+composition_char$c_w2 <- as.character(composition2$c_w2)
+
+#composition_char |> mutate(c_w2 = replace_when(c_w2,
+                           # c_w2 == "1" & id_p == "6142" ~ NA)) #not working
+#composition2 %>% mutate(c_w3 = replace_when(c_w3, 
+                           # c_w3 == "1" & id_p == "6142" ~ "3"))
+#composition2 %>% mutate(c_w4 = replace_when(c_w4, 
+                           # composition2$id_p == "6142" ~ "3"))
+#composition2 %>% mutate(c_w5 = replace_when(c_w5, 
+                           # composition2$id_p == "6142" ~ "3"))
+#composition2 %>% mutate(c_w6 = replace_when(c_w6, 
+                           # composition2$id_p == "6142" ~ "3"))
+```
+```{r}
+compw1 <- droplevels(subset(composition2, wave1 == 1)) #only people existing in w1
+compw1 <- dplyr::select(compw1, c(id_p, c_w1))
 ```
 
 
@@ -75,6 +97,32 @@ w1graph <- graph_from_data_frame(w1edgelistnona)
 w1adjmat <- as_adjacency_matrix(w1graph)
 plot(w1graph)
 ```
+```{r}
+#plot wave 1
+colournative <- ifelse(w1$native==1, "white", "purple") #white is native
+shapenative <- ifelse(w1$native==1, "circle", "square") #circle is native
+shapegender <- ifelse(is.na(w1$ed_a6), "csquare", ifelse(w1$ed_a6==1, "circle", "square")) #circle is girl?
+colourclass <- ifelse(is.na(w1$id_c), "gray", ifelse(w1$id_c==1, "thistle", ifelse(w1$id_c==2, "skyblue1", "aquamarine")))
+rangewarm <- colorRampPalette(c("grey91", "grey50", "grey30", "black"))
+nbins <- 5
+colourbetweenness <- rangewarm(nbins)
+
+V(w1graph)$size = igraph::betweenness(w1graph, normalized = T, directed = T)*50 + 5
+
+plot(w1graph,
+     vertex.color = adjustcolor(colournative, alpha.f = .4),
+     vertex.frame.color = adjustcolor(colourclass),
+     vertex.frame.width = 2,
+     vertex.label = NA,
+     edge.curved = 0.2, # curved edges is always a nice touch
+     edge.arrow.size = 0.3,
+     edge.color = colourbetweenness[cut(igraph::edge_betweenness(w1graph), breaks=nbins )],
+     layout = layout.fruchterman.reingold, 
+     main = "Wave 1")
+
+```
+
+
 ```{r}
 #Continuing with the matrix
 class(w1adjmat)

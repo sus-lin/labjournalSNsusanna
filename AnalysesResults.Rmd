@@ -14,31 +14,76 @@ klippy::klippy(position = c('top', 'right'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
+#add cleaning environment + checking package code from Jochem
+
+```{r}
+rm(list = ls())
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+colorize <- function(x, color) {
+    sprintf("<span style='color: %s;'>%s</span>", color, x)
+}
+
+packages <- c("sna","ape", "network", "devtools", "igraph", "RSiena", "tidyverse", "stringdist", "stringi")
+lapply(packages, require, character.only=T)
+
+```
+```{r}
+load("./data/EduBridgeforRSiena.RData")
+```
 
 # Descriptive Analysis
 
 ```{r}
-load("C:/FIS_data/fis_cuf_110/fis_data/fis-cuf.RData")
-packages <- c("sna","ape", "network")
-lapply(packages, require, character.only=T)
+
 ```
-```{r}
-w1 <- droplevels(subset(survey, wave == 1))
-genderw1 <- w1$ed_a6
-w1_network <- as.network(w1adjmat)
-```
+# Visualisation
+
+Inside colour based on average parental education, outside colour based on difference in parental education
+Shape based on gender?
+
+# Segregation
 
 ```{r}
 # step 1: calculate distances
-geodistances <- geodist(w1_network, count.paths = TRUE)
-geodistances <- geodistances$gdist
+#geodistances <- geodist(w1_network, count.paths = TRUE)
+#geodistances <- geodistances$gdist
 # set the distance to yourself as Inf
-diag(geodistances) <- Inf
+#diag(geodistances) <- Inf
 
 
 # step 2: define a distance decay function. This one is pretty standard in the spatial
 # autocorrelation literature but actually pretty arbitrary.
-weights2 <- exp(-geodistances)
+#weights2 <- exp(-geodistances)
 ```
 
 ```{r}
@@ -139,5 +184,89 @@ fMoran.I <- function(x, weight, scaled = FALSE, na.rm = FALSE, alternative = "tw
 }
 
 #fMoran.I(genderw1, scaled = FALSE, weight = weights2, na.rm = TRUE, rowstandardize = FALSE)
+```
+
+# RSiena
+
+## Hanging Out Network
+
+### Get Network, Separate waves
+
+```{r}
+#wave 1 = hangingt1, wave 2 = hangingt2
+hangingt1m <- as.matrix(hanging_df_t1)
+hangingt2m <- as.matrix(hanging_df_t2)
+#diagonals to zero
+diag(hangingt1m) <- 0
+diag(hangingt2m) <- 0
+#missings to NA
+hangingt1mwna <- hangingt1m
+hangingt1mwna[hangingt1mwna == 9] <- NA
+hangingt2mwna <- hangingt2m
+hangingt2mwna[hangingt2mwna == 9] <- NA
+#missings to 0
+hangingt1mnona <- hangingt1m
+hangingt1mnona[hangingt1mnona == 9] <- 0
+hangingt2mnona <- hangingt2m
+hangingt2mnona[hangingt2mnona == 9] <- 0
+#nets into array
+hanging_array <- array(data = c(hangingt1mnona, hangingt2mnona), dim = c(dim(hangingt1mnona), 2))
+hanging_arraynona <- array(data = c(hangingt1mnona, hangingt2mnona), dim = c(dim(hangingt1mnona), 2))
+#dependent
+net <- sienaDependent(hanging_array)
+```
+
+## Covariates: parenteduav, parentedudif, ethnew, gendernew
+
+```{r}
+gendercov <- coCovar(gendernew) #constant covariate
+ethcov <- coCovar(ethnew)
+parentedudifcov <- coCovar(parentedudif)
+parenteduavcov <- coCovar(parenteduav)
+mydata <- sienaDataCreate(net, gendercov, ethcov, parentedudifcov, parenteduavcov)
+```
+
+## Effects
+
+```{r}
+myeff0910 <- getEffects(mydata)
+effectsDocumentation(myeff0910)
+```
+```{r}
+ifelse(!dir.exists("results"), dir.create("results"), FALSE)
+print01Report(mydata, modelname = "./results/edu_bridge")
+```
+First some basic effects that are not really of theoretical interest:
+```{r}
+myeff <- includeEffects(myeff0910, outAct, inPop, inAct, recip, GWESPFF)  
+```
+Now I'll introduce homophily:
+```{r}
+myeff <- includeEffects(myeff, simX, egoX, altX, interaction1 = "parenteduavcov")
+myeff
+```
+```{r}
+myAlgorithm <- sienaAlgorithmCreate(projname = "edu_bridge",
+                                    MaxDegree = c(net = 10),
+                                    seed = 30000)
+mod1 <- siena07(myAlgorithm, data = mydata, effects = myeff) 
+mod1
+```
+The overall convergence ratio is under .25, which is acceptable. Convergence of individual parameters is also sufficient. The rate parameter value is 7.34, indicating that each actor had, on average, 7.34 options for change within the simulation.
+```{r}
+test_parameter(mod1, tested=8) #Wald-type significance test
+```
+The estimate for homophily based on average parental educational attainment is positive, but relatively low and with a large standard error, indicating uncertainty. The Wald-type significance test indicates that the effect of similarity in average parental educational attainment is insignificant, p = .991. 
+```{r}
+myeff2 <- includeEffects(myeff, egoX, interaction1 = "parentedudifcov")
+myeff2
+```
+```{r}
+myeff2 <-  set_interaction(myeff2, list(simX, egoX), covar1=c("parenteduavcov", "parentedudifcov"))
+myeff2
+```
+```{r}
+mod2 <- siena07(myAlgorithm, data = mydata, effects = myeff2) 
+mod2
 ```
 
