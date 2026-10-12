@@ -30,17 +30,6 @@ hanging_df_t2 <- as.data.frame(hanging[[1]][2])
 ```
 
 ```{r}
-hangingt1nona <- hanging_df_t1
-hangingt1nona[hangingt1nona==9]<- 0
-hangingt1nona <- as.matrix(hangingt1nona)
-
-
-hangingt1 <- graph_from_adjacency_matrix(hangingt1nona, mode = "directed", weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
-plot(hangingt1)
-```
-
-
-```{r}
 hangingt2nona <- hanging_df_t2
 hangingt2nona[hangingt2nona==9]<- 0
 hangingt2nona <- as.matrix(hangingt2nona)
@@ -110,5 +99,14 @@ gendernew <- as.vector(gendernew)
 ```{r}
 #save everything
 save(hanging_df_t1, hanging_df_t2, parentedudif, parenteduav, ethnew, gendernew, studentids, file = "./data/EduBridgeforRSiena.RData")
+```
+
+```{r}
+#check colinearity
+require(lattice)
+xyplot(parenteduav ~ parentedudif)
+```
+```{r}
+cor(parenteduav, parentedudif)
 ```
 
