@@ -9,6 +9,16 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Progress Update
+
+![](images/clipboard-3471555387.png)
+
+![](images/clipboard-117190364.png)
+
+![](images/clipboard-2526291689.png)
+
+![](images/clipboard-4186922428.png)
+
 # How to build a model?
 
 **Step 1: convergence as prerequisite for a good model**

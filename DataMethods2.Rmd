@@ -1,0 +1,34 @@
+---
+title: "DataMethods2"
+author: "Susanna"
+date: "2026-10-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data and Methods
+
+## Data
+
+To answer the research questions, I make use of a subset of the Michigan Residential Community Survey. Data was collected among two consequtive cohorts of first-year university students in Michigan Learning Communities (MLCs). Students filled in the survey twice: a first time in October-November and a second time in March-April. Although data was collected among ten MLCs and two control groups, for the sake of this course, my analyses will be conducted on data from one learning MLC only. The survey included a wide range of measures related to campus life, educational experiences, cultural and community experiences, social connections, feelings, and students' backgrounds. For the purpose of this study, I make use of questions on students' social connections and backgrounds.
+
+### Dependent Variable: Hanging Out Networks
+
+A complete directed social network (i.e. socionet) was constructed based on the peers each student reported they hung around with and talked to the most (*"Which students in your MLC do you hang around with and talk to the most?"*). Students could nominate up to ten peers from within their MLC. Participants were instructed to skip the question if they could not think of anyone.
+
+### Caregiver Educational Attainment
+
+**Highest**
+
+To differentiate between first-generation college students and students who have access to parental resources in terms of college attainment,
+
+**Mixed**
+
+### Gender
+
+### Ethnicity
+
+## Methods

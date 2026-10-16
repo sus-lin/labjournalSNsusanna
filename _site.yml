@@ -24,21 +24,28 @@ navbar:
         href: Week5.html
       - text: "Week 6"
         href: Week6.html
+      - text: "Week 7"
+        href: Week7.html
     - text: "Final research paper"
+      menu:
+      - text: "Theory"
+        href: Theory2.html
+      - text: "Data and Methods"
+        href: DataMethods2.html
+      - text: "Data Construction"
+        href: DataConstruct2.html
+      - text: "Analyses and Results"
+        href: AnalysesResults.html
+    - text: "Unused Progress on FIS data"
       menu:
       - text: "Introduction"
         href: Introduction.html
       - text: "Data and Methods"
         href: DataMethods.html
-      - text: "Unused Data Construction FIS"
-        href: DataConstruct.html
-      - text: "Data Construction"
-        href: DataConstruct2.html
-      - text: "Analyses and Results"
-        href: AnalysesResults.html
       - text: "Theory"
         href: Theory.html
-        
+      - text: "Unused Data Construction FIS"
+        href: DataConstruct.html
         
         # here, other .Rmds can be added
 

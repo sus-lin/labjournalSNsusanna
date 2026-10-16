@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Susanna" />
+
+<meta name="date" content="2026-10-16" />
+
+<title>Theory2</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Weekly journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Week1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="Week2.html">Week 2</a>
+    </li>
+    <li>
+      <a href="Week3.html">Week 3</a>
+    </li>
+    <li>
+      <a href="Week4.html">Week 4</a>
+    </li>
+    <li>
+      <a href="Week5.html">Week 5</a>
+    </li>
+    <li>
+      <a href="Week6.html">Week 6</a>
+    </li>
+    <li>
+      <a href="Week7.html">Week 7</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Theory2.html">Theory</a>
+    </li>
+    <li>
+      <a href="DataMethods2.html">Data and Methods</a>
+    </li>
+    <li>
+      <a href="DataConstruct2.html">Data Construction</a>
+    </li>
+    <li>
+      <a href="AnalysesResults.html">Analyses and Results</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Unused Progress on FIS data
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="DataMethods.html">Data and Methods</a>
+    </li>
+    <li>
+      <a href="Theory.html">Theory</a>
+    </li>
+    <li>
+      <a href="DataConstruct.html">Unused Data Construction FIS</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/sus-lin/labjournalSNsusanna">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Theory2</h1>
+<h4 class="author">Susanna</h4>
+<h4 class="date">2026-10-16</h4>
+
+</div>
+
+
+<div id="theory" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Theory</h1>
+<div id="class-based-segregation-and-homophily" class="section level2"
+number="1.1">
+<h2><span class="header-section-number">1.1</span> Class-Based
+Segregation and Homophily</h2>
+<p>US society is strongly segregated based on class, in terms of both
+income and educational attainment <span class="citation">(Mijs and Roe
+2021)</span>. Analysis of General Social Survey data indicates that an
+increasing difference in the number of years of education received
+negatively affected the probability of naming someone as a core
+confidant, and that this association has even become somewhat stronger
+between 1985 and 2004 <span class="citation">(Smith, McPherson, and
+Smith-Lovin 2014)</span>. This is likely to extend to college
+communities. Studies on the experiences of first-generation college
+students highlight that classism <span class="citation">(Allan,
+Garriott, and Keene 2016)</span>, microaggressions <span
+class="citation">(Gray et al. 2017; ÁlvarezRivadulla et al.
+2023)</span>, and insensitivity <span class="citation">(Salusky et al.
+2022)</span> create barriers to forming and maintaining cross-class
+friendships. On a micro level, this suggests the following
+hypothesis:</p>
+<p><em>H1: Students prefer hanging out with peers who have the same
+parental educational background.</em></p>
+<p>On a macro level, homophily suggests that the college social network
+will be segregated along students’ parental educational backgrounds:</p>
+<p><em>H2: Students who hang out together are more similar with regards
+to parental educational backgrounds than students who do not hang out
+together.</em></p>
+</div>
+<div id="family-socialisation" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Family
+Socialisation</h2>
+<p><em>H3: Students whose parents have different educational backgrounds
+(“mixed background”) will demonstrate lower levels of homophily than
+students whose parents have the attained the same level of
+education.</em></p>
+</div>
+<div id="peer-influence" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Peer Influence?</h2>
+<p><em>H4: Students whose friends have more diverse social ties will
+demonstrate lower levels of homophily?</em></p>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+<div id="ref-allan2016" class="csl-entry">
+Allan, Blake A., Patton O. Garriott, and Chesleigh N. Keene. 2016.
+<span>“Outcomes of Social Class and Classism in First- and
+Continuing-Generation College Students.”</span> <em>Journal of
+Counseling Psychology</em> 63 (4): 487–96. <a
+href="https://doi.org/10.1037/cou0000160">https://doi.org/10.1037/cou0000160</a>.
+</div>
+<div id="ref-álvarez-rivadulla2023" class="csl-entry">
+ÁlvarezRivadulla, María José, Paola Camelo, Mariana VargasSerani, and
+Diana Viáfara. 2023. <span>“The Relational Costs of Crossing Class
+Lines.”</span> <em>The British Journal of Sociology</em> 74 (2): 113–30.
+<a
+href="https://doi.org/10.1111/1468-4446.12999">https://doi.org/10.1111/1468-4446.12999</a>.
+</div>
+<div id="ref-gray2017" class="csl-entry">
+Gray, Barbara, Tiffany Johnson, Jennifer Kish-Gephart, and Jacqueline
+Tilton. 2017. <span>“Identity Work by First-Generation College Students
+to Counteract Class-Based Microaggressions.”</span> <em>Organization
+Studies</em> 39 (9): 1227–50. <a
+href="https://doi.org/10.1177/0170840617736935">https://doi.org/10.1177/0170840617736935</a>.
+</div>
+<div id="ref-mijs2021" class="csl-entry">
+Mijs, Jonathan J. B., and Elizabeth L. Roe. 2021. <span>“Is America
+Coming Apart? Socioeconomic Segregation in Neighborhoods, Schools,
+Workplaces, and Social Networks, 1970<span></span>2020.”</span>
+<em>Sociology Compass</em> 15 (6). <a
+href="https://doi.org/10.1111/soc4.12884">https://doi.org/10.1111/soc4.12884</a>.
+</div>
+<div id="ref-salusky2022" class="csl-entry">
+Salusky, Ida, Lidia Monjaras-Gaytan, Grevelin Ulerio, Nicola Forbes,
+George Perron, and Elizabeth Raposa. 2022. <span>“The Formation and Role
+of Social Belonging in On-Campus Integration of Diverse First-Generation
+College Students.”</span> <em>Journal of College Student Retention:
+Research, Theory &amp; Practice</em> 26 (2): 473–99. <a
+href="https://doi.org/10.1177/15210251221092709">https://doi.org/10.1177/15210251221092709</a>.
+</div>
+<div id="ref-smith2014" class="csl-entry">
+Smith, Jeffrey A., Miller McPherson, and Lynn Smith-Lovin. 2014.
+<span>“Social Distance in the United States: Sex, Race, Religion, Age,
+and Education Homophily Among Confidants, 1985 to 2004.”</span>
+<em>American Sociological Review</em> 79 (3): 432–56. <a
+href="https://doi.org/10.1177/0003122414531776">https://doi.org/10.1177/0003122414531776</a>.
+</div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRoZW9yeTIiDQphdXRob3I6ICJTdXNhbm5hIg0KZGF0ZTogIjIwMjYtMTAtMTYiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWINCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQojIFRoZW9yeQ0KDQojIyBDbGFzcy1CYXNlZCBTZWdyZWdhdGlvbiBhbmQgSG9tb3BoaWx5DQoNClVTIHNvY2lldHkgaXMgc3Ryb25nbHkgc2VncmVnYXRlZCBiYXNlZCBvbiBjbGFzcywgaW4gdGVybXMgb2YgYm90aCBpbmNvbWUgYW5kIGVkdWNhdGlvbmFsIGF0dGFpbm1lbnQgW0BtaWpzMjAyMV0uIEFuYWx5c2lzIG9mIEdlbmVyYWwgU29jaWFsIFN1cnZleSBkYXRhIGluZGljYXRlcyB0aGF0IGFuIGluY3JlYXNpbmcgZGlmZmVyZW5jZSBpbiB0aGUgbnVtYmVyIG9mIHllYXJzIG9mIGVkdWNhdGlvbiByZWNlaXZlZCBuZWdhdGl2ZWx5IGFmZmVjdGVkIHRoZSBwcm9iYWJpbGl0eSBvZiBuYW1pbmcgc29tZW9uZSBhcyBhIGNvcmUgY29uZmlkYW50LCBhbmQgdGhhdCB0aGlzIGFzc29jaWF0aW9uIGhhcyBldmVuIGJlY29tZSBzb21ld2hhdCBzdHJvbmdlciBiZXR3ZWVuIDE5ODUgYW5kIDIwMDQgW0BzbWl0aDIwMTRdLiBUaGlzIGlzIGxpa2VseSB0byBleHRlbmQgdG8gY29sbGVnZSBjb21tdW5pdGllcy4gU3R1ZGllcyBvbiB0aGUgZXhwZXJpZW5jZXMgb2YgZmlyc3QtZ2VuZXJhdGlvbiBjb2xsZWdlIHN0dWRlbnRzIGhpZ2hsaWdodCB0aGF0IGNsYXNzaXNtIFtAYWxsYW4yMDE2XSwgbWljcm9hZ2dyZXNzaW9ucyBbQGdyYXkyMDE3OyBAw6FsdmFyZXotcml2YWR1bGxhMjAyM10sIGFuZCBpbnNlbnNpdGl2aXR5IFtAc2FsdXNreTIwMjJdIGNyZWF0ZSBiYXJyaWVycyB0byBmb3JtaW5nIGFuZCBtYWludGFpbmluZyBjcm9zcy1jbGFzcyBmcmllbmRzaGlwcy4gT24gYSBtaWNybyBsZXZlbCwgdGhpcyBzdWdnZXN0cyB0aGUgZm9sbG93aW5nIGh5cG90aGVzaXM6DQoNCipIMTogU3R1ZGVudHMgcHJlZmVyIGhhbmdpbmcgb3V0IHdpdGggcGVlcnMgd2hvIGhhdmUgdGhlIHNhbWUgcGFyZW50YWwgZWR1Y2F0aW9uYWwgYmFja2dyb3VuZC4qDQoNCk9uIGEgbWFjcm8gbGV2ZWwsIGhvbW9waGlseSBzdWdnZXN0cyB0aGF0IHRoZSBjb2xsZWdlIHNvY2lhbCBuZXR3b3JrIHdpbGwgYmUgc2VncmVnYXRlZCBhbG9uZyBzdHVkZW50cycgcGFyZW50YWwgZWR1Y2F0aW9uYWwgYmFja2dyb3VuZHM6DQoNCipIMjogU3R1ZGVudHMgd2hvIGhhbmcgb3V0IHRvZ2V0aGVyIGFyZSBtb3JlIHNpbWlsYXIgd2l0aCByZWdhcmRzIHRvIHBhcmVudGFsIGVkdWNhdGlvbmFsIGJhY2tncm91bmRzIHRoYW4gc3R1ZGVudHMgd2hvIGRvIG5vdCBoYW5nIG91dCB0b2dldGhlci4qDQoNCiMjIEZhbWlseSBTb2NpYWxpc2F0aW9uDQoNCipIMzogU3R1ZGVudHMgd2hvc2UgcGFyZW50cyBoYXZlIGRpZmZlcmVudCBlZHVjYXRpb25hbCBiYWNrZ3JvdW5kcyAoIm1peGVkIGJhY2tncm91bmQiKSB3aWxsIGRlbW9uc3RyYXRlIGxvd2VyIGxldmVscyBvZiBob21vcGhpbHkgdGhhbiBzdHVkZW50cyB3aG9zZSBwYXJlbnRzIGhhdmUgdGhlIGF0dGFpbmVkIHRoZSBzYW1lIGxldmVsIG9mIGVkdWNhdGlvbi4qDQoNCiMjIFBlZXIgSW5mbHVlbmNlPw0KDQoqSDQ6IFN0dWRlbnRzIHdob3NlIGZyaWVuZHMgaGF2ZSBtb3JlIGRpdmVyc2Ugc29jaWFsIHRpZXMgd2lsbCBkZW1vbnN0cmF0ZSBsb3dlciBsZXZlbHMgb2YgaG9tb3BoaWx5PyoNCg0KIyBSZWZlcmVuY2VzDQo=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("Theory2.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -6,7 +6,7 @@ Filename is ./results/edu_bridge.txt.
 
 This file contains basic descriptives for SIENA data set <<./results/edu_bridge>>.
 
-Date and time: 12/10/2026 16:55:41 
+Date and time: 16/10/2026 14:05:33 
 
 RSiena version 1.6.6 (20 04 2026)
 
@@ -120,23 +120,23 @@ Reading constant actor covariates.
 4 variables, named:
 gendercov       
 ethcov          
-parentedudifcov 
-parenteduavcov  
+paredudifcov    
+pareduhighcov   
 
 A total of 4 non-changing individual covariates.
 
 Number of missing cases:
 gendercov       0 	( 0.0 %)
 ethcov          0 	( 0.0 %)
-parentedudifcov 8 	( 6.6 %)
-parenteduavcov  3 	( 2.5 %)
+paredudifcov    8 	( 6.6 %)
+pareduhighcov   3 	( 2.5 %)
 
 Information about covariates:
               minimum  maximum	  mean  centered 
 gendercov       1.0     2.0      1.653    Y 
 ethcov          1.0     6.0      2.471    Y 
-parentedudifcov      0.0     6.0      0.885    Y 
-parenteduavcov      1.0    10.0      6.309    Y 
+paredudifcov      0.0     1.0      0.097    Y 
+pareduhighcov      0.0     1.0      0.678    Y 
 The mean values are subtracted from the covariates.
 
 
@@ -147,8 +147,8 @@ the mean is subtracted.
 These means are:
 Similarity gendercov                :       0.5430 
 Similarity ethcov                   :       0.6842 
-Similarity parentedudifcov          :       0.7966 
-Similarity parenteduavcov           :       0.7047 
+Similarity paredudifcov             :       0.8227 
+Similarity pareduhighcov            :       0.5596 
 
 
 

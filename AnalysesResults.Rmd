@@ -14,10 +14,12 @@ klippy::klippy(position = c('top', 'right'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
-#add cleaning environment + checking package code from Jochem
+Cleaning environment + checking packages
 
 ```{r}
 rm(list = ls())
+
+#function by Jochem
 
 fpackage.check <- function(packages) {
     lapply(packages, FUN = function(x) {
@@ -63,13 +65,7 @@ load("./data/EduBridgeforRSiena.RData")
 
 # Descriptive Analysis
 
-```{r}
-
-```
 ## Visualisation
-
-Inside colour based on average parental education, outside colour based on difference in parental education
-Shape based on gender?
 
 ```{r}
 hangingt1nona <- hanging_df_t1
@@ -79,19 +75,17 @@ hangingt1nona <- as.matrix(hangingt1nona)
 
 hangingt1 <- graph_from_adjacency_matrix(hangingt1nona, mode = "directed", weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
 
-rangewarm <- colorRampPalette(c("lightyellow", "#fecc5c", "#fd8d3c", "#e31a1c"))
-rangeblue <- colorRampPalette(c("lightblue", "steelblue1", "steelblue4", "navy"))
 rangegray <- colorRampPalette(c("grey91", "grey50", "grey30", "black"))
 nbins <- 5
-colourparedudif <- rangewarm(nbins)
-colourpareduav <-rangeblue(nbins)
 colourbetweenness <-rangegray(nbins)
+colourpareduhigh <- ifelse(is.na(parenteduhigh), "white", ifelse(parentedudif==1, "mediumorchid4", ifelse(parenteduhigh==1, "#3A87AD", "lightgoldenrod")))
+colourparedudif <- ifelse(is.na(parentedudif), "grey91", ifelse(parentedudif==1, "mediumorchid4", "grey91"))
 
-V(hangingt1)$size = igraph::betweenness(hangingt1, normalized = T, directed = T)*50 + 7
+V(hangingt1)$size = igraph::betweenness(hangingt1, normalized = T, directed = TRUE)*50 + 7
 
 plot(hangingt1,
-     vertex.color = adjustcolor(colourpareduav[cut(parenteduav, breaks = nbins)], alpha.f = .5),
-     vertex.frame.color = colourparedudif[cut(parentedudif, breaks = nbins)],
+     vertex.color = adjustcolor(colourpareduhigh, alpha.f = .5),
+     vertex.frame.color = colourparedudif,
      vertex.frame.width = 2,
      vertex.label = NA,
      edge.curved = 0.2,
@@ -108,34 +102,105 @@ hangingt2nona <- as.matrix(hangingt2nona)
 
 hangingt2 <- graph_from_adjacency_matrix(hangingt2nona, mode = "directed", weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
 
-V(hangingt2)$size = igraph::betweenness(hangingt2, normalized = T, directed = T)*50 + 7
+layoutfr2 <- layout.fruchterman.reingold(hangingt2)
+
+V(hangingt1)$size = igraph::degree(hangingt1)*0.35 + 7
+V(hangingt2)$size = igraph::degree(hangingt2)*0.35 + 7
+
+{png("plot2.png", width = 14, height = 7, units = "in", res = 300)
+
+par(mfrow = c(1, 2))
+
+plot(hangingt1,
+     vertex.color = adjustcolor(colourpareduhigh, alpha.f = .5),
+     vertex.frame.color = colourparedudif,
+     vertex.frame.width = 2,
+     vertex.label = NA,
+     edge.curved = 0.2,
+     edge.arrow.size = 0.2,
+     edge.color = colourbetweenness[cut(igraph::edge_betweenness(hangingt1), breaks=nbins )],
+     layout = layoutfr2, 
+     main = "Wave 1")
+
+legend("topleft", c("university", "no university", "mixed", "missing"), pch = 21, col = "grey91", pt.bg = c("#3A87AD", "lightgoldenrod", "mediumorchid4", "white"), pt.cex = 1,
+    cex = 0.8, bty = "n", ncol = 1)
 
 plot(hangingt2,
-     vertex.color = adjustcolor(colourpareduav[cut(parenteduav, breaks = nbins)], alpha.f = .5),
-     vertex.frame.color = colourparedudif[cut(parentedudif, breaks = nbins)],
+     vertex.color = adjustcolor(colourpareduhigh, alpha.f = .5),
+     vertex.frame.color = colourparedudif,
      vertex.frame.width = 2,
      vertex.label = NA,
      edge.curved = 0.2,
      edge.arrow.size = 0.2,
      edge.color = colourbetweenness[cut(igraph::edge_betweenness(hangingt2), breaks=nbins )],
-     layout = layout.fruchterman.reingold, 
+     layout = layoutfr2, 
      main = "Wave 2")
+dev.off()}
+```
+```{r}
+knitr::include_graphics("plot2.png")
+```
+## Tie evolution
+```{r}
+dyad_census(hangingt1)
+```
+```{r}
+dyad_census(hangingt2)
+```
+Between t1 and t2, we can observe a substantial reduction in the number of ties within students' hanging out network. Whereas at t1 a total number of 302 pairs were connected, 93 of which were reciprocal connections, at t2, only 210 connections remain. This entails a drop of 30.5% of the initial number of dyads. The evolution of hanging out networks in this community of university students is thus strongly shaped by endowment, i.e. the decision to maintain or break a tie.
+
+```{r}
+edge_density(hangingt1)
+```
+```{r}
+edge_density(hangingt2)
+```
+```{r}
+degree_distribution(hangingt1, cumulative = FALSE)
+```
+```{r}
+degree_distribution(hangingt2, cumulative = FALSE)
 ```
 
+
+## Average Shortest Path Length
+
+```{r}
+mean_distance(hangingt1, directed = T, unconnected = T, details = T)
+```
+```{r}
+mean_distance(hangingt2, directed = T, unconnected = T, details = T)
+```
+
+The average shortest path length between vectors is 4.84 at t1, and, surprisingly, decreases to 4.59 at t2 - despite the reduction in the total number of connected pairs.
+
+## Triad Census
+
+```{r}
+hangingt1m <- as.matrix(hanging_df_t1)
+hangingt2m <- as.matrix(hanging_df_t2)
+sna::triad.census(hangingt1m)
+```
+```{r}
+sna::triad.census(hangingt2m)
+```
+Between t1 and t2, we can observe a reduction in all triad types except for the 111U constellation, which raises from occurring 920 times to occurring 1050 times, and the 120C constellation, which remains constant.
 
 ## Segregation
 
 ```{r}
+hangingt1m <- as.matrix(hanging_df_t1)
+hangingt2m <- as.matrix(hanging_df_t2)
+
 # step 1: calculate distances
-#geodistances <- geodist(w1_network, count.paths = TRUE)
-#geodistances <- geodistances$gdist
+geodistances <- geodist(hangingt1m, count.paths = TRUE)
+geodistances <- geodistances$gdist
 # set the distance to yourself as Inf
-#diag(geodistances) <- Inf
+diag(geodistances) <- Inf
 
 
-# step 2: define a distance decay function. This one is pretty standard in the spatial
-# autocorrelation literature but actually pretty arbitrary.
-#weights2 <- exp(-geodistances)
+# step 2: define a distance decay function. This one is pretty standard in the spatial autocorrelation literature but actually pretty arbitrary.
+weights2 <- exp(-geodistances)
 ```
 
 ```{r}
@@ -234,9 +299,28 @@ fMoran.I <- function(x, weight, scaled = FALSE, na.rm = FALSE, alternative = "tw
 
 
 }
-
-#fMoran.I(genderw1, scaled = FALSE, weight = weights2, na.rm = TRUE, rowstandardize = FALSE)
 ```
+
+```{r}
+fMoran.I(parenteduhigh, scaled = FALSE, weight = weights2, na.rm = TRUE, rowstandardize = FALSE)
+```
+We find no evidence for segregation based on parental educational attainment in hanging out networks of the first wave.
+```{r}
+# step 1: calculate distances
+geodistances2 <- geodist(hangingt2m, count.paths = TRUE)
+geodistances2 <- geodistances2$gdist
+# set the distance to yourself as Inf
+diag(geodistances2) <- Inf
+
+
+# step 2: define a distance decay function. This one is pretty standard in the spatial autocorrelation literature but actually pretty arbitrary.
+weights3 <- exp(-geodistances2)
+
+fMoran.I(parenteduhigh, scaled = FALSE, weight = weights3, na.rm = TRUE, rowstandardize = FALSE)
+```
+We also find no evidence for segregation based on parental educational levels in the second wave.
+
+
 
 # Explanatory Analysis
 
@@ -257,28 +341,22 @@ hangingt1mwna[hangingt1mwna == 9] <- 10
 hangingt2mwna <- hangingt2m
 hangingt2mwna[hangingt2mwna == 9] <- 10
 
-# #missings to 0 --> don't use this one
-# hangingt1mnona <- hangingt1m
-# hangingt1mnona[hangingt1mnona == 9] <- 0
-# hangingt2mnona <- hangingt2m
-# hangingt2mnona[hangingt2mnona == 9] <- 0
 
 #nets into array
 hanging_array <- array(data = c(hangingt1mwna, hangingt2mwna), dim = c(dim(hangingt1mwna), 2))
-#hanging_arraynona <- array(data = c(hangingt1mnona, hangingt2mnona), dim = c(dim(hangingt1mnona), 2))
 
 #dependent
 net <- sienaDependent(hanging_array)
 ```
 
-Covariates: parenteduav, parentedudif, ethnew, gendernew
+Covariates: parenteduhigh, parentedudif, ethnew, gendernew
 
 ```{r}
 gendercov <- coCovar(gendernew) #constant covariate
 ethcov <- coCovar(ethnew)
-parentedudifcov <- coCovar(parentedudif)
-parenteduavcov <- coCovar(parenteduav)
-mydata <- sienaDataCreate(net, gendercov, ethcov, parentedudifcov, parenteduavcov)
+paredudifcov <- coCovar(parentedudif)
+pareduhighcov <- coCovar(parenteduhigh)
+mydata <- sienaDataCreate(net, gendercov, ethcov, paredudifcov, pareduhighcov)
 ```
 
 Effects
@@ -297,7 +375,7 @@ myeff <- includeEffects(myeff0910, outAct, inPop, inAct, recip, GWESPFF)
 ```
 Now I'll introduce homophily:
 ```{r}
-myeff <- includeEffects(myeff, simX, egoX, altX, interaction1 = "parenteduavcov")
+myeff <- includeEffects(myeff, sameX, egoX, altX, interaction1 = "pareduhighcov")
 myeff
 ```
 ##Model 1: Homophily
@@ -308,27 +386,29 @@ myAlgorithm <- sienaAlgorithmCreate(projname = "edu_bridge",
 mod1 <- siena07(myAlgorithm, data = mydata, effects = myeff) 
 mod1
 ```
-The overall convergence ratio is under .25, which is acceptable. Convergence of individual parameters is also sufficient. The rate parameter value is 7.34, indicating that each actor had, on average, 6.92 options for change ('mini-steps') within the simulation.
+The overall convergence ratio is under .25, which is acceptable. Convergence of individual parameters is also sufficient. The rate parameter value is 7.34, indicating that each actor had, on average, 5.99 options for change ('mini-steps') within the simulation.
 ```{r}
 test_parameter(mod1, tested=8) #Wald-type significance test
 ```
-The estimate for homophily based on average parental educational attainment is positive, but relatively low and with a large standard error, indicating uncertainty. The Wald-type significance test indicates that the effect of similarity in average parental educational attainment is insignificant, p = .673. 
+The estimate for homophily based on average parental educational attainment is positive, but low. The Wald-type significance test indicates that the effect of similarity in average parental educational attainment is insignificant, p = .798. 
 ##Model 2: Homophily x Educationally Mixed Family
 ```{r}
-myeff2 <- includeEffects(myeff, egoX, interaction1 = "parentedudifcov")
+myeff2 <- includeEffects(myeff, egoX, interaction1 = "paredudifcov")
 myeff2
 ```
 ```{r}
-myeff2 <-  set_interaction(myeff2, list(simX, egoX), covar1=c("parenteduavcov", "parentedudifcov"))
+myeff2 <-  set_interaction(myeff2, list(sameX, egoX), covar1=c("pareduhighcov", "paredudifcov"))
 myeff2
 ```
+
+
 ```{r}
 mod2 <- siena07(myAlgorithm, data = mydata, effects = myeff2, prevAns = mod1, returnDeps = TRUE) 
 mod2
 ```
 The overall maximum convergence ratio is once again acceptable. The interaction effect of the difference between ego's parents' educational attainment with homophily is negative.
 ```{r}
-test_parameter(mod2, tested=10)
+test_parameter(mod2, tested=8)
 ```
 
 ### Goodness of Fit
