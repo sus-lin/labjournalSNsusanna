@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 US society is strongly segregated based on class, in terms of both income and educational attainment [@mijs2021]. Analysis of General Social Survey data indicates that an increasing difference in the number of years of education received negatively affected the probability of naming someone as a core confidant, and that this association has even become somewhat stronger between 1985 and 2004 [@smith2014]. This is likely to extend to college communities. Studies on the experiences of first-generation college students highlight that classism [@allan2016], microaggressions [@gray2017; @álvarez-rivadulla2023], and insensitivity [@salusky2022] create barriers to forming and maintaining cross-class friendships. On a micro level, this suggests the following hypothesis:
 
-*H1: Students prefer hanging out with peers who have the same parental educational background.*
+*H1: Students prefer maintaining friendships with peers who have the same parental educational background.*
 
 On a macro level, homophily suggests that the college social network will be segregated along students' parental educational backgrounds:
 
@@ -24,10 +24,12 @@ On a macro level, homophily suggests that the college social network will be seg
 
 ## Family Socialisation
 
-*H3: Students whose parents have different educational backgrounds ("mixed background") will demonstrate lower levels of homophily than students whose parents have the attained the same level of education.*
+Importantly however, social distance between different group categories is not fixed. As evidenced by the observed tendency for homophily on specific categories to fluctuate over time [@smith2014], it is a context-dependent measure. Just as context may change over time on a national level, it may differ between communities or personal networks. This study therefore considers class categorisation to be a *social construct*, and its relevance for behaviour as something that is *socially learnt*.
 
-## Peer Influence?
+An important share of social learning happens within families.
 
-*H4: Students whose friends have more diverse social ties will demonstrate lower levels of homophily?*
+Cross-class embeddedness!
+
+*H3: Students whose parents have different educational backgrounds ("mixed background") will demonstrate lower levels of homophily in friendship maintenance than students whose parents have the attained the same level of education.*
 
 # References

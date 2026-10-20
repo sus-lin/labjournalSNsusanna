@@ -373,11 +373,18 @@ First some basic effects that are not really of theoretical interest:
 ```{r}
 myeff <- includeEffects(myeff0910, outAct, inPop, inAct, recip, GWESPFF)  
 ```
-Now I'll introduce homophily:
+Now I'll introduce homophily as endow function:
 ```{r}
-myeff <- includeEffects(myeff, sameX, egoX, altX, interaction1 = "pareduhighcov")
+myeff <- includeEffects(myeff, sameX, egoX, altX, type = "endow", interaction1 = "pareduhighcov")
 myeff
 ```
+And as creation function:
+```{r}
+myeff <- includeEffects(myeff, sameX, egoX, altX, type = "creation", interaction1 = "pareduhighcov")
+myeff
+```
+
+
 ##Model 1: Homophily
 ```{r}
 myAlgorithm <- sienaAlgorithmCreate(projname = "edu_bridge",
@@ -388,19 +395,58 @@ mod1
 ```
 The overall convergence ratio is under .25, which is acceptable. Convergence of individual parameters is also sufficient. The rate parameter value is 7.34, indicating that each actor had, on average, 5.99 options for change ('mini-steps') within the simulation.
 ```{r}
-test_parameter(mod1, tested=8) #Wald-type significance test
+test_parameter(mod1, tested=10) #Wald-type significance test
 ```
 The estimate for homophily based on average parental educational attainment is positive, but low. The Wald-type significance test indicates that the effect of similarity in average parental educational attainment is insignificant, p = .798. 
+### Goodness of Fit
+```{r}
+#Jochem's formula for Geodesic Distribution
+
+GeodesicDistribution <- function(i, data, sims, period, groupName, varName, levls = c(1:5, Inf), cumulative = TRUE,
+    ...) {
+    x <- networkExtraction(i, data, sims, period, groupName, varName)
+    require(sna)
+    a <- sna::geodist(symmetrize(x))$gdist
+    if (cumulative) {
+        gdi <- sapply(levls, function(i) {
+            sum(a <= i)
+        })
+    } else {
+        gdi <- sapply(levls, function(i) {
+            sum(a == i)
+        })
+    }
+    names(gdi) <- as.character(levls)
+    gdi
+}
+
+# The following function is taken from the help page for sienaTest
+
+testall <- function(ans) {
+    for (i in which(ans$test)) {
+        sct <- score.Test(ans, i)
+        cat(ans$requestedEffects$effectName[i], "\n")
+        print(sct)
+    }
+    invisible(score.Test(ans))
+}
+```
+
+
 ##Model 2: Homophily x Educationally Mixed Family
 ```{r}
-myeff2 <- includeEffects(myeff, egoX, interaction1 = "paredudifcov")
-myeff2
-```
-```{r}
-myeff2 <-  set_interaction(myeff2, list(sameX, egoX), covar1=c("pareduhighcov", "paredudifcov"))
+myeff2 <- includeEffects(myeff, egoX, interaction1 = "paredudifcov", type = "eval")
 myeff2
 ```
 
+```{r}
+myeff2 <-  set_interaction(myeff2, list(sameX, egoX), type = "endow", covar1=c("pareduhighcov", "paredudifcov"))
+myeff2
+```
+```{r}
+myeff2 <-  set_interaction(myeff2, list(sameX, egoX), type = "creation", covar1=c("pareduhighcov", "paredudifcov"))
+myeff2
+```
 
 ```{r}
 mod2 <- siena07(myAlgorithm, data = mydata, effects = myeff2, prevAns = mod1, returnDeps = TRUE) 
@@ -408,7 +454,7 @@ mod2
 ```
 The overall maximum convergence ratio is once again acceptable. The interaction effect of the difference between ego's parents' educational attainment with homophily is negative.
 ```{r}
-test_parameter(mod2, tested=8)
+test_parameter(mod2, tested=13)
 ```
 
 ### Goodness of Fit
@@ -446,78 +492,78 @@ testall <- function(ans) {
 ```
 
 ```{r}
-gof12.10.1 <- sienaGOF(mod2, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
-plot(gof12.10.1)
+gofinm2 <- sienaGOF(mod2, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofinm2)
 ```
 ```{r}
-gof12.10.2 <- sienaGOF(mod2, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
-plot(gof12.10.2)
+gofoutm2 <- sienaGOF(mod2, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofoutm2)
 ```
 ```{r}
-gof12.10.3 <- sienaGOF(mod2, TriadCensus, verbose = FALSE, join = TRUE, varName = "net")
-plot(gof12.10.3)
+goftrim2 <- sienaGOF(mod2, TriadCensus, verbose = FALSE, join = TRUE, varName = "net")
+plot(goftrim2)
 ```
 ```{r}
 gofgdm2 <- sienaGOF(mod2, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = "net")
 plot(gofgdm2)
 ```
 
-### (sub)Model 3: inIsDegree
+### (sub)Model 2.1: inIsDegree
 ```{r}
-myeff3 <- includeEffects(myeff2, inIsDegree)
-myeff3
+myeff2.1 <- includeEffects(myeff2, inIsDegree)
+myeff2.1
 ```
 ```{r}
-mod3 <- siena07(myAlgorithm, data = mydata, effects = myeff3, prevAns = mod2, returnDeps = TRUE) 
-mod3
+mod2.1 <- siena07(myAlgorithm, data = mydata, effects = myeff2.1, prevAns = mod2, returnDeps = TRUE) 
+mod2.1
 ```
 ### Goodness of Fit
 ```{r}
-gof12.10.4 <- sienaGOF(mod3, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
-plot(gof12.10.4)
+gofinm2.1 <- sienaGOF(mod2.1, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofinm2.1)
 ```
 ```{r}
-gof12.10.5 <- sienaGOF(mod3, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
-plot(gof12.10.5)
+gofoutm2.1 <- sienaGOF(mod2.1, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofoutm2.1)
 ```
 This did not change anything. I will kick inIsDegree out and replace it with a different isolate effect.
 
-### (sub)Model 4: isolateNet
+### (sub)Model 2.2: isolateNet
 ```{r}
-myeff3.2 <- includeEffects(myeff2, isolateNet)
-myeff3.2
+myeff2.2 <- includeEffects(myeff2, isolateNet)
+myeff2.2
 ```
 ```{r}
-#mod4 <- siena07(myAlgorithm, data = mydata, effects = myeff3.2, prevAns = mod2, returnDeps = TRUE) 
-#mod4
+#mod2.2 <- siena07(myAlgorithm, data = mydata, effects = myeff2.2, prevAns = mod2, returnDeps = TRUE) 
+#mod2.2
 ```
 Convergence of 18 is very much unacceptable.
 
-### (sub)Model 5: outIso
+### (sub)Model 2.3: outIso
 
 ```{r}
-myeff3.3 <- includeEffects(myeff2, outIso)
-myeff3.3
+myeff2.3 <- includeEffects(myeff2, outIso)
+myeff2.3
 ```
 ```{r}
-mod5 <- siena07(myAlgorithm, data = mydata, effects = myeff3.3, prevAns = mod2, returnDeps = TRUE) 
-mod5
+mod2.3 <- siena07(myAlgorithm, data = mydata, effects = myeff2.3, prevAns = mod2, returnDeps = TRUE) 
+mod2.3
 ```
 ###Goodness of Fit
 
 ```{r}
-gofinm5 <- sienaGOF(mod5, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
-plot(gofinm5)
+gofinm2.3 <- sienaGOF(mod2.3, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofinm2.3)
 ```
 
 
 ```{r}
-gofoutm5 <- sienaGOF(mod5, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
-plot(gofoutm5)
+gofoutm2.3 <- sienaGOF(mod2.3, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofoutm2.3)
 ```
 ```{r}
-goftrim5 <- sienaGOF(mod5, TriadCensus, verbose = FALSE, join = TRUE, varName = "net")
-plot(goftrim5)
+goftrim2.3 <- sienaGOF(mod2.3, TriadCensus, verbose = FALSE, join = TRUE, varName = "net")
+plot(goftrim2.3)
 ```
-## Model 6
+
 
