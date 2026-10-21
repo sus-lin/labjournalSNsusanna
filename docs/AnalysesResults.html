@@ -621,9 +621,12 @@ Analysis</h1>
 <pre class="r"><code>hangingt1nona &lt;- hanging_df_t1
 hangingt1nona[hangingt1nona==9]&lt;- 0
 hangingt1nona &lt;- as.matrix(hangingt1nona)
-
-
 hangingt1 &lt;- graph_from_adjacency_matrix(hangingt1nona, mode = &quot;directed&quot;, weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
+
+hangingt2nona &lt;- hanging_df_t2
+hangingt2nona[hangingt2nona==9]&lt;- 0
+hangingt2nona &lt;- as.matrix(hangingt2nona)
+hangingt2 &lt;- graph_from_adjacency_matrix(hangingt2nona, mode = &quot;directed&quot;, weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
 
 rangegray &lt;- colorRampPalette(c(&quot;grey91&quot;, &quot;grey50&quot;, &quot;grey30&quot;, &quot;black&quot;))
 nbins &lt;- 5
@@ -631,33 +634,15 @@ colourbetweenness &lt;-rangegray(nbins)
 colourpareduhigh &lt;- ifelse(is.na(parenteduhigh), &quot;white&quot;, ifelse(parentedudif==1, &quot;mediumorchid4&quot;, ifelse(parenteduhigh==1, &quot;#3A87AD&quot;, &quot;lightgoldenrod&quot;)))
 colourparedudif &lt;- ifelse(is.na(parentedudif), &quot;grey91&quot;, ifelse(parentedudif==1, &quot;mediumorchid4&quot;, &quot;grey91&quot;))
 
-V(hangingt1)$size = igraph::betweenness(hangingt1, normalized = T, directed = TRUE)*50 + 7
-
-plot(hangingt1,
-     vertex.color = adjustcolor(colourpareduhigh, alpha.f = .5),
-     vertex.frame.color = colourparedudif,
-     vertex.frame.width = 2,
-     vertex.label = NA,
-     edge.curved = 0.2,
-     edge.arrow.size = 0.2,
-     edge.color = colourbetweenness[cut(igraph::edge_betweenness(hangingt1), breaks=nbins )],
-     layout = layout.fruchterman.reingold, 
-     main = &quot;Wave 1&quot;)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<pre class="r"><code>hangingt2nona &lt;- hanging_df_t2
-hangingt2nona[hangingt2nona==9]&lt;- 0
-hangingt2nona &lt;- as.matrix(hangingt2nona)
-
-
-hangingt2 &lt;- graph_from_adjacency_matrix(hangingt2nona, mode = &quot;directed&quot;, weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
-
 layoutfr2 &lt;- layout.fruchterman.reingold(hangingt2)</code></pre>
 <pre><code>## Warning: `layout.fruchterman.reingold()` was deprecated in igraph 2.1.0.
 ## ℹ Please use `layout_with_fr()` instead.
 ## This warning is displayed once per session.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning
 ## was generated.</code></pre>
-<pre class="r"><code>V(hangingt1)$size = igraph::degree(hangingt1)*0.35 + 7
+<pre class="r"><code>layoutdh2 &lt;- igraph:: layout_with_dh(hangingt2)
+
+V(hangingt1)$size = igraph::degree(hangingt1)*0.35 + 7
 V(hangingt2)$size = igraph::degree(hangingt2)*0.35 + 7
 
 {png(&quot;plot2.png&quot;, width = 14, height = 7, units = &quot;in&quot;, res = 300)
@@ -692,7 +677,10 @@ dev.off()}</code></pre>
 <pre><code>## png 
 ##   2</code></pre>
 <pre class="r"><code>knitr::include_graphics(&quot;plot2.png&quot;)</code></pre>
-<p><img src="plot2.png" width="2100" /> ## Tie evolution</p>
+<p><img src="plot2.png" width="2100" /></p>
+</div>
+<div id="tie-evolution" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Tie evolution</h2>
 <pre class="r"><code>dyad_census(hangingt1)</code></pre>
 <pre><code>## $mut
 ## [1] 93
@@ -734,8 +722,8 @@ shaped by endowment, i.e. the decision to maintain or break a tie.</p>
 ## [19] 0.000000000 0.008264463</code></pre>
 </div>
 <div id="average-shortest-path-length" class="section level2"
-number="1.2">
-<h2><span class="header-section-number">1.2</span> Average Shortest Path
+number="1.3">
+<h2><span class="header-section-number">1.3</span> Average Shortest Path
 Length</h2>
 <pre class="r"><code>mean_distance(hangingt1, directed = T, unconnected = T, details = T)</code></pre>
 <pre><code>## $res
@@ -753,8 +741,8 @@ Length</h2>
 surprisingly, decreases to 4.59 at t2 - despite the reduction in the
 total number of connected pairs.</p>
 </div>
-<div id="triad-census" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> Triad Census</h2>
+<div id="triad-census" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Triad Census</h2>
 <pre class="r"><code>hangingt1m &lt;- as.matrix(hanging_df_t1)
 hangingt2m &lt;- as.matrix(hanging_df_t2)
 sna::triad.census(hangingt1m)</code></pre>
@@ -772,8 +760,8 @@ except for the 111U constellation, which raises from occurring 920 times
 to occurring 1050 times, and the 120C constellation, which remains
 constant.</p>
 </div>
-<div id="segregation" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> Segregation</h2>
+<div id="segregation" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Segregation</h2>
 <pre class="r"><code>hangingt1m &lt;- as.matrix(hanging_df_t1)
 hangingt2m &lt;- as.matrix(hanging_df_t2)
 
@@ -927,7 +915,9 @@ Analysis</h1>
 <div id="model-input-preparation" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Model input
 preparation</h2>
-<p>Get Network, Separate waves</p>
+<div id="network-in-waves" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Network in
+waves</h3>
 <pre class="r"><code>#wave 1 = hangingt1, wave 2 = hangingt2
 hangingt1m &lt;- as.matrix(hanging_df_t1)
 hangingt2m &lt;- as.matrix(hanging_df_t2)
@@ -946,13 +936,120 @@ hanging_array &lt;- array(data = c(hangingt1mwna, hangingt2mwna), dim = c(dim(ha
 
 #dependent
 net &lt;- sienaDependent(hanging_array)</code></pre>
-<p>Covariates: parenteduhigh, parentedudif, ethnew, gendernew</p>
+</div>
+<div id="covariates-parenteduhigh-parentedudif-ethnew-gendernew"
+class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Covariates:
+parenteduhigh, parentedudif, ethnew, gendernew</h3>
 <pre class="r"><code>gendercov &lt;- coCovar(gendernew) #constant covariate
 ethcov &lt;- coCovar(ethnew)
 paredudifcov &lt;- coCovar(parentedudif)
 pareduhighcov &lt;- coCovar(parenteduhigh)
 mydata &lt;- sienaDataCreate(net, gendercov, ethcov, paredudifcov, pareduhighcov)</code></pre>
-<p>Effects</p>
+</div>
+<div id="overview-of-siena-data" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Overview of Siena
+data</h3>
+<pre class="r"><code>write_report(mydata, outputName = &quot;sienaData&quot;)</code></pre>
+<pre><code>## Basic data description written to text file sienaData.txt.</code></pre>
+<pre><code>                        ************************
+                                 sienaData.txt
+                        ************************</code></pre>
+<p>Filename is sienaData.txt.</p>
+<p>This file contains basic descriptives for SIENA data set
+&lt;<mydata>&gt;.</p>
+<p>Date and time: 21/10/2026 17:45:29</p>
+<p>RSiena version 1.6.6 (20 04 2026)</p>
+<p><span class="citation">@1</span> Data input. ===========</p>
+<p>2 observations, 121 actors, 1 dependent network variables, 0
+dependent bipartite variables, 0 dependent discrete behavior variables,
+0 dependent continuous behavior variables, 4 constant actor covariates,
+0 exogenous changing actor covariates, 0 constant dyadic covariates, 0
+exogenous changing dyadic covariates, 0 no files with times of
+composition change.</p>
+<p><span class="citation">@2</span> Reading network variables.
+————————–</p>
+<p>Name of network variable: net. oneMode network. For observation
+moment 1, degree distributions are as follows: Nodes 1 2 3 4 5 6 7 8 9
+10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
+34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57
+58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81
+82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103
+104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121
+out-degrees 6 2 1 1 8 7 0 1 7 0 0 9 4 0 1 4 1 2 1 0 3 3 5 8 3 0 0 0 6 4
+9 7 0 0 1 3 1 0 0 2 0 6 0 2 7 9 5 0 7 7 0 0 2 0 0 2 1 8 0 8 4 6 6 4 2 7
+7 7 3 1 2 8 5 2 3 2 0 3 0 8 4 5 9 1 2 2 3 2 7 7 10 0 5 0 3 9 10 1 3 2 2
+2 0 2 3 8 0 5 3 1 0 0 2 0 1 3 4 8 6 6 0 in-degrees 3 6 1 7 3 6 0 3 4 3 4
+3 2 4 1 1 1 3 1 0 0 7 4 9 2 1 0 0 1 3 10 7 9 3 1 2 3 0 0 7 0 6 0 0 2 11
+3 6 8 6 0 1 1 7 0 3 4 6 0 1 0 6 8 1 1 6 7 5 4 5 1 1 2 1 3 3 8 2 6 2 6 5
+13 2 3 2 1 7 6 2 6 7 2 0 4 8 1 0 3 0 0 3 2 2 0 8 0 2 5 1 3 9 0 0 0 6 2 9
+0 3 0</p>
+<p>The input file contains codes for structurally determined values:
+1320 structural zeros were found (code 10). 0 structural one was found
+(code 11).</p>
+<p>No missing data for observation 1.</p>
+<p>For observation moment 2, degree distributions are as follows: Nodes
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
+28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51
+52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75
+76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
+100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117
+118 119 120 121 out-degrees 3 2 0 0 4 3 7 2 5 0 0 7 3 0 2 2 2 4 1 1 0 6
+0 3 0 0 1 0 0 0 0 0 0 0 0 2 1 0 1 3 0 6 2 2 5 9 5 5 3 7 0 0 2 0 2 2 0 0
+0 5 2 3 6 2 2 0 0 4 4 0 0 6 7 0 3 0 0 2 0 1 0 3 9 1 3 0 1 0 0 4 3 0 7 0
+9 6 3 3 2 0 0 2 4 1 5 5 2 4 2 2 1 6 3 3 0 3 3 1 4 3 0 in-degrees 2 2 0 5
+1 2 5 2 2 0 1 4 2 0 1 1 1 2 1 0 0 5 0 6 4 0 0 1 3 2 0 4 8 2 0 2 4 3 2 3
+5 3 0 0 2 5 3 3 3 2 4 0 2 7 0 0 2 5 1 1 2 2 4 0 2 3 0 0 3 2 0 2 2 0 3 0
+6 2 3 2 2 3 10 2 2 1 2 3 0 1 6 0 2 1 7 6 3 0 2 0 1 2 4 2 2 4 0 1 5 0 0 3
+0 2 0 6 2 5 6 2 1</p>
+<p>The input file contains codes for structurally determined values:
+1080 structural zeros were found (code 10). 0 structural one was found
+(code 11).</p>
+<p>No missing data for observation 2.</p>
+<p><span class="citation">@2</span> Reading constant actor covariates.
+———————————-</p>
+<p>4 variables, named: gendercov<br />
+ethcov<br />
+paredudifcov<br />
+pareduhighcov</p>
+<p>A total of 4 non-changing individual covariates.</p>
+<p>Number of missing cases: gendercov 0 ( 0.0 %) ethcov 0 ( 0.0 %)
+paredudifcov 8 ( 6.6 %) pareduhighcov 3 ( 2.5 %)</p>
+<p>Information about covariates: minimum maximum mean centered gendercov
+1.0 2.0 1.653 Y ethcov 1.0 6.0 2.471 Y paredudifcov 0.0 1.0 0.097 Y
+pareduhighcov 0.0 1.0 0.678 Y The mean values are subtracted from the
+covariates.</p>
+<p>For the similarity variable calculated from each actor covariate, the
+mean is subtracted. These means are: Similarity gendercov : 0.5430
+Similarity ethcov : 0.6842 Similarity paredudifcov : 0.8227 Similarity
+pareduhighcov : 0.5596</p>
+<p><span class="citation">@1</span> Initial data description.
+=========================</p>
+<p><span class="citation">@2</span> Change in networks: ——————-</p>
+<p>For the following statistics, missing values (if any) are not
+counted. Further, structurally determined entries are treated as
+observed entries, except for calculating the distances, where missings
+and structurally determined entries at the beginning or end of a period
+are disregarded. This may imply that the columns 0 =&gt; 1 and 1 =&gt; 0
+do not add up to the distance column.</p>
+<p>Network density indicators: observation time 1 2 density 0.027 0.019
+average degree 3.264 2.231 number of ties 395 270 missing fraction 0.000
+0.000</p>
+<p>The average degree is 2.748</p>
+<p>Tie changes between subsequent observations: periods 0 =&gt; 0 0
+=&gt; 1 1 =&gt; 0 1 =&gt; 1 Distance Jaccard Missing 1 ==&gt; 2 14001
+124 249 146 328 0.281 0 (0%)</p>
+<p>Directed dyad Counts: observation total mutual asymm. null 1. 14520
+186 418 13916 2. 14520 120 300 14100</p>
+</div>
+</div>
+<div id="standard-values-for-initial-parameter-values"
+class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Standard values for
+initial parameter values</h2>
+<p>basic rate parameter net 5.4680 outdegree (density) -1.7253</p>
+<p>Initialisation of data set &lt;<mydata>&gt; executed succesfully.</p>
+<p>##Model 1: Homophily</p>
 <pre class="r"><code>myeff0910 &lt;- getEffects(mydata)
 # effectsDocumentation(myeff0910)</code></pre>
 <pre class="r"><code>ifelse(!dir.exists(&quot;results&quot;), dir.create(&quot;results&quot;), FALSE)</code></pre>
@@ -960,17 +1057,19 @@ mydata &lt;- sienaDataCreate(net, gendercov, ethcov, paredudifcov, pareduhighcov
 <pre class="r"><code>print01Report(mydata, modelname = &quot;./results/edu_bridge&quot;)</code></pre>
 <p>First some basic effects that are not really of theoretical
 interest:</p>
-<pre class="r"><code>myeff &lt;- includeEffects(myeff0910, outAct, inPop, inAct, recip, GWESPFF)  </code></pre>
+<pre class="r"><code>myeff &lt;- includeEffects(myeff0910, outAct, inPop, inAct, recip, gwespFF)  </code></pre>
 <pre><code>##   effectNumber effectName             shortName include fix   test 
 ## 1  18          reciprocity            recip     TRUE    FALSE FALSE
-## 2  81          indegree - popularity  inPop     TRUE    FALSE FALSE
-## 3 118          outdegree - activity   outAct    TRUE    FALSE FALSE
-## 4 127          indegree - activity(#) inAct     TRUE    FALSE FALSE
+## 2  57          GWESP I -&gt; K -&gt; J (#)  gwespFF   TRUE    FALSE FALSE
+## 3  81          indegree - popularity  inPop     TRUE    FALSE FALSE
+## 4 118          outdegree - activity   outAct    TRUE    FALSE FALSE
+## 5 127          indegree - activity(#) inAct     TRUE    FALSE FALSE
 ##   initialValue parm
-## 1          0   0   
-## 2          0   0   
-## 3          0   0   
-## 4          0   1</code></pre>
+## 1          0    0  
+## 2          0   69  
+## 3          0    0  
+## 4          0    0  
+## 5          0    1</code></pre>
 <p>Now I’ll introduce homophily as endow function:</p>
 <pre class="r"><code>myeff &lt;- includeEffects(myeff, sameX, egoX, altX, type = &quot;endow&quot;, interaction1 = &quot;pareduhighcov&quot;)</code></pre>
 <pre><code>##   effectNumber effectName          shortName include fix   test  initialValue
@@ -982,16 +1081,17 @@ interest:</p>
 ## 2 0    endow
 ## 3 0    endow</code></pre>
 <pre class="r"><code>myeff</code></pre>
-<pre><code>##   effectName               include fix   test  initialValue parm type 
-## 1 basic rate parameter net TRUE    FALSE FALSE    5.46796   0    rate 
-## 2 outdegree (density)      TRUE    FALSE FALSE   -1.72530   0    eval 
-## 3 reciprocity              TRUE    FALSE FALSE    0.00000   0    eval 
-## 4 indegree - popularity    TRUE    FALSE FALSE    0.00000   0    eval 
-## 5 outdegree - activity     TRUE    FALSE FALSE    0.00000   0    eval 
-## 6 indegree - activity(#)   TRUE    FALSE FALSE    0.00000   1    eval 
-## 7 pareduhighcov alter      TRUE    FALSE FALSE    0.00000   0    endow
-## 8 pareduhighcov ego        TRUE    FALSE FALSE    0.00000   0    endow
-## 9 same pareduhighcov       TRUE    FALSE FALSE    0.00000   0    endow</code></pre>
+<pre><code>##    effectName               include fix   test  initialValue parm type 
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate 
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval 
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval 
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval 
+## 5  indegree - popularity    TRUE    FALSE FALSE    0.00000    0   eval 
+## 6  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval 
+## 7  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval 
+## 8  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow
+## 9  pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow
+## 10 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow</code></pre>
 <p>And as creation function:</p>
 <pre class="r"><code>myeff &lt;- includeEffects(myeff, sameX, egoX, altX, type = &quot;creation&quot;, interaction1 = &quot;pareduhighcov&quot;)</code></pre>
 <pre><code>##   effectNumber effectName          shortName include fix   test  initialValue
@@ -1004,24 +1104,25 @@ interest:</p>
 ## 3 0    creation</code></pre>
 <pre class="r"><code>myeff</code></pre>
 <pre><code>##    effectName               include fix   test  initialValue parm type    
-## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796   0    rate    
-## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530   0    eval    
-## 3  reciprocity              TRUE    FALSE FALSE    0.00000   0    eval    
-## 4  indegree - popularity    TRUE    FALSE FALSE    0.00000   0    eval    
-## 5  outdegree - activity     TRUE    FALSE FALSE    0.00000   0    eval    
-## 6  indegree - activity(#)   TRUE    FALSE FALSE    0.00000   1    eval    
-## 7  pareduhighcov alter      TRUE    FALSE FALSE    0.00000   0    endow   
-## 8  pareduhighcov alter      TRUE    FALSE FALSE    0.00000   0    creation
-## 9  pareduhighcov ego        TRUE    FALSE FALSE    0.00000   0    endow   
-## 10 pareduhighcov ego        TRUE    FALSE FALSE    0.00000   0    creation
-## 11 same pareduhighcov       TRUE    FALSE FALSE    0.00000   0    endow   
-## 12 same pareduhighcov       TRUE    FALSE FALSE    0.00000   0    creation</code></pre>
-<p>##Model 1: Homophily</p>
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate    
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval    
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval    
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval    
+## 5  indegree - popularity    TRUE    FALSE FALSE    0.00000    0   eval    
+## 6  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval    
+## 7  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval    
+## 8  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow   
+## 9  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   creation
+## 10 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow   
+## 11 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   creation
+## 12 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow   
+## 13 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   creation</code></pre>
 <pre class="r"><code>myAlgorithm &lt;- sienaAlgorithmCreate(projname = &quot;edu_bridge&quot;,
                                     MaxDegree = c(net = 10),
+                                    n3 = 2000,
                                     seed = 30000)</code></pre>
 <pre><code>## If you use this algorithm object, siena07 will create/use an output file edu_bridge.txt .</code></pre>
-<pre class="r"><code>mod1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff) 
+<pre class="r"><code>mod1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE) 
 mod1</code></pre>
 <pre><code>## Estimates, standard errors and convergence t-ratios
 ## 
@@ -1029,41 +1130,157 @@ mod1</code></pre>
 ##                                                 Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0         Rate parameter          7.2715  ( 0.6018   )             
+##   0         Rate parameter          8.5780  ( 0.8006   )             
 ## 
 ## Other parameters: 
-##    1. eval  outdegree (density)    -3.3467  ( 0.2721   )   -0.0270   
-##    2. eval  reciprocity             2.9466  ( 0.2990   )   -0.0669   
-##    3. eval  indegree - popularity   0.0739  ( 0.0324   )   -0.0443   
-##    4. eval  outdegree - activity    0.1231  ( 0.0250   )   -0.0207   
-##    5. eval  indegree - activity(1) -0.2391  ( 0.0676   )   -0.0533   
-##    6. endow pareduhighcov alter     1.0872  ( 0.3414   )   -0.0779   
-##    7. creat pareduhighcov alter    -0.2886  ( 0.3103   )    0.0017   
-##    8. endow pareduhighcov ego       7.8818  ( 4.0301   )   -0.0328   
-##    9. creat pareduhighcov ego      -8.4251  ( 4.0048   )   -0.0149   
-##   10. endow same pareduhighcov     -1.1066  ( 0.3845   )   -0.0845   
-##   11. creat same pareduhighcov      1.1047  ( 0.3478   )   -0.0257   
+##    1. eval  outdegree (density)    -2.7148  ( 0.2693   )   -0.0167   
+##    2. eval  reciprocity             2.8202  ( 0.6229   )    0.0496   
+##    3. eval  GWESP I -&gt; K -&gt; J (69)  1.9245  ( 0.3223   )    0.0262   
+##    4. eval  indegree - popularity  -0.0536  ( 0.0439   )    0.0099   
+##    5. eval  outdegree - activity    0.0746  ( 0.0317   )    0.0131   
+##    6. eval  indegree - activity(1) -0.3510  ( 0.1521   )    0.0372   
+##    7. endow pareduhighcov alter     0.9689  ( 0.3626   )    0.0305   
+##    8. creat pareduhighcov alter    -0.2426  ( 0.3162   )   -0.0012   
+##    9. endow pareduhighcov ego       6.8624  ( 4.9284   )   -0.0397   
+##   10. creat pareduhighcov ego      -7.5028  ( 5.0200   )   -0.0060   
+##   11. endow same pareduhighcov     -1.5508  ( 0.3622   )   -0.0032   
+##   12. creat same pareduhighcov      1.2977  ( 0.3121   )   -0.0377   
 ## 
-## Overall maximum convergence ratio:    0.1207 
+## Overall maximum convergence ratio:    0.1568 
 ## 
 ## 
 ## Degrees constrained to maximum values:
 ## net : 10 
 ## 
 ## 
-## Total of 3007 iteration steps.</code></pre>
+## Total of 4060 iteration steps.</code></pre>
 <p>The overall convergence ratio is under .25, which is acceptable.
 Convergence of individual parameters is also sufficient. The rate
 parameter value is 7.34, indicating that each actor had, on average,
 5.99 options for change (‘mini-steps’) within the simulation.</p>
-<pre class="r"><code>test_parameter(mod1, tested=10) #Wald-type significance test</code></pre>
+<pre class="r"><code>results &lt;- data.frame(
+  effect = mod1$effects$effectName,
+  b = mod1$theta,
+  se = mod1$se,
+  t = mod1$theta / mod1$se,
+  p = 2 * pnorm(-abs(mod1$theta / mod1$se)))
+
+pander::pander(results)</code></pre>
+<table style="width:94%;">
+<colgroup>
+<col width="34%" />
+<col width="15%" />
+<col width="13%" />
+<col width="13%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">effect</th>
+<th align="center">b</th>
+<th align="center">se</th>
+<th align="center">t</th>
+<th align="center">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">outdegree (density)</td>
+<td align="center">-2.715</td>
+<td align="center">0.2693</td>
+<td align="center">-10.08</td>
+<td align="center">6.766e-24</td>
+</tr>
+<tr class="even">
+<td align="center">reciprocity</td>
+<td align="center">2.82</td>
+<td align="center">0.6229</td>
+<td align="center">4.528</td>
+<td align="center">5.964e-06</td>
+</tr>
+<tr class="odd">
+<td align="center">GWESP I -&gt; K -&gt; J (69)</td>
+<td align="center">1.925</td>
+<td align="center">0.3223</td>
+<td align="center">5.971</td>
+<td align="center">2.36e-09</td>
+</tr>
+<tr class="even">
+<td align="center">indegree - popularity</td>
+<td align="center">-0.05355</td>
+<td align="center">0.04392</td>
+<td align="center">-1.219</td>
+<td align="center">0.2227</td>
+</tr>
+<tr class="odd">
+<td align="center">outdegree - activity</td>
+<td align="center">0.07463</td>
+<td align="center">0.03171</td>
+<td align="center">2.353</td>
+<td align="center">0.01861</td>
+</tr>
+<tr class="even">
+<td align="center">indegree - activity(1)</td>
+<td align="center">-0.351</td>
+<td align="center">0.1521</td>
+<td align="center">-2.308</td>
+<td align="center">0.02099</td>
+</tr>
+<tr class="odd">
+<td align="center">pareduhighcov alter</td>
+<td align="center">0.9689</td>
+<td align="center">0.3626</td>
+<td align="center">2.672</td>
+<td align="center">0.007541</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov alter</td>
+<td align="center">-0.2426</td>
+<td align="center">0.3162</td>
+<td align="center">-0.7674</td>
+<td align="center">0.4428</td>
+</tr>
+<tr class="odd">
+<td align="center">pareduhighcov ego</td>
+<td align="center">6.862</td>
+<td align="center">4.928</td>
+<td align="center">1.392</td>
+<td align="center">0.1638</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov ego</td>
+<td align="center">-7.503</td>
+<td align="center">5.02</td>
+<td align="center">-1.495</td>
+<td align="center">0.135</td>
+</tr>
+<tr class="odd">
+<td align="center">same pareduhighcov</td>
+<td align="center">-1.551</td>
+<td align="center">0.3622</td>
+<td align="center">-4.282</td>
+<td align="center">1.85e-05</td>
+</tr>
+<tr class="even">
+<td align="center">same pareduhighcov</td>
+<td align="center">1.298</td>
+<td align="center">0.3121</td>
+<td align="center">4.159</td>
+<td align="center">3.202e-05</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>test_parameter(mod1, tested=3) #Wald-type significance test</code></pre>
 <pre><code>## Tested effects:
-##  same pareduhighcov endow 
-## chi-squared = 8.28, d.f. = 1; standard error of linear combination = 0.385; one-sided Z = -2.88; two-sided p = 0.004.</code></pre>
+##  GWESP I -&gt; K -&gt; J (69) eval 
+## chi-squared = 35.65, d.f. = 1; standard error of linear combination = 0.322; one-sided Z = 5.97; two-sided p &lt; 0.001.</code></pre>
 <p>The estimate for homophily based on average parental educational
 attainment is positive, but low. The Wald-type significance test
 indicates that the effect of similarity in average parental educational
-attainment is insignificant, p = .798. ### Goodness of Fit</p>
+attainment is insignificant, p = .798.</p>
+<div id="goodness-of-fit" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Goodness of
+Fit</h3>
 <pre class="r"><code>#Jochem&#39;s formula for Geodesic Distribution
 
 GeodesicDistribution &lt;- function(i, data, sims, period, groupName, varName, levls = c(1:5, Inf), cumulative = TRUE,
@@ -1094,28 +1311,755 @@ testall &lt;- function(ans) {
     }
     invisible(score.Test(ans))
 }</code></pre>
-<p>##Model 2: Homophily x Educationally Mixed Family</p>
-<pre class="r"><code>myeff2 &lt;- includeEffects(myeff, egoX, interaction1 = &quot;paredudifcov&quot;, type = &quot;eval&quot;)</code></pre>
+<pre class="r"><code>gofinm1 &lt;- sienaGOF(mod1, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;, levls = 0:13)
+plot(gofinm1)</code></pre>
+<pre><code>## Note: some statistics are not plotted because their variance is 0.
+## This holds for the statistic: 13.</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<pre class="r"><code>gofoutm1 &lt;- sienaGOF(mod1, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;, levls = 0:10)
+plot(gofoutm1)</code></pre>
+<pre><code>## Note: some statistics are not plotted because their variance is 0.
+## This holds for the statistic: 10.</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<pre class="r"><code>gofgdm1 &lt;- sienaGOF(mod1, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
+plot(gofgdm1)</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<pre class="r"><code>goftrim1 &lt;- sienaGOF(mod1, TriadCensus, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
+plot(goftrim1, center = TRUE, scale = TRUE)</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p>The simulated networks based on the included effects show reasonable
+similarity with the observed network in terms of in-degree distribution,
+geodesic distribution, and triad census. However, the model seems to
+somewhat underestimate the number of nodes with out-degree 0, and
+overestimate the number of nodes with out-degree 1. A potential
+explanation for the higher observed number of nodes with out-degree 0
+might be that isolated students are less likely to increase their
+out-degree. In the following sub-model, I thus include the outIso
+effect.</p>
+</div>
+<div id="submodel-1.1-outiso" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> (sub)Model 1.1:
+outIso</h3>
+<pre class="r"><code>myeff1.1 &lt;- includeEffects(myeff, outIso)</code></pre>
+<pre><code>##   effectNumber effectName  shortName include fix   test  initialValue parm
+## 1 149          out-isolate outIso    TRUE    FALSE FALSE          0   1</code></pre>
+<pre class="r"><code>myeff1.1</code></pre>
+<pre><code>##    effectName               include fix   test  initialValue parm type    
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate    
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval    
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval    
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval    
+## 5  indegree - popularity    TRUE    FALSE FALSE    0.00000    0   eval    
+## 6  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval    
+## 7  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval    
+## 8  out-isolate              TRUE    FALSE FALSE    0.00000    1   eval    
+## 9  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow   
+## 10 pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   creation
+## 11 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow   
+## 12 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   creation
+## 13 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow   
+## 14 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   creation</code></pre>
+<pre class="r"><code>mod1.1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff1.1, prevAns = mod1, returnDeps = TRUE) 
+mod1.1</code></pre>
+<pre><code>## Estimates, standard errors and convergence t-ratios
+## 
+##                                    Estimate   Standard   Convergence 
+##                                                 Error      t-ratio   
+## 
+## Rate parameters: 
+##   0         Rate parameter          7.5673  ( 0.6217   )             
+## 
+## Other parameters: 
+##    1. eval  outdegree (density)    -0.6477  ( 0.9928   )    -6.6847  
+##    2. eval  reciprocity             3.0971  ( 0.7478   )    -4.4556  
+##    3. eval  GWESP I -&gt; K -&gt; J (69)  1.8047  ( 0.3941   )    -7.8196  
+##    4. eval  indegree - popularity  -0.1810  ( 0.0801   )   -10.1275  
+##    5. eval  outdegree - activity   -0.1088  ( 0.0921   )    -8.4902  
+##    6. eval  indegree - activity(1) -0.6318  ( 0.3397   )    -9.0467  
+##    7. eval  out-isolate             4.4608  ( 1.8976   )     3.5386  
+##    8. endow pareduhighcov alter     1.9052  ( 0.5400   )     2.1160  
+##    9. creat pareduhighcov alter    -0.4665  ( 0.4123   )    -2.1319  
+##   10. endow pareduhighcov ego       7.2099  ( 4.9224   )    -2.4785  
+##   11. creat pareduhighcov ego      -8.7925  ( 4.7186   )    -2.0858  
+##   12. endow same pareduhighcov     -1.5064  ( 0.4596   )    -3.7807  
+##   13. creat same pareduhighcov      1.3696  ( 0.5265   )    -4.5735  
+## 
+## Overall maximum convergence ratio:   16.0282 
+## 
+## 
+## Degrees constrained to maximum values:
+## net : 10 
+## 
+## 
+## Total of 4141 iteration steps.</code></pre>
+<pre class="r"><code>results2 &lt;- data.frame(
+  effect = mod1.1$effects$effectName,
+  b = mod1.1$theta,
+  se = mod1.1$se,
+  t = mod1.1$theta / mod1.1$se,
+  p = 2 * pnorm(-abs(mod1.1$theta / mod1.1$se)))
+
+pander::pander(results2)</code></pre>
+<table style="width:93%;">
+<colgroup>
+<col width="34%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">effect</th>
+<th align="center">b</th>
+<th align="center">se</th>
+<th align="center">t</th>
+<th align="center">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">outdegree (density)</td>
+<td align="center">-0.6477</td>
+<td align="center">0.9928</td>
+<td align="center">-0.6524</td>
+<td align="center">0.5141</td>
+</tr>
+<tr class="even">
+<td align="center">reciprocity</td>
+<td align="center">3.097</td>
+<td align="center">0.7478</td>
+<td align="center">4.142</td>
+<td align="center">3.444e-05</td>
+</tr>
+<tr class="odd">
+<td align="center">GWESP I -&gt; K -&gt; J (69)</td>
+<td align="center">1.805</td>
+<td align="center">0.3941</td>
+<td align="center">4.579</td>
+<td align="center">4.671e-06</td>
+</tr>
+<tr class="even">
+<td align="center">indegree - popularity</td>
+<td align="center">-0.181</td>
+<td align="center">0.08013</td>
+<td align="center">-2.258</td>
+<td align="center">0.02394</td>
+</tr>
+<tr class="odd">
+<td align="center">outdegree - activity</td>
+<td align="center">-0.1088</td>
+<td align="center">0.09206</td>
+<td align="center">-1.182</td>
+<td align="center">0.2372</td>
+</tr>
+<tr class="even">
+<td align="center">indegree - activity(1)</td>
+<td align="center">-0.6318</td>
+<td align="center">0.3397</td>
+<td align="center">-1.86</td>
+<td align="center">0.06289</td>
+</tr>
+<tr class="odd">
+<td align="center">out-isolate</td>
+<td align="center">4.461</td>
+<td align="center">1.898</td>
+<td align="center">2.351</td>
+<td align="center">0.01874</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov alter</td>
+<td align="center">1.905</td>
+<td align="center">0.54</td>
+<td align="center">3.528</td>
+<td align="center">0.000419</td>
+</tr>
+<tr class="odd">
+<td align="center">pareduhighcov alter</td>
+<td align="center">-0.4665</td>
+<td align="center">0.4123</td>
+<td align="center">-1.132</td>
+<td align="center">0.2578</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov ego</td>
+<td align="center">7.21</td>
+<td align="center">4.922</td>
+<td align="center">1.465</td>
+<td align="center">0.143</td>
+</tr>
+<tr class="odd">
+<td align="center">pareduhighcov ego</td>
+<td align="center">-8.792</td>
+<td align="center">4.719</td>
+<td align="center">-1.863</td>
+<td align="center">0.06241</td>
+</tr>
+<tr class="even">
+<td align="center">same pareduhighcov</td>
+<td align="center">-1.506</td>
+<td align="center">0.4596</td>
+<td align="center">-3.278</td>
+<td align="center">0.001047</td>
+</tr>
+<tr class="odd">
+<td align="center">same pareduhighcov</td>
+<td align="center">1.37</td>
+<td align="center">0.5265</td>
+<td align="center">2.602</td>
+<td align="center">0.00928</td>
+</tr>
+</tbody>
+</table>
+<p>Although the overall maximum convergence ratio is acceptable,
+including the outIso effect destabilises the estimation of the
+individual effects, reflected in very high convergence t-ratio
+statistics. The ego-effects of highest parental educational attainment
+demonstrate particularly high standard errors, as well as suspiciously
+pronounced estimates. The lack of convergence makes this an
+inappropriate model to proceed with.</p>
+</div>
+<div id="submodel-1.2-inisdegree" class="section level3" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> (sub)Model 1.2:
+inIsDegree</h3>
+<pre class="r"><code>myeff1.2 &lt;- includeEffects(myeff, inIsDegree)</code></pre>
+<pre><code>##   effectNumber effectName           shortName  include fix   test  initialValue
+## 1 160          in-isolate Outdegree inIsDegree TRUE    FALSE FALSE          0  
+##   parm
+## 1 0</code></pre>
+<pre class="r"><code>myeff1.2</code></pre>
+<pre><code>##    effectName               include fix   test  initialValue parm type    
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate    
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval    
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval    
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval    
+## 5  indegree - popularity    TRUE    FALSE FALSE    0.00000    0   eval    
+## 6  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval    
+## 7  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval    
+## 8  in-isolate Outdegree     TRUE    FALSE FALSE    0.00000    0   eval    
+## 9  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow   
+## 10 pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   creation
+## 11 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow   
+## 12 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   creation
+## 13 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow   
+## 14 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   creation</code></pre>
+<pre class="r"><code>#mod1.2 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff1.2, prevAns = mod1, returnDeps = TRUE) 
+#mod1.2</code></pre>
+<p>Including inIsDegree greatly destabilises the model. Parameter
+estimates rise to unrealistically high values, with huge standard errors
+and individual convergence ratios way above 0.1. The maximum covergence
+ratio is absolutely unacceptable at 22.8.</p>
+</div>
+<div id="submodel-1.3-removing-inpop" class="section level3"
+number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> (sub)Model 1.3:
+removing inPop</h3>
+<p>In model 1, the in-degree popularity was not significant. As this
+effect is not of theoretical interest, and reducing complexity can aid
+convergence and fit, I will remove the effect from the model.</p>
+<pre class="r"><code>myeff1.3 &lt;- includeEffects(myeff0910, outAct, inAct, recip, gwespFF) </code></pre>
+<pre><code>##   effectNumber effectName             shortName include fix   test 
+## 1  18          reciprocity            recip     TRUE    FALSE FALSE
+## 2  57          GWESP I -&gt; K -&gt; J (#)  gwespFF   TRUE    FALSE FALSE
+## 3 118          outdegree - activity   outAct    TRUE    FALSE FALSE
+## 4 127          indegree - activity(#) inAct     TRUE    FALSE FALSE
+##   initialValue parm
+## 1          0    0  
+## 2          0   69  
+## 3          0    0  
+## 4          0    1</code></pre>
+<pre class="r"><code>myeff1.3</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm
+## 1 basic rate parameter net TRUE    FALSE FALSE    5.46796    0  
+## 2 outdegree (density)      TRUE    FALSE FALSE   -1.72530    0  
+## 3 reciprocity              TRUE    FALSE FALSE    0.00000    0  
+## 4 GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69  
+## 5 outdegree - activity     TRUE    FALSE FALSE    0.00000    0  
+## 6 indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1</code></pre>
+<pre class="r"><code>myeff1.3 &lt;- includeEffects(myeff1.3, sameX, egoX, altX, type = &quot;endow&quot;, interaction1 = &quot;pareduhighcov&quot;)</code></pre>
+<pre><code>##   effectNumber effectName          shortName include fix   test  initialValue
+## 1 818          pareduhighcov alter altX      TRUE    FALSE FALSE          0  
+## 2 833          pareduhighcov ego   egoX      TRUE    FALSE FALSE          0  
+## 3 889          same pareduhighcov  sameX     TRUE    FALSE FALSE          0  
+##   parm type 
+## 1 0    endow
+## 2 0    endow
+## 3 0    endow</code></pre>
+<pre class="r"><code>myeff1.3</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm type 
+## 1 basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate 
+## 2 outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval 
+## 3 reciprocity              TRUE    FALSE FALSE    0.00000    0   eval 
+## 4 GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval 
+## 5 outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval 
+## 6 indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval 
+## 7 pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow
+## 8 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow
+## 9 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow</code></pre>
+<pre class="r"><code>myeff1.3 &lt;- includeEffects(myeff1.3, sameX, egoX, altX, type = &quot;creation&quot;, interaction1 = &quot;pareduhighcov&quot;)</code></pre>
+<pre><code>##   effectNumber effectName          shortName include fix   test  initialValue
+## 1 819          pareduhighcov alter altX      TRUE    FALSE FALSE          0  
+## 2 834          pareduhighcov ego   egoX      TRUE    FALSE FALSE          0  
+## 3 890          same pareduhighcov  sameX     TRUE    FALSE FALSE          0  
+##   parm type    
+## 1 0    creation
+## 2 0    creation
+## 3 0    creation</code></pre>
+<pre class="r"><code>myeff1.3</code></pre>
+<pre><code>##    effectName               include fix   test  initialValue parm type    
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate    
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval    
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval    
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval    
+## 5  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval    
+## 6  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval    
+## 7  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow   
+## 8  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   creation
+## 9  pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow   
+## 10 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   creation
+## 11 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow   
+## 12 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   creation</code></pre>
+<pre class="r"><code>mod1.3 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff1.3, returnDeps = TRUE) 
+mod1.3</code></pre>
+<pre><code>## Estimates, standard errors and convergence t-ratios
+## 
+##                                    Estimate   Standard   Convergence 
+##                                                 Error      t-ratio   
+## 
+## Rate parameters: 
+##   0         Rate parameter          8.3482  ( 0.7663   )             
+## 
+## Other parameters: 
+##    1. eval  outdegree (density)    -2.9352  ( 0.2271   )   -0.0074   
+##    2. eval  reciprocity             3.0653  ( 0.7255   )    0.0468   
+##    3. eval  GWESP I -&gt; K -&gt; J (69)  1.9314  ( 0.4913   )    0.0104   
+##    4. eval  outdegree - activity    0.0785  ( 0.0312   )   -0.0093   
+##    5. eval  indegree - activity(1) -0.3917  ( 0.1722   )   -0.0118   
+##    6. endow pareduhighcov alter     1.0203  ( 0.3321   )    0.0310   
+##    7. creat pareduhighcov alter    -0.2473  ( 0.2500   )    0.0361   
+##    8. endow pareduhighcov ego       6.8685  ( 6.4780   )   -0.0287   
+##    9. creat pareduhighcov ego      -7.5250  ( 6.6338   )    0.0461   
+##   10. endow same pareduhighcov     -1.6400  ( 0.4258   )   -0.0465   
+##   11. creat same pareduhighcov      1.3528  ( 0.5520   )    0.0105   
+## 
+## Overall maximum convergence ratio:    0.1670 
+## 
+## 
+## Degrees constrained to maximum values:
+## net : 10 
+## 
+## 
+## Total of 4007 iteration steps.</code></pre>
+<pre class="r"><code>results1.3 &lt;- data.frame(
+  effect = mod1.3$effects$effectName,
+  b = mod1.3$theta,
+  se = mod1.3$se,
+  t = mod1.3$theta / mod1.3$se,
+  p = 2 * pnorm(-abs(mod1.3$theta / mod1.3$se)))
+
+pander::pander(results1.3)</code></pre>
+<table style="width:93%;">
+<colgroup>
+<col width="34%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">effect</th>
+<th align="center">b</th>
+<th align="center">se</th>
+<th align="center">t</th>
+<th align="center">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">outdegree (density)</td>
+<td align="center">-2.935</td>
+<td align="center">0.2271</td>
+<td align="center">-12.92</td>
+<td align="center">3.346e-38</td>
+</tr>
+<tr class="even">
+<td align="center">reciprocity</td>
+<td align="center">3.065</td>
+<td align="center">0.7255</td>
+<td align="center">4.225</td>
+<td align="center">2.387e-05</td>
+</tr>
+<tr class="odd">
+<td align="center">GWESP I -&gt; K -&gt; J (69)</td>
+<td align="center">1.931</td>
+<td align="center">0.4913</td>
+<td align="center">3.931</td>
+<td align="center">8.451e-05</td>
+</tr>
+<tr class="even">
+<td align="center">outdegree - activity</td>
+<td align="center">0.0785</td>
+<td align="center">0.03125</td>
+<td align="center">2.512</td>
+<td align="center">0.012</td>
+</tr>
+<tr class="odd">
+<td align="center">indegree - activity(1)</td>
+<td align="center">-0.3917</td>
+<td align="center">0.1722</td>
+<td align="center">-2.274</td>
+<td align="center">0.02297</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov alter</td>
+<td align="center">1.02</td>
+<td align="center">0.3321</td>
+<td align="center">3.072</td>
+<td align="center">0.002125</td>
+</tr>
+<tr class="odd">
+<td align="center">pareduhighcov alter</td>
+<td align="center">-0.2473</td>
+<td align="center">0.25</td>
+<td align="center">-0.9894</td>
+<td align="center">0.3225</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov ego</td>
+<td align="center">6.869</td>
+<td align="center">6.478</td>
+<td align="center">1.06</td>
+<td align="center">0.289</td>
+</tr>
+<tr class="odd">
+<td align="center">pareduhighcov ego</td>
+<td align="center">-7.525</td>
+<td align="center">6.634</td>
+<td align="center">-1.134</td>
+<td align="center">0.2567</td>
+</tr>
+<tr class="even">
+<td align="center">same pareduhighcov</td>
+<td align="center">-1.64</td>
+<td align="center">0.4258</td>
+<td align="center">-3.852</td>
+<td align="center">0.0001173</td>
+</tr>
+<tr class="odd">
+<td align="center">same pareduhighcov</td>
+<td align="center">1.353</td>
+<td align="center">0.552</td>
+<td align="center">2.451</td>
+<td align="center">0.01425</td>
+</tr>
+</tbody>
+</table>
+<p>No big changes in convergence can be observed compared to model 1.
+The in-degree popularity x out-degree activity interaction effect
+remains significant in the absence of one of its lower-order effects.
+Both the endowment and the creation homophily effects remain significant
+(p &lt; .001 and p = .014, respectively). The creation estimate is
+positive, indicating that students prefer forming ties with peers with
+the same highest parental educational attainment as themselves
+(e.g. first-generation students prefer ties with other first-generation
+students, students with a generational history of university attendance
+prefer ties with other students who have a generational history of
+university attendance). The sign for the endowment estimate is negative,
+indicating that homophily is weaker for the decision to maintain a tie
+than for creating new ties. Interestingly, the alter effect of highest
+parental educational attainment in endowment is also significant, with a
+positive parameter estimate. This indicates that students prefer
+maintaining ties with peers whose parents have university
+experience.</p>
+</div>
+<div id="goodness-of-fit-1" class="section level3" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> Goodness of
+Fit</h3>
+<pre class="r"><code>gofinm1.3 &lt;- sienaGOF(mod1.3, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;, levls = 0:13)
+plot(gofinm1.3)</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<pre class="r"><code>gofoutm1.3 &lt;- sienaGOF(mod1.3, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;, levls = 0:10)
+plot(gofoutm1.3)</code></pre>
+<pre><code>## Note: some statistics are not plotted because their variance is 0.
+## This holds for the statistic: 10.</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<pre class="r"><code>goftrim1.3 &lt;- sienaGOF(mod1.3, TriadCensus, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
+plot(goftrim1.3, center = TRUE, scale = TRUE)</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>Removing the in-degree popularity effect improved the outdegree
+distribution fit, bringing the p-value up to 0.038 - which is still
+significant, but certainly closer to the arbitrary 0.05 threshold.</p>
+</div>
+<div id="submodel-1.4-removing-alter-effect" class="section level3"
+number="2.2.6">
+<h3><span class="header-section-number">2.2.6</span> (sub)Model 1.4:
+removing alter effect</h3>
+<p>In the previous sub-models, the creation effect of alters’ highest
+parental educational attainment and the endowment effect of ego’s
+highest parental educational attainment were insignificant and had large
+standard errors. This might contribute to the observed lack of
+convergence when adding additional network statistics, even though these
+statistics improve goodness of fit. In the following sub-model, I will
+therefore rerun the model, but without the creation effect for alters’
+highest parental educational attainment. I start with removing the alter
+highest parental educational attainment creation effect as this effect
+demonstrated the highest p-value in model 1 and 1.3. Generally, it is
+preferable to include all lower level components of an interaction, as
+it is usually not reasonable to assume that their main effect will be 0
+when accounting for the interaction. However, as the effect has
+consistently been insignificant, the assumption is acceptable in the
+current situation.</p>
+<pre class="r"><code>myeff1.4 &lt;- includeEffects(myeff0910, outAct, inAct, recip, gwespFF)  </code></pre>
+<pre><code>##   effectNumber effectName             shortName include fix   test 
+## 1  18          reciprocity            recip     TRUE    FALSE FALSE
+## 2  57          GWESP I -&gt; K -&gt; J (#)  gwespFF   TRUE    FALSE FALSE
+## 3 118          outdegree - activity   outAct    TRUE    FALSE FALSE
+## 4 127          indegree - activity(#) inAct     TRUE    FALSE FALSE
+##   initialValue parm
+## 1          0    0  
+## 2          0   69  
+## 3          0    0  
+## 4          0    1</code></pre>
+<pre class="r"><code>myeff1.4 &lt;- includeEffects(myeff1.4, sameX, egoX, altX, type = &quot;endow&quot;, interaction1 = &quot;pareduhighcov&quot;)</code></pre>
+<pre><code>##   effectNumber effectName          shortName include fix   test  initialValue
+## 1 818          pareduhighcov alter altX      TRUE    FALSE FALSE          0  
+## 2 833          pareduhighcov ego   egoX      TRUE    FALSE FALSE          0  
+## 3 889          same pareduhighcov  sameX     TRUE    FALSE FALSE          0  
+##   parm type 
+## 1 0    endow
+## 2 0    endow
+## 3 0    endow</code></pre>
+<pre class="r"><code>myeff1.4</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm type 
+## 1 basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate 
+## 2 outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval 
+## 3 reciprocity              TRUE    FALSE FALSE    0.00000    0   eval 
+## 4 GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval 
+## 5 outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval 
+## 6 indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval 
+## 7 pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow
+## 8 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow
+## 9 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow</code></pre>
+<pre class="r"><code>myeff1.4 &lt;- includeEffects(myeff1.4, sameX, egoX, type = &quot;creation&quot;, interaction1 = &quot;pareduhighcov&quot;)</code></pre>
+<pre><code>##   effectNumber effectName         shortName include fix   test  initialValue
+## 1 834          pareduhighcov ego  egoX      TRUE    FALSE FALSE          0  
+## 2 890          same pareduhighcov sameX     TRUE    FALSE FALSE          0  
+##   parm type    
+## 1 0    creation
+## 2 0    creation</code></pre>
+<pre class="r"><code>myeff1.4</code></pre>
+<pre><code>##    effectName               include fix   test  initialValue parm type    
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate    
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval    
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval    
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval    
+## 5  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval    
+## 6  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval    
+## 7  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow   
+## 8  pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow   
+## 9  pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   creation
+## 10 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow   
+## 11 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   creation</code></pre>
+<pre class="r"><code>mod1.4 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff1.4, returnDeps = TRUE) 
+mod1.4</code></pre>
+<pre><code>## Estimates, standard errors and convergence t-ratios
+## 
+##                                    Estimate   Standard   Convergence 
+##                                                 Error      t-ratio   
+## 
+## Rate parameters: 
+##   0         Rate parameter          8.0910  ( 0.7382   )             
+## 
+## Other parameters: 
+##    1. eval  outdegree (density)    -2.9653  ( 0.2210   )    0.0942   
+##    2. eval  reciprocity             3.0781  ( 1.0367   )   -0.0069   
+##    3. eval  GWESP I -&gt; K -&gt; J (69)  1.9402  ( 0.7239   )    0.0463   
+##    4. eval  outdegree - activity    0.0772  ( 0.0376   )    0.0854   
+##    5. eval  indegree - activity(1) -0.3898  ( 0.3043   )    0.0818   
+##    6. endow pareduhighcov alter     0.9854  ( 0.3425   )   -0.0417   
+##    7. endow pareduhighcov ego       6.2913  ( 9.7937   )   -0.0025   
+##    8. creat pareduhighcov ego      -6.9852  ( 9.4532   )   -0.0523   
+##    9. endow same pareduhighcov     -1.6479  ( 0.6017   )   -0.0088   
+##   10. creat same pareduhighcov      1.3914  ( 0.3397   )    0.0597   
+## 
+## Overall maximum convergence ratio:    0.1901 
+## 
+## 
+## Degrees constrained to maximum values:
+## net : 10 
+## 
+## 
+## Total of 3926 iteration steps.</code></pre>
+<pre class="r"><code>results1.4 &lt;- data.frame(
+  effect = mod1.4$effects$effectName,
+  b = mod1.4$theta,
+  se = mod1.4$se,
+  t = mod1.4$theta / mod1.4$se,
+  p = 2 * pnorm(-abs(mod1.4$theta / mod1.4$se)))
+
+pander::pander(results1.4)</code></pre>
+<table style="width:93%;">
+<colgroup>
+<col width="34%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">effect</th>
+<th align="center">b</th>
+<th align="center">se</th>
+<th align="center">t</th>
+<th align="center">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">outdegree (density)</td>
+<td align="center">-2.965</td>
+<td align="center">0.221</td>
+<td align="center">-13.42</td>
+<td align="center">4.608e-41</td>
+</tr>
+<tr class="even">
+<td align="center">reciprocity</td>
+<td align="center">3.078</td>
+<td align="center">1.037</td>
+<td align="center">2.969</td>
+<td align="center">0.002986</td>
+</tr>
+<tr class="odd">
+<td align="center">GWESP I -&gt; K -&gt; J (69)</td>
+<td align="center">1.94</td>
+<td align="center">0.7239</td>
+<td align="center">2.68</td>
+<td align="center">0.007353</td>
+</tr>
+<tr class="even">
+<td align="center">outdegree - activity</td>
+<td align="center">0.07723</td>
+<td align="center">0.03761</td>
+<td align="center">2.054</td>
+<td align="center">0.04002</td>
+</tr>
+<tr class="odd">
+<td align="center">indegree - activity(1)</td>
+<td align="center">-0.3898</td>
+<td align="center">0.3043</td>
+<td align="center">-1.281</td>
+<td align="center">0.2001</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov alter</td>
+<td align="center">0.9854</td>
+<td align="center">0.3425</td>
+<td align="center">2.877</td>
+<td align="center">0.004014</td>
+</tr>
+<tr class="odd">
+<td align="center">pareduhighcov ego</td>
+<td align="center">6.291</td>
+<td align="center">9.794</td>
+<td align="center">0.6424</td>
+<td align="center">0.5206</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov ego</td>
+<td align="center">-6.985</td>
+<td align="center">9.453</td>
+<td align="center">-0.7389</td>
+<td align="center">0.46</td>
+</tr>
+<tr class="odd">
+<td align="center">same pareduhighcov</td>
+<td align="center">-1.648</td>
+<td align="center">0.6017</td>
+<td align="center">-2.739</td>
+<td align="center">0.006168</td>
+</tr>
+<tr class="even">
+<td align="center">same pareduhighcov</td>
+<td align="center">1.391</td>
+<td align="center">0.3397</td>
+<td align="center">4.096</td>
+<td align="center">4.202e-05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="goodness-of-fit-2" class="section level3" number="2.2.7">
+<h3><span class="header-section-number">2.2.7</span> Goodness of
+Fit</h3>
+<pre class="r"><code>gofinm1.4 &lt;- sienaGOF(mod1.4, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;, levls = 0:13)
+plot(gofinm1.4)</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<pre class="r"><code>gofoutm1.4 &lt;- sienaGOF(mod1.4, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;, levls = 0:10)
+plot(gofoutm1.4)</code></pre>
+<pre><code>## Note: some statistics are not plotted because their variance is 0.
+## This holds for the statistic: 10.</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<pre class="r"><code>goftrim1.4 &lt;- sienaGOF(mod1.4, TriadCensus, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
+plot(goftrim1.4, center = TRUE, scale = TRUE)</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p>Interestingly, removing the alter effect results in the in-degree
+activity/out-degree popularity interaction effect turning insignificant.
+Removing the alter effect does not however strongly improve fit and
+slightly increases the maximum convergence ratio. Given the general
+preference for retaining lower-order effects of interactions, I will
+therefore proceed with the previous model (1.3).</p>
+</div>
+</div>
+<div id="model-2-homophily-x-educationally-mixed-family"
+class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Model 2: Homophily x
+Educationally Mixed Family</h2>
+<pre class="r"><code>myeff2 &lt;- includeEffects(myeff1.3, egoX, interaction1 = &quot;paredudifcov&quot;, type = &quot;endow&quot;)</code></pre>
 <pre><code>##   effectNumber effectName       shortName include fix   test  initialValue parm
-## 1 648          paredudifcov ego egoX      TRUE    FALSE FALSE          0   0</code></pre>
+## 1 649          paredudifcov ego egoX      TRUE    FALSE FALSE          0   0   
+##   type 
+## 1 endow</code></pre>
 <pre class="r"><code>myeff2</code></pre>
 <pre><code>##    effectName               include fix   test  initialValue parm type    
-## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796   0    rate    
-## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530   0    eval    
-## 3  reciprocity              TRUE    FALSE FALSE    0.00000   0    eval    
-## 4  indegree - popularity    TRUE    FALSE FALSE    0.00000   0    eval    
-## 5  outdegree - activity     TRUE    FALSE FALSE    0.00000   0    eval    
-## 6  indegree - activity(#)   TRUE    FALSE FALSE    0.00000   1    eval    
-## 7  paredudifcov ego         TRUE    FALSE FALSE    0.00000   0    eval    
-## 8  pareduhighcov alter      TRUE    FALSE FALSE    0.00000   0    endow   
-## 9  pareduhighcov alter      TRUE    FALSE FALSE    0.00000   0    creation
-## 10 pareduhighcov ego        TRUE    FALSE FALSE    0.00000   0    endow   
-## 11 pareduhighcov ego        TRUE    FALSE FALSE    0.00000   0    creation
-## 12 same pareduhighcov       TRUE    FALSE FALSE    0.00000   0    endow   
-## 13 same pareduhighcov       TRUE    FALSE FALSE    0.00000   0    creation</code></pre>
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate    
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval    
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval    
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval    
+## 5  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval    
+## 6  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval    
+## 7  paredudifcov ego         TRUE    FALSE FALSE    0.00000    0   endow   
+## 8  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow   
+## 9  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   creation
+## 10 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow   
+## 11 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   creation
+## 12 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow   
+## 13 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   creation</code></pre>
+<pre class="r"><code>myeff2 &lt;- includeEffects(myeff2, egoX, interaction1 = &quot;paredudifcov&quot;, type = &quot;creation&quot;)</code></pre>
+<pre><code>##   effectNumber effectName       shortName include fix   test  initialValue parm
+## 1 650          paredudifcov ego egoX      TRUE    FALSE FALSE          0   0   
+##   type    
+## 1 creation</code></pre>
+<pre class="r"><code>myeff2</code></pre>
+<pre><code>##    effectName               include fix   test  initialValue parm type    
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate    
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval    
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval    
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval    
+## 5  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval    
+## 6  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval    
+## 7  paredudifcov ego         TRUE    FALSE FALSE    0.00000    0   endow   
+## 8  paredudifcov ego         TRUE    FALSE FALSE    0.00000    0   creation
+## 9  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   endow   
+## 10 pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   creation
+## 11 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   endow   
+## 12 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   creation
+## 13 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow   
+## 14 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   creation</code></pre>
 <pre class="r"><code>myeff2 &lt;-  set_interaction(myeff2, list(sameX, egoX), type = &quot;endow&quot;, covar1=c(&quot;pareduhighcov&quot;, &quot;paredudifcov&quot;))</code></pre>
 <pre><code>##   effectNumber effectName                            shortName include fix  
-## 1  649         paredudifcov ego                      egoX      FALSE   FALSE
+## 1  649         paredudifcov ego                      egoX      TRUE    FALSE
 ## 2  889         same pareduhighcov                    sameX     TRUE    FALSE
 ## 3 1002         paredudifcov ego x same pareduhighcov unspInt   TRUE    FALSE
 ##   test  initialValue parm type  effect1 effect2
@@ -1124,20 +2068,21 @@ testall &lt;- function(ans) {
 ## 3 FALSE          0   0    endow 889     649</code></pre>
 <pre class="r"><code>myeff2</code></pre>
 <pre><code>##    effectName                            include fix   test  initialValue parm
-## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796   0   
-## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530   0   
-## 3  reciprocity                           TRUE    FALSE FALSE    0.00000   0   
-## 4  indegree - popularity                 TRUE    FALSE FALSE    0.00000   0   
-## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000   0   
-## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000   1   
-## 7  paredudifcov ego                      TRUE    FALSE FALSE    0.00000   0   
-## 8  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 9  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 10 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 11 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 12 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 13 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 14 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
+## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796    0  
+## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530    0  
+## 3  reciprocity                           TRUE    FALSE FALSE    0.00000    0  
+## 4  GWESP I -&gt; K -&gt; J (69)                TRUE    FALSE FALSE    0.00000   69  
+## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000    0  
+## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000    1  
+## 7  paredudifcov ego                      TRUE    FALSE FALSE    0.00000    0  
+## 8  paredudifcov ego                      TRUE    FALSE FALSE    0.00000    0  
+## 9  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000    0  
+## 10 pareduhighcov alter                   TRUE    FALSE FALSE    0.00000    0  
+## 11 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000    0  
+## 12 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000    0  
+## 13 same pareduhighcov                    TRUE    FALSE FALSE    0.00000    0  
+## 14 same pareduhighcov                    TRUE    FALSE FALSE    0.00000    0  
+## 15 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000    0  
 ##    type     effect1 effect2
 ## 1  rate       0       0    
 ## 2  eval       0       0    
@@ -1145,17 +2090,18 @@ testall &lt;- function(ans) {
 ## 4  eval       0       0    
 ## 5  eval       0       0    
 ## 6  eval       0       0    
-## 7  eval       0       0    
-## 8  endow      0       0    
-## 9  creation   0       0    
-## 10 endow      0       0    
-## 11 creation   0       0    
-## 12 endow      0       0    
-## 13 creation   0       0    
-## 14 endow    889     649</code></pre>
+## 7  endow      0       0    
+## 8  creation   0       0    
+## 9  endow      0       0    
+## 10 creation   0       0    
+## 11 endow      0       0    
+## 12 creation   0       0    
+## 13 endow      0       0    
+## 14 creation   0       0    
+## 15 endow    889     649</code></pre>
 <pre class="r"><code>myeff2 &lt;-  set_interaction(myeff2, list(sameX, egoX), type = &quot;creation&quot;, covar1=c(&quot;pareduhighcov&quot;, &quot;paredudifcov&quot;))</code></pre>
 <pre><code>##   effectNumber effectName                            shortName include fix  
-## 1  650         paredudifcov ego                      egoX      FALSE   FALSE
+## 1  650         paredudifcov ego                      egoX      TRUE    FALSE
 ## 2  890         same pareduhighcov                    sameX     TRUE    FALSE
 ## 3 1003         paredudifcov ego x same pareduhighcov unspInt   TRUE    FALSE
 ##   test  initialValue parm type     effect1 effect2
@@ -1164,21 +2110,22 @@ testall &lt;- function(ans) {
 ## 3 FALSE          0   0    creation 890     650</code></pre>
 <pre class="r"><code>myeff2</code></pre>
 <pre><code>##    effectName                            include fix   test  initialValue parm
-## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796   0   
-## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530   0   
-## 3  reciprocity                           TRUE    FALSE FALSE    0.00000   0   
-## 4  indegree - popularity                 TRUE    FALSE FALSE    0.00000   0   
-## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000   0   
-## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000   1   
-## 7  paredudifcov ego                      TRUE    FALSE FALSE    0.00000   0   
-## 8  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 9  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 10 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 11 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 12 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 13 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 14 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
-## 15 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
+## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796    0  
+## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530    0  
+## 3  reciprocity                           TRUE    FALSE FALSE    0.00000    0  
+## 4  GWESP I -&gt; K -&gt; J (69)                TRUE    FALSE FALSE    0.00000   69  
+## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000    0  
+## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000    1  
+## 7  paredudifcov ego                      TRUE    FALSE FALSE    0.00000    0  
+## 8  paredudifcov ego                      TRUE    FALSE FALSE    0.00000    0  
+## 9  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000    0  
+## 10 pareduhighcov alter                   TRUE    FALSE FALSE    0.00000    0  
+## 11 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000    0  
+## 12 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000    0  
+## 13 same pareduhighcov                    TRUE    FALSE FALSE    0.00000    0  
+## 14 same pareduhighcov                    TRUE    FALSE FALSE    0.00000    0  
+## 15 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000    0  
+## 16 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000    0  
 ##    type     effect1 effect2
 ## 1  rate       0       0    
 ## 2  eval       0       0    
@@ -1186,128 +2133,131 @@ testall &lt;- function(ans) {
 ## 4  eval       0       0    
 ## 5  eval       0       0    
 ## 6  eval       0       0    
-## 7  eval       0       0    
-## 8  endow      0       0    
-## 9  creation   0       0    
-## 10 endow      0       0    
-## 11 creation   0       0    
-## 12 endow      0       0    
-## 13 creation   0       0    
-## 14 endow    889     649    
-## 15 creation 890     650</code></pre>
-<pre class="r"><code>mod2 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff2, prevAns = mod1, returnDeps = TRUE) 
-mod2</code></pre>
-<pre><code>## Estimates, standard errors and convergence t-ratios
-## 
-##                                                   Estimate   Standard   Convergence 
-##                                                                Error      t-ratio   
-## 
-## Rate parameters: 
-##   0         Rate parameter                         7.2537  ( 0.5910   )             
-## 
-## Other parameters: 
-##    1. eval  outdegree (density)                   -3.3681  ( 0.3269   )    0.0560   
-##    2. eval  reciprocity                            2.9543  ( 0.4181   )    0.0607   
-##    3. eval  indegree - popularity                  0.0722  ( 0.0314   )    0.0521   
-##    4. eval  outdegree - activity                   0.1171  ( 0.0222   )    0.0730   
-##    5. eval  indegree - activity(1)                -0.2426  ( 0.0740   )    0.0988   
-##    6. eval  paredudifcov ego                      -1.2624  ( 1.3643   )   -0.0933   
-##    7. endow pareduhighcov alter                    1.1311  ( 0.3031   )   -0.0795   
-##    8. creat pareduhighcov alter                   -0.2986  ( 0.3144   )    0.0480   
-##    9. endow pareduhighcov ego                      8.2235  ( 3.3192   )    0.0177   
-##   10. creat pareduhighcov ego                     -8.6315  ( 3.1822   )   -0.0047   
-##   11. endow same pareduhighcov                    -1.1209  ( 0.3752   )    0.0123   
-##   12. creat same pareduhighcov                     1.0858  ( 0.3666   )    0.0700   
-##   13. endow paredudifcov ego x same pareduhighcov -0.7890  ( 2.3307   )   -0.0751   
-##   14. creat paredudifcov ego x same pareduhighcov -0.0694  ( 2.2890   )   -0.1205   
-## 
-## Overall maximum convergence ratio:    0.2239 
-## 
-## 
-## Degrees constrained to maximum values:
-## net : 10 
-## 
-## 
-## Total of 3194 iteration steps.</code></pre>
-<p>The overall maximum convergence ratio is once again acceptable. The
-interaction effect of the difference between ego’s parents’ educational
-attainment with homophily is negative.</p>
-<pre class="r"><code>test_parameter(mod2, tested=13)</code></pre>
-<pre><code>## Tested effects:
-##  paredudifcov ego x same pareduhighcov endow 
-## chi-squared = 0.11, d.f. = 1; standard error of linear combination = 2.331; one-sided Z = -0.34; two-sided p = 0.735.</code></pre>
-<div id="goodness-of-fit" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Goodness of
-Fit</h3>
-<pre class="r"><code>#Jochem&#39;s formula for Geodesic Distribution
-
-GeodesicDistribution &lt;- function(i, data, sims, period, groupName, varName, levls = c(1:5, Inf), cumulative = TRUE,
-    ...) {
-    x &lt;- networkExtraction(i, data, sims, period, groupName, varName)
-    require(sna)
-    a &lt;- sna::geodist(symmetrize(x))$gdist
-    if (cumulative) {
-        gdi &lt;- sapply(levls, function(i) {
-            sum(a &lt;= i)
-        })
-    } else {
-        gdi &lt;- sapply(levls, function(i) {
-            sum(a == i)
-        })
-    }
-    names(gdi) &lt;- as.character(levls)
-    gdi
-}
-
-# The following function is taken from the help page for sienaTest
-
-testall &lt;- function(ans) {
-    for (i in which(ans$test)) {
-        sct &lt;- score.Test(ans, i)
-        cat(ans$requestedEffects$effectName[i], &quot;\n&quot;)
-        print(sct)
-    }
-    invisible(score.Test(ans))
-}</code></pre>
-<pre class="r"><code>gofinm2 &lt;- sienaGOF(mod2, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
-plot(gofinm2)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
-<pre class="r"><code>gofoutm2 &lt;- sienaGOF(mod2, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
-plot(gofoutm2)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
-<pre class="r"><code>goftrim2 &lt;- sienaGOF(mod2, TriadCensus, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
-plot(goftrim2)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
-<pre class="r"><code>gofgdm2 &lt;- sienaGOF(mod2, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
-plot(gofgdm2)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
-</div>
-<div id="submodel-2.1-inisdegree" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> (sub)Model 2.1:
-inIsDegree</h3>
-<pre class="r"><code>myeff2.1 &lt;- includeEffects(myeff2, inIsDegree)</code></pre>
-<pre><code>##   effectNumber effectName           shortName  include fix   test  initialValue
-## 1 160          in-isolate Outdegree inIsDegree TRUE    FALSE FALSE          0  
+## 7  endow      0       0    
+## 8  creation   0       0    
+## 9  endow      0       0    
+## 10 creation   0       0    
+## 11 endow      0       0    
+## 12 creation   0       0    
+## 13 endow      0       0    
+## 14 creation   0       0    
+## 15 endow    889     649    
+## 16 creation 890     650</code></pre>
+<pre class="r"><code>#mod2 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff2, prevAns = mod1.3, returnDeps = TRUE) 
+#mod2</code></pre>
+<p>At 7.72, the overall maximum convergence ratio is unacceptable, and
+the estimated parameters unrealistic with very high standard errors.
+This points to the model being overly complex, which is not entirely
+unexpected based on the large number of both endowment and creation
+effects. I will proceed by combining all lower-level endowment and
+creation effects into evaluation effects (which should be equivalent to
+the combination of endowment and creation). The homophily and homophily
+x mixed effects will be kept as separate endowment and creation effects,
+as these are relevant to the research question.</p>
+<div id="submodel-2.1-reduced-complexity" class="section level3"
+number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> (sub)Model 2.1:
+reduced complexity</h3>
+<pre class="r"><code>myeff2.1 &lt;- includeEffects(myeff0910, outAct, inAct, recip, gwespFF)  </code></pre>
+<pre><code>##   effectNumber effectName             shortName include fix   test 
+## 1  18          reciprocity            recip     TRUE    FALSE FALSE
+## 2  57          GWESP I -&gt; K -&gt; J (#)  gwespFF   TRUE    FALSE FALSE
+## 3 118          outdegree - activity   outAct    TRUE    FALSE FALSE
+## 4 127          indegree - activity(#) inAct     TRUE    FALSE FALSE
+##   initialValue parm
+## 1          0    0  
+## 2          0   69  
+## 3          0    0  
+## 4          0    1</code></pre>
+<pre class="r"><code>myeff2.1 &lt;- includeEffects(myeff2.1, egoX, altX, type = &quot;eval&quot;, interaction1 = &quot;pareduhighcov&quot;)</code></pre>
+<pre><code>##   effectNumber effectName          shortName include fix   test  initialValue
+## 1 817          pareduhighcov alter altX      TRUE    FALSE FALSE          0  
+## 2 832          pareduhighcov ego   egoX      TRUE    FALSE FALSE          0  
 ##   parm
-## 1 0</code></pre>
+## 1 0   
+## 2 0</code></pre>
+<pre class="r"><code>myeff2.1</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm
+## 1 basic rate parameter net TRUE    FALSE FALSE    5.46796    0  
+## 2 outdegree (density)      TRUE    FALSE FALSE   -1.72530    0  
+## 3 reciprocity              TRUE    FALSE FALSE    0.00000    0  
+## 4 GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69  
+## 5 outdegree - activity     TRUE    FALSE FALSE    0.00000    0  
+## 6 indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1  
+## 7 pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0  
+## 8 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0</code></pre>
+<pre class="r"><code>myeff2.1 &lt;- includeEffects(myeff2.1, egoX, interaction1 = &quot;paredudifcov&quot;, type = &quot;eval&quot;)</code></pre>
+<pre><code>##   effectNumber effectName       shortName include fix   test  initialValue parm
+## 1 648          paredudifcov ego egoX      TRUE    FALSE FALSE          0   0</code></pre>
+<pre class="r"><code>myeff2.1</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm
+## 1 basic rate parameter net TRUE    FALSE FALSE    5.46796    0  
+## 2 outdegree (density)      TRUE    FALSE FALSE   -1.72530    0  
+## 3 reciprocity              TRUE    FALSE FALSE    0.00000    0  
+## 4 GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69  
+## 5 outdegree - activity     TRUE    FALSE FALSE    0.00000    0  
+## 6 indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1  
+## 7 paredudifcov ego         TRUE    FALSE FALSE    0.00000    0  
+## 8 pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0  
+## 9 pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0</code></pre>
+<pre class="r"><code>myeff2.1 &lt;- includeEffects(myeff2.1, sameX, interaction1 = &quot;pareduhighcov&quot;, type = &quot;endow&quot;)</code></pre>
+<pre><code>##   effectNumber effectName         shortName include fix   test  initialValue
+## 1 889          same pareduhighcov sameX     TRUE    FALSE FALSE          0  
+##   parm type 
+## 1 0    endow</code></pre>
+<pre class="r"><code>myeff2.1</code></pre>
+<pre><code>##    effectName               include fix   test  initialValue parm type 
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate 
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval 
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval 
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval 
+## 5  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval 
+## 6  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval 
+## 7  paredudifcov ego         TRUE    FALSE FALSE    0.00000    0   eval 
+## 8  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   eval 
+## 9  pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   eval 
+## 10 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow</code></pre>
+<pre class="r"><code>myeff2.1 &lt;- includeEffects(myeff2.1, sameX, interaction1 = &quot;pareduhighcov&quot;, type = &quot;creation&quot;)</code></pre>
+<pre><code>##   effectNumber effectName         shortName include fix   test  initialValue
+## 1 890          same pareduhighcov sameX     TRUE    FALSE FALSE          0  
+##   parm type    
+## 1 0    creation</code></pre>
+<pre class="r"><code>myeff2.1</code></pre>
+<pre><code>##    effectName               include fix   test  initialValue parm type    
+## 1  basic rate parameter net TRUE    FALSE FALSE    5.46796    0   rate    
+## 2  outdegree (density)      TRUE    FALSE FALSE   -1.72530    0   eval    
+## 3  reciprocity              TRUE    FALSE FALSE    0.00000    0   eval    
+## 4  GWESP I -&gt; K -&gt; J (#)    TRUE    FALSE FALSE    0.00000   69   eval    
+## 5  outdegree - activity     TRUE    FALSE FALSE    0.00000    0   eval    
+## 6  indegree - activity(#)   TRUE    FALSE FALSE    0.00000    1   eval    
+## 7  paredudifcov ego         TRUE    FALSE FALSE    0.00000    0   eval    
+## 8  pareduhighcov alter      TRUE    FALSE FALSE    0.00000    0   eval    
+## 9  pareduhighcov ego        TRUE    FALSE FALSE    0.00000    0   eval    
+## 10 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   endow   
+## 11 same pareduhighcov       TRUE    FALSE FALSE    0.00000    0   creation</code></pre>
+<pre class="r"><code>myeff2.1 &lt;-  set_interaction(myeff2.1, list(sameX, egoX), type = &quot;endow&quot;, covar1=c(&quot;pareduhighcov&quot;, &quot;paredudifcov&quot;))</code></pre>
+<pre><code>##   effectNumber effectName                            shortName include fix  
+## 1  649         paredudifcov ego                      egoX      FALSE   FALSE
+## 2  889         same pareduhighcov                    sameX     TRUE    FALSE
+## 3 1002         paredudifcov ego x same pareduhighcov unspInt   TRUE    FALSE
+##   test  initialValue parm type  effect1 effect2
+## 1 FALSE          0   0    endow   0       0    
+## 2 FALSE          0   0    endow   0       0    
+## 3 FALSE          0   0    endow 889     649</code></pre>
 <pre class="r"><code>myeff2.1</code></pre>
 <pre><code>##    effectName                            include fix   test  initialValue parm
-## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796   0   
-## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530   0   
-## 3  reciprocity                           TRUE    FALSE FALSE    0.00000   0   
-## 4  indegree - popularity                 TRUE    FALSE FALSE    0.00000   0   
-## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000   0   
-## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000   1   
-## 7  in-isolate Outdegree                  TRUE    FALSE FALSE    0.00000   0   
-## 8  paredudifcov ego                      TRUE    FALSE FALSE    0.00000   0   
-## 9  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 10 pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 11 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 12 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 13 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 14 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 15 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
-## 16 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
+## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796    0  
+## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530    0  
+## 3  reciprocity                           TRUE    FALSE FALSE    0.00000    0  
+## 4  GWESP I -&gt; K -&gt; J (69)                TRUE    FALSE FALSE    0.00000   69  
+## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000    0  
+## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000    1  
+## 7  paredudifcov ego                      TRUE    FALSE FALSE    0.00000    0  
+## 8  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000    0  
+## 9  pareduhighcov ego                     TRUE    FALSE FALSE    0.00000    0  
+## 10 same pareduhighcov                    TRUE    FALSE FALSE    0.00000    0  
+## 11 same pareduhighcov                    TRUE    FALSE FALSE    0.00000    0  
+## 12 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000    0  
 ##    type     effect1 effect2
 ## 1  rate       0       0    
 ## 2  eval       0       0    
@@ -1317,15 +2267,49 @@ inIsDegree</h3>
 ## 6  eval       0       0    
 ## 7  eval       0       0    
 ## 8  eval       0       0    
-## 9  endow      0       0    
-## 10 creation   0       0    
-## 11 endow      0       0    
-## 12 creation   0       0    
-## 13 endow      0       0    
-## 14 creation   0       0    
-## 15 endow    889     649    
-## 16 creation 890     650</code></pre>
-<pre class="r"><code>mod2.1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff2.1, prevAns = mod2, returnDeps = TRUE) 
+## 9  eval       0       0    
+## 10 endow      0       0    
+## 11 creation   0       0    
+## 12 endow    889     649</code></pre>
+<pre class="r"><code>myeff2.1 &lt;-  set_interaction(myeff2.1, list(sameX, egoX), type = &quot;creation&quot;, covar1=c(&quot;pareduhighcov&quot;, &quot;paredudifcov&quot;))</code></pre>
+<pre><code>##   effectNumber effectName                            shortName include fix  
+## 1  650         paredudifcov ego                      egoX      FALSE   FALSE
+## 2  890         same pareduhighcov                    sameX     TRUE    FALSE
+## 3 1003         paredudifcov ego x same pareduhighcov unspInt   TRUE    FALSE
+##   test  initialValue parm type     effect1 effect2
+## 1 FALSE          0   0    creation   0       0    
+## 2 FALSE          0   0    creation   0       0    
+## 3 FALSE          0   0    creation 890     650</code></pre>
+<pre class="r"><code>myeff2.1</code></pre>
+<pre><code>##    effectName                            include fix   test  initialValue parm
+## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796    0  
+## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530    0  
+## 3  reciprocity                           TRUE    FALSE FALSE    0.00000    0  
+## 4  GWESP I -&gt; K -&gt; J (69)                TRUE    FALSE FALSE    0.00000   69  
+## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000    0  
+## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000    1  
+## 7  paredudifcov ego                      TRUE    FALSE FALSE    0.00000    0  
+## 8  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000    0  
+## 9  pareduhighcov ego                     TRUE    FALSE FALSE    0.00000    0  
+## 10 same pareduhighcov                    TRUE    FALSE FALSE    0.00000    0  
+## 11 same pareduhighcov                    TRUE    FALSE FALSE    0.00000    0  
+## 12 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000    0  
+## 13 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000    0  
+##    type     effect1 effect2
+## 1  rate       0       0    
+## 2  eval       0       0    
+## 3  eval       0       0    
+## 4  eval       0       0    
+## 5  eval       0       0    
+## 6  eval       0       0    
+## 7  eval       0       0    
+## 8  eval       0       0    
+## 9  eval       0       0    
+## 10 endow      0       0    
+## 11 creation   0       0    
+## 12 endow    889     649    
+## 13 creation 890     650</code></pre>
+<pre class="r"><code>mod2.1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff2.1, returnDeps = TRUE) 
 mod2.1</code></pre>
 <pre><code>## Estimates, standard errors and convergence t-ratios
 ## 
@@ -1333,182 +2317,184 @@ mod2.1</code></pre>
 ##                                                                Error      t-ratio   
 ## 
 ## Rate parameters: 
-##   0         Rate parameter                         6.9685  ( 0.5378   )             
+##   0         Rate parameter                         6.9206  ( 0.5889   )             
 ## 
 ## Other parameters: 
-##    1. eval  outdegree (density)                   -3.0198  ( 0.9869   )   -0.9025   
-##    2. eval  reciprocity                            2.9502  ( 0.5007   )   -0.3602   
-##    3. eval  indegree - popularity                  0.0032  ( 0.0474   )   -1.9702   
-##    4. eval  outdegree - activity                   0.0980  ( 0.0245   )   -1.4113   
-##    5. eval  indegree - activity(1)                -0.2521  ( 0.3114   )   -1.2558   
-##    6. eval  in-isolate Outdegree                   0.1393  ( 2.3686   )   -0.1005   
-##    7. eval  paredudifcov ego                      -1.9490  ( 3.2592   )    0.3578   
-##    8. endow pareduhighcov alter                    1.2007  ( 0.3307   )   -0.0430   
-##    9. creat pareduhighcov alter                   -0.2554  ( 0.3094   )   -0.2146   
-##   10. endow pareduhighcov ego                      8.4034  ( 6.6241   )   -0.6036   
-##   11. creat pareduhighcov ego                     -8.9897  ( 6.5638   )   -0.7694   
-##   12. endow same pareduhighcov                    -1.2630  ( 0.5265   )   -1.0197   
-##   13. creat same pareduhighcov                     1.1121  ( 0.4794   )   -1.1364   
-##   14. endow paredudifcov ego x same pareduhighcov -1.3814  ( 5.7197   )    0.1006   
-##   15. creat paredudifcov ego x same pareduhighcov  0.9710  ( 3.9080   )    0.7573   
+##    1. eval  outdegree (density)                   -3.2365  ( 0.2708   )    0.0119   
+##    2. eval  reciprocity                            3.3290  ( 0.3843   )   -0.0207   
+##    3. eval  GWESP I -&gt; K -&gt; J (69)                 2.1273  ( 0.3239   )    0.0143   
+##    4. eval  outdegree - activity                   0.0769  ( 0.0242   )    0.0445   
+##    5. eval  indegree - activity(1)                -0.4484  ( 0.1155   )   -0.0133   
+##    6. eval  paredudifcov ego                      -1.9491  ( 1.9241   )    0.0083   
+##    7. eval  pareduhighcov alter                    0.4071  ( 0.2018   )   -0.0168   
+##    8. eval  pareduhighcov ego                     -0.3380  ( 0.2081   )   -0.0445   
+##    9. endow same pareduhighcov                    -1.2628  ( 0.6893   )   -0.0364   
+##   10. creat same pareduhighcov                     1.1378  ( 0.3694   )    0.0320   
+##   11. endow paredudifcov ego x same pareduhighcov  1.0576  ( 5.4441   )    0.0176   
+##   12. creat paredudifcov ego x same pareduhighcov -1.6319  ( 1.9362   )    0.0413   
 ## 
-## Overall maximum convergence ratio:    3.6323 
+## Overall maximum convergence ratio:    0.1493 
 ## 
 ## 
 ## Degrees constrained to maximum values:
 ## net : 10 
 ## 
 ## 
-## Total of 3266 iteration steps.</code></pre>
+## Total of 3861 iteration steps.</code></pre>
+<pre class="r"><code>results2.1 &lt;- data.frame(
+  effect = mod2.1$requestedEffects$effectName,
+  b = mod2.1$theta,
+  se = mod2.1$se,
+  t = mod2.1$theta / mod2.1$se,
+  p = 2 * pnorm(-abs(mod2.1$theta / mod2.1$se)))
+
+pander::pander(results2.1)</code></pre>
+<table style="width:94%;">
+<colgroup>
+<col width="36%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">effect</th>
+<th align="center">b</th>
+<th align="center">se</th>
+<th align="center">t</th>
+<th align="center">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">outdegree (density)</td>
+<td align="center">-3.237</td>
+<td align="center">0.2708</td>
+<td align="center">-11.95</td>
+<td align="center">6.338e-33</td>
+</tr>
+<tr class="even">
+<td align="center">reciprocity</td>
+<td align="center">3.329</td>
+<td align="center">0.3843</td>
+<td align="center">8.663</td>
+<td align="center">4.598e-18</td>
+</tr>
+<tr class="odd">
+<td align="center">GWESP I -&gt; K -&gt; J (69)</td>
+<td align="center">2.127</td>
+<td align="center">0.3239</td>
+<td align="center">6.568</td>
+<td align="center">5.101e-11</td>
+</tr>
+<tr class="even">
+<td align="center">outdegree - activity</td>
+<td align="center">0.07692</td>
+<td align="center">0.02424</td>
+<td align="center">3.173</td>
+<td align="center">0.001511</td>
+</tr>
+<tr class="odd">
+<td align="center">indegree - activity(1)</td>
+<td align="center">-0.4484</td>
+<td align="center">0.1155</td>
+<td align="center">-3.884</td>
+<td align="center">0.0001028</td>
+</tr>
+<tr class="even">
+<td align="center">paredudifcov ego</td>
+<td align="center">-1.949</td>
+<td align="center">1.924</td>
+<td align="center">-1.013</td>
+<td align="center">0.3111</td>
+</tr>
+<tr class="odd">
+<td align="center">pareduhighcov alter</td>
+<td align="center">0.4071</td>
+<td align="center">0.2018</td>
+<td align="center">2.018</td>
+<td align="center">0.04364</td>
+</tr>
+<tr class="even">
+<td align="center">pareduhighcov ego</td>
+<td align="center">-0.338</td>
+<td align="center">0.2081</td>
+<td align="center">-1.624</td>
+<td align="center">0.1043</td>
+</tr>
+<tr class="odd">
+<td align="center">same pareduhighcov</td>
+<td align="center">-1.263</td>
+<td align="center">0.6893</td>
+<td align="center">-1.832</td>
+<td align="center">0.06696</td>
+</tr>
+<tr class="even">
+<td align="center">same pareduhighcov</td>
+<td align="center">1.138</td>
+<td align="center">0.3694</td>
+<td align="center">3.08</td>
+<td align="center">0.002068</td>
+</tr>
+<tr class="odd">
+<td align="center">paredudifcov ego x same pareduhighcov</td>
+<td align="center">1.058</td>
+<td align="center">5.444</td>
+<td align="center">0.1943</td>
+<td align="center">0.846</td>
+</tr>
+<tr class="even">
+<td align="center">paredudifcov ego x same pareduhighcov</td>
+<td align="center">-1.632</td>
+<td align="center">1.936</td>
+<td align="center">-0.8429</td>
+<td align="center">0.3993</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note:</em> The model automatically includes the internal effect
+parameters used for the interaction (in this case: the endowment and
+creation effect of ego having parents with different educational
+backgrounds), but these are not tested as part of the main model. I
+therefore do not report them in the above table.</p>
+<p>The model shows acceptable convergence, overall maximum convergence
+rate &lt; 0.25, absolute convergence t-ratios &lt; 0.1. Although the
+signs of the estimates are in line with expectations, the interaction
+between homophily and ego having a mixed background is clearly
+insignificant for both endowment and creation (p = 0.846 and p = 3.99,
+respectively). The hypothesis that students whose parents have different
+educational attainments (university experience &amp; no university
+experience) have lower levels of homophily is thus not supported.
+Homophily itself remains significant for creation. Homophily in
+endowment approaches significance based on a two-sided test, but given
+the one-sided nature of the hypothesis, it can be concluded that the
+results show support for the existence of preferences for homophily in
+endowment, too.</p>
 </div>
-<div id="goodness-of-fit-1" class="section level3" number="2.1.3">
-<h3><span class="header-section-number">2.1.3</span> Goodness of
+<div id="goodness-of-fit-3" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Goodness of
 Fit</h3>
-<pre class="r"><code>gofinm2.1 &lt;- sienaGOF(mod2.1, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
+<pre class="r"><code>gofinm2.1 &lt;- sienaGOF(mod2.1, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;, levls = 0:13)
 plot(gofinm2.1)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
-<pre class="r"><code>gofoutm2.1 &lt;- sienaGOF(mod2.1, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<pre class="r"><code>gofoutm2.1 &lt;- sienaGOF(mod2.1, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;, levls = 0:10)
 plot(gofoutm2.1)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-43-1.png" width="672" />
-This did not change anything. I will kick inIsDegree out and replace it
-with a different isolate effect.</p>
+<pre><code>## Note: some statistics are not plotted because their variance is 0.
+## This holds for the statistic: 10.</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<pre class="r"><code>goftrim2.1 &lt;- sienaGOF(mod2.1, TriadCensus, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
+plot(goftrim2.1, center = TRUE, scale = TRUE)</code></pre>
+<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 </div>
-<div id="submodel-2.2-isolatenet" class="section level3" number="2.1.4">
-<h3><span class="header-section-number">2.1.4</span> (sub)Model 2.2:
-isolateNet</h3>
-<pre class="r"><code>myeff2.2 &lt;- includeEffects(myeff2, isolateNet)</code></pre>
-<pre><code>##   effectNumber effectName      shortName  include fix   test  initialValue parm
-## 1 161          network-isolate isolateNet TRUE    FALSE FALSE          0   0</code></pre>
-<pre class="r"><code>myeff2.2</code></pre>
-<pre><code>##    effectName                            include fix   test  initialValue parm
-## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796   0   
-## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530   0   
-## 3  reciprocity                           TRUE    FALSE FALSE    0.00000   0   
-## 4  indegree - popularity                 TRUE    FALSE FALSE    0.00000   0   
-## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000   0   
-## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000   1   
-## 7  network-isolate                       TRUE    FALSE FALSE    0.00000   0   
-## 8  paredudifcov ego                      TRUE    FALSE FALSE    0.00000   0   
-## 9  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 10 pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 11 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 12 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 13 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 14 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 15 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
-## 16 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
-##    type     effect1 effect2
-## 1  rate       0       0    
-## 2  eval       0       0    
-## 3  eval       0       0    
-## 4  eval       0       0    
-## 5  eval       0       0    
-## 6  eval       0       0    
-## 7  eval       0       0    
-## 8  eval       0       0    
-## 9  endow      0       0    
-## 10 creation   0       0    
-## 11 endow      0       0    
-## 12 creation   0       0    
-## 13 endow      0       0    
-## 14 creation   0       0    
-## 15 endow    889     649    
-## 16 creation 890     650</code></pre>
-<pre class="r"><code>#mod2.2 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff2.2, prevAns = mod2, returnDeps = TRUE) 
-#mod2.2</code></pre>
-<p>Convergence of 18 is very much unacceptable.</p>
 </div>
-<div id="submodel-2.3-outiso" class="section level3" number="2.1.5">
-<h3><span class="header-section-number">2.1.5</span> (sub)Model 2.3:
-outIso</h3>
-<pre class="r"><code>myeff2.3 &lt;- includeEffects(myeff2, outIso)</code></pre>
-<pre><code>##   effectNumber effectName  shortName include fix   test  initialValue parm
-## 1 149          out-isolate outIso    TRUE    FALSE FALSE          0   1</code></pre>
-<pre class="r"><code>myeff2.3</code></pre>
-<pre><code>##    effectName                            include fix   test  initialValue parm
-## 1  basic rate parameter net              TRUE    FALSE FALSE    5.46796   0   
-## 2  outdegree (density)                   TRUE    FALSE FALSE   -1.72530   0   
-## 3  reciprocity                           TRUE    FALSE FALSE    0.00000   0   
-## 4  indegree - popularity                 TRUE    FALSE FALSE    0.00000   0   
-## 5  outdegree - activity                  TRUE    FALSE FALSE    0.00000   0   
-## 6  indegree - activity(1)                TRUE    FALSE FALSE    0.00000   1   
-## 7  out-isolate                           TRUE    FALSE FALSE    0.00000   1   
-## 8  paredudifcov ego                      TRUE    FALSE FALSE    0.00000   0   
-## 9  pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 10 pareduhighcov alter                   TRUE    FALSE FALSE    0.00000   0   
-## 11 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 12 pareduhighcov ego                     TRUE    FALSE FALSE    0.00000   0   
-## 13 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 14 same pareduhighcov                    TRUE    FALSE FALSE    0.00000   0   
-## 15 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
-## 16 paredudifcov ego x same pareduhighcov TRUE    FALSE FALSE    0.00000   0   
-##    type     effect1 effect2
-## 1  rate       0       0    
-## 2  eval       0       0    
-## 3  eval       0       0    
-## 4  eval       0       0    
-## 5  eval       0       0    
-## 6  eval       0       0    
-## 7  eval       0       0    
-## 8  eval       0       0    
-## 9  endow      0       0    
-## 10 creation   0       0    
-## 11 endow      0       0    
-## 12 creation   0       0    
-## 13 endow      0       0    
-## 14 creation   0       0    
-## 15 endow    889     649    
-## 16 creation 890     650</code></pre>
-<pre class="r"><code>mod2.3 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff2.3, prevAns = mod2, returnDeps = TRUE) 
-mod2.3</code></pre>
-<pre><code>## Estimates, standard errors and convergence t-ratios
-## 
-##                                                   Estimate   Standard   Convergence 
-##                                                                Error      t-ratio   
-## 
-## Rate parameters: 
-##   0         Rate parameter                         7.2440  ( 0.6070   )             
-## 
-## Other parameters: 
-##    1. eval  outdegree (density)                   -2.5398  ( 0.3364   )   -0.6744   
-##    2. eval  reciprocity                            3.0940  ( 0.4242   )   -0.1732   
-##    3. eval  indegree - popularity                  0.0482  ( 0.0407   )   -0.9501   
-##    4. eval  outdegree - activity                   0.0498  ( 0.0292   )   -0.8320   
-##    5. eval  indegree - activity(1)                -0.2481  ( 0.0879   )   -0.5650   
-##    6. eval  out-isolate                            2.6629  ( 1.2674   )    0.3077   
-##    7. eval  paredudifcov ego                      -1.2658  ( 2.1011   )    0.2805   
-##    8. endow pareduhighcov alter                    1.2157  ( 0.3912   )    0.1218   
-##    9. creat pareduhighcov alter                   -0.2860  ( 0.3341   )    0.0945   
-##   10. endow pareduhighcov ego                      6.4568  ( 5.3418   )   -0.2190   
-##   11. creat pareduhighcov ego                     -6.7247  ( 5.0553   )    0.1339   
-##   12. endow same pareduhighcov                    -1.3053  ( 0.4783   )   -0.6073   
-##   13. creat same pareduhighcov                     1.2050  ( 0.4865   )   -0.4117   
-##   14. endow paredudifcov ego x same pareduhighcov -1.6571  ( 2.4938   )    0.0240   
-##   15. creat paredudifcov ego x same pareduhighcov  1.1355  ( 3.4009   )    0.2201   
-## 
-## Overall maximum convergence ratio:    1.3799 
-## 
-## 
-## Degrees constrained to maximum values:
-## net : 10 
-## 
-## 
-## Total of 3266 iteration steps.</code></pre>
-<p>###Goodness of Fit</p>
-<pre class="r"><code>gofinm2.3 &lt;- sienaGOF(mod2.3, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
-plot(gofinm2.3)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
-<pre class="r"><code>gofoutm2.3 &lt;- sienaGOF(mod2.3, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
-plot(gofoutm2.3)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
-<pre class="r"><code>goftrim2.3 &lt;- sienaGOF(mod2.3, TriadCensus, verbose = FALSE, join = TRUE, varName = &quot;net&quot;)
-plot(goftrim2.3)</code></pre>
-<p><img src="AnalysesResults_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
-</div>
+<div id="model-3-control-variables" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Model 3: Control
+Variables</h2>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFuYWx5c2VzIGFuZCBSZXN1bHRzIg0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTI5Ig0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9DQprbGlwcHk6OmtsaXBweShwb3NpdGlvbiA9IGMoJ3RvcCcsICdyaWdodCcpKQ0KI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQ0KI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQ0KYGBgDQpDbGVhbmluZyBlbnZpcm9ubWVudCArIGNoZWNraW5nIHBhY2thZ2VzDQoNCmBgYHtyfQ0Kcm0obGlzdCA9IGxzKCkpDQoNCiNmdW5jdGlvbiBieSBKb2NoZW0NCg0KZnBhY2thZ2UuY2hlY2sgPC0gZnVuY3Rpb24ocGFja2FnZXMpIHsNCiAgICBsYXBwbHkocGFja2FnZXMsIEZVTiA9IGZ1bmN0aW9uKHgpIHsNCiAgICAgICAgaWYgKCFyZXF1aXJlKHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkpIHsNCiAgICAgICAgICAgIGluc3RhbGwucGFja2FnZXMoeCwgZGVwZW5kZW5jaWVzID0gVFJVRSkNCiAgICAgICAgICAgIGxpYnJhcnkoeCwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKQ0KICAgICAgICB9DQogICAgfSkNCn0NCg0KZnNhdmUgPC0gZnVuY3Rpb24oeCwgZmlsZSA9IE5VTEwsIGxvY2F0aW9uID0gIi4vZGF0YS9wcm9jZXNzZWQvIikgew0KICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YSIpLCBkaXIuY3JlYXRlKCJkYXRhIiksIEZBTFNFKQ0KICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YS9wcm9jZXNzZWQiKSwgZGlyLmNyZWF0ZSgiZGF0YS9wcm9jZXNzZWQiKSwgRkFMU0UpDQogICAgaWYgKGlzLm51bGwoZmlsZSkpDQogICAgICAgIGZpbGUgPSBkZXBhcnNlKHN1YnN0aXR1dGUoeCkpDQogICAgZGF0ZW5hbWUgPC0gc3Vic3RyKGdzdWIoIls6LV0iLCAiIiwgU3lzLnRpbWUoKSksIDEsIDgpDQogICAgdG90YWxuYW1lIDwtIHBhc3RlKGxvY2F0aW9uLCBkYXRlbmFtZSwgZmlsZSwgIi5yZGEiLCBzZXAgPSAiIikNCiAgICBzYXZlKHgsIGZpbGUgPSB0b3RhbG5hbWUpICAjbmVlZCB0byBmaXggaWYgZmlsZSBpcyByZWxvYWRlZCBhcyBpbnB1dCBuYW1lLCBub3QgYXMgeC4gDQp9DQoNCmZsb2FkIDwtIGZ1bmN0aW9uKGZpbGVuYW1lKSB7DQogICAgbG9hZChmaWxlbmFtZSkNCiAgICBnZXQobHMoKVtscygpICE9ICJmaWxlbmFtZSJdKQ0KfQ0KDQpmc2hvd2RmIDwtIGZ1bmN0aW9uKHgsIC4uLikgew0KICAgIGtuaXRyOjprYWJsZSh4LCBkaWdpdHMgPSAyLCAiaHRtbCIsIC4uLikgJT4lDQogICAgICAgIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoYm9vdHN0cmFwX29wdGlvbnMgPSBjKCJzdHJpcGVkIiwgImhvdmVyIikpICU+JQ0KICAgICAgICBrYWJsZUV4dHJhOjpzY3JvbGxfYm94KHdpZHRoID0gIjEwMCUiLCBoZWlnaHQgPSAiMzAwcHgiKQ0KfQ0KDQpjb2xvcml6ZSA8LSBmdW5jdGlvbih4LCBjb2xvcikgew0KICAgIHNwcmludGYoIjxzcGFuIHN0eWxlPSdjb2xvcjogJXM7Jz4lczwvc3Bhbj4iLCBjb2xvciwgeCkNCn0NCg0KcGFja2FnZXMgPC0gYygic25hIiwiYXBlIiwgIm5ldHdvcmsiLCAiZGV2dG9vbHMiLCAiaWdyYXBoIiwgIlJTaWVuYSIsICJ0aWR5dmVyc2UiLCAic3RyaW5nZGlzdCIsICJzdHJpbmdpIikNCmxhcHBseShwYWNrYWdlcywgcmVxdWlyZSwgY2hhcmFjdGVyLm9ubHk9VCkNCg0KYGBgDQpgYGB7cn0NCmxvYWQoIi4vZGF0YS9FZHVCcmlkZ2Vmb3JSU2llbmEuUkRhdGEiKQ0KYGBgDQoNCiMgRGVzY3JpcHRpdmUgQW5hbHlzaXMNCg0KIyMgVmlzdWFsaXNhdGlvbg0KDQpgYGB7cn0NCmhhbmdpbmd0MW5vbmEgPC0gaGFuZ2luZ19kZl90MQ0KaGFuZ2luZ3Qxbm9uYVtoYW5naW5ndDFub25hPT05XTwtIDANCmhhbmdpbmd0MW5vbmEgPC0gYXMubWF0cml4KGhhbmdpbmd0MW5vbmEpDQoNCg0KaGFuZ2luZ3QxIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChoYW5naW5ndDFub25hLCBtb2RlID0gImRpcmVjdGVkIiwgd2VpZ2h0ZWQgPSBOVUxMLCBkaWFnID0gVFJVRSwgYWRkLmNvbG5hbWVzID0gTkEsIGFkZC5yb3duYW1lcyA9IE5BKQ0KDQpyYW5nZWdyYXkgPC0gY29sb3JSYW1wUGFsZXR0ZShjKCJncmV5OTEiLCAiZ3JleTUwIiwgImdyZXkzMCIsICJibGFjayIpKQ0KbmJpbnMgPC0gNQ0KY29sb3VyYmV0d2Vlbm5lc3MgPC1yYW5nZWdyYXkobmJpbnMpDQpjb2xvdXJwYXJlZHVoaWdoIDwtIGlmZWxzZShpcy5uYShwYXJlbnRlZHVoaWdoKSwgIndoaXRlIiwgaWZlbHNlKHBhcmVudGVkdWRpZj09MSwgIm1lZGl1bW9yY2hpZDQiLCBpZmVsc2UocGFyZW50ZWR1aGlnaD09MSwgIiMzQTg3QUQiLCAibGlnaHRnb2xkZW5yb2QiKSkpDQpjb2xvdXJwYXJlZHVkaWYgPC0gaWZlbHNlKGlzLm5hKHBhcmVudGVkdWRpZiksICJncmV5OTEiLCBpZmVsc2UocGFyZW50ZWR1ZGlmPT0xLCAibWVkaXVtb3JjaGlkNCIsICJncmV5OTEiKSkNCg0KVihoYW5naW5ndDEpJHNpemUgPSBpZ3JhcGg6OmJldHdlZW5uZXNzKGhhbmdpbmd0MSwgbm9ybWFsaXplZCA9IFQsIGRpcmVjdGVkID0gVFJVRSkqNTAgKyA3DQoNCnBsb3QoaGFuZ2luZ3QxLA0KICAgICB2ZXJ0ZXguY29sb3IgPSBhZGp1c3Rjb2xvcihjb2xvdXJwYXJlZHVoaWdoLCBhbHBoYS5mID0gLjUpLA0KICAgICB2ZXJ0ZXguZnJhbWUuY29sb3IgPSBjb2xvdXJwYXJlZHVkaWYsDQogICAgIHZlcnRleC5mcmFtZS53aWR0aCA9IDIsDQogICAgIHZlcnRleC5sYWJlbCA9IE5BLA0KICAgICBlZGdlLmN1cnZlZCA9IDAuMiwNCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4yLA0KICAgICBlZGdlLmNvbG9yID0gY29sb3VyYmV0d2Vlbm5lc3NbY3V0KGlncmFwaDo6ZWRnZV9iZXR3ZWVubmVzcyhoYW5naW5ndDEpLCBicmVha3M9bmJpbnMgKV0sDQogICAgIGxheW91dCA9IGxheW91dC5mcnVjaHRlcm1hbi5yZWluZ29sZCwgDQogICAgIG1haW4gPSAiV2F2ZSAxIikNCmBgYA0KYGBge3J9DQpoYW5naW5ndDJub25hIDwtIGhhbmdpbmdfZGZfdDINCmhhbmdpbmd0Mm5vbmFbaGFuZ2luZ3Qybm9uYT09OV08LSAwDQpoYW5naW5ndDJub25hIDwtIGFzLm1hdHJpeChoYW5naW5ndDJub25hKQ0KDQoNCmhhbmdpbmd0MiA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoaGFuZ2luZ3Qybm9uYSwgbW9kZSA9ICJkaXJlY3RlZCIsIHdlaWdodGVkID0gTlVMTCwgZGlhZyA9IFRSVUUsIGFkZC5jb2xuYW1lcyA9IE5BLCBhZGQucm93bmFtZXMgPSBOQSkNCg0KbGF5b3V0ZnIyIDwtIGxheW91dC5mcnVjaHRlcm1hbi5yZWluZ29sZChoYW5naW5ndDIpDQoNClYoaGFuZ2luZ3QxKSRzaXplID0gaWdyYXBoOjpkZWdyZWUoaGFuZ2luZ3QxKSowLjM1ICsgNw0KVihoYW5naW5ndDIpJHNpemUgPSBpZ3JhcGg6OmRlZ3JlZShoYW5naW5ndDIpKjAuMzUgKyA3DQoNCntwbmcoInBsb3QyLnBuZyIsIHdpZHRoID0gMTQsIGhlaWdodCA9IDcsIHVuaXRzID0gImluIiwgcmVzID0gMzAwKQ0KDQpwYXIobWZyb3cgPSBjKDEsIDIpKQ0KDQpwbG90KGhhbmdpbmd0MSwNCiAgICAgdmVydGV4LmNvbG9yID0gYWRqdXN0Y29sb3IoY29sb3VycGFyZWR1aGlnaCwgYWxwaGEuZiA9IC41KSwNCiAgICAgdmVydGV4LmZyYW1lLmNvbG9yID0gY29sb3VycGFyZWR1ZGlmLA0KICAgICB2ZXJ0ZXguZnJhbWUud2lkdGggPSAyLA0KICAgICB2ZXJ0ZXgubGFiZWwgPSBOQSwNCiAgICAgZWRnZS5jdXJ2ZWQgPSAwLjIsDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMiwNCiAgICAgZWRnZS5jb2xvciA9IGNvbG91cmJldHdlZW5uZXNzW2N1dChpZ3JhcGg6OmVkZ2VfYmV0d2Vlbm5lc3MoaGFuZ2luZ3QxKSwgYnJlYWtzPW5iaW5zICldLA0KICAgICBsYXlvdXQgPSBsYXlvdXRmcjIsIA0KICAgICBtYWluID0gIldhdmUgMSIpDQoNCmxlZ2VuZCgidG9wbGVmdCIsIGMoInVuaXZlcnNpdHkiLCAibm8gdW5pdmVyc2l0eSIsICJtaXhlZCIsICJtaXNzaW5nIiksIHBjaCA9IDIxLCBjb2wgPSAiZ3JleTkxIiwgcHQuYmcgPSBjKCIjM0E4N0FEIiwgImxpZ2h0Z29sZGVucm9kIiwgIm1lZGl1bW9yY2hpZDQiLCAid2hpdGUiKSwgcHQuY2V4ID0gMSwNCiAgICBjZXggPSAwLjgsIGJ0eSA9ICJuIiwgbmNvbCA9IDEpDQoNCnBsb3QoaGFuZ2luZ3QyLA0KICAgICB2ZXJ0ZXguY29sb3IgPSBhZGp1c3Rjb2xvcihjb2xvdXJwYXJlZHVoaWdoLCBhbHBoYS5mID0gLjUpLA0KICAgICB2ZXJ0ZXguZnJhbWUuY29sb3IgPSBjb2xvdXJwYXJlZHVkaWYsDQogICAgIHZlcnRleC5mcmFtZS53aWR0aCA9IDIsDQogICAgIHZlcnRleC5sYWJlbCA9IE5BLA0KICAgICBlZGdlLmN1cnZlZCA9IDAuMiwNCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4yLA0KICAgICBlZGdlLmNvbG9yID0gY29sb3VyYmV0d2Vlbm5lc3NbY3V0KGlncmFwaDo6ZWRnZV9iZXR3ZWVubmVzcyhoYW5naW5ndDIpLCBicmVha3M9bmJpbnMgKV0sDQogICAgIGxheW91dCA9IGxheW91dGZyMiwgDQogICAgIG1haW4gPSAiV2F2ZSAyIikNCmRldi5vZmYoKX0NCmBgYA0KYGBge3J9DQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygicGxvdDIucG5nIikNCmBgYA0KIyMgVGllIGV2b2x1dGlvbg0KYGBge3J9DQpkeWFkX2NlbnN1cyhoYW5naW5ndDEpDQpgYGANCmBgYHtyfQ0KZHlhZF9jZW5zdXMoaGFuZ2luZ3QyKQ0KYGBgDQpCZXR3ZWVuIHQxIGFuZCB0Miwgd2UgY2FuIG9ic2VydmUgYSBzdWJzdGFudGlhbCByZWR1Y3Rpb24gaW4gdGhlIG51bWJlciBvZiB0aWVzIHdpdGhpbiBzdHVkZW50cycgaGFuZ2luZyBvdXQgbmV0d29yay4gV2hlcmVhcyBhdCB0MSBhIHRvdGFsIG51bWJlciBvZiAzMDIgcGFpcnMgd2VyZSBjb25uZWN0ZWQsIDkzIG9mIHdoaWNoIHdlcmUgcmVjaXByb2NhbCBjb25uZWN0aW9ucywgYXQgdDIsIG9ubHkgMjEwIGNvbm5lY3Rpb25zIHJlbWFpbi4gVGhpcyBlbnRhaWxzIGEgZHJvcCBvZiAzMC41JSBvZiB0aGUgaW5pdGlhbCBudW1iZXIgb2YgZHlhZHMuIFRoZSBldm9sdXRpb24gb2YgaGFuZ2luZyBvdXQgbmV0d29ya3MgaW4gdGhpcyBjb21tdW5pdHkgb2YgdW5pdmVyc2l0eSBzdHVkZW50cyBpcyB0aHVzIHN0cm9uZ2x5IHNoYXBlZCBieSBlbmRvd21lbnQsIGkuZS4gdGhlIGRlY2lzaW9uIHRvIG1haW50YWluIG9yIGJyZWFrIGEgdGllLg0KDQpgYGB7cn0NCmVkZ2VfZGVuc2l0eShoYW5naW5ndDEpDQpgYGANCmBgYHtyfQ0KZWRnZV9kZW5zaXR5KGhhbmdpbmd0MikNCmBgYA0KYGBge3J9DQpkZWdyZWVfZGlzdHJpYnV0aW9uKGhhbmdpbmd0MSwgY3VtdWxhdGl2ZSA9IEZBTFNFKQ0KYGBgDQpgYGB7cn0NCmRlZ3JlZV9kaXN0cmlidXRpb24oaGFuZ2luZ3QyLCBjdW11bGF0aXZlID0gRkFMU0UpDQpgYGANCg0KDQojIyBBdmVyYWdlIFNob3J0ZXN0IFBhdGggTGVuZ3RoDQoNCmBgYHtyfQ0KbWVhbl9kaXN0YW5jZShoYW5naW5ndDEsIGRpcmVjdGVkID0gVCwgdW5jb25uZWN0ZWQgPSBULCBkZXRhaWxzID0gVCkNCmBgYA0KYGBge3J9DQptZWFuX2Rpc3RhbmNlKGhhbmdpbmd0MiwgZGlyZWN0ZWQgPSBULCB1bmNvbm5lY3RlZCA9IFQsIGRldGFpbHMgPSBUKQ0KYGBgDQoNClRoZSBhdmVyYWdlIHNob3J0ZXN0IHBhdGggbGVuZ3RoIGJldHdlZW4gdmVjdG9ycyBpcyA0Ljg0IGF0IHQxLCBhbmQsIHN1cnByaXNpbmdseSwgZGVjcmVhc2VzIHRvIDQuNTkgYXQgdDIgLSBkZXNwaXRlIHRoZSByZWR1Y3Rpb24gaW4gdGhlIHRvdGFsIG51bWJlciBvZiBjb25uZWN0ZWQgcGFpcnMuDQoNCiMjIFRyaWFkIENlbnN1cw0KDQpgYGB7cn0NCmhhbmdpbmd0MW0gPC0gYXMubWF0cml4KGhhbmdpbmdfZGZfdDEpDQpoYW5naW5ndDJtIDwtIGFzLm1hdHJpeChoYW5naW5nX2RmX3QyKQ0Kc25hOjp0cmlhZC5jZW5zdXMoaGFuZ2luZ3QxbSkNCmBgYA0KYGBge3J9DQpzbmE6OnRyaWFkLmNlbnN1cyhoYW5naW5ndDJtKQ0KYGBgDQpCZXR3ZWVuIHQxIGFuZCB0Miwgd2UgY2FuIG9ic2VydmUgYSByZWR1Y3Rpb24gaW4gYWxsIHRyaWFkIHR5cGVzIGV4Y2VwdCBmb3IgdGhlIDExMVUgY29uc3RlbGxhdGlvbiwgd2hpY2ggcmFpc2VzIGZyb20gb2NjdXJyaW5nIDkyMCB0aW1lcyB0byBvY2N1cnJpbmcgMTA1MCB0aW1lcywgYW5kIHRoZSAxMjBDIGNvbnN0ZWxsYXRpb24sIHdoaWNoIHJlbWFpbnMgY29uc3RhbnQuDQoNCiMjIFNlZ3JlZ2F0aW9uDQoNCmBgYHtyfQ0KaGFuZ2luZ3QxbSA8LSBhcy5tYXRyaXgoaGFuZ2luZ19kZl90MSkNCmhhbmdpbmd0Mm0gPC0gYXMubWF0cml4KGhhbmdpbmdfZGZfdDIpDQoNCiMgc3RlcCAxOiBjYWxjdWxhdGUgZGlzdGFuY2VzDQpnZW9kaXN0YW5jZXMgPC0gZ2VvZGlzdChoYW5naW5ndDFtLCBjb3VudC5wYXRocyA9IFRSVUUpDQpnZW9kaXN0YW5jZXMgPC0gZ2VvZGlzdGFuY2VzJGdkaXN0DQojIHNldCB0aGUgZGlzdGFuY2UgdG8geW91cnNlbGYgYXMgSW5mDQpkaWFnKGdlb2Rpc3RhbmNlcykgPC0gSW5mDQoNCg0KIyBzdGVwIDI6IGRlZmluZSBhIGRpc3RhbmNlIGRlY2F5IGZ1bmN0aW9uLiBUaGlzIG9uZSBpcyBwcmV0dHkgc3RhbmRhcmQgaW4gdGhlIHNwYXRpYWwgYXV0b2NvcnJlbGF0aW9uIGxpdGVyYXR1cmUgYnV0IGFjdHVhbGx5IHByZXR0eSBhcmJpdHJhcnkuDQp3ZWlnaHRzMiA8LSBleHAoLWdlb2Rpc3RhbmNlcykNCmBgYA0KDQpgYGB7cn0NCiNKb2NoZW0ncyBmb3JtdWxhIGZvciBNb3JhbidzIEkNCg0KZk1vcmFuLkkgPC0gZnVuY3Rpb24oeCwgd2VpZ2h0LCBzY2FsZWQgPSBGQUxTRSwgbmEucm0gPSBGQUxTRSwgYWx0ZXJuYXRpdmUgPSAidHdvLnNpZGVkIiwgcm93c3RhbmRhcmRpemUgPSBUUlVFKSB7DQogICAgaWYgKHJvd3N0YW5kYXJkaXplKSB7DQogICAgICAgIGlmIChkaW0od2VpZ2h0KVsxXSAhPSBkaW0od2VpZ2h0KVsyXSkNCiAgICAgICAgICAgIHN0b3AoIid3ZWlnaHQnIG11c3QgYmUgYSBzcXVhcmUgbWF0cml4IikNCiAgICAgICAgbiA8LSBsZW5ndGgoeCkNCiAgICAgICAgaWYgKGRpbSh3ZWlnaHQpWzFdICE9IG4pDQogICAgICAgICAgICBzdG9wKCInd2VpZ2h0JyBtdXN0IGhhdmUgYXMgbWFueSByb3dzIGFzIG9ic2VydmF0aW9ucyBpbiAneCciKQ0KICAgICAgICBlaSA8LSAtMS8obiAtIDEpDQogICAgICAgIG5hcyA8LSBpcy5uYSh4KQ0KICAgICAgICBpZiAoYW55KG5hcykpIHsNCiAgICAgICAgICAgIGlmIChuYS5ybSkgew0KICAgICAgICAgICAgICAgIHggPC0geFshbmFzXQ0KICAgICAgICAgICAgICAgIG4gPC0gbGVuZ3RoKHgpDQogICAgICAgICAgICAgICAgd2VpZ2h0IDwtIHdlaWdodFshbmFzLCAhbmFzXQ0KICAgICAgICAgICAgfSBlbHNlIHsNCiAgICAgICAgICAgICAgICB3YXJuaW5nKCIneCcgaGFzIG1pc3NpbmcgdmFsdWVzOiBtYXliZSB5b3Ugd2FudGVkIHRvIHNldCBuYS5ybSA9IFRSVUU/IikNCiAgICAgICAgICAgICAgICByZXR1cm4obGlzdChvYnNlcnZlZCA9IE5BLCBleHBlY3RlZCA9IGVpLCBzZCA9IE5BLCBwLnZhbHVlID0gTkEpKQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIFJPV1NVTSA8LSByb3dTdW1zKHdlaWdodCkNCiAgICAgICAgUk9XU1VNW1JPV1NVTSA9PSAwXSA8LSAxDQogICAgICAgIHdlaWdodCA8LSB3ZWlnaHQvUk9XU1VNDQogICAgICAgIHMgPC0gc3VtKHdlaWdodCkNCiAgICAgICAgbSA8LSBtZWFuKHgpDQogICAgICAgIHkgPC0geCAtIG0NCiAgICAgICAgY3YgPC0gc3VtKHdlaWdodCAqIHkgJW8lIHkpDQogICAgICAgIHYgPC0gc3VtKHleMikNCiAgICAgICAgb2JzIDwtIChuL3MpICogKGN2L3YpDQogICAgICAgIGlmIChzY2FsZWQpIHsNCiAgICAgICAgICAgIGkubWF4IDwtIChuL3MpICogKHNkKHJvd1N1bXMod2VpZ2h0KSAqIHkpL3NxcnQodi8obiAtIDEpKSkNCiAgICAgICAgICAgIG9icyA8LSBvYnMvaS5tYXgNCiAgICAgICAgfQ0KICAgICAgICBTMSA8LSAwLjUgKiBzdW0oKHdlaWdodCArIHQod2VpZ2h0KSleMikNCiAgICAgICAgUzIgPC0gc3VtKChhcHBseSh3ZWlnaHQsIDEsIHN1bSkgKyBhcHBseSh3ZWlnaHQsIDIsIHN1bSkpXjIpDQogICAgICAgIHMuc3EgPC0gc14yDQogICAgICAgIGsgPC0gKHN1bSh5XjQpL24pLyh2L24pXjINCiAgICAgICAgc2RpIDwtIHNxcnQoKG4gKiAoKG5eMiAtIDMgKiBuICsgMykgKiBTMSAtIG4gKiBTMiArIDMgKiBzLnNxKSAtIGsgKiAobiAqIChuIC0gMSkgKiBTMSAtIDIgKiBuICoNCiAgICAgICAgICAgIFMyICsgNiAqIHMuc3EpKS8oKG4gLSAxKSAqIChuIC0gMikgKiAobiAtIDMpICogcy5zcSkgLSAxLygobiAtIDEpXjIpKQ0KICAgICAgICBhbHRlcm5hdGl2ZSA8LSBtYXRjaC5hcmcoYWx0ZXJuYXRpdmUsIGMoInR3by5zaWRlZCIsICJsZXNzIiwgImdyZWF0ZXIiKSkNCiAgICAgICAgcHYgPC0gcG5vcm0ob2JzLCBtZWFuID0gZWksIHNkID0gc2RpKQ0KICAgICAgICBpZiAoYWx0ZXJuYXRpdmUgPT0gInR3by5zaWRlZCIpDQogICAgICAgICAgICBwdiA8LSBpZiAob2JzIDw9IGVpKQ0KICAgICAgICAgICAgICAgIDIgKiBwdiBlbHNlIDIgKiAoMSAtIHB2KQ0KICAgICAgICBpZiAoYWx0ZXJuYXRpdmUgPT0gImdyZWF0ZXIiKQ0KICAgICAgICAgICAgcHYgPC0gMSAtIHB2DQogICAgICAgIGxpc3Qob2JzZXJ2ZWQgPSBvYnMsIGV4cGVjdGVkID0gZWksIHNkID0gc2RpLCBwLnZhbHVlID0gcHYpDQogICAgfSBlbHNlIHsNCiAgICAgICAgaWYgKGRpbSh3ZWlnaHQpWzFdICE9IGRpbSh3ZWlnaHQpWzJdKQ0KICAgICAgICAgICAgc3RvcCgiJ3dlaWdodCcgbXVzdCBiZSBhIHNxdWFyZSBtYXRyaXgiKQ0KICAgICAgICBuIDwtIGxlbmd0aCh4KQ0KICAgICAgICBpZiAoZGltKHdlaWdodClbMV0gIT0gbikNCiAgICAgICAgICAgIHN0b3AoIid3ZWlnaHQnIG11c3QgaGF2ZSBhcyBtYW55IHJvd3MgYXMgb2JzZXJ2YXRpb25zIGluICd4JyIpDQogICAgICAgIGVpIDwtIC0xLyhuIC0gMSkNCiAgICAgICAgbmFzIDwtIGlzLm5hKHgpDQogICAgICAgIGlmIChhbnkobmFzKSkgew0KICAgICAgICAgICAgaWYgKG5hLnJtKSB7DQogICAgICAgICAgICAgICAgeCA8LSB4WyFuYXNdDQogICAgICAgICAgICAgICAgbiA8LSBsZW5ndGgoeCkNCiAgICAgICAgICAgICAgICB3ZWlnaHQgPC0gd2VpZ2h0WyFuYXMsICFuYXNdDQogICAgICAgICAgICB9IGVsc2Ugew0KICAgICAgICAgICAgICAgIHdhcm5pbmcoIid4JyBoYXMgbWlzc2luZyB2YWx1ZXM6IG1heWJlIHlvdSB3YW50ZWQgdG8gc2V0IG5hLnJtID0gVFJVRT8iKQ0KICAgICAgICAgICAgICAgIHJldHVybihsaXN0KG9ic2VydmVkID0gTkEsIGV4cGVjdGVkID0gZWksIHNkID0gTkEsIHAudmFsdWUgPSBOQSkpDQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgIyBST1dTVU0gPC0gcm93U3Vtcyh3ZWlnaHQpIFJPV1NVTVtST1dTVU0gPT0gMF0gPC0gMSB3ZWlnaHQgPC0gd2VpZ2h0L1JPV1NVTQ0KICAgICAgICBzIDwtIHN1bSh3ZWlnaHQpDQogICAgICAgIG0gPC0gbWVhbih4KQ0KICAgICAgICB5IDwtIHggLSBtDQogICAgICAgIGN2IDwtIHN1bSh3ZWlnaHQgKiB5ICVvJSB5KQ0KICAgICAgICB2IDwtIHN1bSh5XjIpDQogICAgICAgIG9icyA8LSAobi9zKSAqIChjdi92KQ0KICAgICAgICBpZiAoc2NhbGVkKSB7DQogICAgICAgICAgICBpLm1heCA8LSAobi9zKSAqIChzZChyb3dTdW1zKHdlaWdodCkgKiB5KS9zcXJ0KHYvKG4gLSAxKSkpDQogICAgICAgICAgICBvYnMgPC0gb2JzL2kubWF4DQogICAgICAgIH0NCiAgICAgICAgUzEgPC0gMC41ICogc3VtKCh3ZWlnaHQgKyB0KHdlaWdodCkpXjIpDQogICAgICAgIFMyIDwtIHN1bSgoYXBwbHkod2VpZ2h0LCAxLCBzdW0pICsgYXBwbHkod2VpZ2h0LCAyLCBzdW0pKV4yKQ0KICAgICAgICBzLnNxIDwtIHNeMg0KICAgICAgICBrIDwtIChzdW0oeV40KS9uKS8odi9uKV4yDQogICAgICAgIHNkaSA8LSBzcXJ0KChuICogKChuXjIgLSAzICogbiArIDMpICogUzEgLSBuICogUzIgKyAzICogcy5zcSkgLSBrICogKG4gKiAobiAtIDEpICogUzEgLSAyICogbiAqDQogICAgICAgICAgICBTMiArIDYgKiBzLnNxKSkvKChuIC0gMSkgKiAobiAtIDIpICogKG4gLSAzKSAqIHMuc3EpIC0gMS8oKG4gLSAxKV4yKSkNCiAgICAgICAgYWx0ZXJuYXRpdmUgPC0gbWF0Y2guYXJnKGFsdGVybmF0aXZlLCBjKCJ0d28uc2lkZWQiLCAibGVzcyIsICJncmVhdGVyIikpDQogICAgICAgIHB2IDwtIHBub3JtKG9icywgbWVhbiA9IGVpLCBzZCA9IHNkaSkNCiAgICAgICAgaWYgKGFsdGVybmF0aXZlID09ICJ0d28uc2lkZWQiKQ0KICAgICAgICAgICAgcHYgPC0gaWYgKG9icyA8PSBlaSkNCiAgICAgICAgICAgICAgICAyICogcHYgZWxzZSAyICogKDEgLSBwdikNCiAgICAgICAgaWYgKGFsdGVybmF0aXZlID09ICJncmVhdGVyIikNCiAgICAgICAgICAgIHB2IDwtIDEgLSBwdg0KICAgICAgICBsaXN0KG9ic2VydmVkID0gb2JzLCBleHBlY3RlZCA9IGVpLCBzZCA9IHNkaSwgcC52YWx1ZSA9IHB2KQ0KICAgIH0NCg0KDQp9DQpgYGANCg0KYGBge3J9DQpmTW9yYW4uSShwYXJlbnRlZHVoaWdoLCBzY2FsZWQgPSBGQUxTRSwgd2VpZ2h0ID0gd2VpZ2h0czIsIG5hLnJtID0gVFJVRSwgcm93c3RhbmRhcmRpemUgPSBGQUxTRSkNCmBgYA0KV2UgZmluZCBubyBldmlkZW5jZSBmb3Igc2VncmVnYXRpb24gYmFzZWQgb24gcGFyZW50YWwgZWR1Y2F0aW9uYWwgYXR0YWlubWVudCBpbiBoYW5naW5nIG91dCBuZXR3b3JrcyBvZiB0aGUgZmlyc3Qgd2F2ZS4NCmBgYHtyfQ0KIyBzdGVwIDE6IGNhbGN1bGF0ZSBkaXN0YW5jZXMNCmdlb2Rpc3RhbmNlczIgPC0gZ2VvZGlzdChoYW5naW5ndDJtLCBjb3VudC5wYXRocyA9IFRSVUUpDQpnZW9kaXN0YW5jZXMyIDwtIGdlb2Rpc3RhbmNlczIkZ2Rpc3QNCiMgc2V0IHRoZSBkaXN0YW5jZSB0byB5b3Vyc2VsZiBhcyBJbmYNCmRpYWcoZ2VvZGlzdGFuY2VzMikgPC0gSW5mDQoNCg0KIyBzdGVwIDI6IGRlZmluZSBhIGRpc3RhbmNlIGRlY2F5IGZ1bmN0aW9uLiBUaGlzIG9uZSBpcyBwcmV0dHkgc3RhbmRhcmQgaW4gdGhlIHNwYXRpYWwgYXV0b2NvcnJlbGF0aW9uIGxpdGVyYXR1cmUgYnV0IGFjdHVhbGx5IHByZXR0eSBhcmJpdHJhcnkuDQp3ZWlnaHRzMyA8LSBleHAoLWdlb2Rpc3RhbmNlczIpDQoNCmZNb3Jhbi5JKHBhcmVudGVkdWhpZ2gsIHNjYWxlZCA9IEZBTFNFLCB3ZWlnaHQgPSB3ZWlnaHRzMywgbmEucm0gPSBUUlVFLCByb3dzdGFuZGFyZGl6ZSA9IEZBTFNFKQ0KYGBgDQpXZSBhbHNvIGZpbmQgbm8gZXZpZGVuY2UgZm9yIHNlZ3JlZ2F0aW9uIGJhc2VkIG9uIHBhcmVudGFsIGVkdWNhdGlvbmFsIGxldmVscyBpbiB0aGUgc2Vjb25kIHdhdmUuDQoNCg0KDQojIEV4cGxhbmF0b3J5IEFuYWx5c2lzDQoNCiMjIE1vZGVsIGlucHV0IHByZXBhcmF0aW9uDQoNCkdldCBOZXR3b3JrLCBTZXBhcmF0ZSB3YXZlcw0KDQpgYGB7cn0NCiN3YXZlIDEgPSBoYW5naW5ndDEsIHdhdmUgMiA9IGhhbmdpbmd0Mg0KaGFuZ2luZ3QxbSA8LSBhcy5tYXRyaXgoaGFuZ2luZ19kZl90MSkNCmhhbmdpbmd0Mm0gPC0gYXMubWF0cml4KGhhbmdpbmdfZGZfdDIpDQojZGlhZ29uYWxzIHRvIHplcm8NCmRpYWcoaGFuZ2luZ3QxbSkgPC0gMA0KZGlhZyhoYW5naW5ndDJtKSA8LSAwDQojbWlzc2luZ3MgdG8gTkENCmhhbmdpbmd0MW13bmEgPC0gaGFuZ2luZ3QxbQ0KaGFuZ2luZ3QxbXduYVtoYW5naW5ndDFtd25hID09IDldIDwtIDEwDQpoYW5naW5ndDJtd25hIDwtIGhhbmdpbmd0Mm0NCmhhbmdpbmd0Mm13bmFbaGFuZ2luZ3QybXduYSA9PSA5XSA8LSAxMA0KDQoNCiNuZXRzIGludG8gYXJyYXkNCmhhbmdpbmdfYXJyYXkgPC0gYXJyYXkoZGF0YSA9IGMoaGFuZ2luZ3QxbXduYSwgaGFuZ2luZ3QybXduYSksIGRpbSA9IGMoZGltKGhhbmdpbmd0MW13bmEpLCAyKSkNCg0KI2RlcGVuZGVudA0KbmV0IDwtIHNpZW5hRGVwZW5kZW50KGhhbmdpbmdfYXJyYXkpDQpgYGANCg0KQ292YXJpYXRlczogcGFyZW50ZWR1aGlnaCwgcGFyZW50ZWR1ZGlmLCBldGhuZXcsIGdlbmRlcm5ldw0KDQpgYGB7cn0NCmdlbmRlcmNvdiA8LSBjb0NvdmFyKGdlbmRlcm5ldykgI2NvbnN0YW50IGNvdmFyaWF0ZQ0KZXRoY292IDwtIGNvQ292YXIoZXRobmV3KQ0KcGFyZWR1ZGlmY292IDwtIGNvQ292YXIocGFyZW50ZWR1ZGlmKQ0KcGFyZWR1aGlnaGNvdiA8LSBjb0NvdmFyKHBhcmVudGVkdWhpZ2gpDQpteWRhdGEgPC0gc2llbmFEYXRhQ3JlYXRlKG5ldCwgZ2VuZGVyY292LCBldGhjb3YsIHBhcmVkdWRpZmNvdiwgcGFyZWR1aGlnaGNvdikNCmBgYA0KDQpFZmZlY3RzDQoNCmBgYHtyfQ0KbXllZmYwOTEwIDwtIGdldEVmZmVjdHMobXlkYXRhKQ0KIyBlZmZlY3RzRG9jdW1lbnRhdGlvbihteWVmZjA5MTApDQpgYGANCmBgYHtyfQ0KaWZlbHNlKCFkaXIuZXhpc3RzKCJyZXN1bHRzIiksIGRpci5jcmVhdGUoInJlc3VsdHMiKSwgRkFMU0UpDQpwcmludDAxUmVwb3J0KG15ZGF0YSwgbW9kZWxuYW1lID0gIi4vcmVzdWx0cy9lZHVfYnJpZGdlIikNCmBgYA0KRmlyc3Qgc29tZSBiYXNpYyBlZmZlY3RzIHRoYXQgYXJlIG5vdCByZWFsbHkgb2YgdGhlb3JldGljYWwgaW50ZXJlc3Q6DQpgYGB7cn0NCm15ZWZmIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmMDkxMCwgb3V0QWN0LCBpblBvcCwgaW5BY3QsIHJlY2lwLCBHV0VTUEZGKSAgDQpgYGANCk5vdyBJJ2xsIGludHJvZHVjZSBob21vcGhpbHkgYXMgZW5kb3cgZnVuY3Rpb246DQpgYGB7cn0NCm15ZWZmIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmLCBzYW1lWCwgZWdvWCwgYWx0WCwgdHlwZSA9ICJlbmRvdyIsIGludGVyYWN0aW9uMSA9ICJwYXJlZHVoaWdoY292IikNCm15ZWZmDQpgYGANCkFuZCBhcyBjcmVhdGlvbiBmdW5jdGlvbjoNCmBgYHtyfQ0KbXllZmYgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIHNhbWVYLCBlZ29YLCBhbHRYLCB0eXBlID0gImNyZWF0aW9uIiwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWhpZ2hjb3YiKQ0KbXllZmYNCmBgYA0KDQoNCiMjTW9kZWwgMTogSG9tb3BoaWx5DQpgYGB7cn0NCm15QWxnb3JpdGhtIDwtIHNpZW5hQWxnb3JpdGhtQ3JlYXRlKHByb2puYW1lID0gImVkdV9icmlkZ2UiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWF4RGVncmVlID0gYyhuZXQgPSAxMCksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZWVkID0gMzAwMDApDQptb2QxIDwtIHNpZW5hMDcobXlBbGdvcml0aG0sIGRhdGEgPSBteWRhdGEsIGVmZmVjdHMgPSBteWVmZikgDQptb2QxDQpgYGANClRoZSBvdmVyYWxsIGNvbnZlcmdlbmNlIHJhdGlvIGlzIHVuZGVyIC4yNSwgd2hpY2ggaXMgYWNjZXB0YWJsZS4gQ29udmVyZ2VuY2Ugb2YgaW5kaXZpZHVhbCBwYXJhbWV0ZXJzIGlzIGFsc28gc3VmZmljaWVudC4gVGhlIHJhdGUgcGFyYW1ldGVyIHZhbHVlIGlzIDcuMzQsIGluZGljYXRpbmcgdGhhdCBlYWNoIGFjdG9yIGhhZCwgb24gYXZlcmFnZSwgNS45OSBvcHRpb25zIGZvciBjaGFuZ2UgKCdtaW5pLXN0ZXBzJykgd2l0aGluIHRoZSBzaW11bGF0aW9uLg0KYGBge3J9DQp0ZXN0X3BhcmFtZXRlcihtb2QxLCB0ZXN0ZWQ9MTApICNXYWxkLXR5cGUgc2lnbmlmaWNhbmNlIHRlc3QNCmBgYA0KVGhlIGVzdGltYXRlIGZvciBob21vcGhpbHkgYmFzZWQgb24gYXZlcmFnZSBwYXJlbnRhbCBlZHVjYXRpb25hbCBhdHRhaW5tZW50IGlzIHBvc2l0aXZlLCBidXQgbG93LiBUaGUgV2FsZC10eXBlIHNpZ25pZmljYW5jZSB0ZXN0IGluZGljYXRlcyB0aGF0IHRoZSBlZmZlY3Qgb2Ygc2ltaWxhcml0eSBpbiBhdmVyYWdlIHBhcmVudGFsIGVkdWNhdGlvbmFsIGF0dGFpbm1lbnQgaXMgaW5zaWduaWZpY2FudCwgcCA9IC43OTguIA0KIyMjIEdvb2RuZXNzIG9mIEZpdA0KYGBge3J9DQojSm9jaGVtJ3MgZm9ybXVsYSBmb3IgR2VvZGVzaWMgRGlzdHJpYnV0aW9uDQoNCkdlb2Rlc2ljRGlzdHJpYnV0aW9uIDwtIGZ1bmN0aW9uKGksIGRhdGEsIHNpbXMsIHBlcmlvZCwgZ3JvdXBOYW1lLCB2YXJOYW1lLCBsZXZscyA9IGMoMTo1LCBJbmYpLCBjdW11bGF0aXZlID0gVFJVRSwNCiAgICAuLi4pIHsNCiAgICB4IDwtIG5ldHdvcmtFeHRyYWN0aW9uKGksIGRhdGEsIHNpbXMsIHBlcmlvZCwgZ3JvdXBOYW1lLCB2YXJOYW1lKQ0KICAgIHJlcXVpcmUoc25hKQ0KICAgIGEgPC0gc25hOjpnZW9kaXN0KHN5bW1ldHJpemUoeCkpJGdkaXN0DQogICAgaWYgKGN1bXVsYXRpdmUpIHsNCiAgICAgICAgZ2RpIDwtIHNhcHBseShsZXZscywgZnVuY3Rpb24oaSkgew0KICAgICAgICAgICAgc3VtKGEgPD0gaSkNCiAgICAgICAgfSkNCiAgICB9IGVsc2Ugew0KICAgICAgICBnZGkgPC0gc2FwcGx5KGxldmxzLCBmdW5jdGlvbihpKSB7DQogICAgICAgICAgICBzdW0oYSA9PSBpKQ0KICAgICAgICB9KQ0KICAgIH0NCiAgICBuYW1lcyhnZGkpIDwtIGFzLmNoYXJhY3RlcihsZXZscykNCiAgICBnZGkNCn0NCg0KIyBUaGUgZm9sbG93aW5nIGZ1bmN0aW9uIGlzIHRha2VuIGZyb20gdGhlIGhlbHAgcGFnZSBmb3Igc2llbmFUZXN0DQoNCnRlc3RhbGwgPC0gZnVuY3Rpb24oYW5zKSB7DQogICAgZm9yIChpIGluIHdoaWNoKGFucyR0ZXN0KSkgew0KICAgICAgICBzY3QgPC0gc2NvcmUuVGVzdChhbnMsIGkpDQogICAgICAgIGNhdChhbnMkcmVxdWVzdGVkRWZmZWN0cyRlZmZlY3ROYW1lW2ldLCAiXG4iKQ0KICAgICAgICBwcmludChzY3QpDQogICAgfQ0KICAgIGludmlzaWJsZShzY29yZS5UZXN0KGFucykpDQp9DQpgYGANCg0KDQojI01vZGVsIDI6IEhvbW9waGlseSB4IEVkdWNhdGlvbmFsbHkgTWl4ZWQgRmFtaWx5DQpgYGB7cn0NCm15ZWZmMiA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZiwgZWdvWCwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWRpZmNvdiIsIHR5cGUgPSAiZXZhbCIpDQpteWVmZjINCmBgYA0KDQpgYGB7cn0NCm15ZWZmMiA8LSAgc2V0X2ludGVyYWN0aW9uKG15ZWZmMiwgbGlzdChzYW1lWCwgZWdvWCksIHR5cGUgPSAiZW5kb3ciLCBjb3ZhcjE9YygicGFyZWR1aGlnaGNvdiIsICJwYXJlZHVkaWZjb3YiKSkNCm15ZWZmMg0KYGBgDQpgYGB7cn0NCm15ZWZmMiA8LSAgc2V0X2ludGVyYWN0aW9uKG15ZWZmMiwgbGlzdChzYW1lWCwgZWdvWCksIHR5cGUgPSAiY3JlYXRpb24iLCBjb3ZhcjE9YygicGFyZWR1aGlnaGNvdiIsICJwYXJlZHVkaWZjb3YiKSkNCm15ZWZmMg0KYGBgDQoNCmBgYHtyfQ0KbW9kMiA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYyLCBwcmV2QW5zID0gbW9kMSwgcmV0dXJuRGVwcyA9IFRSVUUpIA0KbW9kMg0KYGBgDQpUaGUgb3ZlcmFsbCBtYXhpbXVtIGNvbnZlcmdlbmNlIHJhdGlvIGlzIG9uY2UgYWdhaW4gYWNjZXB0YWJsZS4gVGhlIGludGVyYWN0aW9uIGVmZmVjdCBvZiB0aGUgZGlmZmVyZW5jZSBiZXR3ZWVuIGVnbydzIHBhcmVudHMnIGVkdWNhdGlvbmFsIGF0dGFpbm1lbnQgd2l0aCBob21vcGhpbHkgaXMgbmVnYXRpdmUuDQpgYGB7cn0NCnRlc3RfcGFyYW1ldGVyKG1vZDIsIHRlc3RlZD0xMykNCmBgYA0KDQojIyMgR29vZG5lc3Mgb2YgRml0DQpgYGB7cn0NCiNKb2NoZW0ncyBmb3JtdWxhIGZvciBHZW9kZXNpYyBEaXN0cmlidXRpb24NCg0KR2VvZGVzaWNEaXN0cmlidXRpb24gPC0gZnVuY3Rpb24oaSwgZGF0YSwgc2ltcywgcGVyaW9kLCBncm91cE5hbWUsIHZhck5hbWUsIGxldmxzID0gYygxOjUsIEluZiksIGN1bXVsYXRpdmUgPSBUUlVFLA0KICAgIC4uLikgew0KICAgIHggPC0gbmV0d29ya0V4dHJhY3Rpb24oaSwgZGF0YSwgc2ltcywgcGVyaW9kLCBncm91cE5hbWUsIHZhck5hbWUpDQogICAgcmVxdWlyZShzbmEpDQogICAgYSA8LSBzbmE6Omdlb2Rpc3Qoc3ltbWV0cml6ZSh4KSkkZ2Rpc3QNCiAgICBpZiAoY3VtdWxhdGl2ZSkgew0KICAgICAgICBnZGkgPC0gc2FwcGx5KGxldmxzLCBmdW5jdGlvbihpKSB7DQogICAgICAgICAgICBzdW0oYSA8PSBpKQ0KICAgICAgICB9KQ0KICAgIH0gZWxzZSB7DQogICAgICAgIGdkaSA8LSBzYXBwbHkobGV2bHMsIGZ1bmN0aW9uKGkpIHsNCiAgICAgICAgICAgIHN1bShhID09IGkpDQogICAgICAgIH0pDQogICAgfQ0KICAgIG5hbWVzKGdkaSkgPC0gYXMuY2hhcmFjdGVyKGxldmxzKQ0KICAgIGdkaQ0KfQ0KDQojIFRoZSBmb2xsb3dpbmcgZnVuY3Rpb24gaXMgdGFrZW4gZnJvbSB0aGUgaGVscCBwYWdlIGZvciBzaWVuYVRlc3QNCg0KdGVzdGFsbCA8LSBmdW5jdGlvbihhbnMpIHsNCiAgICBmb3IgKGkgaW4gd2hpY2goYW5zJHRlc3QpKSB7DQogICAgICAgIHNjdCA8LSBzY29yZS5UZXN0KGFucywgaSkNCiAgICAgICAgY2F0KGFucyRyZXF1ZXN0ZWRFZmZlY3RzJGVmZmVjdE5hbWVbaV0sICJcbiIpDQogICAgICAgIHByaW50KHNjdCkNCiAgICB9DQogICAgaW52aXNpYmxlKHNjb3JlLlRlc3QoYW5zKSkNCn0NCmBgYA0KDQpgYGB7cn0NCmdvZmlubTIgPC0gc2llbmFHT0YobW9kMiwgSW5kZWdyZWVEaXN0cmlidXRpb24sIHZlcmJvc2UgPSBGQUxTRSwgam9pbiA9IFRSVUUsIHZhck5hbWUgPSAibmV0IikNCnBsb3QoZ29maW5tMikNCmBgYA0KYGBge3J9DQpnb2ZvdXRtMiA8LSBzaWVuYUdPRihtb2QyLCBPdXRkZWdyZWVEaXN0cmlidXRpb24sIHZlcmJvc2UgPSBGQUxTRSwgam9pbiA9IFRSVUUsIHZhck5hbWUgPSAibmV0IikNCnBsb3QoZ29mb3V0bTIpDQpgYGANCmBgYHtyfQ0KZ29mdHJpbTIgPC0gc2llbmFHT0YobW9kMiwgVHJpYWRDZW5zdXMsIHZlcmJvc2UgPSBGQUxTRSwgam9pbiA9IFRSVUUsIHZhck5hbWUgPSAibmV0IikNCnBsb3QoZ29mdHJpbTIpDQpgYGANCmBgYHtyfQ0KZ29mZ2RtMiA8LSBzaWVuYUdPRihtb2QyLCBHZW9kZXNpY0Rpc3RyaWJ1dGlvbiwgY3VtdWxhdGl2ZSA9IEZBTFNFLCB2ZXJib3NlID0gRkFMU0UsIGpvaW4gPSBUUlVFLCB2YXJOYW1lID0gIm5ldCIpDQpwbG90KGdvZmdkbTIpDQpgYGANCg0KIyMjIChzdWIpTW9kZWwgMi4xOiBpbklzRGVncmVlDQpgYGB7cn0NCm15ZWZmMi4xIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmMiwgaW5Jc0RlZ3JlZSkNCm15ZWZmMi4xDQpgYGANCmBgYHtyfQ0KbW9kMi4xIDwtIHNpZW5hMDcobXlBbGdvcml0aG0sIGRhdGEgPSBteWRhdGEsIGVmZmVjdHMgPSBteWVmZjIuMSwgcHJldkFucyA9IG1vZDIsIHJldHVybkRlcHMgPSBUUlVFKSANCm1vZDIuMQ0KYGBgDQojIyMgR29vZG5lc3Mgb2YgRml0DQpgYGB7cn0NCmdvZmlubTIuMSA8LSBzaWVuYUdPRihtb2QyLjEsIEluZGVncmVlRGlzdHJpYnV0aW9uLCB2ZXJib3NlID0gRkFMU0UsIGpvaW4gPSBUUlVFLCB2YXJOYW1lID0gIm5ldCIpDQpwbG90KGdvZmlubTIuMSkNCmBgYA0KYGBge3J9DQpnb2ZvdXRtMi4xIDwtIHNpZW5hR09GKG1vZDIuMSwgT3V0ZGVncmVlRGlzdHJpYnV0aW9uLCB2ZXJib3NlID0gRkFMU0UsIGpvaW4gPSBUUlVFLCB2YXJOYW1lID0gIm5ldCIpDQpwbG90KGdvZm91dG0yLjEpDQpgYGANClRoaXMgZGlkIG5vdCBjaGFuZ2UgYW55dGhpbmcuIEkgd2lsbCBraWNrIGluSXNEZWdyZWUgb3V0IGFuZCByZXBsYWNlIGl0IHdpdGggYSBkaWZmZXJlbnQgaXNvbGF0ZSBlZmZlY3QuDQoNCiMjIyAoc3ViKU1vZGVsIDIuMjogaXNvbGF0ZU5ldA0KYGBge3J9DQpteWVmZjIuMiA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZjIsIGlzb2xhdGVOZXQpDQpteWVmZjIuMg0KYGBgDQpgYGB7cn0NCiNtb2QyLjIgPC0gc2llbmEwNyhteUFsZ29yaXRobSwgZGF0YSA9IG15ZGF0YSwgZWZmZWN0cyA9IG15ZWZmMi4yLCBwcmV2QW5zID0gbW9kMiwgcmV0dXJuRGVwcyA9IFRSVUUpIA0KI21vZDIuMg0KYGBgDQpDb252ZXJnZW5jZSBvZiAxOCBpcyB2ZXJ5IG11Y2ggdW5hY2NlcHRhYmxlLg0KDQojIyMgKHN1YilNb2RlbCAyLjM6IG91dElzbw0KDQpgYGB7cn0NCm15ZWZmMi4zIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmMiwgb3V0SXNvKQ0KbXllZmYyLjMNCmBgYA0KYGBge3J9DQptb2QyLjMgPC0gc2llbmEwNyhteUFsZ29yaXRobSwgZGF0YSA9IG15ZGF0YSwgZWZmZWN0cyA9IG15ZWZmMi4zLCBwcmV2QW5zID0gbW9kMiwgcmV0dXJuRGVwcyA9IFRSVUUpIA0KbW9kMi4zDQpgYGANCiMjI0dvb2RuZXNzIG9mIEZpdA0KDQpgYGB7cn0NCmdvZmlubTIuMyA8LSBzaWVuYUdPRihtb2QyLjMsIEluZGVncmVlRGlzdHJpYnV0aW9uLCB2ZXJib3NlID0gRkFMU0UsIGpvaW4gPSBUUlVFLCB2YXJOYW1lID0gIm5ldCIpDQpwbG90KGdvZmlubTIuMykNCmBgYA0KDQoNCmBgYHtyfQ0KZ29mb3V0bTIuMyA8LSBzaWVuYUdPRihtb2QyLjMsIE91dGRlZ3JlZURpc3RyaWJ1dGlvbiwgdmVyYm9zZSA9IEZBTFNFLCBqb2luID0gVFJVRSwgdmFyTmFtZSA9ICJuZXQiKQ0KcGxvdChnb2ZvdXRtMi4zKQ0KYGBgDQpgYGB7cn0NCmdvZnRyaW0yLjMgPC0gc2llbmFHT0YobW9kMi4zLCBUcmlhZENlbnN1cywgdmVyYm9zZSA9IEZBTFNFLCBqb2luID0gVFJVRSwgdmFyTmFtZSA9ICJuZXQiKQ0KcGxvdChnb2Z0cmltMi4zKQ0KYGBgDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFuYWx5c2VzIGFuZCBSZXN1bHRzIg0KYXV0aG9yOiAiU3VzYW5uYSINCmRhdGU6ICIyMDI2LTA5LTI5Ig0Kb3V0cHV0OiBodG1sX2RvY3VtZW50DQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9DQprbGlwcHk6OmtsaXBweShwb3NpdGlvbiA9IGMoJ3RvcCcsICdyaWdodCcpKQ0KI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQ0KI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQ0KYGBgDQoNCkNsZWFuaW5nIGVudmlyb25tZW50ICsgY2hlY2tpbmcgcGFja2FnZXMNCg0KYGBge3J9DQpybShsaXN0ID0gbHMoKSkNCg0KI2Z1bmN0aW9uIGJ5IEpvY2hlbQ0KDQpmcGFja2FnZS5jaGVjayA8LSBmdW5jdGlvbihwYWNrYWdlcykgew0KICAgIGxhcHBseShwYWNrYWdlcywgRlVOID0gZnVuY3Rpb24oeCkgew0KICAgICAgICBpZiAoIXJlcXVpcmUoeCwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKSkgew0KICAgICAgICAgICAgaW5zdGFsbC5wYWNrYWdlcyh4LCBkZXBlbmRlbmNpZXMgPSBUUlVFKQ0KICAgICAgICAgICAgbGlicmFyeSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpDQogICAgICAgIH0NCiAgICB9KQ0KfQ0KDQpmc2F2ZSA8LSBmdW5jdGlvbih4LCBmaWxlID0gTlVMTCwgbG9jYXRpb24gPSAiLi9kYXRhL3Byb2Nlc3NlZC8iKSB7DQogICAgaWZlbHNlKCFkaXIuZXhpc3RzKCJkYXRhIiksIGRpci5jcmVhdGUoImRhdGEiKSwgRkFMU0UpDQogICAgaWZlbHNlKCFkaXIuZXhpc3RzKCJkYXRhL3Byb2Nlc3NlZCIpLCBkaXIuY3JlYXRlKCJkYXRhL3Byb2Nlc3NlZCIpLCBGQUxTRSkNCiAgICBpZiAoaXMubnVsbChmaWxlKSkNCiAgICAgICAgZmlsZSA9IGRlcGFyc2Uoc3Vic3RpdHV0ZSh4KSkNCiAgICBkYXRlbmFtZSA8LSBzdWJzdHIoZ3N1YigiWzotXSIsICIiLCBTeXMudGltZSgpKSwgMSwgOCkNCiAgICB0b3RhbG5hbWUgPC0gcGFzdGUobG9jYXRpb24sIGRhdGVuYW1lLCBmaWxlLCAiLnJkYSIsIHNlcCA9ICIiKQ0KICAgIHNhdmUoeCwgZmlsZSA9IHRvdGFsbmFtZSkgICNuZWVkIHRvIGZpeCBpZiBmaWxlIGlzIHJlbG9hZGVkIGFzIGlucHV0IG5hbWUsIG5vdCBhcyB4LiANCn0NCg0KZmxvYWQgPC0gZnVuY3Rpb24oZmlsZW5hbWUpIHsNCiAgICBsb2FkKGZpbGVuYW1lKQ0KICAgIGdldChscygpW2xzKCkgIT0gImZpbGVuYW1lIl0pDQp9DQoNCmZzaG93ZGYgPC0gZnVuY3Rpb24oeCwgLi4uKSB7DQogICAga25pdHI6OmthYmxlKHgsIGRpZ2l0cyA9IDIsICJodG1sIiwgLi4uKSAlPiUNCiAgICAgICAga2FibGVFeHRyYTo6a2FibGVfc3R5bGluZyhib290c3RyYXBfb3B0aW9ucyA9IGMoInN0cmlwZWQiLCAiaG92ZXIiKSkgJT4lDQogICAgICAgIGthYmxlRXh0cmE6OnNjcm9sbF9ib3god2lkdGggPSAiMTAwJSIsIGhlaWdodCA9ICIzMDBweCIpDQp9DQoNCmNvbG9yaXplIDwtIGZ1bmN0aW9uKHgsIGNvbG9yKSB7DQogICAgc3ByaW50ZigiPHNwYW4gc3R5bGU9J2NvbG9yOiAlczsnPiVzPC9zcGFuPiIsIGNvbG9yLCB4KQ0KfQ0KDQpwYWNrYWdlcyA8LSBjKCJzbmEiLCJhcGUiLCAibmV0d29yayIsICJkZXZ0b29scyIsICJpZ3JhcGgiLCAiUlNpZW5hIiwgInRpZHl2ZXJzZSIsICJzdHJpbmdkaXN0IiwgInN0cmluZ2kiKQ0KbGFwcGx5KHBhY2thZ2VzLCByZXF1aXJlLCBjaGFyYWN0ZXIub25seT1UKQ0KDQpgYGANCg0KYGBge3J9DQpsb2FkKCIuL2RhdGEvRWR1QnJpZGdlZm9yUlNpZW5hLlJEYXRhIikNCmBgYA0KDQojIERlc2NyaXB0aXZlIEFuYWx5c2lzDQoNCiMjIFZpc3VhbGlzYXRpb24NCg0KYGBge3J9DQpoYW5naW5ndDFub25hIDwtIGhhbmdpbmdfZGZfdDENCmhhbmdpbmd0MW5vbmFbaGFuZ2luZ3Qxbm9uYT09OV08LSAwDQpoYW5naW5ndDFub25hIDwtIGFzLm1hdHJpeChoYW5naW5ndDFub25hKQ0KaGFuZ2luZ3QxIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChoYW5naW5ndDFub25hLCBtb2RlID0gImRpcmVjdGVkIiwgd2VpZ2h0ZWQgPSBOVUxMLCBkaWFnID0gVFJVRSwgYWRkLmNvbG5hbWVzID0gTkEsIGFkZC5yb3duYW1lcyA9IE5BKQ0KDQpoYW5naW5ndDJub25hIDwtIGhhbmdpbmdfZGZfdDINCmhhbmdpbmd0Mm5vbmFbaGFuZ2luZ3Qybm9uYT09OV08LSAwDQpoYW5naW5ndDJub25hIDwtIGFzLm1hdHJpeChoYW5naW5ndDJub25hKQ0KaGFuZ2luZ3QyIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChoYW5naW5ndDJub25hLCBtb2RlID0gImRpcmVjdGVkIiwgd2VpZ2h0ZWQgPSBOVUxMLCBkaWFnID0gVFJVRSwgYWRkLmNvbG5hbWVzID0gTkEsIGFkZC5yb3duYW1lcyA9IE5BKQ0KDQpyYW5nZWdyYXkgPC0gY29sb3JSYW1wUGFsZXR0ZShjKCJncmV5OTEiLCAiZ3JleTUwIiwgImdyZXkzMCIsICJibGFjayIpKQ0KbmJpbnMgPC0gNQ0KY29sb3VyYmV0d2Vlbm5lc3MgPC1yYW5nZWdyYXkobmJpbnMpDQpjb2xvdXJwYXJlZHVoaWdoIDwtIGlmZWxzZShpcy5uYShwYXJlbnRlZHVoaWdoKSwgIndoaXRlIiwgaWZlbHNlKHBhcmVudGVkdWRpZj09MSwgIm1lZGl1bW9yY2hpZDQiLCBpZmVsc2UocGFyZW50ZWR1aGlnaD09MSwgIiMzQTg3QUQiLCAibGlnaHRnb2xkZW5yb2QiKSkpDQpjb2xvdXJwYXJlZHVkaWYgPC0gaWZlbHNlKGlzLm5hKHBhcmVudGVkdWRpZiksICJncmV5OTEiLCBpZmVsc2UocGFyZW50ZWR1ZGlmPT0xLCAibWVkaXVtb3JjaGlkNCIsICJncmV5OTEiKSkNCg0KbGF5b3V0ZnIyIDwtIGxheW91dC5mcnVjaHRlcm1hbi5yZWluZ29sZChoYW5naW5ndDIpDQpsYXlvdXRkaDIgPC0gaWdyYXBoOjogbGF5b3V0X3dpdGhfZGgoaGFuZ2luZ3QyKQ0KDQpWKGhhbmdpbmd0MSkkc2l6ZSA9IGlncmFwaDo6ZGVncmVlKGhhbmdpbmd0MSkqMC4zNSArIDcNClYoaGFuZ2luZ3QyKSRzaXplID0gaWdyYXBoOjpkZWdyZWUoaGFuZ2luZ3QyKSowLjM1ICsgNw0KDQp7cG5nKCJwbG90Mi5wbmciLCB3aWR0aCA9IDE0LCBoZWlnaHQgPSA3LCB1bml0cyA9ICJpbiIsIHJlcyA9IDMwMCkNCg0KcGFyKG1mcm93ID0gYygxLCAyKSkNCg0KcGxvdChoYW5naW5ndDEsDQogICAgIHZlcnRleC5jb2xvciA9IGFkanVzdGNvbG9yKGNvbG91cnBhcmVkdWhpZ2gsIGFscGhhLmYgPSAuNSksDQogICAgIHZlcnRleC5mcmFtZS5jb2xvciA9IGNvbG91cnBhcmVkdWRpZiwNCiAgICAgdmVydGV4LmZyYW1lLndpZHRoID0gMiwNCiAgICAgdmVydGV4LmxhYmVsID0gTkEsDQogICAgIGVkZ2UuY3VydmVkID0gMC4yLA0KICAgICBlZGdlLmFycm93LnNpemUgPSAwLjIsDQogICAgIGVkZ2UuY29sb3IgPSBjb2xvdXJiZXR3ZWVubmVzc1tjdXQoaWdyYXBoOjplZGdlX2JldHdlZW5uZXNzKGhhbmdpbmd0MSksIGJyZWFrcz1uYmlucyApXSwNCiAgICAgbGF5b3V0ID0gbGF5b3V0ZnIyLCANCiAgICAgbWFpbiA9ICJXYXZlIDEiKQ0KDQpsZWdlbmQoInRvcGxlZnQiLCBjKCJ1bml2ZXJzaXR5IiwgIm5vIHVuaXZlcnNpdHkiLCAibWl4ZWQiLCAibWlzc2luZyIpLCBwY2ggPSAyMSwgY29sID0gImdyZXk5MSIsIHB0LmJnID0gYygiIzNBODdBRCIsICJsaWdodGdvbGRlbnJvZCIsICJtZWRpdW1vcmNoaWQ0IiwgIndoaXRlIiksIHB0LmNleCA9IDEsDQogICAgY2V4ID0gMC44LCBidHkgPSAibiIsIG5jb2wgPSAxKQ0KDQpwbG90KGhhbmdpbmd0MiwNCiAgICAgdmVydGV4LmNvbG9yID0gYWRqdXN0Y29sb3IoY29sb3VycGFyZWR1aGlnaCwgYWxwaGEuZiA9IC41KSwNCiAgICAgdmVydGV4LmZyYW1lLmNvbG9yID0gY29sb3VycGFyZWR1ZGlmLA0KICAgICB2ZXJ0ZXguZnJhbWUud2lkdGggPSAyLA0KICAgICB2ZXJ0ZXgubGFiZWwgPSBOQSwNCiAgICAgZWRnZS5jdXJ2ZWQgPSAwLjIsDQogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMiwNCiAgICAgZWRnZS5jb2xvciA9IGNvbG91cmJldHdlZW5uZXNzW2N1dChpZ3JhcGg6OmVkZ2VfYmV0d2Vlbm5lc3MoaGFuZ2luZ3QyKSwgYnJlYWtzPW5iaW5zICldLA0KICAgICBsYXlvdXQgPSBsYXlvdXRmcjIsIA0KICAgICBtYWluID0gIldhdmUgMiIpDQpkZXYub2ZmKCl9DQpgYGANCg0KYGBge3J9DQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygicGxvdDIucG5nIikNCmBgYA0KDQojIyBUaWUgZXZvbHV0aW9uDQoNCmBgYHtyfQ0KZHlhZF9jZW5zdXMoaGFuZ2luZ3QxKQ0KYGBgDQoNCmBgYHtyfQ0KZHlhZF9jZW5zdXMoaGFuZ2luZ3QyKQ0KYGBgDQoNCkJldHdlZW4gdDEgYW5kIHQyLCB3ZSBjYW4gb2JzZXJ2ZSBhIHN1YnN0YW50aWFsIHJlZHVjdGlvbiBpbiB0aGUgbnVtYmVyIG9mIHRpZXMgd2l0aGluIHN0dWRlbnRzJyBoYW5naW5nIG91dCBuZXR3b3JrLiBXaGVyZWFzIGF0IHQxIGEgdG90YWwgbnVtYmVyIG9mIDMwMiBwYWlycyB3ZXJlIGNvbm5lY3RlZCwgOTMgb2Ygd2hpY2ggd2VyZSByZWNpcHJvY2FsIGNvbm5lY3Rpb25zLCBhdCB0Miwgb25seSAyMTAgY29ubmVjdGlvbnMgcmVtYWluLiBUaGlzIGVudGFpbHMgYSBkcm9wIG9mIDMwLjUlIG9mIHRoZSBpbml0aWFsIG51bWJlciBvZiBkeWFkcy4gVGhlIGV2b2x1dGlvbiBvZiBoYW5naW5nIG91dCBuZXR3b3JrcyBpbiB0aGlzIGNvbW11bml0eSBvZiB1bml2ZXJzaXR5IHN0dWRlbnRzIGlzIHRodXMgc3Ryb25nbHkgc2hhcGVkIGJ5IGVuZG93bWVudCwgaS5lLiB0aGUgZGVjaXNpb24gdG8gbWFpbnRhaW4gb3IgYnJlYWsgYSB0aWUuDQoNCmBgYHtyfQ0KZWRnZV9kZW5zaXR5KGhhbmdpbmd0MSkNCmBgYA0KDQpgYGB7cn0NCmVkZ2VfZGVuc2l0eShoYW5naW5ndDIpDQpgYGANCg0KYGBge3J9DQpkZWdyZWVfZGlzdHJpYnV0aW9uKGhhbmdpbmd0MSwgY3VtdWxhdGl2ZSA9IEZBTFNFKQ0KYGBgDQoNCmBgYHtyfQ0KZGVncmVlX2Rpc3RyaWJ1dGlvbihoYW5naW5ndDIsIGN1bXVsYXRpdmUgPSBGQUxTRSkNCmBgYA0KDQojIyBBdmVyYWdlIFNob3J0ZXN0IFBhdGggTGVuZ3RoDQoNCmBgYHtyfQ0KbWVhbl9kaXN0YW5jZShoYW5naW5ndDEsIGRpcmVjdGVkID0gVCwgdW5jb25uZWN0ZWQgPSBULCBkZXRhaWxzID0gVCkNCmBgYA0KDQpgYGB7cn0NCm1lYW5fZGlzdGFuY2UoaGFuZ2luZ3QyLCBkaXJlY3RlZCA9IFQsIHVuY29ubmVjdGVkID0gVCwgZGV0YWlscyA9IFQpDQpgYGANCg0KVGhlIGF2ZXJhZ2Ugc2hvcnRlc3QgcGF0aCBsZW5ndGggYmV0d2VlbiB2ZWN0b3JzIGlzIDQuODQgYXQgdDEsIGFuZCwgc3VycHJpc2luZ2x5LCBkZWNyZWFzZXMgdG8gNC41OSBhdCB0MiAtIGRlc3BpdGUgdGhlIHJlZHVjdGlvbiBpbiB0aGUgdG90YWwgbnVtYmVyIG9mIGNvbm5lY3RlZCBwYWlycy4NCg0KIyMgVHJpYWQgQ2Vuc3VzDQoNCmBgYHtyfQ0KaGFuZ2luZ3QxbSA8LSBhcy5tYXRyaXgoaGFuZ2luZ19kZl90MSkNCmhhbmdpbmd0Mm0gPC0gYXMubWF0cml4KGhhbmdpbmdfZGZfdDIpDQpzbmE6OnRyaWFkLmNlbnN1cyhoYW5naW5ndDFtKQ0KYGBgDQoNCmBgYHtyfQ0Kc25hOjp0cmlhZC5jZW5zdXMoaGFuZ2luZ3QybSkNCmBgYA0KDQpCZXR3ZWVuIHQxIGFuZCB0Miwgd2UgY2FuIG9ic2VydmUgYSByZWR1Y3Rpb24gaW4gYWxsIHRyaWFkIHR5cGVzIGV4Y2VwdCBmb3IgdGhlIDExMVUgY29uc3RlbGxhdGlvbiwgd2hpY2ggcmFpc2VzIGZyb20gb2NjdXJyaW5nIDkyMCB0aW1lcyB0byBvY2N1cnJpbmcgMTA1MCB0aW1lcywgYW5kIHRoZSAxMjBDIGNvbnN0ZWxsYXRpb24sIHdoaWNoIHJlbWFpbnMgY29uc3RhbnQuDQoNCiMjIFNlZ3JlZ2F0aW9uDQoNCmBgYHtyfQ0KaGFuZ2luZ3QxbSA8LSBhcy5tYXRyaXgoaGFuZ2luZ19kZl90MSkNCmhhbmdpbmd0Mm0gPC0gYXMubWF0cml4KGhhbmdpbmdfZGZfdDIpDQoNCiMgc3RlcCAxOiBjYWxjdWxhdGUgZGlzdGFuY2VzDQpnZW9kaXN0YW5jZXMgPC0gZ2VvZGlzdChoYW5naW5ndDFtLCBjb3VudC5wYXRocyA9IFRSVUUpDQpnZW9kaXN0YW5jZXMgPC0gZ2VvZGlzdGFuY2VzJGdkaXN0DQojIHNldCB0aGUgZGlzdGFuY2UgdG8geW91cnNlbGYgYXMgSW5mDQpkaWFnKGdlb2Rpc3RhbmNlcykgPC0gSW5mDQoNCg0KIyBzdGVwIDI6IGRlZmluZSBhIGRpc3RhbmNlIGRlY2F5IGZ1bmN0aW9uLiBUaGlzIG9uZSBpcyBwcmV0dHkgc3RhbmRhcmQgaW4gdGhlIHNwYXRpYWwgYXV0b2NvcnJlbGF0aW9uIGxpdGVyYXR1cmUgYnV0IGFjdHVhbGx5IHByZXR0eSBhcmJpdHJhcnkuDQp3ZWlnaHRzMiA8LSBleHAoLWdlb2Rpc3RhbmNlcykNCmBgYA0KDQpgYGB7cn0NCiNKb2NoZW0ncyBmb3JtdWxhIGZvciBNb3JhbidzIEkNCg0KZk1vcmFuLkkgPC0gZnVuY3Rpb24oeCwgd2VpZ2h0LCBzY2FsZWQgPSBGQUxTRSwgbmEucm0gPSBGQUxTRSwgYWx0ZXJuYXRpdmUgPSAidHdvLnNpZGVkIiwgcm93c3RhbmRhcmRpemUgPSBUUlVFKSB7DQogICAgaWYgKHJvd3N0YW5kYXJkaXplKSB7DQogICAgICAgIGlmIChkaW0od2VpZ2h0KVsxXSAhPSBkaW0od2VpZ2h0KVsyXSkNCiAgICAgICAgICAgIHN0b3AoIid3ZWlnaHQnIG11c3QgYmUgYSBzcXVhcmUgbWF0cml4IikNCiAgICAgICAgbiA8LSBsZW5ndGgoeCkNCiAgICAgICAgaWYgKGRpbSh3ZWlnaHQpWzFdICE9IG4pDQogICAgICAgICAgICBzdG9wKCInd2VpZ2h0JyBtdXN0IGhhdmUgYXMgbWFueSByb3dzIGFzIG9ic2VydmF0aW9ucyBpbiAneCciKQ0KICAgICAgICBlaSA8LSAtMS8obiAtIDEpDQogICAgICAgIG5hcyA8LSBpcy5uYSh4KQ0KICAgICAgICBpZiAoYW55KG5hcykpIHsNCiAgICAgICAgICAgIGlmIChuYS5ybSkgew0KICAgICAgICAgICAgICAgIHggPC0geFshbmFzXQ0KICAgICAgICAgICAgICAgIG4gPC0gbGVuZ3RoKHgpDQogICAgICAgICAgICAgICAgd2VpZ2h0IDwtIHdlaWdodFshbmFzLCAhbmFzXQ0KICAgICAgICAgICAgfSBlbHNlIHsNCiAgICAgICAgICAgICAgICB3YXJuaW5nKCIneCcgaGFzIG1pc3NpbmcgdmFsdWVzOiBtYXliZSB5b3Ugd2FudGVkIHRvIHNldCBuYS5ybSA9IFRSVUU/IikNCiAgICAgICAgICAgICAgICByZXR1cm4obGlzdChvYnNlcnZlZCA9IE5BLCBleHBlY3RlZCA9IGVpLCBzZCA9IE5BLCBwLnZhbHVlID0gTkEpKQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIFJPV1NVTSA8LSByb3dTdW1zKHdlaWdodCkNCiAgICAgICAgUk9XU1VNW1JPV1NVTSA9PSAwXSA8LSAxDQogICAgICAgIHdlaWdodCA8LSB3ZWlnaHQvUk9XU1VNDQogICAgICAgIHMgPC0gc3VtKHdlaWdodCkNCiAgICAgICAgbSA8LSBtZWFuKHgpDQogICAgICAgIHkgPC0geCAtIG0NCiAgICAgICAgY3YgPC0gc3VtKHdlaWdodCAqIHkgJW8lIHkpDQogICAgICAgIHYgPC0gc3VtKHleMikNCiAgICAgICAgb2JzIDwtIChuL3MpICogKGN2L3YpDQogICAgICAgIGlmIChzY2FsZWQpIHsNCiAgICAgICAgICAgIGkubWF4IDwtIChuL3MpICogKHNkKHJvd1N1bXMod2VpZ2h0KSAqIHkpL3NxcnQodi8obiAtIDEpKSkNCiAgICAgICAgICAgIG9icyA8LSBvYnMvaS5tYXgNCiAgICAgICAgfQ0KICAgICAgICBTMSA8LSAwLjUgKiBzdW0oKHdlaWdodCArIHQod2VpZ2h0KSleMikNCiAgICAgICAgUzIgPC0gc3VtKChhcHBseSh3ZWlnaHQsIDEsIHN1bSkgKyBhcHBseSh3ZWlnaHQsIDIsIHN1bSkpXjIpDQogICAgICAgIHMuc3EgPC0gc14yDQogICAgICAgIGsgPC0gKHN1bSh5XjQpL24pLyh2L24pXjINCiAgICAgICAgc2RpIDwtIHNxcnQoKG4gKiAoKG5eMiAtIDMgKiBuICsgMykgKiBTMSAtIG4gKiBTMiArIDMgKiBzLnNxKSAtIGsgKiAobiAqIChuIC0gMSkgKiBTMSAtIDIgKiBuICoNCiAgICAgICAgICAgIFMyICsgNiAqIHMuc3EpKS8oKG4gLSAxKSAqIChuIC0gMikgKiAobiAtIDMpICogcy5zcSkgLSAxLygobiAtIDEpXjIpKQ0KICAgICAgICBhbHRlcm5hdGl2ZSA8LSBtYXRjaC5hcmcoYWx0ZXJuYXRpdmUsIGMoInR3by5zaWRlZCIsICJsZXNzIiwgImdyZWF0ZXIiKSkNCiAgICAgICAgcHYgPC0gcG5vcm0ob2JzLCBtZWFuID0gZWksIHNkID0gc2RpKQ0KICAgICAgICBpZiAoYWx0ZXJuYXRpdmUgPT0gInR3by5zaWRlZCIpDQogICAgICAgICAgICBwdiA8LSBpZiAob2JzIDw9IGVpKQ0KICAgICAgICAgICAgICAgIDIgKiBwdiBlbHNlIDIgKiAoMSAtIHB2KQ0KICAgICAgICBpZiAoYWx0ZXJuYXRpdmUgPT0gImdyZWF0ZXIiKQ0KICAgICAgICAgICAgcHYgPC0gMSAtIHB2DQogICAgICAgIGxpc3Qob2JzZXJ2ZWQgPSBvYnMsIGV4cGVjdGVkID0gZWksIHNkID0gc2RpLCBwLnZhbHVlID0gcHYpDQogICAgfSBlbHNlIHsNCiAgICAgICAgaWYgKGRpbSh3ZWlnaHQpWzFdICE9IGRpbSh3ZWlnaHQpWzJdKQ0KICAgICAgICAgICAgc3RvcCgiJ3dlaWdodCcgbXVzdCBiZSBhIHNxdWFyZSBtYXRyaXgiKQ0KICAgICAgICBuIDwtIGxlbmd0aCh4KQ0KICAgICAgICBpZiAoZGltKHdlaWdodClbMV0gIT0gbikNCiAgICAgICAgICAgIHN0b3AoIid3ZWlnaHQnIG11c3QgaGF2ZSBhcyBtYW55IHJvd3MgYXMgb2JzZXJ2YXRpb25zIGluICd4JyIpDQogICAgICAgIGVpIDwtIC0xLyhuIC0gMSkNCiAgICAgICAgbmFzIDwtIGlzLm5hKHgpDQogICAgICAgIGlmIChhbnkobmFzKSkgew0KICAgICAgICAgICAgaWYgKG5hLnJtKSB7DQogICAgICAgICAgICAgICAgeCA8LSB4WyFuYXNdDQogICAgICAgICAgICAgICAgbiA8LSBsZW5ndGgoeCkNCiAgICAgICAgICAgICAgICB3ZWlnaHQgPC0gd2VpZ2h0WyFuYXMsICFuYXNdDQogICAgICAgICAgICB9IGVsc2Ugew0KICAgICAgICAgICAgICAgIHdhcm5pbmcoIid4JyBoYXMgbWlzc2luZyB2YWx1ZXM6IG1heWJlIHlvdSB3YW50ZWQgdG8gc2V0IG5hLnJtID0gVFJVRT8iKQ0KICAgICAgICAgICAgICAgIHJldHVybihsaXN0KG9ic2VydmVkID0gTkEsIGV4cGVjdGVkID0gZWksIHNkID0gTkEsIHAudmFsdWUgPSBOQSkpDQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgIyBST1dTVU0gPC0gcm93U3Vtcyh3ZWlnaHQpIFJPV1NVTVtST1dTVU0gPT0gMF0gPC0gMSB3ZWlnaHQgPC0gd2VpZ2h0L1JPV1NVTQ0KICAgICAgICBzIDwtIHN1bSh3ZWlnaHQpDQogICAgICAgIG0gPC0gbWVhbih4KQ0KICAgICAgICB5IDwtIHggLSBtDQogICAgICAgIGN2IDwtIHN1bSh3ZWlnaHQgKiB5ICVvJSB5KQ0KICAgICAgICB2IDwtIHN1bSh5XjIpDQogICAgICAgIG9icyA8LSAobi9zKSAqIChjdi92KQ0KICAgICAgICBpZiAoc2NhbGVkKSB7DQogICAgICAgICAgICBpLm1heCA8LSAobi9zKSAqIChzZChyb3dTdW1zKHdlaWdodCkgKiB5KS9zcXJ0KHYvKG4gLSAxKSkpDQogICAgICAgICAgICBvYnMgPC0gb2JzL2kubWF4DQogICAgICAgIH0NCiAgICAgICAgUzEgPC0gMC41ICogc3VtKCh3ZWlnaHQgKyB0KHdlaWdodCkpXjIpDQogICAgICAgIFMyIDwtIHN1bSgoYXBwbHkod2VpZ2h0LCAxLCBzdW0pICsgYXBwbHkod2VpZ2h0LCAyLCBzdW0pKV4yKQ0KICAgICAgICBzLnNxIDwtIHNeMg0KICAgICAgICBrIDwtIChzdW0oeV40KS9uKS8odi9uKV4yDQogICAgICAgIHNkaSA8LSBzcXJ0KChuICogKChuXjIgLSAzICogbiArIDMpICogUzEgLSBuICogUzIgKyAzICogcy5zcSkgLSBrICogKG4gKiAobiAtIDEpICogUzEgLSAyICogbiAqDQogICAgICAgICAgICBTMiArIDYgKiBzLnNxKSkvKChuIC0gMSkgKiAobiAtIDIpICogKG4gLSAzKSAqIHMuc3EpIC0gMS8oKG4gLSAxKV4yKSkNCiAgICAgICAgYWx0ZXJuYXRpdmUgPC0gbWF0Y2guYXJnKGFsdGVybmF0aXZlLCBjKCJ0d28uc2lkZWQiLCAibGVzcyIsICJncmVhdGVyIikpDQogICAgICAgIHB2IDwtIHBub3JtKG9icywgbWVhbiA9IGVpLCBzZCA9IHNkaSkNCiAgICAgICAgaWYgKGFsdGVybmF0aXZlID09ICJ0d28uc2lkZWQiKQ0KICAgICAgICAgICAgcHYgPC0gaWYgKG9icyA8PSBlaSkNCiAgICAgICAgICAgICAgICAyICogcHYgZWxzZSAyICogKDEgLSBwdikNCiAgICAgICAgaWYgKGFsdGVybmF0aXZlID09ICJncmVhdGVyIikNCiAgICAgICAgICAgIHB2IDwtIDEgLSBwdg0KICAgICAgICBsaXN0KG9ic2VydmVkID0gb2JzLCBleHBlY3RlZCA9IGVpLCBzZCA9IHNkaSwgcC52YWx1ZSA9IHB2KQ0KICAgIH0NCg0KDQp9DQpgYGANCg0KYGBge3J9DQpmTW9yYW4uSShwYXJlbnRlZHVoaWdoLCBzY2FsZWQgPSBGQUxTRSwgd2VpZ2h0ID0gd2VpZ2h0czIsIG5hLnJtID0gVFJVRSwgcm93c3RhbmRhcmRpemUgPSBGQUxTRSkNCmBgYA0KDQpXZSBmaW5kIG5vIGV2aWRlbmNlIGZvciBzZWdyZWdhdGlvbiBiYXNlZCBvbiBwYXJlbnRhbCBlZHVjYXRpb25hbCBhdHRhaW5tZW50IGluIGhhbmdpbmcgb3V0IG5ldHdvcmtzIG9mIHRoZSBmaXJzdCB3YXZlLg0KDQpgYGB7cn0NCiMgc3RlcCAxOiBjYWxjdWxhdGUgZGlzdGFuY2VzDQpnZW9kaXN0YW5jZXMyIDwtIGdlb2Rpc3QoaGFuZ2luZ3QybSwgY291bnQucGF0aHMgPSBUUlVFKQ0KZ2VvZGlzdGFuY2VzMiA8LSBnZW9kaXN0YW5jZXMyJGdkaXN0DQojIHNldCB0aGUgZGlzdGFuY2UgdG8geW91cnNlbGYgYXMgSW5mDQpkaWFnKGdlb2Rpc3RhbmNlczIpIDwtIEluZg0KDQoNCiMgc3RlcCAyOiBkZWZpbmUgYSBkaXN0YW5jZSBkZWNheSBmdW5jdGlvbi4gVGhpcyBvbmUgaXMgcHJldHR5IHN0YW5kYXJkIGluIHRoZSBzcGF0aWFsIGF1dG9jb3JyZWxhdGlvbiBsaXRlcmF0dXJlIGJ1dCBhY3R1YWxseSBwcmV0dHkgYXJiaXRyYXJ5Lg0Kd2VpZ2h0czMgPC0gZXhwKC1nZW9kaXN0YW5jZXMyKQ0KDQpmTW9yYW4uSShwYXJlbnRlZHVoaWdoLCBzY2FsZWQgPSBGQUxTRSwgd2VpZ2h0ID0gd2VpZ2h0czMsIG5hLnJtID0gVFJVRSwgcm93c3RhbmRhcmRpemUgPSBGQUxTRSkNCmBgYA0KDQpXZSBhbHNvIGZpbmQgbm8gZXZpZGVuY2UgZm9yIHNlZ3JlZ2F0aW9uIGJhc2VkIG9uIHBhcmVudGFsIGVkdWNhdGlvbmFsIGxldmVscyBpbiB0aGUgc2Vjb25kIHdhdmUuDQoNCiMgRXhwbGFuYXRvcnkgQW5hbHlzaXMNCg0KIyMgTW9kZWwgaW5wdXQgcHJlcGFyYXRpb24NCg0KIyMjIE5ldHdvcmsgaW4gd2F2ZXMNCg0KYGBge3J9DQojd2F2ZSAxID0gaGFuZ2luZ3QxLCB3YXZlIDIgPSBoYW5naW5ndDINCmhhbmdpbmd0MW0gPC0gYXMubWF0cml4KGhhbmdpbmdfZGZfdDEpDQpoYW5naW5ndDJtIDwtIGFzLm1hdHJpeChoYW5naW5nX2RmX3QyKQ0KI2RpYWdvbmFscyB0byB6ZXJvDQpkaWFnKGhhbmdpbmd0MW0pIDwtIDANCmRpYWcoaGFuZ2luZ3QybSkgPC0gMA0KI21pc3NpbmdzIHRvIE5BDQpoYW5naW5ndDFtd25hIDwtIGhhbmdpbmd0MW0NCmhhbmdpbmd0MW13bmFbaGFuZ2luZ3QxbXduYSA9PSA5XSA8LSAxMA0KaGFuZ2luZ3QybXduYSA8LSBoYW5naW5ndDJtDQpoYW5naW5ndDJtd25hW2hhbmdpbmd0Mm13bmEgPT0gOV0gPC0gMTANCg0KDQojbmV0cyBpbnRvIGFycmF5DQpoYW5naW5nX2FycmF5IDwtIGFycmF5KGRhdGEgPSBjKGhhbmdpbmd0MW13bmEsIGhhbmdpbmd0Mm13bmEpLCBkaW0gPSBjKGRpbShoYW5naW5ndDFtd25hKSwgMikpDQoNCiNkZXBlbmRlbnQNCm5ldCA8LSBzaWVuYURlcGVuZGVudChoYW5naW5nX2FycmF5KQ0KYGBgDQoNCiMjIyBDb3ZhcmlhdGVzOiBwYXJlbnRlZHVoaWdoLCBwYXJlbnRlZHVkaWYsIGV0aG5ldywgZ2VuZGVybmV3DQoNCmBgYHtyfQ0KZ2VuZGVyY292IDwtIGNvQ292YXIoZ2VuZGVybmV3KSAjY29uc3RhbnQgY292YXJpYXRlDQpldGhjb3YgPC0gY29Db3ZhcihldGhuZXcpDQpwYXJlZHVkaWZjb3YgPC0gY29Db3ZhcihwYXJlbnRlZHVkaWYpDQpwYXJlZHVoaWdoY292IDwtIGNvQ292YXIocGFyZW50ZWR1aGlnaCkNCm15ZGF0YSA8LSBzaWVuYURhdGFDcmVhdGUobmV0LCBnZW5kZXJjb3YsIGV0aGNvdiwgcGFyZWR1ZGlmY292LCBwYXJlZHVoaWdoY292KQ0KYGBgDQoNCiMjIyBPdmVydmlldyBvZiBTaWVuYSBkYXRhDQoNCmBgYHtyfQ0Kd3JpdGVfcmVwb3J0KG15ZGF0YSwgb3V0cHV0TmFtZSA9ICJzaWVuYURhdGEiKQ0KYGBgDQoNCmBgYHtyLCBjaGlsZCA9ICJzaWVuYURhdGEudHh0IiwgcmVzdWx0cyA9ICJhc2lzIn0NCmBgYA0KDQojI01vZGVsIDE6IEhvbW9waGlseQ0KDQpgYGB7cn0NCm15ZWZmMDkxMCA8LSBnZXRFZmZlY3RzKG15ZGF0YSkNCiMgZWZmZWN0c0RvY3VtZW50YXRpb24obXllZmYwOTEwKQ0KYGBgDQoNCmBgYHtyfQ0KaWZlbHNlKCFkaXIuZXhpc3RzKCJyZXN1bHRzIiksIGRpci5jcmVhdGUoInJlc3VsdHMiKSwgRkFMU0UpDQpwcmludDAxUmVwb3J0KG15ZGF0YSwgbW9kZWxuYW1lID0gIi4vcmVzdWx0cy9lZHVfYnJpZGdlIikNCmBgYA0KDQpGaXJzdCBzb21lIGJhc2ljIGVmZmVjdHMgdGhhdCBhcmUgbm90IHJlYWxseSBvZiB0aGVvcmV0aWNhbCBpbnRlcmVzdDoNCg0KYGBge3J9DQpteWVmZiA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZjA5MTAsIG91dEFjdCwgaW5Qb3AsIGluQWN0LCByZWNpcCwgZ3dlc3BGRikgIA0KYGBgDQoNCk5vdyBJJ2xsIGludHJvZHVjZSBob21vcGhpbHkgYXMgZW5kb3cgZnVuY3Rpb246DQoNCmBgYHtyfQ0KbXllZmYgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIHNhbWVYLCBlZ29YLCBhbHRYLCB0eXBlID0gImVuZG93IiwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWhpZ2hjb3YiKQ0KbXllZmYNCmBgYA0KDQpBbmQgYXMgY3JlYXRpb24gZnVuY3Rpb246DQoNCmBgYHtyfQ0KbXllZmYgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIHNhbWVYLCBlZ29YLCBhbHRYLCB0eXBlID0gImNyZWF0aW9uIiwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWhpZ2hjb3YiKQ0KbXllZmYNCmBgYA0KDQpgYGB7cn0NCm15QWxnb3JpdGhtIDwtIHNpZW5hQWxnb3JpdGhtQ3JlYXRlKHByb2puYW1lID0gImVkdV9icmlkZ2UiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWF4RGVncmVlID0gYyhuZXQgPSAxMCksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuMyA9IDIwMDAsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZWVkID0gMzAwMDApDQptb2QxIDwtIHNpZW5hMDcobXlBbGdvcml0aG0sIGRhdGEgPSBteWRhdGEsIGVmZmVjdHMgPSBteWVmZiwgcmV0dXJuRGVwcyA9IFRSVUUpIA0KbW9kMQ0KYGBgDQoNClRoZSBvdmVyYWxsIGNvbnZlcmdlbmNlIHJhdGlvIGlzIHVuZGVyIC4yNSwgd2hpY2ggaXMgYWNjZXB0YWJsZS4gQ29udmVyZ2VuY2Ugb2YgaW5kaXZpZHVhbCBwYXJhbWV0ZXJzIGlzIGFsc28gc3VmZmljaWVudC4gVGhlIHJhdGUgcGFyYW1ldGVyIHZhbHVlIGlzIDcuMzQsIGluZGljYXRpbmcgdGhhdCBlYWNoIGFjdG9yIGhhZCwgb24gYXZlcmFnZSwgNS45OSBvcHRpb25zIGZvciBjaGFuZ2UgKCdtaW5pLXN0ZXBzJykgd2l0aGluIHRoZSBzaW11bGF0aW9uLg0KDQpgYGB7cn0NCnJlc3VsdHMgPC0gZGF0YS5mcmFtZSgNCiAgZWZmZWN0ID0gbW9kMSRlZmZlY3RzJGVmZmVjdE5hbWUsDQogIGIgPSBtb2QxJHRoZXRhLA0KICBzZSA9IG1vZDEkc2UsDQogIHQgPSBtb2QxJHRoZXRhIC8gbW9kMSRzZSwNCiAgcCA9IDIgKiBwbm9ybSgtYWJzKG1vZDEkdGhldGEgLyBtb2QxJHNlKSkpDQoNCnBhbmRlcjo6cGFuZGVyKHJlc3VsdHMpDQpgYGANCg0KYGBge3J9DQp0ZXN0X3BhcmFtZXRlcihtb2QxLCB0ZXN0ZWQ9MykgI1dhbGQtdHlwZSBzaWduaWZpY2FuY2UgdGVzdA0KYGBgDQoNClRoZSBlc3RpbWF0ZSBmb3IgaG9tb3BoaWx5IGJhc2VkIG9uIGF2ZXJhZ2UgcGFyZW50YWwgZWR1Y2F0aW9uYWwgYXR0YWlubWVudCBpcyBwb3NpdGl2ZSwgYnV0IGxvdy4gVGhlIFdhbGQtdHlwZSBzaWduaWZpY2FuY2UgdGVzdCBpbmRpY2F0ZXMgdGhhdCB0aGUgZWZmZWN0IG9mIHNpbWlsYXJpdHkgaW4gYXZlcmFnZSBwYXJlbnRhbCBlZHVjYXRpb25hbCBhdHRhaW5tZW50IGlzIGluc2lnbmlmaWNhbnQsIHAgPSAuNzk4Lg0KDQojIyMgR29vZG5lc3Mgb2YgRml0DQoNCmBgYHtyfQ0KI0pvY2hlbSdzIGZvcm11bGEgZm9yIEdlb2Rlc2ljIERpc3RyaWJ1dGlvbg0KDQpHZW9kZXNpY0Rpc3RyaWJ1dGlvbiA8LSBmdW5jdGlvbihpLCBkYXRhLCBzaW1zLCBwZXJpb2QsIGdyb3VwTmFtZSwgdmFyTmFtZSwgbGV2bHMgPSBjKDE6NSwgSW5mKSwgY3VtdWxhdGl2ZSA9IFRSVUUsDQogICAgLi4uKSB7DQogICAgeCA8LSBuZXR3b3JrRXh0cmFjdGlvbihpLCBkYXRhLCBzaW1zLCBwZXJpb2QsIGdyb3VwTmFtZSwgdmFyTmFtZSkNCiAgICByZXF1aXJlKHNuYSkNCiAgICBhIDwtIHNuYTo6Z2VvZGlzdChzeW1tZXRyaXplKHgpKSRnZGlzdA0KICAgIGlmIChjdW11bGF0aXZlKSB7DQogICAgICAgIGdkaSA8LSBzYXBwbHkobGV2bHMsIGZ1bmN0aW9uKGkpIHsNCiAgICAgICAgICAgIHN1bShhIDw9IGkpDQogICAgICAgIH0pDQogICAgfSBlbHNlIHsNCiAgICAgICAgZ2RpIDwtIHNhcHBseShsZXZscywgZnVuY3Rpb24oaSkgew0KICAgICAgICAgICAgc3VtKGEgPT0gaSkNCiAgICAgICAgfSkNCiAgICB9DQogICAgbmFtZXMoZ2RpKSA8LSBhcy5jaGFyYWN0ZXIobGV2bHMpDQogICAgZ2RpDQp9DQoNCiMgVGhlIGZvbGxvd2luZyBmdW5jdGlvbiBpcyB0YWtlbiBmcm9tIHRoZSBoZWxwIHBhZ2UgZm9yIHNpZW5hVGVzdA0KDQp0ZXN0YWxsIDwtIGZ1bmN0aW9uKGFucykgew0KICAgIGZvciAoaSBpbiB3aGljaChhbnMkdGVzdCkpIHsNCiAgICAgICAgc2N0IDwtIHNjb3JlLlRlc3QoYW5zLCBpKQ0KICAgICAgICBjYXQoYW5zJHJlcXVlc3RlZEVmZmVjdHMkZWZmZWN0TmFtZVtpXSwgIlxuIikNCiAgICAgICAgcHJpbnQoc2N0KQ0KICAgIH0NCiAgICBpbnZpc2libGUoc2NvcmUuVGVzdChhbnMpKQ0KfQ0KYGBgDQoNCmBgYHtyfQ0KZ29maW5tMSA8LSBzaWVuYUdPRihtb2QxLCBJbmRlZ3JlZURpc3RyaWJ1dGlvbiwgdmVyYm9zZSA9IEZBTFNFLCBqb2luID0gVFJVRSwgdmFyTmFtZSA9ICJuZXQiLCBsZXZscyA9IDA6MTMpDQpwbG90KGdvZmlubTEpDQpgYGANCg0KYGBge3J9DQpnb2ZvdXRtMSA8LSBzaWVuYUdPRihtb2QxLCBPdXRkZWdyZWVEaXN0cmlidXRpb24sIHZlcmJvc2UgPSBGQUxTRSwgam9pbiA9IFRSVUUsIHZhck5hbWUgPSAibmV0IiwgbGV2bHMgPSAwOjEwKQ0KcGxvdChnb2ZvdXRtMSkNCmBgYA0KDQpgYGB7cn0NCmdvZmdkbTEgPC0gc2llbmFHT0YobW9kMSwgR2VvZGVzaWNEaXN0cmlidXRpb24sIGN1bXVsYXRpdmUgPSBGQUxTRSwgdmVyYm9zZSA9IEZBTFNFLCBqb2luID0gVFJVRSwgdmFyTmFtZSA9ICJuZXQiKQ0KcGxvdChnb2ZnZG0xKQ0KYGBgDQoNCmBgYHtyfQ0KZ29mdHJpbTEgPC0gc2llbmFHT0YobW9kMSwgVHJpYWRDZW5zdXMsIHZlcmJvc2UgPSBGQUxTRSwgam9pbiA9IFRSVUUsIHZhck5hbWUgPSAibmV0IikNCnBsb3QoZ29mdHJpbTEsIGNlbnRlciA9IFRSVUUsIHNjYWxlID0gVFJVRSkNCmBgYA0KDQpUaGUgc2ltdWxhdGVkIG5ldHdvcmtzIGJhc2VkIG9uIHRoZSBpbmNsdWRlZCBlZmZlY3RzIHNob3cgcmVhc29uYWJsZSBzaW1pbGFyaXR5IHdpdGggdGhlIG9ic2VydmVkIG5ldHdvcmsgaW4gdGVybXMgb2YgaW4tZGVncmVlIGRpc3RyaWJ1dGlvbiwgZ2VvZGVzaWMgZGlzdHJpYnV0aW9uLCBhbmQgdHJpYWQgY2Vuc3VzLiBIb3dldmVyLCB0aGUgbW9kZWwgc2VlbXMgdG8gc29tZXdoYXQgdW5kZXJlc3RpbWF0ZSB0aGUgbnVtYmVyIG9mIG5vZGVzIHdpdGggb3V0LWRlZ3JlZSAwLCBhbmQgb3ZlcmVzdGltYXRlIHRoZSBudW1iZXIgb2Ygbm9kZXMgd2l0aCBvdXQtZGVncmVlIDEuIEEgcG90ZW50aWFsIGV4cGxhbmF0aW9uIGZvciB0aGUgaGlnaGVyIG9ic2VydmVkIG51bWJlciBvZiBub2RlcyB3aXRoIG91dC1kZWdyZWUgMCBtaWdodCBiZSB0aGF0IGlzb2xhdGVkIHN0dWRlbnRzIGFyZSBsZXNzIGxpa2VseSB0byBpbmNyZWFzZSB0aGVpciBvdXQtZGVncmVlLiBJbiB0aGUgZm9sbG93aW5nIHN1Yi1tb2RlbCwgSSB0aHVzIGluY2x1ZGUgdGhlIG91dElzbyBlZmZlY3QuDQoNCiMjIyAoc3ViKU1vZGVsIDEuMTogb3V0SXNvDQoNCmBgYHtyfQ0KbXllZmYxLjEgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIG91dElzbykNCm15ZWZmMS4xDQpgYGANCg0KYGBge3J9DQptb2QxLjEgPC0gc2llbmEwNyhteUFsZ29yaXRobSwgZGF0YSA9IG15ZGF0YSwgZWZmZWN0cyA9IG15ZWZmMS4xLCBwcmV2QW5zID0gbW9kMSwgcmV0dXJuRGVwcyA9IFRSVUUpIA0KbW9kMS4xDQpgYGANCg0KYGBge3J9DQpyZXN1bHRzMiA8LSBkYXRhLmZyYW1lKA0KICBlZmZlY3QgPSBtb2QxLjEkZWZmZWN0cyRlZmZlY3ROYW1lLA0KICBiID0gbW9kMS4xJHRoZXRhLA0KICBzZSA9IG1vZDEuMSRzZSwNCiAgdCA9IG1vZDEuMSR0aGV0YSAvIG1vZDEuMSRzZSwNCiAgcCA9IDIgKiBwbm9ybSgtYWJzKG1vZDEuMSR0aGV0YSAvIG1vZDEuMSRzZSkpKQ0KDQpwYW5kZXI6OnBhbmRlcihyZXN1bHRzMikNCmBgYA0KDQpBbHRob3VnaCB0aGUgb3ZlcmFsbCBtYXhpbXVtIGNvbnZlcmdlbmNlIHJhdGlvIGlzIGFjY2VwdGFibGUsIGluY2x1ZGluZyB0aGUgb3V0SXNvIGVmZmVjdCBkZXN0YWJpbGlzZXMgdGhlIGVzdGltYXRpb24gb2YgdGhlIGluZGl2aWR1YWwgZWZmZWN0cywgcmVmbGVjdGVkIGluIHZlcnkgaGlnaCBjb252ZXJnZW5jZSB0LXJhdGlvIHN0YXRpc3RpY3MuIFRoZSBlZ28tZWZmZWN0cyBvZiBoaWdoZXN0IHBhcmVudGFsIGVkdWNhdGlvbmFsIGF0dGFpbm1lbnQgZGVtb25zdHJhdGUgcGFydGljdWxhcmx5IGhpZ2ggc3RhbmRhcmQgZXJyb3JzLCBhcyB3ZWxsIGFzIHN1c3BpY2lvdXNseSBwcm9ub3VuY2VkIGVzdGltYXRlcy4gVGhlIGxhY2sgb2YgY29udmVyZ2VuY2UgbWFrZXMgdGhpcyBhbiBpbmFwcHJvcHJpYXRlIG1vZGVsIHRvIHByb2NlZWQgd2l0aC4NCg0KIyMjIChzdWIpTW9kZWwgMS4yOiBpbklzRGVncmVlDQoNCmBgYHtyfQ0KbXllZmYxLjIgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIGluSXNEZWdyZWUpDQpteWVmZjEuMg0KYGBgDQoNCmBgYHtyfQ0KI21vZDEuMiA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYxLjIsIHByZXZBbnMgPSBtb2QxLCByZXR1cm5EZXBzID0gVFJVRSkgDQojbW9kMS4yDQpgYGANCg0KSW5jbHVkaW5nIGluSXNEZWdyZWUgZ3JlYXRseSBkZXN0YWJpbGlzZXMgdGhlIG1vZGVsLiBQYXJhbWV0ZXIgZXN0aW1hdGVzIHJpc2UgdG8gdW5yZWFsaXN0aWNhbGx5IGhpZ2ggdmFsdWVzLCB3aXRoIGh1Z2Ugc3RhbmRhcmQgZXJyb3JzIGFuZCBpbmRpdmlkdWFsIGNvbnZlcmdlbmNlIHJhdGlvcyB3YXkgYWJvdmUgMC4xLiBUaGUgbWF4aW11bSBjb3ZlcmdlbmNlIHJhdGlvIGlzIGFic29sdXRlbHkgdW5hY2NlcHRhYmxlIGF0IDIyLjguDQoNCiMjIyAoc3ViKU1vZGVsIDEuMzogcmVtb3ZpbmcgaW5Qb3ANCg0KSW4gbW9kZWwgMSwgdGhlIGluLWRlZ3JlZSBwb3B1bGFyaXR5IHdhcyBub3Qgc2lnbmlmaWNhbnQuIEFzIHRoaXMgZWZmZWN0IGlzIG5vdCBvZiB0aGVvcmV0aWNhbCBpbnRlcmVzdCwgYW5kIHJlZHVjaW5nIGNvbXBsZXhpdHkgY2FuIGFpZCBjb252ZXJnZW5jZSBhbmQgZml0LCBJIHdpbGwgcmVtb3ZlIHRoZSBlZmZlY3QgZnJvbSB0aGUgbW9kZWwuDQoNCmBgYHtyfQ0KbXllZmYxLjMgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYwOTEwLCBvdXRBY3QsIGluQWN0LCByZWNpcCwgZ3dlc3BGRikgDQpteWVmZjEuMw0KYGBgDQoNCmBgYHtyfQ0KbXllZmYxLjMgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYxLjMsIHNhbWVYLCBlZ29YLCBhbHRYLCB0eXBlID0gImVuZG93IiwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWhpZ2hjb3YiKQ0KbXllZmYxLjMNCmBgYA0KDQpgYGB7cn0NCm15ZWZmMS4zIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmMS4zLCBzYW1lWCwgZWdvWCwgYWx0WCwgdHlwZSA9ICJjcmVhdGlvbiIsIGludGVyYWN0aW9uMSA9ICJwYXJlZHVoaWdoY292IikNCm15ZWZmMS4zDQpgYGANCg0KYGBge3J9DQptb2QxLjMgPC0gc2llbmEwNyhteUFsZ29yaXRobSwgZGF0YSA9IG15ZGF0YSwgZWZmZWN0cyA9IG15ZWZmMS4zLCByZXR1cm5EZXBzID0gVFJVRSkgDQptb2QxLjMNCmBgYA0KDQpgYGB7cn0NCnJlc3VsdHMxLjMgPC0gZGF0YS5mcmFtZSgNCiAgZWZmZWN0ID0gbW9kMS4zJGVmZmVjdHMkZWZmZWN0TmFtZSwNCiAgYiA9IG1vZDEuMyR0aGV0YSwNCiAgc2UgPSBtb2QxLjMkc2UsDQogIHQgPSBtb2QxLjMkdGhldGEgLyBtb2QxLjMkc2UsDQogIHAgPSAyICogcG5vcm0oLWFicyhtb2QxLjMkdGhldGEgLyBtb2QxLjMkc2UpKSkNCg0KcGFuZGVyOjpwYW5kZXIocmVzdWx0czEuMykNCmBgYA0KDQpObyBiaWcgY2hhbmdlcyBpbiBjb252ZXJnZW5jZSBjYW4gYmUgb2JzZXJ2ZWQgY29tcGFyZWQgdG8gbW9kZWwgMS4gVGhlIGluLWRlZ3JlZSBwb3B1bGFyaXR5IHggb3V0LWRlZ3JlZSBhY3Rpdml0eSBpbnRlcmFjdGlvbiBlZmZlY3QgcmVtYWlucyBzaWduaWZpY2FudCBpbiB0aGUgYWJzZW5jZSBvZiBvbmUgb2YgaXRzIGxvd2VyLW9yZGVyIGVmZmVjdHMuIEJvdGggdGhlIGVuZG93bWVudCBhbmQgdGhlIGNyZWF0aW9uIGhvbW9waGlseSBlZmZlY3RzIHJlbWFpbiBzaWduaWZpY2FudCAocCBcPCAuMDAxIGFuZCBwID0gLjAxNCwgcmVzcGVjdGl2ZWx5KS4gVGhlIGNyZWF0aW9uIGVzdGltYXRlIGlzIHBvc2l0aXZlLCBpbmRpY2F0aW5nIHRoYXQgc3R1ZGVudHMgcHJlZmVyIGZvcm1pbmcgdGllcyB3aXRoIHBlZXJzIHdpdGggdGhlIHNhbWUgaGlnaGVzdCBwYXJlbnRhbCBlZHVjYXRpb25hbCBhdHRhaW5tZW50IGFzIHRoZW1zZWx2ZXMgKGUuZy4gZmlyc3QtZ2VuZXJhdGlvbiBzdHVkZW50cyBwcmVmZXIgdGllcyB3aXRoIG90aGVyIGZpcnN0LWdlbmVyYXRpb24gc3R1ZGVudHMsIHN0dWRlbnRzIHdpdGggYSBnZW5lcmF0aW9uYWwgaGlzdG9yeSBvZiB1bml2ZXJzaXR5IGF0dGVuZGFuY2UgcHJlZmVyIHRpZXMgd2l0aCBvdGhlciBzdHVkZW50cyB3aG8gaGF2ZSBhIGdlbmVyYXRpb25hbCBoaXN0b3J5IG9mIHVuaXZlcnNpdHkgYXR0ZW5kYW5jZSkuIFRoZSBzaWduIGZvciB0aGUgZW5kb3dtZW50IGVzdGltYXRlIGlzIG5lZ2F0aXZlLCBpbmRpY2F0aW5nIHRoYXQgaG9tb3BoaWx5IGlzIHdlYWtlciBmb3IgdGhlIGRlY2lzaW9uIHRvIG1haW50YWluIGEgdGllIHRoYW4gZm9yIGNyZWF0aW5nIG5ldyB0aWVzLiBJbnRlcmVzdGluZ2x5LCB0aGUgYWx0ZXIgZWZmZWN0IG9mIGhpZ2hlc3QgcGFyZW50YWwgZWR1Y2F0aW9uYWwgYXR0YWlubWVudCBpbiBlbmRvd21lbnQgaXMgYWxzbyBzaWduaWZpY2FudCwgd2l0aCBhIHBvc2l0aXZlIHBhcmFtZXRlciBlc3RpbWF0ZS4gVGhpcyBpbmRpY2F0ZXMgdGhhdCBzdHVkZW50cyBwcmVmZXIgbWFpbnRhaW5pbmcgdGllcyB3aXRoIHBlZXJzIHdob3NlIHBhcmVudHMgaGF2ZSB1bml2ZXJzaXR5IGV4cGVyaWVuY2UuDQoNCiMjIyBHb29kbmVzcyBvZiBGaXQNCg0KYGBge3J9DQpnb2Zpbm0xLjMgPC0gc2llbmFHT0YobW9kMS4zLCBJbmRlZ3JlZURpc3RyaWJ1dGlvbiwgdmVyYm9zZSA9IEZBTFNFLCBqb2luID0gVFJVRSwgdmFyTmFtZSA9ICJuZXQiLCBsZXZscyA9IDA6MTMpDQpwbG90KGdvZmlubTEuMykNCmBgYA0KDQpgYGB7cn0NCmdvZm91dG0xLjMgPC0gc2llbmFHT0YobW9kMS4zLCBPdXRkZWdyZWVEaXN0cmlidXRpb24sIHZlcmJvc2UgPSBGQUxTRSwgam9pbiA9IFRSVUUsIHZhck5hbWUgPSAibmV0IiwgbGV2bHMgPSAwOjEwKQ0KcGxvdChnb2ZvdXRtMS4zKQ0KYGBgDQoNCmBgYHtyfQ0KZ29mdHJpbTEuMyA8LSBzaWVuYUdPRihtb2QxLjMsIFRyaWFkQ2Vuc3VzLCB2ZXJib3NlID0gRkFMU0UsIGpvaW4gPSBUUlVFLCB2YXJOYW1lID0gIm5ldCIpDQpwbG90KGdvZnRyaW0xLjMsIGNlbnRlciA9IFRSVUUsIHNjYWxlID0gVFJVRSkNCmBgYA0KDQpSZW1vdmluZyB0aGUgaW4tZGVncmVlIHBvcHVsYXJpdHkgZWZmZWN0IGltcHJvdmVkIHRoZSBvdXRkZWdyZWUgZGlzdHJpYnV0aW9uIGZpdCwgYnJpbmdpbmcgdGhlIHAtdmFsdWUgdXAgdG8gMC4wMzggLSB3aGljaCBpcyBzdGlsbCBzaWduaWZpY2FudCwgYnV0IGNlcnRhaW5seSBjbG9zZXIgdG8gdGhlIGFyYml0cmFyeSAwLjA1IHRocmVzaG9sZC4NCg0KIyMjIChzdWIpTW9kZWwgMS40OiByZW1vdmluZyBhbHRlciBlZmZlY3QNCg0KSW4gdGhlIHByZXZpb3VzIHN1Yi1tb2RlbHMsIHRoZSBjcmVhdGlvbiBlZmZlY3Qgb2YgYWx0ZXJzJyBoaWdoZXN0IHBhcmVudGFsIGVkdWNhdGlvbmFsIGF0dGFpbm1lbnQgYW5kIHRoZSBlbmRvd21lbnQgZWZmZWN0IG9mIGVnbydzIGhpZ2hlc3QgcGFyZW50YWwgZWR1Y2F0aW9uYWwgYXR0YWlubWVudCB3ZXJlIGluc2lnbmlmaWNhbnQgYW5kIGhhZCBsYXJnZSBzdGFuZGFyZCBlcnJvcnMuIFRoaXMgbWlnaHQgY29udHJpYnV0ZSB0byB0aGUgb2JzZXJ2ZWQgbGFjayBvZiBjb252ZXJnZW5jZSB3aGVuIGFkZGluZyBhZGRpdGlvbmFsIG5ldHdvcmsgc3RhdGlzdGljcywgZXZlbiB0aG91Z2ggdGhlc2Ugc3RhdGlzdGljcyBpbXByb3ZlIGdvb2RuZXNzIG9mIGZpdC4gSW4gdGhlIGZvbGxvd2luZyBzdWItbW9kZWwsIEkgd2lsbCB0aGVyZWZvcmUgcmVydW4gdGhlIG1vZGVsLCBidXQgd2l0aG91dCB0aGUgY3JlYXRpb24gZWZmZWN0IGZvciBhbHRlcnMnIGhpZ2hlc3QgcGFyZW50YWwgZWR1Y2F0aW9uYWwgYXR0YWlubWVudC4gSSBzdGFydCB3aXRoIHJlbW92aW5nIHRoZSBhbHRlciBoaWdoZXN0IHBhcmVudGFsIGVkdWNhdGlvbmFsIGF0dGFpbm1lbnQgY3JlYXRpb24gZWZmZWN0IGFzIHRoaXMgZWZmZWN0IGRlbW9uc3RyYXRlZCB0aGUgaGlnaGVzdCBwLXZhbHVlIGluIG1vZGVsIDEgYW5kIDEuMy4gR2VuZXJhbGx5LCBpdCBpcyBwcmVmZXJhYmxlIHRvIGluY2x1ZGUgYWxsIGxvd2VyIGxldmVsIGNvbXBvbmVudHMgb2YgYW4gaW50ZXJhY3Rpb24sIGFzIGl0IGlzIHVzdWFsbHkgbm90IHJlYXNvbmFibGUgdG8gYXNzdW1lIHRoYXQgdGhlaXIgbWFpbiBlZmZlY3Qgd2lsbCBiZSAwIHdoZW4gYWNjb3VudGluZyBmb3IgdGhlIGludGVyYWN0aW9uLiBIb3dldmVyLCBhcyB0aGUgZWZmZWN0IGhhcyBjb25zaXN0ZW50bHkgYmVlbiBpbnNpZ25pZmljYW50LCB0aGUgYXNzdW1wdGlvbiBpcyBhY2NlcHRhYmxlIGluIHRoZSBjdXJyZW50IHNpdHVhdGlvbi4NCg0KYGBge3J9DQpteWVmZjEuNCA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZjA5MTAsIG91dEFjdCwgaW5BY3QsIHJlY2lwLCBnd2VzcEZGKSAgDQpgYGANCg0KYGBge3J9DQpteWVmZjEuNCA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZjEuNCwgc2FtZVgsIGVnb1gsIGFsdFgsIHR5cGUgPSAiZW5kb3ciLCBpbnRlcmFjdGlvbjEgPSAicGFyZWR1aGlnaGNvdiIpDQpteWVmZjEuNA0KYGBgDQoNCmBgYHtyfQ0KbXllZmYxLjQgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYxLjQsIHNhbWVYLCBlZ29YLCB0eXBlID0gImNyZWF0aW9uIiwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWhpZ2hjb3YiKQ0KbXllZmYxLjQNCmBgYA0KDQpgYGB7cn0NCm1vZDEuNCA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYxLjQsIHJldHVybkRlcHMgPSBUUlVFKSANCm1vZDEuNA0KYGBgDQoNCmBgYHtyfQ0KcmVzdWx0czEuNCA8LSBkYXRhLmZyYW1lKA0KICBlZmZlY3QgPSBtb2QxLjQkZWZmZWN0cyRlZmZlY3ROYW1lLA0KICBiID0gbW9kMS40JHRoZXRhLA0KICBzZSA9IG1vZDEuNCRzZSwNCiAgdCA9IG1vZDEuNCR0aGV0YSAvIG1vZDEuNCRzZSwNCiAgcCA9IDIgKiBwbm9ybSgtYWJzKG1vZDEuNCR0aGV0YSAvIG1vZDEuNCRzZSkpKQ0KDQpwYW5kZXI6OnBhbmRlcihyZXN1bHRzMS40KQ0KYGBgDQoNCiMjIyBHb29kbmVzcyBvZiBGaXQNCg0KYGBge3J9DQpnb2Zpbm0xLjQgPC0gc2llbmFHT0YobW9kMS40LCBJbmRlZ3JlZURpc3RyaWJ1dGlvbiwgdmVyYm9zZSA9IEZBTFNFLCBqb2luID0gVFJVRSwgdmFyTmFtZSA9ICJuZXQiLCBsZXZscyA9IDA6MTMpDQpwbG90KGdvZmlubTEuNCkNCmBgYA0KDQpgYGB7cn0NCmdvZm91dG0xLjQgPC0gc2llbmFHT0YobW9kMS40LCBPdXRkZWdyZWVEaXN0cmlidXRpb24sIHZlcmJvc2UgPSBGQUxTRSwgam9pbiA9IFRSVUUsIHZhck5hbWUgPSAibmV0IiwgbGV2bHMgPSAwOjEwKQ0KcGxvdChnb2ZvdXRtMS40KQ0KYGBgDQoNCmBgYHtyfQ0KZ29mdHJpbTEuNCA8LSBzaWVuYUdPRihtb2QxLjQsIFRyaWFkQ2Vuc3VzLCB2ZXJib3NlID0gRkFMU0UsIGpvaW4gPSBUUlVFLCB2YXJOYW1lID0gIm5ldCIpDQpwbG90KGdvZnRyaW0xLjQsIGNlbnRlciA9IFRSVUUsIHNjYWxlID0gVFJVRSkNCmBgYA0KDQpJbnRlcmVzdGluZ2x5LCByZW1vdmluZyB0aGUgYWx0ZXIgZWZmZWN0IHJlc3VsdHMgaW4gdGhlIGluLWRlZ3JlZSBhY3Rpdml0eS9vdXQtZGVncmVlIHBvcHVsYXJpdHkgaW50ZXJhY3Rpb24gZWZmZWN0IHR1cm5pbmcgaW5zaWduaWZpY2FudC4gUmVtb3ZpbmcgdGhlIGFsdGVyIGVmZmVjdCBkb2VzIG5vdCBob3dldmVyIHN0cm9uZ2x5IGltcHJvdmUgZml0IGFuZCBzbGlnaHRseSBpbmNyZWFzZXMgdGhlIG1heGltdW0gY29udmVyZ2VuY2UgcmF0aW8uIEdpdmVuIHRoZSBnZW5lcmFsIHByZWZlcmVuY2UgZm9yIHJldGFpbmluZyBsb3dlci1vcmRlciBlZmZlY3RzIG9mIGludGVyYWN0aW9ucywgSSB3aWxsIHRoZXJlZm9yZSBwcm9jZWVkIHdpdGggdGhlIHByZXZpb3VzIG1vZGVsICgxLjMpLg0KDQojIyBNb2RlbCAyOiBIb21vcGhpbHkgeCBFZHVjYXRpb25hbGx5IE1peGVkIEZhbWlseQ0KDQpgYGB7cn0NCm15ZWZmMiA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZjEuMywgZWdvWCwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWRpZmNvdiIsIHR5cGUgPSAiZW5kb3ciKQ0KbXllZmYyDQpgYGANCg0KYGBge3J9DQpteWVmZjIgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYyLCBlZ29YLCBpbnRlcmFjdGlvbjEgPSAicGFyZWR1ZGlmY292IiwgdHlwZSA9ICJjcmVhdGlvbiIpDQpteWVmZjINCmBgYA0KDQpgYGB7cn0NCm15ZWZmMiA8LSAgc2V0X2ludGVyYWN0aW9uKG15ZWZmMiwgbGlzdChzYW1lWCwgZWdvWCksIHR5cGUgPSAiZW5kb3ciLCBjb3ZhcjE9YygicGFyZWR1aGlnaGNvdiIsICJwYXJlZHVkaWZjb3YiKSkNCm15ZWZmMg0KYGBgDQoNCmBgYHtyfQ0KbXllZmYyIDwtICBzZXRfaW50ZXJhY3Rpb24obXllZmYyLCBsaXN0KHNhbWVYLCBlZ29YKSwgdHlwZSA9ICJjcmVhdGlvbiIsIGNvdmFyMT1jKCJwYXJlZHVoaWdoY292IiwgInBhcmVkdWRpZmNvdiIpKQ0KbXllZmYyDQpgYGANCg0KYGBge3J9DQojbW9kMiA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYyLCBwcmV2QW5zID0gbW9kMS4zLCByZXR1cm5EZXBzID0gVFJVRSkgDQojbW9kMg0KYGBgDQoNCkF0IDcuNzIsIHRoZSBvdmVyYWxsIG1heGltdW0gY29udmVyZ2VuY2UgcmF0aW8gaXMgdW5hY2NlcHRhYmxlLCBhbmQgdGhlIGVzdGltYXRlZCBwYXJhbWV0ZXJzIHVucmVhbGlzdGljIHdpdGggdmVyeSBoaWdoIHN0YW5kYXJkIGVycm9ycy4gVGhpcyBwb2ludHMgdG8gdGhlIG1vZGVsIGJlaW5nIG92ZXJseSBjb21wbGV4LCB3aGljaCBpcyBub3QgZW50aXJlbHkgdW5leHBlY3RlZCBiYXNlZCBvbiB0aGUgbGFyZ2UgbnVtYmVyIG9mIGJvdGggZW5kb3dtZW50IGFuZCBjcmVhdGlvbiBlZmZlY3RzLiBJIHdpbGwgcHJvY2VlZCBieSBjb21iaW5pbmcgYWxsIGxvd2VyLWxldmVsIGVuZG93bWVudCBhbmQgY3JlYXRpb24gZWZmZWN0cyBpbnRvIGV2YWx1YXRpb24gZWZmZWN0cyAod2hpY2ggc2hvdWxkIGJlIGVxdWl2YWxlbnQgdG8gdGhlIGNvbWJpbmF0aW9uIG9mIGVuZG93bWVudCBhbmQgY3JlYXRpb24pLiBUaGUgaG9tb3BoaWx5IGFuZCBob21vcGhpbHkgeCBtaXhlZCBlZmZlY3RzIHdpbGwgYmUga2VwdCBhcyBzZXBhcmF0ZSBlbmRvd21lbnQgYW5kIGNyZWF0aW9uIGVmZmVjdHMsIGFzIHRoZXNlIGFyZSByZWxldmFudCB0byB0aGUgcmVzZWFyY2ggcXVlc3Rpb24uDQoNCiMjIyAoc3ViKU1vZGVsIDIuMTogcmVkdWNlZCBjb21wbGV4aXR5DQoNCmBgYHtyfQ0KbXllZmYyLjEgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYwOTEwLCBvdXRBY3QsIGluQWN0LCByZWNpcCwgZ3dlc3BGRikgIA0KYGBgDQoNCmBgYHtyfQ0KbXllZmYyLjEgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYyLjEsIGVnb1gsIGFsdFgsIHR5cGUgPSAiZXZhbCIsIGludGVyYWN0aW9uMSA9ICJwYXJlZHVoaWdoY292IikNCm15ZWZmMi4xDQpgYGANCg0KYGBge3J9DQpteWVmZjIuMSA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZjIuMSwgZWdvWCwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWRpZmNvdiIsIHR5cGUgPSAiZXZhbCIpDQpteWVmZjIuMQ0KYGBgDQoNCmBgYHtyfQ0KbXllZmYyLjEgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYyLjEsIHNhbWVYLCBpbnRlcmFjdGlvbjEgPSAicGFyZWR1aGlnaGNvdiIsIHR5cGUgPSAiZW5kb3ciKQ0KbXllZmYyLjENCmBgYA0KDQpgYGB7cn0NCm15ZWZmMi4xIDwtIGluY2x1ZGVFZmZlY3RzKG15ZWZmMi4xLCBzYW1lWCwgaW50ZXJhY3Rpb24xID0gInBhcmVkdWhpZ2hjb3YiLCB0eXBlID0gImNyZWF0aW9uIikNCm15ZWZmMi4xDQpgYGANCg0KYGBge3J9DQpteWVmZjIuMSA8LSAgc2V0X2ludGVyYWN0aW9uKG15ZWZmMi4xLCBsaXN0KHNhbWVYLCBlZ29YKSwgdHlwZSA9ICJlbmRvdyIsIGNvdmFyMT1jKCJwYXJlZHVoaWdoY292IiwgInBhcmVkdWRpZmNvdiIpKQ0KbXllZmYyLjENCmBgYA0KDQpgYGB7cn0NCm15ZWZmMi4xIDwtICBzZXRfaW50ZXJhY3Rpb24obXllZmYyLjEsIGxpc3Qoc2FtZVgsIGVnb1gpLCB0eXBlID0gImNyZWF0aW9uIiwgY292YXIxPWMoInBhcmVkdWhpZ2hjb3YiLCAicGFyZWR1ZGlmY292IikpDQpteWVmZjIuMQ0KYGBgDQoNCmBgYHtyfQ0KbW9kMi4xIDwtIHNpZW5hMDcobXlBbGdvcml0aG0sIGRhdGEgPSBteWRhdGEsIGVmZmVjdHMgPSBteWVmZjIuMSwgcmV0dXJuRGVwcyA9IFRSVUUpIA0KbW9kMi4xDQpgYGANCg0KYGBge3J9DQpyZXN1bHRzMi4xIDwtIGRhdGEuZnJhbWUoDQogIGVmZmVjdCA9IG1vZDIuMSRyZXF1ZXN0ZWRFZmZlY3RzJGVmZmVjdE5hbWUsDQogIGIgPSBtb2QyLjEkdGhldGEsDQogIHNlID0gbW9kMi4xJHNlLA0KICB0ID0gbW9kMi4xJHRoZXRhIC8gbW9kMi4xJHNlLA0KICBwID0gMiAqIHBub3JtKC1hYnMobW9kMi4xJHRoZXRhIC8gbW9kMi4xJHNlKSkpDQoNCnBhbmRlcjo6cGFuZGVyKHJlc3VsdHMyLjEpDQpgYGANCg0KKk5vdGU6KiBUaGUgbW9kZWwgYXV0b21hdGljYWxseSBpbmNsdWRlcyB0aGUgaW50ZXJuYWwgZWZmZWN0IHBhcmFtZXRlcnMgdXNlZCBmb3IgdGhlIGludGVyYWN0aW9uIChpbiB0aGlzIGNhc2U6IHRoZSBlbmRvd21lbnQgYW5kIGNyZWF0aW9uIGVmZmVjdCBvZiBlZ28gaGF2aW5nIHBhcmVudHMgd2l0aCBkaWZmZXJlbnQgZWR1Y2F0aW9uYWwgYmFja2dyb3VuZHMpLCBidXQgdGhlc2UgYXJlIG5vdCB0ZXN0ZWQgYXMgcGFydCBvZiB0aGUgbWFpbiBtb2RlbC4gSSB0aGVyZWZvcmUgZG8gbm90IHJlcG9ydCB0aGVtIGluIHRoZSBhYm92ZSB0YWJsZS4NCg0KVGhlIG1vZGVsIHNob3dzIGFjY2VwdGFibGUgY29udmVyZ2VuY2UsIG92ZXJhbGwgbWF4aW11bSBjb252ZXJnZW5jZSByYXRlIDwgMC4yNSwgYWJzb2x1dGUgY29udmVyZ2VuY2UgdC1yYXRpb3MgPCAwLjEuIEFsdGhvdWdoIHRoZSBzaWducyBvZiB0aGUgZXN0aW1hdGVzIGFyZSBpbiBsaW5lIHdpdGggZXhwZWN0YXRpb25zLCB0aGUgaW50ZXJhY3Rpb24gYmV0d2VlbiBob21vcGhpbHkgYW5kIGVnbyBoYXZpbmcgYSBtaXhlZCBiYWNrZ3JvdW5kIGlzIGNsZWFybHkgaW5zaWduaWZpY2FudCBmb3IgYm90aCBlbmRvd21lbnQgYW5kIGNyZWF0aW9uIChwID0gMC44NDYgYW5kIHAgPSAzLjk5LCByZXNwZWN0aXZlbHkpLiBUaGUgaHlwb3RoZXNpcyB0aGF0IHN0dWRlbnRzIHdob3NlIHBhcmVudHMgaGF2ZSBkaWZmZXJlbnQgZWR1Y2F0aW9uYWwgYXR0YWlubWVudHMgKHVuaXZlcnNpdHkgZXhwZXJpZW5jZSAmIG5vIHVuaXZlcnNpdHkgZXhwZXJpZW5jZSkgaGF2ZSBsb3dlciBsZXZlbHMgb2YgaG9tb3BoaWx5IGlzIHRodXMgbm90IHN1cHBvcnRlZC4gSG9tb3BoaWx5IGl0c2VsZiByZW1haW5zIHNpZ25pZmljYW50IGZvciBjcmVhdGlvbi4gSG9tb3BoaWx5IGluIGVuZG93bWVudCBhcHByb2FjaGVzIHNpZ25pZmljYW5jZSBiYXNlZCBvbiBhIHR3by1zaWRlZCB0ZXN0LCBidXQgZ2l2ZW4gdGhlIG9uZS1zaWRlZCBuYXR1cmUgb2YgdGhlIGh5cG90aGVzaXMsIGl0IGNhbiBiZSBjb25jbHVkZWQgdGhhdCB0aGUgcmVzdWx0cyBzaG93IHN1cHBvcnQgZm9yIHRoZSBleGlzdGVuY2Ugb2YgcHJlZmVyZW5jZXMgZm9yIGhvbW9waGlseSBpbiBlbmRvd21lbnQsIHRvby4NCg0KIyMjIEdvb2RuZXNzIG9mIEZpdA0KDQpgYGB7cn0NCmdvZmlubTIuMSA8LSBzaWVuYUdPRihtb2QyLjEsIEluZGVncmVlRGlzdHJpYnV0aW9uLCB2ZXJib3NlID0gRkFMU0UsIGpvaW4gPSBUUlVFLCB2YXJOYW1lID0gIm5ldCIsIGxldmxzID0gMDoxMykNCnBsb3QoZ29maW5tMi4xKQ0KYGBgDQoNCmBgYHtyfQ0KZ29mb3V0bTIuMSA8LSBzaWVuYUdPRihtb2QyLjEsIE91dGRlZ3JlZURpc3RyaWJ1dGlvbiwgdmVyYm9zZSA9IEZBTFNFLCBqb2luID0gVFJVRSwgdmFyTmFtZSA9ICJuZXQiLCBsZXZscyA9IDA6MTApDQpwbG90KGdvZm91dG0yLjEpDQpgYGANCg0KYGBge3J9DQpnb2Z0cmltMi4xIDwtIHNpZW5hR09GKG1vZDIuMSwgVHJpYWRDZW5zdXMsIHZlcmJvc2UgPSBGQUxTRSwgam9pbiA9IFRSVUUsIHZhck5hbWUgPSAibmV0IikNCnBsb3QoZ29mdHJpbTIuMSwgY2VudGVyID0gVFJVRSwgc2NhbGUgPSBUUlVFKQ0KYGBgDQoNCiMjIE1vZGVsIDM6IENvbnRyb2wgVmFyaWFibGVzDQo=</div>
 
 
 </div>
