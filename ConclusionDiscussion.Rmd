@@ -19,13 +19,13 @@ This study investigated patterns of homophily based on caregiver educational att
 
 3) Does growing up in an educationally mixed family affect students' tendency for homophily in the creation and maintenance of hanging out relations?
 
-Descriptive analysis based on Moran's I did not support the hypothesis that hanging out networks were segregated by caregiver educational attainment (H1). Despite this lack of macro-level visibility, on an individual level, homophily was significant, in line with expectations (H2). However, contrary to hypothesis 2b, homophily was less relevant in the maintenance/endowment than in the creation of ties. Finally, the expectation that students who grew up in an educationally mixed family would have lower levels of homophily was not supported (H3). All conclusions remained constant when accounting for ethnic and gender homophily.
+Descriptive analysis based on Moran's I did not support the hypothesis that hanging out networks were segregated by caregiver educational attainment (H1). Hypothesis 2, which described the expectation that students prefer hanging out with peers who have the same caregiver educational background, was also not supported. Although homophily did play a role in creation, as an evaluation effect, it was insignificant. Contrary to hypothesis 2b, homophily did not mainly occur in tie maintenance/endowment. Instead, an anti-homophily effect was found in endowment that counteracted the positive effect of homophily in tie creation. Finally, the expectation that students who grew up in an educationally mixed family would have lower levels of homophily was not supported (H3). All conclusions remained constant when accounting for ethnic and gender homophily.
 
 # Discussion
 
 ## Implications
 
-The discrepancy between the lack of macro-level segregation and the significance of homophily on an individual level.
+Firstly, this study demonstrates the value of separating creation and endowment effects. In the evaluation-only model, homophily seemed to play no role in students' social networks. This was reflected in the described level of segregation. However, separating creation and endowment effects revealed that homophily does play an important role in the tie creation stage. This is counteracted by the anti-homophily effect in tie maintenance. In the investigated learning community, a very large number of ties was broken between waves. The apparent instability in these students' hanging out networks may have exacerbated the role of the anti-homophily effect for macro-level outcomes. This raises questions about the role of homophily in tie creation and endowment in networks with a lower turnover.
 
 More relevant for creation –\> maybe status symbols are more easily picked up on than expected
 
@@ -37,6 +37,8 @@ Something about ethnic inequalities, racialised dynamics. Seriously taking into 
 
 Obviously, looking at classed social dynamics without considering income inequality is ridiculous.
 
-Many previous studies among first-generation students discuss experiences related to income inequality, demonstrating an important overlap between educational heritage and wealth. This research however only considered educational heritage. It is possible that social segregation mainly driven by the intersection of first generation status and low income. In this case, the study may have underestimated the level of segregation. This may explain the finding that homophily was more relevant in tie creation than in endowment. Visible attributes that signal social status discussed in the literature on first generation students primarily relate to purchases enabled by greater wealth. Part of the homophily effect in creation may therefore be attributable to income homophily rather than homophily in caregiver educational attainment, which is less visible.
+Many previous studies among first-generation students discuss experiences related to income inequality, demonstrating an important overlap between educational heritage and wealth. The current research however only considered educational heritage. It is possible that social segregation and homophily are mainly driven by the intersection of being a first-generation college student and coming from a household with a lower income level. This could explain the finding that homophily was more relevant in tie creation than in endowment. Visible attributes that signal social status discussed in the literature on first generation students primarily relate to purchases enabled by greater wealth. Part of the homophily effect in creation may therefore be attributable to income homophily rather than homophily in caregiver educational attainment, which is less visible.
 
 ## Suggestions for Future Research
+
+Status,

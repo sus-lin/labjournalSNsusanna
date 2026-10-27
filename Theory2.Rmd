@@ -20,11 +20,11 @@ The people of the United States are strongly segregated based on class, in terms
 
 This macro-level segregation would be explained on the micro-level by homophily, the preference for homogeneity in friendships. ***ADD REASONS: students with generational heritage of educational experience may hold prejudice, first-generation students may seek safety/avoid stigmatisation***
 
-*H2: Students prefer maintaining friendships with peers who have the same parental educational background.*
+*H2: Students prefer hanging out with peers who have the same caregiver educational background.*
 
 While previous studies suggest that outward status symbols such as clothing styles can signal class background [@gray2018; @crozier2019], more detailed information about fellow students' family background often only becomes known through sustained interaction. Many first-generation students, both in the US and elsewhere, actively avoid disclosure and develop passing strategies such as dodging the issue or code-switching to escape stigmatisation [@gray2018b; @álvarez-rivadulla2023a; @crozier2019a]. Parental educational background can therefore be considered a less observable or interaction-revealed attribute. Such attributes primarily become relevant for homophily at the tie maintenance/dissolution stage [@grund2026]. This suggests the following nuance to hypothesis 2:
 
-*H2b: Homophily in parental educational background plays a bigger role in the maintenance/dissolution of ties than in creation of ties.*
+*H2b: Homophily in caregiver educational background mainly manifests in the maintenance/dissolution of ties rather than the creation of ties.*
 
 ## Family Socialisation
 

@@ -452,6 +452,7 @@ mod1 <- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
 ```{r}
 #mod1 <- saveRDS(mod1, "mod1.rds")
 mod1 <- readRDS("mod1.rds")
+mod1
 ```
 
 The overall convergence ratio is under .25, which is acceptable. Convergence of individual parameters is also sufficient (absolute values all under 0.1). The rate parameter value is 8.58, indicating that each actor had, on average, 8.58 options for change ('mini-steps') within the simulation.
@@ -522,7 +523,7 @@ goftrim1 <- sienaGOF(mod1, TriadCensus, verbose = FALSE, join = TRUE, varName = 
 plot(goftrim1, center = TRUE, scale = TRUE)
 ```
 
-The simulated networks based on the included effects show reasonable similarity with the observed network in terms of in-degree distribution, geodesic distribution, and triad census. However, the model seems to somewhat underestimate the number of nodes with out-degree 0, and overestimate the number of nodes with out-degree 1. A potential explanation for the higher observed number of nodes with out-degree 0 might be that isolated students are less likely to increase their out-degree. In the following sub-model, I thus include the outIso effect.
+The simulated networks based on the included effects show reasonable similarity with the observed network in terms of in-degree distribution, geodesic distribution, and triad census. However, the model somewhat underestimates the number of nodes with out-degree 0, and overestimates the number of nodes with out-degree 1. A potential explanation for the higher observed number of nodes with out-degree 0 might be that isolated students are less likely to increase their out-degree. In the following sub-model, I thus include the outIso effect.
 
 ### (sub)Model 1.1: outIso
 
@@ -537,6 +538,7 @@ mod1.1 <- siena07(myAlgorithm, data = mydata, effects = myeff1.1, prevAns = mod1
 ```{r}
 #mod1.1 <- saveRDS(mod1.1, "mod1.1.rds")
 mod1.1 <- readRDS("mod1.1.rds")
+mod1.1
 ```
 
 ```{r}
@@ -550,7 +552,7 @@ results2 <- data.frame(
 pander::pander(results2)
 ```
 
-Although the overall maximum convergence ratio is acceptable, including the outIso effect destabilises the estimation of the individual effects, reflected in very high convergence t-ratio statistics. The ego-effects of highest parental educational attainment demonstrate particularly high standard errors, as well as suspiciously pronounced estimates. The lack of convergence makes this an inappropriate model to proceed with.
+Although the overall maximum convergence ratio is acceptable, including the outIso effect destabilises the estimation of the individual effects, reflected in very high convergence t-ratio statistics. The ego-effects of highest parental educational attainment demonstrate particularly high standard errors, as well as suspiciously pronounced estimates. The lack of convergence makes this an inappropriate model to proceed with. I will therefor explore alternative effects that may account for the underestimation of out-isolates.
 
 ### (sub)Model 1.2: inIsDegree
 
@@ -591,6 +593,7 @@ mod1.3 <- siena07(myAlgorithm, data = mydata, effects = myeff1.3, returnDeps = T
 ```{r}
 #mod1.3 <- saveRDS(mod1.3, "mod1.3.rds")
 mod1.3 <- readRDS("mod1.3.rds")
+mod1.3
 ```
 
 
@@ -605,7 +608,7 @@ results1.3 <- data.frame(
 pander::pander(results1.3)
 ```
 
-No big changes in convergence can be observed compared to model 1. The in-degree popularity x out-degree activity interaction effect remains significant in the absence of one of its lower-order effects. Both the endowment and the creation homophily effects remain significant (p \< .001 and p = .014, respectively). The creation estimate is positive, indicating that students prefer forming ties with peers with the same highest parental educational attainment as themselves (e.g. first-generation students prefer ties with other first-generation students, students with a generational history of university attendance prefer ties with other students who have a generational history of university attendance). The sign for the endowment estimate is negative, indicating that homophily is weaker for the decision to maintain a tie than for creating new ties. Interestingly, the alter effect of highest parental educational attainment in endowment is also significant, with a positive parameter estimate. This indicates that students prefer maintaining ties with peers whose parents have university experience.
+No big changes in convergence can be observed compared to model 1. Both the endowment and the creation homophily effects remain significant (p < .001 and p = .014, respectively). 
 
 ### Goodness of Fit
 
@@ -655,6 +658,7 @@ mod1.4 <- siena07(myAlgorithm, data = mydata, effects = myeff1.4, returnDeps = T
 ```{r}
 #mod1.4 <- saveRDS(mod1.4, "mod1.4.rds")
 mod1.4 <- readRDS("mod1.4.rds")
+mod1.4
 ```
 
 ```{r}
@@ -705,6 +709,7 @@ mod1.5 <- siena07(myAlgorithm, data = mydata, effects = myeff1.5, prevAns = mod1
 ```{r}
 #mod1.5 <- saveRDS(mod1.5, "mod1.5.rds")
 mod1.5 <- readRDS("mod1.5.rds")
+mod1.5
 ```
 
 ```{r}
@@ -813,6 +818,7 @@ mod2.1 <- siena07(myAlgorithm, data = mydata, effects = myeff2.1, returnDeps = T
 ```{r}
 #mod2.1 <- saveRDS(mod2.1, "mod2.1.rds")
 mod2.1 <- readRDS("mod2.1.rds")
+mod2.1
 ```
 ```{r}
 results2.1 <- data.frame(
@@ -846,6 +852,11 @@ goftrim2.1 <- sienaGOF(mod2.1, TriadCensus, verbose = FALSE, join = TRUE, varNam
 plot(goftrim2.1, center = TRUE, scale = TRUE)
 ```
 
+```{r}
+gofgdm2.1 <- sienaGOF(mod2.1, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofgdm2.1)
+```
+
 ## Model 3: Control Variables
 
 ```{r}
@@ -862,8 +873,9 @@ myeff3
 mod3 <- siena07(myAlgorithm, data = mydata, effects = myeff3, prevAns = mod2.1, returnDeps = TRUE) 
 ```
 ```{r}
-#mod3 <- saveRDS(mod3, "mod3.rds")
+mod3 <- #saveRDS(mod3, "mod3.rds")
 mod3 <- readRDS("mod3.rds")
+mod3
 ```
 ```{r}
 results3 <- data.frame(
@@ -893,9 +905,14 @@ goftrim3 <- sienaGOF(mod3, TriadCensus, verbose = FALSE, join = TRUE, varName = 
 plot(goftrim3, center = TRUE, scale = TRUE)
 ```
 
+```{r}
+gofgdm3 <- sienaGOF(mod3, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofgdm3)
+```
+
 ### (sub)Model 3.1: Isolates
 
-Including outIso, outInAss, antiInIso, outOutAss, balance interferes with the convergence.
+Including outIso, outInAss, antiInIso, outOutAss, or balance interferes with the convergence.
 
 ```{r}
 myeff3.1 <- includeEffects(myeff3, balance)
@@ -907,8 +924,7 @@ myeff3.1
 #mod3.1
 ```
 
-# Model Summary
-
+# Evaluation and Interpretation of Models
 
 summary <- data.frame(
   Hypotheses = c("Hypothesis 1", "", "", "", "", "", "Hypothesis 2", "", "", "Controls"),
@@ -919,20 +935,115 @@ summary <- data.frame(
   "GOF Geodesic" = c(gofgdm1$p, "", "", gofgdm1.3$p, gofgdm1.4$p, gofgdm1.5$p, "", gofgdm2.1$p, "", gofgdm3$p),
   "GOF Triads" = c(goftrim1$p, "", "", goftrim1.3$p, goftrim1.4$p, goftrim1.5$p, "", goftrim2.1$p, "", goftrim3$p)
   )
+  
 
 pander::pander(summary)
 
+Model 1.3 offered the best combination of convergence, fit, and inclusion of relevant variables. Below, I will compare model 1.3 with an alternative model containing only evaluation effects, and two models combining evaluation with creation and evaluation with endowment, respectively. In doing so, I will provide an interpretation of the findings.
+
+## Alternative Models
+
+### Evaluation-Only
+
+```{r}
+myeff1.3e <- includeEffects(myeff0910, outAct, inAct, recip, gwespFF) 
+myeff1.3e
+```
+
+```{r}
+myeff1.3e <- includeEffects(myeff1.3e, sameX, egoX, altX, interaction1 = "pareduhighcov")
+myeff1.3e
+```
+
+```{r, eval=FALSE}
+mod1.3e <- siena07(myAlgorithm, data = mydata, effects = myeff1.3e, returnDeps = TRUE) 
+```
+```{r}
+#mod1.3e <- saveRDS(mod1.3e, "mod1.3e.rds")
+mod1.3e <- readRDS("mod1.3e.rds")
+mod1.3e
+```
+
+### Evaluation & Endowment
+
+```{r}
+myeff1.3ee <- includeEffects(myeff0910, outAct, inAct, recip, gwespFF) 
+myeff1.3ee
+```
+
+```{r}
+myeff1.3ee <- includeEffects(myeff1.3ee, sameX, egoX, altX, type = "endow", interaction1 = "pareduhighcov")
+myeff1.3ee
+```
+
+```{r}
+myeff1.3ee <- includeEffects(myeff1.3ee, sameX, egoX, altX, type = "eval", interaction1 = "pareduhighcov")
+myeff1.3ee
+```
+
+```{r, eval=FALSE}
+mod1.3ee <- siena07(myAlgorithm, data = mydata, effects = myeff1.3ee, returnDeps = TRUE) 
+```
+```{r}
+#mod1.3ee <- saveRDS(mod1.3ee, "mod1.3ee.rds")
+mod1.3ee <- readRDS("mod1.3ee.rds")
+mod1.3ee
+```
+
+### Evaluation & Creation
+
+```{r}
+myeff1.3ec <- includeEffects(myeff0910, outAct, inAct, recip, gwespFF) 
+myeff1.3ec
+```
+
+```{r}
+myeff1.3ec <- includeEffects(myeff1.3ec, sameX, egoX, altX, type = "eval", interaction1 = "pareduhighcov")
+myeff1.3ec
+```
+
+```{r}
+myeff1.3ec <- includeEffects(myeff1.3ec, sameX, egoX, altX, type = "creation", interaction1 = "pareduhighcov")
+myeff1.3ec
+```
+
+```{r, eval=FALSE}
+mod1.3ec <- siena07(myAlgorithm, data = mydata, effects = myeff1.3ec, returnDeps = TRUE) 
+```
+```{r}
+#mod1.3ec <- saveRDS(mod1.3ec, "mod1.3ec.rds")
+mod1.3ec <- readRDS("mod1.3ec.rds")
+mod1.3ec
+```
+
+### Endowment & Creation (Original 1.3)
+
+```{r}
+mod1.3
+```
+```{r}
+pander::pander(results1.3)
+```
+## Comparison and Interpretation
+
+Model 1.3 demonstrated significant homophily effects in both creation (b = 1.35, SE = 0.55, p = 0.014) and endowment (b = -1.64, SE = 0.43, p < 0.001). This is visible throughout the models: in the evaluation & endowment model, evaluation takes up the positive impact of creation, whereas in the evaluation & creation model, evaluation turns negative to account for the unspecified impact of endowment. Both effects are similar in size, resulting in an effect close to zero in the evaluation-only model (b = -0.0024, SE = 0.17). The negative sign of the endowment effect suggests that, all else kept stable, students prefer maintaining ties with peers whose parents/caregivers have a different level of college experience than their own. Homophilous ties are thus more easily broken. On the flip side, the positive effect of homophily in creation suggests that in forming new ties, students do prefer befriending peers with a similar caregiver educational attainment as their own (e.g. first-generation students prefer ties with other first-generation students, students with at least one parent who attended college prefer ties with other students with the same educational family heritage). The findings therefore do not support hypothesis 1 (evaluation homophily) and 1b (homophily in maintenance).
+
+Interestingly, the model additionally contains a significant positive endowment effect of alter's caregiver educational attainment (b = -0.25, SE = 0.33, p = 0.002). This suggests that on average, students prefer maintaining ties with peers who have at least one parent/caregiver with a college diploma. In other words, ties with first-generation college students are more easily broken. 
+
+Students also demonstrate a preference for reciprocal relations (b = 3.07, SE = 0.73, p < 0.001) and for closing tie I --> J in the two-path I --> H --> J, with a diminishing additional benefit when I --> J closes several triads at once (b = 1.93, SE = 0.49, p < 0.001, using the standard internal effect parameter of 69). Students with a high out-degree are more likely to subsequently create/maintain an outgoing tie (b = 0.079, SE = 0.03, p = 0.012), while students with a high in-degree are less likely to create/maintain an outgoing tie (b = -0.39, SE = 0.17, p = 0.023).
 
 # Relative Influence
 
 ```{r}
 # get parameters
-theta.eval <- mod1.3$theta
+theta.eval <- mod1.3e$theta
 # and effects
-myeff.eval <- mod1.3$effects
+myeff.eval <- mod1.3e$effects
 
-# use sienaRI() --> doesn't exist. Maybe interpret_size?
-#RI <- interpret_size(mod1.3, data = mydata, theta = theta.eval, effects = myeff.eval)
-#plot it
-#plot(RI, addPieChart = TRUE) #I can't see the full legend...
+# find it
+RI <- interpret_size(mod1.3e, data = mydata, theta = theta.eval, effects = myeff.eval)
+# plot it
+plot(RI, addPieChart = TRUE, legendColumns = 1, col = c("#FCFDBF", "#FDDD9F", "#FEBD82","#E44F64", "#CC3F71", "#A02F7F", "#681C81", "#2F1163"))
 ```
+
+The relative influence plot demonstrates the extent to which ministeps would have differed had an effect been omitted, plotted for each actor (bar chart) and the sample as a whole (pie chart). This can be used to interpret the relative micro-level importance of each effect compared to the others. In the plot above, I visualise the relative influence of effects based on the evaluation-only alternative model, as the interpret_size function does not yet work for models containing endowment or creation effects. As expected given the previously observed mutual cancelling out between creation and endowment effects, homophily is irrelevant for tie evaluation as a whole.

@@ -1,0 +1,16 @@
+---
+title: "Introduction2"
+author: "Susanna"
+date: "2026-10-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+To what extent are hanging out networks of first-year university students in a Michigan Learning Community segregated by caregiver educational attainment?
+
+To what extent do students demonstrate a tendency for homophily in the creation and maintenance of hanging out relations?
+
+Does growing up in an educationally mixed family affect students' tendency for homophily in the creation and maintenance of hanging out relations?
