@@ -3,6 +3,7 @@ title: "Analyses and Results"
 author: "Susanna"
 date: "2026-09-29"
 output: html_document
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -14,8 +15,6 @@ klippy::klippy(position = c('top', 'right'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
-
-Cleaning environment + checking packages
 
 ```{r}
 rm(list = ls())
@@ -89,8 +88,8 @@ colourparedudif <- ifelse(is.na(parentedudif), "grey91", ifelse(parentedudif==1,
 layoutfr2 <- layout.fruchterman.reingold(hangingt2)
 layoutdh2 <- igraph:: layout_with_dh(hangingt2)
 
-V(hangingt1)$size = igraph::degree(hangingt1)*0.35 + 7
-V(hangingt2)$size = igraph::degree(hangingt2)*0.35 + 7
+V(hangingt1)$size = igraph::degree(hangingt1) * 0.4 + 7
+V(hangingt2)$size = igraph::degree(hangingt2) * 0.4 + 7
 
 {png("plot2.png", width = 14, height = 7, units = "in", res = 300)
 
@@ -127,6 +126,10 @@ dev.off()}
 knitr::include_graphics("plot2.png")
 ```
 
+*Note:* Nodes were distributed in the graph based on the Fruchterman-Reingold forcedirected algorithm, which models repulsion between nodes and attraction between nodes that are unconnected. The nodes were fixed in their w2 location for both waves to visualise changes in specific ties. Node size indicates degree, darkness of ties indicates betweenness.
+
+Before investigating whether the hypothesised effects are significant in individual students' tie-making and -breaking, it is important to understand the observable dynamics within the network. For this purpose, I first explore the descriptive statistics in both waves. I start with descriptives related to the evolution of ties, density, and pathlength, then I discuss triad configurations within the network, before finally calculating segregation based on parental educational attainment to answer research question 1.
+
 ## Tie evolution
 
 ```{r}
@@ -137,8 +140,6 @@ dyad_census(hangingt1)
 dyad_census(hangingt2)
 ```
 
-Between t1 and t2, we can observe a substantial reduction in the number of ties within students' hanging out network. Whereas at t1 a total number of 302 pairs were connected, 93 of which were reciprocal connections, at t2, only 210 connections remain. This entails a drop of 30.5% of the initial number of dyads. The evolution of hanging out networks in this community of university students is thus strongly shaped by endowment, i.e. the decision to maintain or break a tie.
-
 ```{r}
 edge_density(hangingt1)
 ```
@@ -147,15 +148,18 @@ edge_density(hangingt1)
 edge_density(hangingt2)
 ```
 
+Between wave 1 and wave 2, we can observe a substantial reduction in the number of ties within students' hanging out network. While in the first wave, a total number of 302 pairs were connected, 93 of which were reciprocal connections, by the second wave, only 210 connections remain. This entails a drop of 30.5% of the initial number of dyads. This is reflected in density, which is low in both networks, but also drops substantially between waves (from 0.027 to 0.019). This is also observable in the above figure: many ties are broken between wave 1 and wave 2. The evolution of hanging out networks in this community of university students is thus strongly shaped by endowment, i.e. the decision to maintain or break a tie. Investigating homophily effects in endowment specifically is therefore particularly relevant for this context.
+
 ```{r}
-degree_distribution(hangingt1, cumulative = FALSE)
+degdis1 <- degree_distribution(hangingt1, cumulative = FALSE)
+library(lattice)
+barplot(degdis1, xlab = "Degree", ylab = "Share of Total (Decimal)", names.arg = 1:23, col = "mediumorchid4")
 ```
 
 ```{r}
-degree_distribution(hangingt2, cumulative = FALSE)
+degdis2 <- degree_distribution(hangingt2, cumulative = FALSE)
+barplot(degdis2, xlab = "Degree", ylab = "Share of Total (Decimal)", names.arg = 1:20, col = "mediumorchid4")
 ```
-
-## Average Shortest Path Length
 
 ```{r}
 mean_distance(hangingt1, directed = T, unconnected = T, details = T)
@@ -165,9 +169,7 @@ mean_distance(hangingt1, directed = T, unconnected = T, details = T)
 mean_distance(hangingt2, directed = T, unconnected = T, details = T)
 ```
 
-The average shortest path length between vectors is 4.84 at t1, and, surprisingly, decreases to 4.59 at t2 - despite the reduction in the total number of connected pairs.
-
-## Triad Census
+Surprisingly, the average shortest path length between vectors, not counting isolates, decreases from 4.84 in the first wave to 4.59 in the second wave - despite the reduction in the total number of connected pairs. This may be explained by the presence of several efficient brokers between clusters, visible in the wave 2 network depiction.
 
 ```{r}
 hangingt1m <- as.matrix(hanging_df_t1)
@@ -179,9 +181,11 @@ sna::triad.census(hangingt1m)
 sna::triad.census(hangingt2m)
 ```
 
-Between t1 and t2, we can observe a reduction in all triad types except for the 111U constellation, which raises from occurring 920 times to occurring 1050 times, and the 120C constellation, which remains constant.
+Between both waves, we can observe a reduction in all triad types except for the 111U constellation, which raises from occurring 920 times to occurring 1050 times, and the 120C constellation, which remains constant. This observed reduction in most tryad compositions is likely another consequence of the overall reduction in ties.
 
 ## Segregation
+
+To answer the first research question, I calculate Moran's I, a spatial autocorrelation measure used to indicate whether nodes that are closer to one another are more alike. Under the null hypothesis of no segregation, the expected value of I is -1/(N-1). An observed I larger than the expected indicates positive autocorrelation, an observed I smaller than the expected indicates negative autocorrelation (the opposite of segregation) [@disalvatore2021]. As I am interested in selection rather than influence, I use a distance decay function of 1, i.e. I test whether students who are directly connected are more similar in their parents' highest educational attainment. I do not rowstandardise, since rowstandardising would treat a student connected to only one peer with a different educational heritage and no others the same as it would a student connected to several such peers and no others.
 
 ```{r}
 hangingt1m <- as.matrix(hanging_df_t1)
@@ -195,6 +199,7 @@ diag(geodistances) <- Inf
 
 
 # step 2: define a distance decay function. This one is pretty standard in the spatial autocorrelation literature but actually pretty arbitrary.
+weights1 <- geodistances == 1
 weights2 <- exp(-geodistances)
 ```
 
@@ -297,10 +302,8 @@ fMoran.I <- function(x, weight, scaled = FALSE, na.rm = FALSE, alternative = "tw
 ```
 
 ```{r}
-fMoran.I(parenteduhigh, scaled = FALSE, weight = weights2, na.rm = TRUE, rowstandardize = FALSE)
+fMoran.I(parenteduhigh, scaled = FALSE, weight = weights1, na.rm = TRUE, rowstandardize = FALSE)
 ```
-
-We find no evidence for segregation based on parental educational attainment in hanging out networks of the first wave.
 
 ```{r}
 # step 1: calculate distances
@@ -316,7 +319,48 @@ weights3 <- exp(-geodistances2)
 fMoran.I(parenteduhigh, scaled = FALSE, weight = weights3, na.rm = TRUE, rowstandardize = FALSE)
 ```
 
-We also find no evidence for segregation based on parental educational levels in the second wave.
+There is no evidence for segregation based on parental educational levels in either wave, indicating that across the entire network, students that hang out together are not necessarily more similar regarding the highest educational attainment among their parent(s)/caregiver(s). However, it is possible for the overall segregation to be insignificant while segregation does occur within specific clusters, in this case friend groups [@disalvatore2021]. Additionally, other network effects such as meeting opportunities through mutual friends may account for the lack of observed segregation. To answer research question two and three, it is therefore necessary to model students' individual evaluation functions.
+
+## Students with a Mixed Background
+
+```{r}
+V(hangingt1)$size = igraph::betweenness(hangingt1, normalized = T, directed = TRUE) * 70 + 7
+V(hangingt2)$size = igraph::betweenness(hangingt2, normalized = T, directed = TRUE) * 70 + 7
+
+{png("plot3.png", width = 14, height = 7, units = "in", res = 300)
+
+par(mfrow = c(1, 2))
+
+plot(hangingt1,
+     vertex.color = adjustcolor(colourpareduhigh, alpha.f = .5),
+     vertex.frame.color = colourparedudif,
+     vertex.frame.width = 2,
+     vertex.label = NA,
+     edge.curved = 0.2,
+     edge.arrow.size = 0.2,
+     edge.color = colourbetweenness[cut(igraph::edge_betweenness(hangingt1), breaks=nbins )],
+     layout = layoutfr2, 
+     main = "Wave 1")
+
+legend("topleft", c("university", "no university", "mixed", "missing"), pch = 21, col = "grey91", pt.bg = c("#3A87AD", "lightgoldenrod", "mediumorchid4", "white"), pt.cex = 1,
+    cex = 0.8, bty = "n", ncol = 1)
+
+plot(hangingt2,
+     vertex.color = adjustcolor(colourpareduhigh, alpha.f = .5),
+     vertex.frame.color = colourparedudif,
+     vertex.frame.width = 2,
+     vertex.label = NA,
+     edge.curved = 0.2,
+     edge.arrow.size = 0.2,
+     edge.color = colourbetweenness[cut(igraph::edge_betweenness(hangingt2), breaks=nbins )],
+     layout = layoutfr2, 
+     main = "Wave 2")
+dev.off()}
+```
+
+```{r}
+knitr::include_graphics("plot3.png")
+```
 
 # Explanatory Analysis
 
@@ -364,7 +408,7 @@ write_report(mydata, outputName = "sienaData")
 ```{r, child = "sienaData.txt", results = "asis"}
 ```
 
-##Model 1: Homophily
+## Model 1: Homophily
 
 ```{r}
 myeff0910 <- getEffects(mydata)
@@ -401,11 +445,16 @@ myAlgorithm <- sienaAlgorithmCreate(projname = "edu_bridge",
                                     MaxDegree = c(net = 10),
                                     n3 = 2000,
                                     seed = 30000)
+```
+```{r, eval = FALSE}
 mod1 <- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE) 
-mod1
+```
+```{r}
+#mod1 <- saveRDS(mod1, "mod1.rds")
+mod1 <- readRDS("mod1.rds")
 ```
 
-The overall convergence ratio is under .25, which is acceptable. Convergence of individual parameters is also sufficient. The rate parameter value is 7.34, indicating that each actor had, on average, 5.99 options for change ('mini-steps') within the simulation.
+The overall convergence ratio is under .25, which is acceptable. Convergence of individual parameters is also sufficient (absolute values all under 0.1). The rate parameter value is 8.58, indicating that each actor had, on average, 8.58 options for change ('mini-steps') within the simulation.
 
 ```{r}
 results <- data.frame(
@@ -417,12 +466,6 @@ results <- data.frame(
 
 pander::pander(results)
 ```
-
-```{r}
-test_parameter(mod1, tested=3) #Wald-type significance test
-```
-
-The estimate for homophily based on average parental educational attainment is positive, but low. The Wald-type significance test indicates that the effect of similarity in average parental educational attainment is insignificant, p = .798.
 
 ### Goodness of Fit
 
@@ -488,9 +531,12 @@ myeff1.1 <- includeEffects(myeff, outIso)
 myeff1.1
 ```
 
-```{r}
+```{r, eval = FALSE}
 mod1.1 <- siena07(myAlgorithm, data = mydata, effects = myeff1.1, prevAns = mod1, returnDeps = TRUE) 
-mod1.1
+```
+```{r}
+#mod1.1 <- saveRDS(mod1.1, "mod1.1.rds")
+mod1.1 <- readRDS("mod1.1.rds")
 ```
 
 ```{r}
@@ -539,10 +585,14 @@ myeff1.3 <- includeEffects(myeff1.3, sameX, egoX, altX, type = "creation", inter
 myeff1.3
 ```
 
-```{r}
+```{r, eval=FALSE}
 mod1.3 <- siena07(myAlgorithm, data = mydata, effects = myeff1.3, returnDeps = TRUE) 
-mod1.3
 ```
+```{r}
+#mod1.3 <- saveRDS(mod1.3, "mod1.3.rds")
+mod1.3 <- readRDS("mod1.3.rds")
+```
+
 
 ```{r}
 results1.3 <- data.frame(
@@ -574,6 +624,11 @@ goftrim1.3 <- sienaGOF(mod1.3, TriadCensus, verbose = FALSE, join = TRUE, varNam
 plot(goftrim1.3, center = TRUE, scale = TRUE)
 ```
 
+```{r}
+gofgdm1.3 <- sienaGOF(mod1.3, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofgdm1.3)
+```
+
 Removing the in-degree popularity effect improved the outdegree distribution fit, bringing the p-value up to 0.038 - which is still significant, but certainly closer to the arbitrary 0.05 threshold.
 
 ### (sub)Model 1.4: removing alter effect
@@ -594,9 +649,12 @@ myeff1.4 <- includeEffects(myeff1.4, sameX, egoX, type = "creation", interaction
 myeff1.4
 ```
 
-```{r}
+```{r, eval = FALSE}
 mod1.4 <- siena07(myAlgorithm, data = mydata, effects = myeff1.4, returnDeps = TRUE) 
-mod1.4
+```
+```{r}
+#mod1.4 <- saveRDS(mod1.4, "mod1.4.rds")
+mod1.4 <- readRDS("mod1.4.rds")
 ```
 
 ```{r}
@@ -627,7 +685,62 @@ goftrim1.4 <- sienaGOF(mod1.4, TriadCensus, verbose = FALSE, join = TRUE, varNam
 plot(goftrim1.4, center = TRUE, scale = TRUE)
 ```
 
+```{r}
+gofgdm1.4 <- sienaGOF(mod1.4, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofgdm1.4)
+```
+
 Interestingly, removing the alter effect results in the in-degree activity/out-degree popularity interaction effect turning insignificant. Removing the alter effect does not however strongly improve fit and slightly increases the maximum convergence ratio. Given the general preference for retaining lower-order effects of interactions, I will therefore proceed with the previous model (1.3).
+
+### (sub)Model 1.5: No inPop, with outIso
+
+```{r}
+myeff1.5 <- includeEffects(myeff1.3, outIso) 
+myeff1.5
+```
+
+```{r, eval = FALSE}
+mod1.5 <- siena07(myAlgorithm, data = mydata, effects = myeff1.5, prevAns = mod1.3, returnDeps = TRUE) 
+```
+```{r}
+#mod1.5 <- saveRDS(mod1.5, "mod1.5.rds")
+mod1.5 <- readRDS("mod1.5.rds")
+```
+
+```{r}
+results1.5 <- data.frame(
+  effect = mod1.5$effects$effectName,
+  b = mod1.5$theta,
+  se = mod1.5$se,
+  t = mod1.5$theta / mod1.5$se,
+  p = 2 * pnorm(-abs(mod1.5$theta / mod1.5$se)))
+
+pander::pander(results1.5)
+```
+
+### Goodness of Fit
+
+```{r}
+gofinm1.5 <- sienaGOF(mod1.5, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net", levls = 0:13)
+plot(gofinm1.5)
+```
+
+```{r}
+gofoutm1.5 <- sienaGOF(mod1.5, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = "net", levls = 0:10)
+plot(gofoutm1.5)
+```
+
+```{r}
+goftrim1.5 <- sienaGOF(mod1.5, TriadCensus, verbose = FALSE, join = TRUE, varName = "net")
+plot(goftrim1.5, center = TRUE, scale = TRUE)
+```
+
+```{r}
+gofgdm1.5 <- sienaGOF(mod1.5, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = "net")
+plot(gofgdm1.5)
+```
+
+Adding an out-degree isolate effect did not improve the overall fit of the out-degree distribution, because the model now overestimates the number of nodes with one tie and understimates those with three ties.
 
 ## Model 2: Homophily x Educationally Mixed Family
 
@@ -694,11 +807,13 @@ myeff2.1 <-  set_interaction(myeff2.1, list(sameX, egoX), type = "creation", cov
 myeff2.1
 ```
 
-```{r}
+```{r, eval = FALSE}
 mod2.1 <- siena07(myAlgorithm, data = mydata, effects = myeff2.1, returnDeps = TRUE) 
-mod2.1
 ```
-
+```{r}
+#mod2.1 <- saveRDS(mod2.1, "mod2.1.rds")
+mod2.1 <- readRDS("mod2.1.rds")
+```
 ```{r}
 results2.1 <- data.frame(
   effect = mod2.1$requestedEffects$effectName,
@@ -712,7 +827,7 @@ pander::pander(results2.1)
 
 *Note:* The model automatically includes the internal effect parameters used for the interaction (in this case: the endowment and creation effect of ego having parents with different educational backgrounds), but these are not tested as part of the main model. I therefore do not report them in the above table.
 
-The model shows acceptable convergence, overall maximum convergence rate < 0.25, absolute convergence t-ratios < 0.1. Although the signs of the estimates are in line with expectations, the interaction between homophily and ego having a mixed background is clearly insignificant for both endowment and creation (p = 0.846 and p = 3.99, respectively). The hypothesis that students whose parents have different educational attainments (university experience & no university experience) have lower levels of homophily is thus not supported. Homophily itself remains significant for creation. Homophily in endowment approaches significance based on a two-sided test, but given the one-sided nature of the hypothesis, it can be concluded that the results show support for the existence of preferences for homophily in endowment, too.
+The model shows acceptable convergence, overall maximum convergence rate \< 0.25, absolute convergence t-ratios \< 0.1. Although the signs of the estimates are in line with expectations, the interaction between homophily and ego having a mixed background is clearly insignificant for both endowment and creation (p = 0.846 and p = 3.99, respectively). The hypothesis that students whose parents have different educational attainments (university experience & no university experience) have lower levels of homophily is thus not supported. Homophily itself remains significant for creation. Homophily in endowment approaches significance based on a two-sided test, but given the one-sided nature of the hypothesis, it can be concluded that the results show support for the existence of preferences for homophily in endowment, too.
 
 ### Goodness of Fit
 
@@ -732,3 +847,92 @@ plot(goftrim2.1, center = TRUE, scale = TRUE)
 ```
 
 ## Model 3: Control Variables
+
+```{r}
+myeff3 <- includeEffects(myeff2.1, egoX, altX, sameX, interaction1 = "gendercov")
+myeff3
+```
+
+```{r}
+myeff3 <- includeEffects(myeff3, egoX, altX, sameX, interaction1 = "ethcov")
+myeff3
+```
+
+```{r, eval = FALSE}
+mod3 <- siena07(myAlgorithm, data = mydata, effects = myeff3, prevAns = mod2.1, returnDeps = TRUE) 
+```
+```{r}
+#mod3 <- saveRDS(mod3, "mod3.rds")
+mod3 <- readRDS("mod3.rds")
+```
+```{r}
+results3 <- data.frame(
+  effect = mod3$requestedEffects$effectName,
+  b = mod3$theta,
+  se = mod3$se,
+  t = mod3$theta / mod3$se,
+  p = 2 * pnorm(-abs(mod3$theta / mod3$se)))
+
+pander::pander(results3)
+```
+
+### Goodness of Fit
+
+```{r}
+gofinm3 <- sienaGOF(mod3, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net", levls = 0:13)
+plot(gofinm3)
+```
+
+```{r}
+gofoutm3 <- sienaGOF(mod3, OutdegreeDistribution, verbose = FALSE, join = TRUE, varName = "net", levls = 0:10)
+plot(gofoutm3)
+```
+
+```{r}
+goftrim3 <- sienaGOF(mod3, TriadCensus, verbose = FALSE, join = TRUE, varName = "net")
+plot(goftrim3, center = TRUE, scale = TRUE)
+```
+
+### (sub)Model 3.1: Isolates
+
+Including outIso, outInAss, antiInIso, outOutAss, balance interferes with the convergence.
+
+```{r}
+myeff3.1 <- includeEffects(myeff3, balance)
+myeff3.1
+```
+
+```{r}
+#mod3.1 <- siena07(myAlgorithm, data = mydata, effects = myeff3.1, prevAns = mod3, returnDeps = TRUE) 
+#mod3.1
+```
+
+# Model Summary
+
+
+summary <- data.frame(
+  Hypotheses = c("Hypothesis 1", "", "", "", "", "", "Hypothesis 2", "", "", "Controls"),
+  "Model Name" = c("1", "1.1", "1.2", "1.3", "1.4", "1.5", "2", "2.1", "2.2", "3"),
+  Converged = c("Yes", "No", "No", "Yes", "Yes", "Yes", "No", "Yes", "No", "Yes"),
+  "GOF Indegree" = c(gofinm1$p, "", "", gofinm1.3$p, gofinm1.4$p, gofinm1.5$p, "", gofinm2.1$p, "", gofinm3$p),
+  "GOF Outdegree" = c(gofoutm1$p, "", "", gofoutm1.3$p, gofoutm1.4$p, gofoutm1.5$p, "", gofoutm2.1$p, "", gofoutm3$p),
+  "GOF Geodesic" = c(gofgdm1$p, "", "", gofgdm1.3$p, gofgdm1.4$p, gofgdm1.5$p, "", gofgdm2.1$p, "", gofgdm3$p),
+  "GOF Triads" = c(goftrim1$p, "", "", goftrim1.3$p, goftrim1.4$p, goftrim1.5$p, "", goftrim2.1$p, "", goftrim3$p)
+  )
+
+pander::pander(summary)
+
+
+# Relative Influence
+
+```{r}
+# get parameters
+theta.eval <- mod1.3$theta
+# and effects
+myeff.eval <- mod1.3$effects
+
+# use sienaRI() --> doesn't exist. Maybe interpret_size?
+#RI <- interpret_size(mod1.3, data = mydata, theta = theta.eval, effects = myeff.eval)
+#plot it
+#plot(RI, addPieChart = TRUE) #I can't see the full legend...
+```

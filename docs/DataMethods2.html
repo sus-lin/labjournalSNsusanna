@@ -71,6 +71,29 @@ if (window.hljs) {
 }
 </style>
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="tweaks.css" type="text/css" />
 
@@ -377,6 +400,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="Introduction2.html">Introduction</a>
+    </li>
+    <li>
       <a href="Theory2.html">Theory</a>
     </li>
     <li>
@@ -387,6 +413,9 @@ div.tocify {
     </li>
     <li>
       <a href="AnalysesResults.html">Analyses and Results</a>
+    </li>
+    <li>
+      <a href="ConclusionDiscussion.html">Discussion and Conclusion</a>
     </li>
   </ul>
 </li>
@@ -456,45 +485,142 @@ Learning Communities (MLCs). Students filled in the survey twice: a
 first time in October-November and a second time in March-April.
 Although data was collected among ten MLCs and two control groups, for
 the sake of this course, my analyses will be conducted on data from one
-learning MLC only. The survey included a wide range of measures related
-to campus life, educational experiences, cultural and community
-experiences, social connections, feelings, and students’ backgrounds.
-For the purpose of this study, I make use of questions on students’
-social connections and backgrounds.</p>
-<div id="dependent-variable-hanging-out-networks" class="section level3"
-number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> Dependent Variable:
-Hanging Out Networks</h3>
+learning MLC only (n = 121). The survey included a wide range of
+measures related to campus life, educational experiences, cultural and
+community experiences, social connections, feelings, and students’
+backgrounds. For the purpose of this study, I make use of questions on
+students’ social connections and backgrounds.</p>
+<div id="hanging-out-networks" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Hanging Out
+Networks</h3>
 <p>A complete directed social network (i.e. socionet) was constructed
 based on the peers each student reported they hung around with and
 talked to the most (<em>“Which students in your MLC do you hang around
 with and talk to the most?”</em>). Students could nominate up to ten
 peers from within their MLC. Participants were instructed to skip the
 question if they could not think of anyone.</p>
+<p>The data subset contained only students who responded to the network
+question in at least one wave. Non-responses were treated as structural
+zeros, as it was impossible for these students to have outgoing ties in
+the respective wave.</p>
 </div>
 <div id="caregiver-educational-attainment" class="section level3"
 number="1.1.2">
 <h3><span class="header-section-number">1.1.2</span> Caregiver
 Educational Attainment</h3>
-<p><strong>Highest</strong></p>
-<p>To differentiate between first-generation college students and
-students who have access to parental resources in terms of college
-attainment,</p>
-<p><strong>Mixed</strong></p>
+<p>Caregiver educational attainment was measured through two versions of
+the same closed question, one referring to parent/caregiver 1 and one to
+parent/caregiver 2: <em>“What is the highest level of education that
+your parent or caregiver [1 or 2] has completed?”</em> Students could
+choose between the following categories: 1) 8th grade or lower, 2) some
+high school, no diploma, 3) high school diploma or equivalent, 4) some
+college credit, no degree, 5) trade/technical/vocational training, 6)
+associate’s degree, 7) bachelor’s degree, 8) master’s degree, 9)
+professional degree (e.g. Medical Doctor, lawyer, etc.), 10) doctorate
+degree. These questions were asked in both waves. Answers were not
+always consistent between waves. For practical purposes, in these cases,
+I proceeded with the mean between both answers, rounded upwards. If
+students answered the question in one wave but not the other, the answer
+that was provided was used.</p>
+<p><strong>Highest Caregiver Educational Attainment</strong></p>
+<p>Studies of educational inequality in the US have indicated that
+having at least one parent/caregiver with a bachelor’s degree is
+strongly associated with likelihood of college attendance <span
+class="citation">(Sandefur, Meier, and Campbell 2006; Buchmann, Condron,
+and Roscigno 2010)</span>. This implies a strong relevance of caregiver
+college experience. Students were therefore classified as
+first-generation students if they had no parent/caregiver who had
+attained at least a bachelor’s degree. Students with at least one
+parent/caregiver with a bachelor’s degree or more educational attainment
+were classified as having inherited parental resources in terms of
+college attainment.</p>
+<p><strong>Mixed Family</strong></p>
+<p>Students were classified as coming from a mixed family if one parent
+had a bachelor’s degree or more educational experience, whereas the
+other parent had no college diploma.</p>
 </div>
 <div id="gender" class="section level3" number="1.1.3">
 <h3><span class="header-section-number">1.1.3</span> Gender</h3>
+<p>Gender was measured as a binary variable based on administrative
+data. Although this was collected in both waves, no student changed
+their reported gender identity between the time points. Gender was
+therefore treated as a constant covariate. If data was missing from one
+wave but not the other, students were classified as the gender reported
+in the non-missing wave.</p>
 </div>
 <div id="ethnicity" class="section level3" number="1.1.4">
 <h3><span class="header-section-number">1.1.4</span> Ethnicity</h3>
+<p>Ethnic identity was categorised in eight groups: Asian, Black,
+Hispanic, White, Multiracial, Hawaiian, Middle Eastern/North African,
+and American Indian/Native American. The investigated learning community
+did not include any students identifying as Middle Eastern/North African
+or American Indian/Native American. As with previous variables, if data
+was missing from one wave but not the other, students were classified as
+the ethnic identity reported in the non-missing wave.</p>
 </div>
 </div>
-<div id="methods" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Methods</h2>
+<div id="analytical-methods" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Analytical
+Methods</h2>
+<p>I make use of Stochastic Actor-Oriented Models (SAOMs) in RSiena.
+SAOMs takes an actor-based approach by modelling the individual network
+choices (‘ministeps’) made by nodes in the network. For each ministep,
+the probability of each possibility (making a tie, breaking a tie,
+maintaining the current situation) is determined based on a set of
+effects provided by the researcher. The model simulates the network
+evolution a large number of times, refining estimates for each included
+effect at every iteration. Model-building was conducted using an
+iterative, data- as well as theory-driven approach. First, an initial
+theory-based model was run for each hypothesis, see descriptions below.
+In case of persistent non-convergence, the model was simplified. Once a
+model converged, goodness of fit was assessed based on several
+macro-level network descriptives: in-degree distribution, out-degree
+distribution, geodesic distribution, and a triad census. Models were
+refined by adding potentially relevant relational effects or removing
+non-significant effects until fit was deemed appropriate.</p>
+<p>I defined three initial models.</p>
+<p>The first model tests the endowment and creation effects of homophily
+based on caregiver educational attainment in the presence of well-known
+relational effects. To start, the relational effects included in the
+model were an outdegree (density) effect, reciprocity, GWESP (used to
+account for transitivity), indegree - popularity, outdegree - activity,
+and indegree - activity (the interaction between indegree-popularity and
+outdegree-activity). As I am not interested in differentiating between
+creation and endowment for these effects, they were included as
+evaluation effects. To test the hypothesis, the model included homophily
+based on caregiver educational attainment as both an endowment and a
+creation effect. To this end, the lower-order components of homophily
+(ego’s characteristic and alter’s characteristic) were also included as
+both endowment and creation effects.</p>
+<p>The second model tests whether coming from a mixed family changes the
+reduces the homophily effect. In addition to the model 1 effects, model
+2 therefore initially includes ego’s mixed background characteristic
+(yes/no, as both endowment and creation effect), and the interaction of
+this effect with homophily (again, both as endowment and as
+creation).</p>
+<p>In a third and final model, all effects were tested in the presence
+of control variables: ego’s gender, alter’s gender, gender homophily,
+ego’s ethnic identity, alter’s ethnic identity, and ethnic
+homophily.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+<div id="ref-buchmann2010" class="csl-entry">
+Buchmann, C., D. J. Condron, and V. J. Roscigno. 2010. <span>“Shadow
+Education, American Style: Test Preparation, the SAT and College
+Enrollment.”</span> <em>Social Forces</em> 89 (2): 435–61. <a
+href="https://doi.org/10.1353/sof.2010.0105">https://doi.org/10.1353/sof.2010.0105</a>.
+</div>
+<div id="ref-sandefur2006" class="csl-entry">
+Sandefur, Gary D., Ann M. Meier, and Mary E. Campbell. 2006.
+<span>“Family Resources, Social Capital, and College Attendance.”</span>
+<em>Social Science Research</em> 35 (2): 525–53. <a
+href="https://doi.org/10.1016/j.ssresearch.2004.11.003">https://doi.org/10.1016/j.ssresearch.2004.11.003</a>.
+</div>
+</div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGFNZXRob2RzMiINCmF1dGhvcjogIlN1c2FubmEiDQpkYXRlOiAiMjAyNi0xMC0xNSINCm91dHB1dDogaHRtbF9kb2N1bWVudA0KLS0tDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMgRGF0YSBhbmQgTWV0aG9kcw0KDQojIyBEYXRhDQoNClRvIGFuc3dlciB0aGUgcmVzZWFyY2ggcXVlc3Rpb25zLCBJIG1ha2UgdXNlIG9mIGEgc3Vic2V0IG9mIHRoZSBNaWNoaWdhbiBSZXNpZGVudGlhbCBDb21tdW5pdHkgU3VydmV5LiBEYXRhIHdhcyBjb2xsZWN0ZWQgYW1vbmcgdHdvIGNvbnNlcXV0aXZlIGNvaG9ydHMgb2YgZmlyc3QteWVhciB1bml2ZXJzaXR5IHN0dWRlbnRzIGluIE1pY2hpZ2FuIExlYXJuaW5nIENvbW11bml0aWVzIChNTENzKS4gU3R1ZGVudHMgZmlsbGVkIGluIHRoZSBzdXJ2ZXkgdHdpY2U6IGEgZmlyc3QgdGltZSBpbiBPY3RvYmVyLU5vdmVtYmVyIGFuZCBhIHNlY29uZCB0aW1lIGluIE1hcmNoLUFwcmlsLiBBbHRob3VnaCBkYXRhIHdhcyBjb2xsZWN0ZWQgYW1vbmcgdGVuIE1MQ3MgYW5kIHR3byBjb250cm9sIGdyb3VwcywgZm9yIHRoZSBzYWtlIG9mIHRoaXMgY291cnNlLCBteSBhbmFseXNlcyB3aWxsIGJlIGNvbmR1Y3RlZCBvbiBkYXRhIGZyb20gb25lIGxlYXJuaW5nIE1MQyBvbmx5LiBUaGUgc3VydmV5IGluY2x1ZGVkIGEgd2lkZSByYW5nZSBvZiBtZWFzdXJlcyByZWxhdGVkIHRvIGNhbXB1cyBsaWZlLCBlZHVjYXRpb25hbCBleHBlcmllbmNlcywgY3VsdHVyYWwgYW5kIGNvbW11bml0eSBleHBlcmllbmNlcywgc29jaWFsIGNvbm5lY3Rpb25zLCBmZWVsaW5ncywgYW5kIHN0dWRlbnRzJyBiYWNrZ3JvdW5kcy4gRm9yIHRoZSBwdXJwb3NlIG9mIHRoaXMgc3R1ZHksIEkgbWFrZSB1c2Ugb2YgcXVlc3Rpb25zIG9uIHN0dWRlbnRzJyBzb2NpYWwgY29ubmVjdGlvbnMgYW5kIGJhY2tncm91bmRzLg0KDQojIyMgRGVwZW5kZW50IFZhcmlhYmxlOiBIYW5naW5nIE91dCBOZXR3b3Jrcw0KDQpBIGNvbXBsZXRlIGRpcmVjdGVkIHNvY2lhbCBuZXR3b3JrIChpLmUuIHNvY2lvbmV0KSB3YXMgY29uc3RydWN0ZWQgYmFzZWQgb24gdGhlIHBlZXJzIGVhY2ggc3R1ZGVudCByZXBvcnRlZCB0aGV5IGh1bmcgYXJvdW5kIHdpdGggYW5kIHRhbGtlZCB0byB0aGUgbW9zdCAoKiJXaGljaCBzdHVkZW50cyBpbiB5b3VyIE1MQyBkbyB5b3UgaGFuZyBhcm91bmQgd2l0aCBhbmQgdGFsayB0byB0aGUgbW9zdD8iKikuIFN0dWRlbnRzIGNvdWxkIG5vbWluYXRlIHVwIHRvIHRlbiBwZWVycyBmcm9tIHdpdGhpbiB0aGVpciBNTEMuIFBhcnRpY2lwYW50cyB3ZXJlIGluc3RydWN0ZWQgdG8gc2tpcCB0aGUgcXVlc3Rpb24gaWYgdGhleSBjb3VsZCBub3QgdGhpbmsgb2YgYW55b25lLg0KDQojIyMgQ2FyZWdpdmVyIEVkdWNhdGlvbmFsIEF0dGFpbm1lbnQNCg0KKipIaWdoZXN0KioNCg0KVG8gZGlmZmVyZW50aWF0ZSBiZXR3ZWVuIGZpcnN0LWdlbmVyYXRpb24gY29sbGVnZSBzdHVkZW50cyBhbmQgc3R1ZGVudHMgd2hvIGhhdmUgYWNjZXNzIHRvIHBhcmVudGFsIHJlc291cmNlcyBpbiB0ZXJtcyBvZiBjb2xsZWdlIGF0dGFpbm1lbnQsDQoNCioqTWl4ZWQqKg0KDQojIyMgR2VuZGVyDQoNCiMjIyBFdGhuaWNpdHkNCg0KIyMgTWV0aG9kcw0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGFNZXRob2RzMiINCmF1dGhvcjogIlN1c2FubmEiDQpkYXRlOiAiMjAyNi0xMC0xNSINCm91dHB1dDogaHRtbF9kb2N1bWVudA0KYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYg0KLS0tDQoNCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMgRGF0YSBhbmQgTWV0aG9kcw0KDQojIyBEYXRhDQoNClRvIGFuc3dlciB0aGUgcmVzZWFyY2ggcXVlc3Rpb25zLCBJIG1ha2UgdXNlIG9mIGEgc3Vic2V0IG9mIHRoZSBNaWNoaWdhbiBSZXNpZGVudGlhbCBDb21tdW5pdHkgU3VydmV5LiBEYXRhIHdhcyBjb2xsZWN0ZWQgYW1vbmcgdHdvIGNvbnNlcXV0aXZlIGNvaG9ydHMgb2YgZmlyc3QteWVhciB1bml2ZXJzaXR5IHN0dWRlbnRzIGluIE1pY2hpZ2FuIExlYXJuaW5nIENvbW11bml0aWVzIChNTENzKS4gU3R1ZGVudHMgZmlsbGVkIGluIHRoZSBzdXJ2ZXkgdHdpY2U6IGEgZmlyc3QgdGltZSBpbiBPY3RvYmVyLU5vdmVtYmVyIGFuZCBhIHNlY29uZCB0aW1lIGluIE1hcmNoLUFwcmlsLiBBbHRob3VnaCBkYXRhIHdhcyBjb2xsZWN0ZWQgYW1vbmcgdGVuIE1MQ3MgYW5kIHR3byBjb250cm9sIGdyb3VwcywgZm9yIHRoZSBzYWtlIG9mIHRoaXMgY291cnNlLCBteSBhbmFseXNlcyB3aWxsIGJlIGNvbmR1Y3RlZCBvbiBkYXRhIGZyb20gb25lIGxlYXJuaW5nIE1MQyBvbmx5IChuID0gMTIxKS4gVGhlIHN1cnZleSBpbmNsdWRlZCBhIHdpZGUgcmFuZ2Ugb2YgbWVhc3VyZXMgcmVsYXRlZCB0byBjYW1wdXMgbGlmZSwgZWR1Y2F0aW9uYWwgZXhwZXJpZW5jZXMsIGN1bHR1cmFsIGFuZCBjb21tdW5pdHkgZXhwZXJpZW5jZXMsIHNvY2lhbCBjb25uZWN0aW9ucywgZmVlbGluZ3MsIGFuZCBzdHVkZW50cycgYmFja2dyb3VuZHMuIEZvciB0aGUgcHVycG9zZSBvZiB0aGlzIHN0dWR5LCBJIG1ha2UgdXNlIG9mIHF1ZXN0aW9ucyBvbiBzdHVkZW50cycgc29jaWFsIGNvbm5lY3Rpb25zIGFuZCBiYWNrZ3JvdW5kcy4NCg0KIyMjIEhhbmdpbmcgT3V0IE5ldHdvcmtzDQoNCkEgY29tcGxldGUgZGlyZWN0ZWQgc29jaWFsIG5ldHdvcmsgKGkuZS4gc29jaW9uZXQpIHdhcyBjb25zdHJ1Y3RlZCBiYXNlZCBvbiB0aGUgcGVlcnMgZWFjaCBzdHVkZW50IHJlcG9ydGVkIHRoZXkgaHVuZyBhcm91bmQgd2l0aCBhbmQgdGFsa2VkIHRvIHRoZSBtb3N0ICgqIldoaWNoIHN0dWRlbnRzIGluIHlvdXIgTUxDIGRvIHlvdSBoYW5nIGFyb3VuZCB3aXRoIGFuZCB0YWxrIHRvIHRoZSBtb3N0PyIqKS4gU3R1ZGVudHMgY291bGQgbm9taW5hdGUgdXAgdG8gdGVuIHBlZXJzIGZyb20gd2l0aGluIHRoZWlyIE1MQy4gUGFydGljaXBhbnRzIHdlcmUgaW5zdHJ1Y3RlZCB0byBza2lwIHRoZSBxdWVzdGlvbiBpZiB0aGV5IGNvdWxkIG5vdCB0aGluayBvZiBhbnlvbmUuDQoNClRoZSBkYXRhIHN1YnNldCBjb250YWluZWQgb25seSBzdHVkZW50cyB3aG8gcmVzcG9uZGVkIHRvIHRoZSBuZXR3b3JrIHF1ZXN0aW9uIGluIGF0IGxlYXN0IG9uZSB3YXZlLiBOb24tcmVzcG9uc2VzIHdlcmUgdHJlYXRlZCBhcyBzdHJ1Y3R1cmFsIHplcm9zLCBhcyBpdCB3YXMgaW1wb3NzaWJsZSBmb3IgdGhlc2Ugc3R1ZGVudHMgdG8gaGF2ZSBvdXRnb2luZyB0aWVzIGluIHRoZSByZXNwZWN0aXZlIHdhdmUuDQoNCiMjIyBDYXJlZ2l2ZXIgRWR1Y2F0aW9uYWwgQXR0YWlubWVudA0KDQpDYXJlZ2l2ZXIgZWR1Y2F0aW9uYWwgYXR0YWlubWVudCB3YXMgbWVhc3VyZWQgdGhyb3VnaCB0d28gdmVyc2lvbnMgb2YgdGhlIHNhbWUgY2xvc2VkIHF1ZXN0aW9uLCBvbmUgcmVmZXJyaW5nIHRvIHBhcmVudC9jYXJlZ2l2ZXIgMSBhbmQgb25lIHRvIHBhcmVudC9jYXJlZ2l2ZXIgMjogKiJXaGF0IGlzIHRoZSBoaWdoZXN0IGxldmVsIG9mIGVkdWNhdGlvbiB0aGF0IHlvdXIgcGFyZW50IG9yIGNhcmVnaXZlciBbMSBvciAyXSBoYXMgY29tcGxldGVkPyIqIFN0dWRlbnRzIGNvdWxkIGNob29zZSBiZXR3ZWVuIHRoZSBmb2xsb3dpbmcgY2F0ZWdvcmllczogMSkgOHRoIGdyYWRlIG9yIGxvd2VyLCAyKSBzb21lIGhpZ2ggc2Nob29sLCBubyBkaXBsb21hLCAzKSBoaWdoIHNjaG9vbCBkaXBsb21hIG9yIGVxdWl2YWxlbnQsIDQpIHNvbWUgY29sbGVnZSBjcmVkaXQsIG5vIGRlZ3JlZSwgNSkgdHJhZGUvdGVjaG5pY2FsL3ZvY2F0aW9uYWwgdHJhaW5pbmcsIDYpIGFzc29jaWF0ZSdzIGRlZ3JlZSwgNykgYmFjaGVsb3IncyBkZWdyZWUsIDgpIG1hc3RlcidzIGRlZ3JlZSwgOSkgcHJvZmVzc2lvbmFsIGRlZ3JlZSAoZS5nLiBNZWRpY2FsIERvY3RvciwgbGF3eWVyLCBldGMuKSwgMTApIGRvY3RvcmF0ZSBkZWdyZWUuIFRoZXNlIHF1ZXN0aW9ucyB3ZXJlIGFza2VkIGluIGJvdGggd2F2ZXMuIEFuc3dlcnMgd2VyZSBub3QgYWx3YXlzIGNvbnNpc3RlbnQgYmV0d2VlbiB3YXZlcy4gRm9yIHByYWN0aWNhbCBwdXJwb3NlcywgaW4gdGhlc2UgY2FzZXMsIEkgcHJvY2VlZGVkIHdpdGggdGhlIG1lYW4gYmV0d2VlbiBib3RoIGFuc3dlcnMsIHJvdW5kZWQgdXB3YXJkcy4gSWYgc3R1ZGVudHMgYW5zd2VyZWQgdGhlIHF1ZXN0aW9uIGluIG9uZSB3YXZlIGJ1dCBub3QgdGhlIG90aGVyLCB0aGUgYW5zd2VyIHRoYXQgd2FzIHByb3ZpZGVkIHdhcyB1c2VkLg0KDQoqKkhpZ2hlc3QgQ2FyZWdpdmVyIEVkdWNhdGlvbmFsIEF0dGFpbm1lbnQqKg0KDQpTdHVkaWVzIG9mIGVkdWNhdGlvbmFsIGluZXF1YWxpdHkgaW4gdGhlIFVTIGhhdmUgaW5kaWNhdGVkIHRoYXQgaGF2aW5nIGF0IGxlYXN0IG9uZSBwYXJlbnQvY2FyZWdpdmVyIHdpdGggYSBiYWNoZWxvcidzIGRlZ3JlZSBpcyBzdHJvbmdseSBhc3NvY2lhdGVkIHdpdGggbGlrZWxpaG9vZCBvZiBjb2xsZWdlIGF0dGVuZGFuY2UgW0BzYW5kZWZ1cjIwMDY7IEBidWNobWFubjIwMTBdLiBUaGlzIGltcGxpZXMgYSBzdHJvbmcgcmVsZXZhbmNlIG9mIGNhcmVnaXZlciBjb2xsZWdlIGV4cGVyaWVuY2UuIFN0dWRlbnRzIHdlcmUgdGhlcmVmb3JlIGNsYXNzaWZpZWQgYXMgZmlyc3QtZ2VuZXJhdGlvbiBzdHVkZW50cyBpZiB0aGV5IGhhZCBubyBwYXJlbnQvY2FyZWdpdmVyIHdobyBoYWQgYXR0YWluZWQgYXQgbGVhc3QgYSBiYWNoZWxvcidzIGRlZ3JlZS4gU3R1ZGVudHMgd2l0aCBhdCBsZWFzdCBvbmUgcGFyZW50L2NhcmVnaXZlciB3aXRoIGEgYmFjaGVsb3IncyBkZWdyZWUgb3IgbW9yZSBlZHVjYXRpb25hbCBhdHRhaW5tZW50IHdlcmUgY2xhc3NpZmllZCBhcyBoYXZpbmcgaW5oZXJpdGVkIHBhcmVudGFsIHJlc291cmNlcyBpbiB0ZXJtcyBvZiBjb2xsZWdlIGF0dGFpbm1lbnQuDQoNCioqTWl4ZWQgRmFtaWx5KioNCg0KU3R1ZGVudHMgd2VyZSBjbGFzc2lmaWVkIGFzIGNvbWluZyBmcm9tIGEgbWl4ZWQgZmFtaWx5IGlmIG9uZSBwYXJlbnQgaGFkIGEgYmFjaGVsb3IncyBkZWdyZWUgb3IgbW9yZSBlZHVjYXRpb25hbCBleHBlcmllbmNlLCB3aGVyZWFzIHRoZSBvdGhlciBwYXJlbnQgaGFkIG5vIGNvbGxlZ2UgZGlwbG9tYS4NCg0KIyMjIEdlbmRlcg0KDQpHZW5kZXIgd2FzIG1lYXN1cmVkIGFzIGEgYmluYXJ5IHZhcmlhYmxlIGJhc2VkIG9uIGFkbWluaXN0cmF0aXZlIGRhdGEuIEFsdGhvdWdoIHRoaXMgd2FzIGNvbGxlY3RlZCBpbiBib3RoIHdhdmVzLCBubyBzdHVkZW50IGNoYW5nZWQgdGhlaXIgcmVwb3J0ZWQgZ2VuZGVyIGlkZW50aXR5IGJldHdlZW4gdGhlIHRpbWUgcG9pbnRzLiBHZW5kZXIgd2FzIHRoZXJlZm9yZSB0cmVhdGVkIGFzIGEgY29uc3RhbnQgY292YXJpYXRlLiBJZiBkYXRhIHdhcyBtaXNzaW5nIGZyb20gb25lIHdhdmUgYnV0IG5vdCB0aGUgb3RoZXIsIHN0dWRlbnRzIHdlcmUgY2xhc3NpZmllZCBhcyB0aGUgZ2VuZGVyIHJlcG9ydGVkIGluIHRoZSBub24tbWlzc2luZyB3YXZlLg0KDQojIyMgRXRobmljaXR5DQoNCkV0aG5pYyBpZGVudGl0eSB3YXMgY2F0ZWdvcmlzZWQgaW4gZWlnaHQgZ3JvdXBzOiBBc2lhbiwgQmxhY2ssIEhpc3BhbmljLCBXaGl0ZSwgTXVsdGlyYWNpYWwsIEhhd2FpaWFuLCBNaWRkbGUgRWFzdGVybi9Ob3J0aCBBZnJpY2FuLCBhbmQgQW1lcmljYW4gSW5kaWFuL05hdGl2ZSBBbWVyaWNhbi4gVGhlIGludmVzdGlnYXRlZCBsZWFybmluZyBjb21tdW5pdHkgZGlkIG5vdCBpbmNsdWRlIGFueSBzdHVkZW50cyBpZGVudGlmeWluZyBhcyBNaWRkbGUgRWFzdGVybi9Ob3J0aCBBZnJpY2FuIG9yIEFtZXJpY2FuIEluZGlhbi9OYXRpdmUgQW1lcmljYW4uIEFzIHdpdGggcHJldmlvdXMgdmFyaWFibGVzLCBpZiBkYXRhIHdhcyBtaXNzaW5nIGZyb20gb25lIHdhdmUgYnV0IG5vdCB0aGUgb3RoZXIsIHN0dWRlbnRzIHdlcmUgY2xhc3NpZmllZCBhcyB0aGUgZXRobmljIGlkZW50aXR5IHJlcG9ydGVkIGluIHRoZSBub24tbWlzc2luZyB3YXZlLg0KDQojIyBBbmFseXRpY2FsIE1ldGhvZHMNCg0KSSBtYWtlIHVzZSBvZiBTdG9jaGFzdGljIEFjdG9yLU9yaWVudGVkIE1vZGVscyAoU0FPTXMpIGluIFJTaWVuYS4gU0FPTXMgdGFrZXMgYW4gYWN0b3ItYmFzZWQgYXBwcm9hY2ggYnkgbW9kZWxsaW5nIHRoZSBpbmRpdmlkdWFsIG5ldHdvcmsgY2hvaWNlcyAoJ21pbmlzdGVwcycpIG1hZGUgYnkgbm9kZXMgaW4gdGhlIG5ldHdvcmsuIEZvciBlYWNoIG1pbmlzdGVwLCB0aGUgcHJvYmFiaWxpdHkgb2YgZWFjaCBwb3NzaWJpbGl0eSAobWFraW5nIGEgdGllLCBicmVha2luZyBhIHRpZSwgbWFpbnRhaW5pbmcgdGhlIGN1cnJlbnQgc2l0dWF0aW9uKSBpcyBkZXRlcm1pbmVkIGJhc2VkIG9uIGEgc2V0IG9mIGVmZmVjdHMgcHJvdmlkZWQgYnkgdGhlIHJlc2VhcmNoZXIuIFRoZSBtb2RlbCBzaW11bGF0ZXMgdGhlIG5ldHdvcmsgZXZvbHV0aW9uIGEgbGFyZ2UgbnVtYmVyIG9mIHRpbWVzLCByZWZpbmluZyBlc3RpbWF0ZXMgZm9yIGVhY2ggaW5jbHVkZWQgZWZmZWN0IGF0IGV2ZXJ5IGl0ZXJhdGlvbi4gTW9kZWwtYnVpbGRpbmcgd2FzIGNvbmR1Y3RlZCB1c2luZyBhbiBpdGVyYXRpdmUsIGRhdGEtIGFzIHdlbGwgYXMgdGhlb3J5LWRyaXZlbiBhcHByb2FjaC4gRmlyc3QsIGFuIGluaXRpYWwgdGhlb3J5LWJhc2VkIG1vZGVsIHdhcyBydW4gZm9yIGVhY2ggaHlwb3RoZXNpcywgc2VlIGRlc2NyaXB0aW9ucyBiZWxvdy4gSW4gY2FzZSBvZiBwZXJzaXN0ZW50IG5vbi1jb252ZXJnZW5jZSwgdGhlIG1vZGVsIHdhcyBzaW1wbGlmaWVkLiBPbmNlIGEgbW9kZWwgY29udmVyZ2VkLCBnb29kbmVzcyBvZiBmaXQgd2FzIGFzc2Vzc2VkIGJhc2VkIG9uIHNldmVyYWwgbWFjcm8tbGV2ZWwgbmV0d29yayBkZXNjcmlwdGl2ZXM6IGluLWRlZ3JlZSBkaXN0cmlidXRpb24sIG91dC1kZWdyZWUgZGlzdHJpYnV0aW9uLCBnZW9kZXNpYyBkaXN0cmlidXRpb24sIGFuZCBhIHRyaWFkIGNlbnN1cy4gTW9kZWxzIHdlcmUgcmVmaW5lZCBieSBhZGRpbmcgcG90ZW50aWFsbHkgcmVsZXZhbnQgcmVsYXRpb25hbCBlZmZlY3RzIG9yIHJlbW92aW5nIG5vbi1zaWduaWZpY2FudCBlZmZlY3RzIHVudGlsIGZpdCB3YXMgZGVlbWVkIGFwcHJvcHJpYXRlLg0KDQpJIGRlZmluZWQgdGhyZWUgaW5pdGlhbCBtb2RlbHMuDQoNClRoZSBmaXJzdCBtb2RlbCB0ZXN0cyB0aGUgZW5kb3dtZW50IGFuZCBjcmVhdGlvbiBlZmZlY3RzIG9mIGhvbW9waGlseSBiYXNlZCBvbiBjYXJlZ2l2ZXIgZWR1Y2F0aW9uYWwgYXR0YWlubWVudCBpbiB0aGUgcHJlc2VuY2Ugb2Ygd2VsbC1rbm93biByZWxhdGlvbmFsIGVmZmVjdHMuIFRvIHN0YXJ0LCB0aGUgcmVsYXRpb25hbCBlZmZlY3RzIGluY2x1ZGVkIGluIHRoZSBtb2RlbCB3ZXJlIGFuIG91dGRlZ3JlZSAoZGVuc2l0eSkgZWZmZWN0LCByZWNpcHJvY2l0eSwgR1dFU1AgKHVzZWQgdG8gYWNjb3VudCBmb3IgdHJhbnNpdGl2aXR5KSwgaW5kZWdyZWUgLSBwb3B1bGFyaXR5LCBvdXRkZWdyZWUgLSBhY3Rpdml0eSwgYW5kIGluZGVncmVlIC0gYWN0aXZpdHkgKHRoZSBpbnRlcmFjdGlvbiBiZXR3ZWVuIGluZGVncmVlLXBvcHVsYXJpdHkgYW5kIG91dGRlZ3JlZS1hY3Rpdml0eSkuIEFzIEkgYW0gbm90IGludGVyZXN0ZWQgaW4gZGlmZmVyZW50aWF0aW5nIGJldHdlZW4gY3JlYXRpb24gYW5kIGVuZG93bWVudCBmb3IgdGhlc2UgZWZmZWN0cywgdGhleSB3ZXJlIGluY2x1ZGVkIGFzIGV2YWx1YXRpb24gZWZmZWN0cy4gVG8gdGVzdCB0aGUgaHlwb3RoZXNpcywgdGhlIG1vZGVsIGluY2x1ZGVkIGhvbW9waGlseSBiYXNlZCBvbiBjYXJlZ2l2ZXIgZWR1Y2F0aW9uYWwgYXR0YWlubWVudCBhcyBib3RoIGFuIGVuZG93bWVudCBhbmQgYSBjcmVhdGlvbiBlZmZlY3QuIFRvIHRoaXMgZW5kLCB0aGUgbG93ZXItb3JkZXIgY29tcG9uZW50cyBvZiBob21vcGhpbHkgKGVnbydzIGNoYXJhY3RlcmlzdGljIGFuZCBhbHRlcidzIGNoYXJhY3RlcmlzdGljKSB3ZXJlIGFsc28gaW5jbHVkZWQgYXMgYm90aCBlbmRvd21lbnQgYW5kIGNyZWF0aW9uIGVmZmVjdHMuDQoNClRoZSBzZWNvbmQgbW9kZWwgdGVzdHMgd2hldGhlciBjb21pbmcgZnJvbSBhIG1peGVkIGZhbWlseSBjaGFuZ2VzIHRoZSByZWR1Y2VzIHRoZSBob21vcGhpbHkgZWZmZWN0LiBJbiBhZGRpdGlvbiB0byB0aGUgbW9kZWwgMSBlZmZlY3RzLCBtb2RlbCAyIHRoZXJlZm9yZSBpbml0aWFsbHkgaW5jbHVkZXMgZWdvJ3MgbWl4ZWQgYmFja2dyb3VuZCBjaGFyYWN0ZXJpc3RpYyAoeWVzL25vLCBhcyBib3RoIGVuZG93bWVudCBhbmQgY3JlYXRpb24gZWZmZWN0KSwgYW5kIHRoZSBpbnRlcmFjdGlvbiBvZiB0aGlzIGVmZmVjdCB3aXRoIGhvbW9waGlseSAoYWdhaW4sIGJvdGggYXMgZW5kb3dtZW50IGFuZCBhcyBjcmVhdGlvbikuDQoNCkluIGEgdGhpcmQgYW5kIGZpbmFsIG1vZGVsLCBhbGwgZWZmZWN0cyB3ZXJlIHRlc3RlZCBpbiB0aGUgcHJlc2VuY2Ugb2YgY29udHJvbCB2YXJpYWJsZXM6IGVnbydzIGdlbmRlciwgYWx0ZXIncyBnZW5kZXIsIGdlbmRlciBob21vcGhpbHksIGVnbydzIGV0aG5pYyBpZGVudGl0eSwgYWx0ZXIncyBldGhuaWMgaWRlbnRpdHksIGFuZCBldGhuaWMgaG9tb3BoaWx5Lg0K</div>
 
 
 </div>

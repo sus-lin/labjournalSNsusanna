@@ -1,0 +1,42 @@
+---
+title: "DiscussionConclusion"
+author: "Susanna"
+date: "2026-10-23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Conclusion
+
+This study investigated patterns of homophily based on caregiver educational attainment in a network of 121 first-year university students in a Michigan Learning Community. I made use of Stochastic Actor-Oriented Models to estimate relevant influences on selection in the presence of well-known relational effects. This method additionally allowed me to differentiate between endowment and creation effects. I posed three research questions:
+
+1) To what extent are hanging out networks of first-year university students in a Michigan Learning Community segregated by caregiver educational attainment?
+
+2) To what extent do students demonstrate a tendency for homophily in the creation and maintenance of hanging out relations?
+
+3) Does growing up in an educationally mixed family affect students' tendency for homophily in the creation and maintenance of hanging out relations?
+
+Descriptive analysis based on Moran's I did not support the hypothesis that hanging out networks were segregated by caregiver educational attainment (H1). Despite this lack of macro-level visibility, on an individual level, homophily was significant, in line with expectations (H2). However, contrary to hypothesis 2b, homophily was less relevant in the maintenance/endowment than in the creation of ties. Finally, the expectation that students who grew up in an educationally mixed family would have lower levels of homophily was not supported (H3). All conclusions remained constant when accounting for ethnic and gender homophily.
+
+# Discussion
+
+## Implications
+
+The discrepancy between the lack of macro-level segregation and the significance of homophily on an individual level.
+
+More relevant for creation –\> maybe status symbols are more easily picked up on than expected
+
+No effect of mixed background
+
+## Limitations
+
+Something about ethnic inequalities, racialised dynamics. Seriously taking into account such processes requires an intersectional approach that goes beyond simply controlling for ethnic homophily.
+
+Obviously, looking at classed social dynamics without considering income inequality is ridiculous.
+
+Many previous studies among first-generation students discuss experiences related to income inequality, demonstrating an important overlap between educational heritage and wealth. This research however only considered educational heritage. It is possible that social segregation mainly driven by the intersection of first generation status and low income. In this case, the study may have underestimated the level of segregation. This may explain the finding that homophily was more relevant in tie creation than in endowment. Visible attributes that signal social status discussed in the literature on first generation students primarily relate to purchases enabled by greater wealth. Part of the homophily effect in creation may therefore be attributable to income homophily rather than homophily in caregiver educational attainment, which is less visible.
+
+## Suggestions for Future Research

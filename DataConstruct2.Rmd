@@ -29,17 +29,7 @@ hanging_df_t1 <- as.data.frame(hanging[[1]][1])
 hanging_df_t2 <- as.data.frame(hanging[[1]][2])
 ```
 
-```{r}
-hangingt2nona <- hanging_df_t2
-hangingt2nona[hangingt2nona==9]<- 0
-hangingt2nona <- as.matrix(hangingt2nona)
-
-
-hangingt2 <- graph_from_adjacency_matrix(hangingt2nona, mode = "directed", weighted = NULL, diag = TRUE, add.colnames = NA, add.rownames = NA)
-plot(hangingt2)
-```
-
-# Making the Variables
+# Construction of Variables
 
 ```{r}
 # Parental education
@@ -52,6 +42,14 @@ parentedu_df$w1p2nona <- ifelse(is.na(parentedu_df$W1PAR2EDU), parentedu_df$W2PA
                                 parentedu_df$W1PAR2EDU)
 parentedu_df$w2p2nona <- ifelse(is.na(parentedu_df$W2PAR2EDU), parentedu_df$W1PAR2EDU,
                                 parentedu_df$W2PAR2EDU)
+```
+```{r}
+which(parentedu_df$w1p1nona != parentedu_df$w2p1nona)
+which(parentedu_df$w1p2nona != parentedu_df$w2p2nona)
+```
+
+
+```{r}
 ##to account for change in reported parental education level:
 parentedu_df$p1nona <- (parentedu_df$w1p1nona + parentedu_df$w2p1nona)/2
 parentedu_df$p1nonabin <- ifelse(parentedu_df$p1nona > 6, 1, 0)

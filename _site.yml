@@ -28,6 +28,8 @@ navbar:
         href: Week7.html
     - text: "Final research paper"
       menu:
+      - text: "Introduction"
+        href: Introduction2.html
       - text: "Theory"
         href: Theory2.html
       - text: "Data and Methods"
@@ -36,6 +38,8 @@ navbar:
         href: DataConstruct2.html
       - text: "Analyses and Results"
         href: AnalysesResults.html
+      - text: "Discussion and Conclusion"
+        href: ConclusionDiscussion.html
     - text: "Unused Progress on FIS data"
       menu:
       - text: "Introduction"
@@ -47,7 +51,7 @@ navbar:
       - text: "Unused Data Construction FIS"
         href: DataConstruct.html
         
-        # here, other .Rmds can be added
+
 
 
   right:
