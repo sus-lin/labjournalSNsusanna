@@ -20,7 +20,7 @@ To answer the research questions, I make use of a subset of the Michigan Residen
 
 A complete directed social network (i.e. socionet) was constructed based on the peers each student reported they hung around with and talked to the most (*"Which students in your MLC do you hang around with and talk to the most?"*). Students could nominate up to ten peers from within their MLC. Participants were instructed to skip the question if they could not think of anyone.
 
-The data subset contained only students who responded to the network question in at least one wave. Non-responses were treated as structural zeros, as it was impossible for these students to have outgoing ties in the respective wave.
+The data subset contained only students who responded to the network question in at least one wave. Non-responses were marked as NA and treated as uninformative in modelling.
 
 ### Caregiver Educational Attainment
 

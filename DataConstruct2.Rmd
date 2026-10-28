@@ -105,6 +105,7 @@ gendernew <- as.data.frame(gender)
 gendernew$gender <- ifelse(is.na(gendernew$T1GENDER), gendernew$T2GENDER, gendernew$T1GENDER)
 gendernew <- dplyr::select(gendernew, gender)
 gendernew <- as.numeric(gendernew$gender)
+gendernew <- gendernew - 1
 gendernew <- as.vector(gendernew)
 ```
 ```{r}

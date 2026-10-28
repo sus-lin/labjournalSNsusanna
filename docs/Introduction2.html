@@ -71,6 +71,29 @@ if (window.hljs) {
 }
 </style>
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="tweaks.css" type="text/css" />
 
@@ -398,7 +421,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Unused Progress on FIS-based Question
+    FIS-based Work:(
      
     <span class="caret"></span>
   </a>
@@ -451,16 +474,144 @@ div.tocify {
 </div>
 
 
-<p>To what extent are hanging out networks of first-year university
-students in a Michigan Learning Community segregated by caregiver
-educational attainment?</p>
-<p>To what extent do students demonstrate a tendency for homophily in
-the creation and maintenance of hanging out relations?</p>
-<p>Does growing up in an educationally mixed family affect students’
-tendency for homophily in the creation and maintenance of hanging out
-relations?</p>
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>College is an important site for developing social ties that can
+benefit students throughout their lives. Social networks developed
+during education have been shown to play a large role in for example
+investment and employment decisions <span class="citation">(Josefy,
+Harrison, and Howard 2023; Cohen, Frazzini, and Malloy 2008)</span>.
+However, not all students benefit equally from this ‘old boys’ network.
+Underrepresented students, such as first-generation or low-income
+college students, do not necessarily experience social advancement from
+attending a selective college <span class="citation">(Friend
+2021)</span>. First-generation college students have also repeatedly
+been found to have a higher probability of dropping out than their
+continuing-generation peers with at least one parent who attended
+college <span class="citation">(Weisen et al. 2024; Pratt et al.
+2019)</span>. This high attrition has been partly attributed to a lack
+of social integration <span class="citation">(Rubin 2012; Dika and
+D’Amico 2016)</span>.</p>
+<p>In short, first-generation college students seem to face barriers in
+the development of social ties with peers, particularly with peers who
+provide social capital. This can result in persisting inequalities. It
+is therefore crucial to gain a better understanding of how ties between
+first-generation college students and their continuing-generation peers
+evolve. Knowing the mechanisms through which segregation takes place can
+help inform interventions. For example, if segregation evolves due to
+homophily in tie creation but not maintenance, intervention can aim to
+increase meeting opportunities between first- and continuing-generation
+students. Alternatively, if segregation evolves due to homophily in tie
+maintenance rather than tie creation, efforts may be better spent on
+strengthening existing intergroup relations.</p>
+<p>Although previous studies on first-generation college students have
+repeatedly emphasised the importance of social relations, a true social
+network perspective, which acknowledges the interdependency between
+individuals, is missing. This not only paints a less reliable picture of
+network development due to interdependencies that interfere with
+traditional statistical techniques, but also misses out on identifying
+the exact mechanisms behind tie creation. I therefore use stochastic
+actor-oriented models to answer the following questions:</p>
+<p><em>RQ1: To what extent are hanging out networks of first-year
+university students in a Michigan Learning Community segregated by
+caregiver educational attainment?</em></p>
+<p><em>RQ2: To what extent do students demonstrate a tendency for
+homophily in the creation and maintenance of hanging out
+relations?</em></p>
+<p>Additionally, I add to the existing literature on classed social
+dynamics in first-year college students by introducing a second
+generational factor: having a mixed inheritance, e.g. growing up with
+one parent/caregiver who has a college diploma and one who does not.
+Scholars have long been calling for the acknowledgement of class
+heterogeneous families <span class="citation">(Graetz 1991)</span>. In
+the literature on intergroup relations specifically, the existence of
+these families suggests the possibility of a gateway group, defined as
+“groups characterized by unique social categorizations that enables them
+to be categorized as and identified with more than one group within the
+context of intergroup relations” <span class="citation">(Levy et al.
+2017)</span>. If young people who grew up in an educationally mixed
+family indeed feel affiliated with both their parents’/caregivers’
+backgrounds, they may act as a mediator between their fellow
+continuing-generation students and first-generation peers. To provide a
+preliminary understanding of the potential for students from
+educationally mixed families to act as a gateway group, I therefore also
+investigate the following:</p>
+<p><em>RQ3: Do students who grew up in an educationally mixed family
+demonstrate a different level of homophily in the creation and
+maintenance of hanging out relations?</em></p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+<div id="ref-cohen2008" class="csl-entry">
+Cohen, Lauren, Andrea Frazzini, and Christopher Malloy. 2008. <span>“The
+Small World of Investing: Board Connections and Mutual Fund
+Returns.”</span> <em>Journal of Political Economy</em> 116 (5): 951–79.
+<a
+href="https://doi.org/10.1086/592415">https://doi.org/10.1086/592415</a>.
+</div>
+<div id="ref-dika2016" class="csl-entry">
+Dika, Sandra L., and Mark M. D’Amico. 2016. <span>“Early Experiences and
+Integration in the Persistence of First<span>-</span>Generation College
+Students in STEM and Non<span>-</span>STEM Majors.”</span> <em>Journal
+of Research in Science Teaching</em> 53 (3): 368–83. <a
+href="https://doi.org/10.1002/tea.21301">https://doi.org/10.1002/tea.21301</a>.
+</div>
+<div id="ref-friend2021" class="csl-entry">
+Friend, Katherine L. 2021. <span>“The Creation of Social Networks:
+Social Capital and the Experiences of Widening Participation Students at
+Three Elite Institutions in the US, England, and Scotland.”</span>
+<em>Pedagogy, Culture &amp; Society</em> 29 (3): 359–77. <a
+href="https://doi.org/10.1080/14681366.2020.1735496">https://doi.org/10.1080/14681366.2020.1735496</a>.
+</div>
+<div id="ref-graetz1991" class="csl-entry">
+Graetz, Brian. 1991. <span>“The Class Location of Families: A Refined
+Classification and Analysis.”</span> <em>Sociology</em> 25 (1): 101–18.
+<a
+href="https://doi.org/10.1177/0038038591025001006">https://doi.org/10.1177/0038038591025001006</a>.
+</div>
+<div id="ref-josefy2023" class="csl-entry">
+Josefy, Matthew A., Joseph S. Harrison, and Michael D. Howard. 2023.
+<span>“Elite Pipelines: How Elite School Ties Are Reflected in Interfirm
+Employee Migration.”</span> <em>Journal of Management</em> 49 (5):
+1570–600. <a
+href="https://doi.org/10.1177/01492063221097896">https://doi.org/10.1177/01492063221097896</a>.
+</div>
+<div id="ref-levy2017" class="csl-entry">
+Levy, Aharon, Tamar Saguy, Eran Halperin, and Martijn Van Zomeren. 2017.
+<span>“Bridges or Barriers? Conceptualization of the Role of Multiple
+Identity Gateway Groups in Intergroup Relations.”</span> <em>Frontiers
+in Psychology</em> 8 (June): 1097. <a
+href="https://doi.org/10.3389/fpsyg.2017.01097">https://doi.org/10.3389/fpsyg.2017.01097</a>.
+</div>
+<div id="ref-pratt2019" class="csl-entry">
+Pratt, Ian S., Hunter B. Harwood, Jenel T. Cavazos, and Christopher P.
+Ditzfeld. 2019. <span>“Should I Stay or Should I Go? Retention in
+First-Generation College Students.”</span> <em>Journal of College
+Student Retention: Research, Theory &amp; Practice</em> 21 (1): 105–18.
+<a
+href="https://doi.org/10.1177/1521025117690868">https://doi.org/10.1177/1521025117690868</a>.
+</div>
+<div id="ref-rubin2012" class="csl-entry">
+Rubin, Mark. 2012. <span>“Social Class Differences in Social Integration
+Among Students in Higher Education: A Meta-Analysis and Recommendations
+for Future Research.”</span> <em>Journal of Diversity in Higher
+Education</em> 5 (1): 22–38. <a
+href="https://doi.org/10.1037/a0026162">https://doi.org/10.1037/a0026162</a>.
+</div>
+<div id="ref-weisen2024" class="csl-entry">
+Weisen, Shelby, Tai Do, Marisa C. Peczuh, Ashley S. Hufnagle, and
+Geoffrey Maruyama. 2024. <span>“How Are First<span>-</span>Generation
+Students Doing Throughout Their College Years? An Examination of
+Academic Success, Retention, and Completion Rates.”</span> <em>Analyses
+of Social Issues and Public Policy</em> 24 (3): 1274–87. <a
+href="https://doi.org/10.1111/asap.12413">https://doi.org/10.1111/asap.12413</a>.
+</div>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkludHJvZHVjdGlvbjIiDQphdXRob3I6ICJTdXNhbm5hIg0KZGF0ZTogIjIwMjYtMTAtMjYiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQpUbyB3aGF0IGV4dGVudCBhcmUgaGFuZ2luZyBvdXQgbmV0d29ya3Mgb2YgZmlyc3QteWVhciB1bml2ZXJzaXR5IHN0dWRlbnRzIGluIGEgTWljaGlnYW4gTGVhcm5pbmcgQ29tbXVuaXR5IHNlZ3JlZ2F0ZWQgYnkgY2FyZWdpdmVyIGVkdWNhdGlvbmFsIGF0dGFpbm1lbnQ/DQoNClRvIHdoYXQgZXh0ZW50IGRvIHN0dWRlbnRzIGRlbW9uc3RyYXRlIGEgdGVuZGVuY3kgZm9yIGhvbW9waGlseSBpbiB0aGUgY3JlYXRpb24gYW5kIG1haW50ZW5hbmNlIG9mIGhhbmdpbmcgb3V0IHJlbGF0aW9ucz8NCg0KRG9lcyBncm93aW5nIHVwIGluIGFuIGVkdWNhdGlvbmFsbHkgbWl4ZWQgZmFtaWx5IGFmZmVjdCBzdHVkZW50cycgdGVuZGVuY3kgZm9yIGhvbW9waGlseSBpbiB0aGUgY3JlYXRpb24gYW5kIG1haW50ZW5hbmNlIG9mIGhhbmdpbmcgb3V0IHJlbGF0aW9ucz8=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkludHJvZHVjdGlvbjIiDQphdXRob3I6ICJTdXNhbm5hIg0KZGF0ZTogIjIwMjYtMTAtMjYiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWINCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQojIEludHJvZHVjdGlvbg0KDQpDb2xsZWdlIGlzIGFuIGltcG9ydGFudCBzaXRlIGZvciBkZXZlbG9waW5nIHNvY2lhbCB0aWVzIHRoYXQgY2FuIGJlbmVmaXQgc3R1ZGVudHMgdGhyb3VnaG91dCB0aGVpciBsaXZlcy4gU29jaWFsIG5ldHdvcmtzIGRldmVsb3BlZCBkdXJpbmcgZWR1Y2F0aW9uIGhhdmUgYmVlbiBzaG93biB0byBwbGF5IGEgbGFyZ2Ugcm9sZSBpbiBmb3IgZXhhbXBsZSBpbnZlc3RtZW50IGFuZCBlbXBsb3ltZW50IGRlY2lzaW9ucyBbQGpvc2VmeTIwMjM7IEBjb2hlbjIwMDhdLiBIb3dldmVyLCBub3QgYWxsIHN0dWRlbnRzIGJlbmVmaXQgZXF1YWxseSBmcm9tIHRoaXMgJ29sZCBib3lzJyBuZXR3b3JrLiBVbmRlcnJlcHJlc2VudGVkIHN0dWRlbnRzLCBzdWNoIGFzIGZpcnN0LWdlbmVyYXRpb24gb3IgbG93LWluY29tZSBjb2xsZWdlIHN0dWRlbnRzLCBkbyBub3QgbmVjZXNzYXJpbHkgZXhwZXJpZW5jZSBzb2NpYWwgYWR2YW5jZW1lbnQgZnJvbSBhdHRlbmRpbmcgYSBzZWxlY3RpdmUgY29sbGVnZSBbQGZyaWVuZDIwMjFdLiBGaXJzdC1nZW5lcmF0aW9uIGNvbGxlZ2Ugc3R1ZGVudHMgaGF2ZSBhbHNvIHJlcGVhdGVkbHkgYmVlbiBmb3VuZCB0byBoYXZlIGEgaGlnaGVyIHByb2JhYmlsaXR5IG9mIGRyb3BwaW5nIG91dCB0aGFuIHRoZWlyIGNvbnRpbnVpbmctZ2VuZXJhdGlvbiBwZWVycyB3aXRoIGF0IGxlYXN0IG9uZSBwYXJlbnQgd2hvIGF0dGVuZGVkIGNvbGxlZ2UgW0B3ZWlzZW4yMDI0OyBAcHJhdHQyMDE5XS4gVGhpcyBoaWdoIGF0dHJpdGlvbiBoYXMgYmVlbiBwYXJ0bHkgYXR0cmlidXRlZCB0byBhIGxhY2sgb2Ygc29jaWFsIGludGVncmF0aW9uIFtAcnViaW4yMDEyOyBAZGlrYTIwMTZdLg0KDQpJbiBzaG9ydCwgZmlyc3QtZ2VuZXJhdGlvbiBjb2xsZWdlIHN0dWRlbnRzIHNlZW0gdG8gZmFjZSBiYXJyaWVycyBpbiB0aGUgZGV2ZWxvcG1lbnQgb2Ygc29jaWFsIHRpZXMgd2l0aCBwZWVycywgcGFydGljdWxhcmx5IHdpdGggcGVlcnMgd2hvIHByb3ZpZGUgc29jaWFsIGNhcGl0YWwuIFRoaXMgY2FuIHJlc3VsdCBpbiBwZXJzaXN0aW5nIGluZXF1YWxpdGllcy4gSXQgaXMgdGhlcmVmb3JlIGNydWNpYWwgdG8gZ2FpbiBhIGJldHRlciB1bmRlcnN0YW5kaW5nIG9mIGhvdyB0aWVzIGJldHdlZW4gZmlyc3QtZ2VuZXJhdGlvbiBjb2xsZWdlIHN0dWRlbnRzIGFuZCB0aGVpciBjb250aW51aW5nLWdlbmVyYXRpb24gcGVlcnMgZXZvbHZlLiBLbm93aW5nIHRoZSBtZWNoYW5pc21zIHRocm91Z2ggd2hpY2ggc2VncmVnYXRpb24gdGFrZXMgcGxhY2UgY2FuIGhlbHAgaW5mb3JtIGludGVydmVudGlvbnMuIEZvciBleGFtcGxlLCBpZiBzZWdyZWdhdGlvbiBldm9sdmVzIGR1ZSB0byBob21vcGhpbHkgaW4gdGllIGNyZWF0aW9uIGJ1dCBub3QgbWFpbnRlbmFuY2UsIGludGVydmVudGlvbiBjYW4gYWltIHRvIGluY3JlYXNlIG1lZXRpbmcgb3Bwb3J0dW5pdGllcyBiZXR3ZWVuIGZpcnN0LSBhbmQgY29udGludWluZy1nZW5lcmF0aW9uIHN0dWRlbnRzLiBBbHRlcm5hdGl2ZWx5LCBpZiBzZWdyZWdhdGlvbiBldm9sdmVzIGR1ZSB0byBob21vcGhpbHkgaW4gdGllIG1haW50ZW5hbmNlIHJhdGhlciB0aGFuIHRpZSBjcmVhdGlvbiwgZWZmb3J0cyBtYXkgYmUgYmV0dGVyIHNwZW50IG9uIHN0cmVuZ3RoZW5pbmcgZXhpc3RpbmcgaW50ZXJncm91cCByZWxhdGlvbnMuDQoNCkFsdGhvdWdoIHByZXZpb3VzIHN0dWRpZXMgb24gZmlyc3QtZ2VuZXJhdGlvbiBjb2xsZWdlIHN0dWRlbnRzIGhhdmUgcmVwZWF0ZWRseSBlbXBoYXNpc2VkIHRoZSBpbXBvcnRhbmNlIG9mIHNvY2lhbCByZWxhdGlvbnMsIGEgdHJ1ZSBzb2NpYWwgbmV0d29yayBwZXJzcGVjdGl2ZSwgd2hpY2ggYWNrbm93bGVkZ2VzIHRoZSBpbnRlcmRlcGVuZGVuY3kgYmV0d2VlbiBpbmRpdmlkdWFscywgaXMgbWlzc2luZy4gVGhpcyBub3Qgb25seSBwYWludHMgYSBsZXNzIHJlbGlhYmxlIHBpY3R1cmUgb2YgbmV0d29yayBkZXZlbG9wbWVudCBkdWUgdG8gaW50ZXJkZXBlbmRlbmNpZXMgdGhhdCBpbnRlcmZlcmUgd2l0aCB0cmFkaXRpb25hbCBzdGF0aXN0aWNhbCB0ZWNobmlxdWVzLCBidXQgYWxzbyBtaXNzZXMgb3V0IG9uIGlkZW50aWZ5aW5nIHRoZSBleGFjdCBtZWNoYW5pc21zIGJlaGluZCB0aWUgY3JlYXRpb24uIEkgdGhlcmVmb3JlIHVzZSBzdG9jaGFzdGljIGFjdG9yLW9yaWVudGVkIG1vZGVscyB0byBhbnN3ZXIgdGhlIGZvbGxvd2luZyBxdWVzdGlvbnM6DQoNCipSUTE6IFRvIHdoYXQgZXh0ZW50IGFyZSBoYW5naW5nIG91dCBuZXR3b3JrcyBvZiBmaXJzdC15ZWFyIHVuaXZlcnNpdHkgc3R1ZGVudHMgaW4gYSBNaWNoaWdhbiBMZWFybmluZyBDb21tdW5pdHkgc2VncmVnYXRlZCBieSBjYXJlZ2l2ZXIgZWR1Y2F0aW9uYWwgYXR0YWlubWVudD8qDQoNCipSUTI6IFRvIHdoYXQgZXh0ZW50IGRvIHN0dWRlbnRzIGRlbW9uc3RyYXRlIGEgdGVuZGVuY3kgZm9yIGhvbW9waGlseSBpbiB0aGUgY3JlYXRpb24gYW5kIG1haW50ZW5hbmNlIG9mIGhhbmdpbmcgb3V0IHJlbGF0aW9ucz8qDQoNCkFkZGl0aW9uYWxseSwgSSBhZGQgdG8gdGhlIGV4aXN0aW5nIGxpdGVyYXR1cmUgb24gY2xhc3NlZCBzb2NpYWwgZHluYW1pY3MgaW4gZmlyc3QteWVhciBjb2xsZWdlIHN0dWRlbnRzIGJ5IGludHJvZHVjaW5nIGEgc2Vjb25kIGdlbmVyYXRpb25hbCBmYWN0b3I6IGhhdmluZyBhIG1peGVkIGluaGVyaXRhbmNlLCBlLmcuIGdyb3dpbmcgdXAgd2l0aCBvbmUgcGFyZW50L2NhcmVnaXZlciB3aG8gaGFzIGEgY29sbGVnZSBkaXBsb21hIGFuZCBvbmUgd2hvIGRvZXMgbm90LiBTY2hvbGFycyBoYXZlIGxvbmcgYmVlbiBjYWxsaW5nIGZvciB0aGUgYWNrbm93bGVkZ2VtZW50IG9mIGNsYXNzIGhldGVyb2dlbmVvdXMgZmFtaWxpZXMgW0BncmFldHoxOTkxXS4gSW4gdGhlIGxpdGVyYXR1cmUgb24gaW50ZXJncm91cCByZWxhdGlvbnMgc3BlY2lmaWNhbGx5LCB0aGUgZXhpc3RlbmNlIG9mIHRoZXNlIGZhbWlsaWVzIHN1Z2dlc3RzIHRoZSBwb3NzaWJpbGl0eSBvZiBhIGdhdGV3YXkgZ3JvdXAsIGRlZmluZWQgYXMgImdyb3VwcyBjaGFyYWN0ZXJpemVkIGJ5IHVuaXF1ZSBzb2NpYWwgY2F0ZWdvcml6YXRpb25zIHRoYXQgZW5hYmxlcyB0aGVtIHRvIGJlIGNhdGVnb3JpemVkIGFzIGFuZCBpZGVudGlmaWVkIHdpdGggbW9yZSB0aGFuIG9uZSBncm91cCB3aXRoaW4gdGhlIGNvbnRleHQgb2YgaW50ZXJncm91cCByZWxhdGlvbnMiIFtAbGV2eTIwMTddLiBJZiB5b3VuZyBwZW9wbGUgd2hvIGdyZXcgdXAgaW4gYW4gZWR1Y2F0aW9uYWxseSBtaXhlZCBmYW1pbHkgaW5kZWVkIGZlZWwgYWZmaWxpYXRlZCB3aXRoIGJvdGggdGhlaXIgcGFyZW50cycvY2FyZWdpdmVycycgYmFja2dyb3VuZHMsIHRoZXkgbWF5IGFjdCBhcyBhIG1lZGlhdG9yIGJldHdlZW4gdGhlaXIgZmVsbG93IGNvbnRpbnVpbmctZ2VuZXJhdGlvbiBzdHVkZW50cyBhbmQgZmlyc3QtZ2VuZXJhdGlvbiBwZWVycy4gVG8gcHJvdmlkZSBhIHByZWxpbWluYXJ5IHVuZGVyc3RhbmRpbmcgb2YgdGhlIHBvdGVudGlhbCBmb3Igc3R1ZGVudHMgZnJvbSBlZHVjYXRpb25hbGx5IG1peGVkIGZhbWlsaWVzIHRvIGFjdCBhcyBhIGdhdGV3YXkgZ3JvdXAsIEkgdGhlcmVmb3JlIGFsc28gaW52ZXN0aWdhdGUgdGhlIGZvbGxvd2luZzoNCg0KKlJRMzogRG8gc3R1ZGVudHMgd2hvIGdyZXcgdXAgaW4gYW4gZWR1Y2F0aW9uYWxseSBtaXhlZCBmYW1pbHkgZGVtb25zdHJhdGUgYSBkaWZmZXJlbnQgbGV2ZWwgb2YgaG9tb3BoaWx5IGluIHRoZSBjcmVhdGlvbiBhbmQgbWFpbnRlbmFuY2Ugb2YgaGFuZ2luZyBvdXQgcmVsYXRpb25zPyoNCg0KIyBSZWZlcmVuY2VzDQo=</div>
 
 
 </div>

@@ -18,7 +18,9 @@ The people of the United States are strongly segregated based on class, in terms
 
 *H1: Students who hang out together are more similar with regards to parental educational backgrounds than students who do not hang out together.*
 
-This macro-level segregation would be explained on the micro-level by homophily, the preference for homogeneity in friendships. ***ADD REASONS: students with generational heritage of educational experience may hold prejudice, first-generation students may seek safety/avoid stigmatisation***
+This macro-level segregation would be explained on the micro-level by homophily, the preference for homogeneity in friendships. For first-generation college students, friendships with peers who have a similar background can provide a safe basis for social support based on shared experience [@gray2018]. By spending time with other first-generation students, they can avoid the negative, stigmatising experiences above [@allan2016; @álvarez-rivadulla2023; @gray2017; @salusky2022].
+
+***ADD REASONS: students with generational heritage of educational experience may hold prejudice, first-generation students may seek safety/avoid stigmatisation***
 
 *H2: Students prefer hanging out with peers who have the same caregiver educational background.*
 
