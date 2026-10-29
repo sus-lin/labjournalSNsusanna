@@ -16,9 +16,9 @@ This study investigated patterns of homophily based on caregiver educational att
 
 1)  To what extent are hanging out networks of first-year university students in a Michigan Learning Community segregated by caregiver educational attainment?
 
-2)  To what extent do students demonstrate a tendency for homophily in the creation and maintenance of hanging out relations?
+2)  To what extent do students demonstrate a tendency for caregiver education-based homophily in the creation and maintenance of hanging out relations?
 
-3)  Does growing up in an educationally mixed family affect students' tendency for homophily in the creation and maintenance of hanging out relations?
+3)  Does growing up in an educationally mixed family affect students' tendency for caregiver education-based homophily in the creation and maintenance of hanging out relations?
 
 Descriptive analysis based on Moran's I did not support the hypothesis that hanging out networks were segregated by caregiver educational attainment (H1). The expectation that students prefer hanging out with peers who have the same caregiver educational background (H2) was also not supported. Although homophily did play a role in creation, as an evaluation effect, it was insignificant. Contrary to hypothesis 2b, homophily did not mainly occur in tie maintenance/endowment. Instead, an anti-homophily effect was found in endowment that counteracted the positive effect of homophily in tie creation. Finally, the expectation that students who grew up in an educationally mixed family would have lower levels of homophily was not supported (H3). All conclusions regarding the hypotheses remained constant when accounting for ethnic and gender homophily.
 

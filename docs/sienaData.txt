@@ -6,7 +6,7 @@ Filename is sienaData.txt.
 
 This file contains basic descriptives for SIENA data set <<mydata>>.
 
-Date and time: 28/10/2026 18:14:27 
+Date and time: 29/10/2026 20:04:36 
 
 RSiena version 1.6.6 (20 04 2026)
 

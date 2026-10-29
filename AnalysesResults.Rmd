@@ -137,7 +137,7 @@ dev.off()}
 knitr::include_graphics("plot2.png")
 ```
 
-*Note:* Nodes were distributed in the graph based on the Fruchterman-Reingold forcedirected algorithm, which models repulsion between nodes and attraction between nodes that are unconnected. The nodes were fixed in their w2 location for both waves to visualise changes in specific ties. Node size indicates degree, darkness of ties indicates betweenness.
+*Note:* Nodes were distributed in the graph based on the Fruchterman-Reingold forcedirected algorithm, which models repulsion between nodes and attraction between nodes that are connected. The nodes were fixed in their w2 location for both waves to visualise changes in specific ties. Node size indicates degree, darkness of ties indicates betweenness.
 
 Before investigating whether the hypothesised effects are significant in individual students' tie-making and -breaking, it is important to understand the observable dynamics within the network. For this purpose, I first explore the descriptive statistics in both waves. I start with descriptives related to the evolution of ties, density, and pathlength, then I discuss triad configurations within the network, before finally calculating segregation based on parental educational attainment to answer research question 1.
 
@@ -180,7 +180,7 @@ mean_distance(hangingt1, directed = T, unconnected = T, details = T)
 mean_distance(hangingt2, directed = T, unconnected = T, details = T)
 ```
 
-Surprisingly, the average shortest path length between vectors, not counting isolates, decreases from 4.84 in the first wave to 4.59 in the second wave - despite the reduction in the total number of connected pairs. This may be explained by the presence of several efficient brokers between clusters, visible in the wave 2 network depiction.
+Surprisingly, the average shortest path length between vectors, not counting isolates, decreases from 4.84 in the first wave to 4.59 in the second wave - despite the reduction in the total number of connected pairs. This may be explained by the presence of several efficient brokers between clusters, visible in the wave 2 network depiction. 
 
 ```{r}
 hangingt1m <- as.matrix(hanging_df_t1)
@@ -196,7 +196,7 @@ Between both waves, we can observe a reduction in all triad types except for the
 
 ## Segregation
 
-To answer the first research question, I calculate Moran's I, a spatial autocorrelation measure used to indicate whether nodes that are closer to one another are more alike. Under the null hypothesis of no segregation, the expected value of I is -1/(N-1). An observed I larger than the expected indicates positive autocorrelation, an observed I smaller than the expected indicates negative autocorrelation (the opposite of segregation) [@disalvatore2021]. As I am interested in selection rather than influence, I use a distance decay function of 1, i.e. I test whether students who are directly connected are more similar in their parents' highest educational attainment. I do not rowstandardise, since rowstandardising would treat a student connected to only one peer with a different educational heritage and no others the same as it would a student connected to several such peers and no others.
+To answer the first research question, I calculate Moran's I, a spatial autocorrelation measure used to indicate whether nodes that are closer to one another are more alike. Under the null hypothesis of no segregation, the expected value of I is -1/(N-1). An observed I larger than the expected indicates positive autocorrelation, an observed I smaller than the expected indicates negative autocorrelation (the opposite of segregation) [@disalvatore2021]. As I am interested in selection processes, I use a distance decay function of 1, i.e. I test whether students who are directly connected are more similar in their parents' highest educational attainment. I do not rowstandardise, since rowstandardising would treat a student connected to only one peer with a different educational heritage and no others the same as it would a student connected to several such peers and no others.
 
 ```{r}
 hangingt1m <- as.matrix(hanging_df_t1)
@@ -334,9 +334,13 @@ There is no evidence for segregation based on parental educational levels in eit
 
 ## Students with a Mixed Background
 
+The figure below highlights students from educationally mixed families, with size indicating betweenness. Students with a mixed background do not demonstrate higher betweenness scores than their peers. However, betweennes itself cannot provide conclusive evidence in favour of the hypothesis either way, as it is specifically the amount of shortest paths from first-generation to continuing-generation students that pass through those with a mixed background that I would be interested in, not paths between any pair of students. From the network visualisation alone, it is difficult to assess whether students with a mixed background have more diverse ties. 
+Instead of fixing students in their wave two places, this figure determines locations based on students's ties within each specific ties. It stands out that students with a mixed background in particular shift their position in the social network between wave one and wave two. While these students initially seem to be rather isolated, by wave two, they have formed new ties with both first- and continuing-generation students. This may suggest that students from an educationally mixed household are indeed a third group, who face initial challenges in forming ties, but create more diverse relations over time. To test this and the other hypotheses, I will proceed with creating stochastic actor-oriented models.
+
 ```{r}
 V(hangingt1)$size = igraph::betweenness(hangingt1, normalized = T, directed = TRUE) * 70 + 7
 V(hangingt2)$size = igraph::betweenness(hangingt2, normalized = T, directed = TRUE) * 70 + 7
+layoutfr1 <- layout.fruchterman.reingold(hangingt1)
 
 {png("plot3.png", width = 14, height = 7, units = "in", res = 300)
 
@@ -350,7 +354,7 @@ plot(hangingt1,
      edge.curved = 0.2,
      edge.arrow.size = 0.2,
      edge.color = colourbetweenness[cut(igraph::edge_betweenness(hangingt1), breaks=nbins )],
-     layout = layoutfr2, 
+     layout = layoutfr1, 
      main = "Wave 1")
 
 legend("topleft", c("university", "no university", "mixed", "missing"), pch = 21, col = "grey91", pt.bg = c("#3A87AD", "lightgoldenrod", "mediumorchid4", "white"), pt.cex = 1,
@@ -431,20 +435,20 @@ ifelse(!dir.exists("results"), dir.create("results"), FALSE)
 print01Report(mydata, modelname = "./results/edu_bridge")
 ```
 
-First some basic effects that are not really of theoretical interest:
+First, I add the recommended relational effects: out-degree activity, in-degree popularity, in-degree activity, reciprocity, and GWESPFF.
 
 ```{r}
 myeff <- includeEffects(myeff0910, outAct, inPop, inAct, recip, gwespFF)  
 ```
 
-Subsequently, I will introduce homophily as an endowment effect:
+Subsequently, I will introduce homophily as an endowment effect.
 
 ```{r}
 myeff <- includeEffects(myeff, sameX, egoX, altX, type = "endow", interaction1 = "pareduhighcov")
 myeff
 ```
 
-And as a creation effect:
+And as a creation effect.
 
 ```{r}
 myeff <- includeEffects(myeff, sameX, egoX, altX, type = "creation", interaction1 = "pareduhighcov")
@@ -547,7 +551,7 @@ myeff1.1
 #mod1.1 <- siena07(myAlgorithm, data = mydata, effects = myeff1.1, prevAns = mod1, returnDeps = TRUE) 
 ```
 
-Including the outIso effect destabilises the estimation procedure, reflected in unrealistically high estimates. I will therefor explore alternative effects that may account for the underestimation of out-isolates.
+Including the out-degree isolate effect destabilises the estimation procedure, reflected in unrealistically high estimates. I will therefor explore alternative effects that may account for the underestimation of out-isolates.
 
 ### (sub)Model 1.2: inIsDegree
 
@@ -602,8 +606,6 @@ results1.3 <- data.frame(
 
 pander::pander(results1.3)
 ```
-
-Both the endowment and the creation homophily effects remain significant (p = .020 and p = .018, respectively). 
 
 ### Goodness of Fit
 
@@ -782,7 +784,20 @@ plot(goftrim1.6, center = TRUE, scale = TRUE)
 gofgdm1.6 <- sienaGOF(mod1.6, GeodesicDistribution, cumulative = FALSE, verbose = FALSE, join = TRUE, varName = "net")
 plot(gofgdm1.6)
 ```
+Adding the balance effect, which , improves fit of the triad census and outdegree distribution. While the outdegree distribution in the simulated networks still significantly differs from the observed network, the difference is now much closer to being non-significant.
 
+```{r}
+results1.6 <- data.frame(
+  effect = mod1.6$effects$effectName,
+  b = mod1.6$theta,
+  se = mod1.6$se,
+  t = mod1.6$theta / mod1.6$se,
+  p = 2 * pnorm(-abs(mod1.6$theta / mod1.6$se)))
+
+pander::pander(results1.6)
+```
+
+Homophily in endowment is significant and negative (b = -1.0, SE = 0.44, p = 0.022), indicating that students prefer maintaining ties with those whose parents/caregivers have a different background than their own. Homophily in creation is also significant, but positive (b = 0.66, SE = 0.25, p = 0.009). 
 
 ## Model 2: Homophily x Educationally Mixed Family
 
@@ -870,7 +885,7 @@ pander::pander(results2.1)
 
 *Note:* The model automatically includes the internal effect parameters used for the interaction (in this case: the endowment and creation effect of ego having parents with different educational backgrounds), but these are not tested as part of the main model. I therefore do not report them in the above table.
 
-The model shows acceptable convergence, with an overall maximum convergence rate < 0.25 and absolute convergence t-ratios < 0.1. The interactions between homophily and ego having a mixed background are clearly insignificant for both endowment and creation (p = 0.864 and p = 0.877, respectively), with very high standard errors. The hypothesis that students whose parents have different educational attainments (university experience & no university experience) have lower levels of homophily is thus not supported. WIth the interaction effects included, homophily loses significance based on a two-sided test. Based on a one-sided test, the negative effect of homophily in endowment does remain  significant, and the positive effect in creation is marginally significant.
+The model shows acceptable convergence, with an overall maximum convergence rate < 0.25 and absolute convergence t-ratios < 0.1. The interactions between homophily and ego having a mixed background are clearly insignificant for both endowment and creation (p = 0.864 and p = 0.877, respectively), with very high standard errors. The hypothesis that students whose parents have different educational attainments (university experience & no university experience) have lower levels of homophily is thus not supported. With the interaction effects included, homophily loses significance based on a two-sided test. 
 
 ### Goodness of Fit
 
@@ -894,7 +909,7 @@ gofgdm2.1 <- sienaGOF(mod2.1, GeodesicDistribution, cumulative = FALSE, verbose 
 plot(gofgdm2.1)
 ```
 
-The model-simulated networks show sufficient similarity to the observed network on all macro-level characteristics. Compared to model 1.3, which only included homophily effects to test hypotheses 2 and 2a, the current model with interaction shows an improved fit and thus seems to better capture the dynamics of the network. 
+The model-simulated networks show sufficient similarity to the observed network on all macro-level characteristics. Compared to model 1.6, which only included homophily effects to test hypotheses 2 and 2a, the model with interaction shows an improved fit and thus seems to better capture the dynamics of the network. 
 
 
 ## Model 3: Control Variables
@@ -919,17 +934,6 @@ mod3
 ```
 Convergence is acceptable (max. conv. ratio = 0.15).
 
-```{r}
-results3 <- data.frame(
-  effect = mod3$requestedEffects$effectName,
-  b = mod3$theta,
-  se = mod3$se,
-  t = mod3$theta / mod3$se,
-  p = 2 * pnorm(-abs(mod3$theta / mod3$se)))
-
-pander::pander(results3)
-```
-
 ### Goodness of Fit
 
 ```{r}
@@ -952,113 +956,130 @@ gofgdm3 <- sienaGOF(mod3, GeodesicDistribution, cumulative = FALSE, verbose = FA
 plot(gofgdm3)
 ```
 
-# CHANGE!!!!! Evaluation and Interpretation of Models
+Including the control variables improved goodness of fit compared to model 2.1.
 
-Model 1.3 offered the best combination of convergence, fit, and inclusion of relevant variables. Below, I will compare model 1.3 with an alternative model containing only evaluation effects, and two models combining evaluation with creation and evaluation with endowment, respectively. In doing so, I will provide an interpretation of the findings.
+```{r}
+results3 <- data.frame(
+  effect = mod3$requestedEffects$effectName,
+  b = mod3$theta,
+  se = mod3$se,
+  t = mod3$theta / mod3$se,
+  p = 2 * pnorm(-abs(mod3$theta / mod3$se)))
+
+pander::pander(results3)
+```
+
+Class-based homophily in tie creation, although still positive, becomes insignificant once accounting for ethnic and gender homophily. Class-based homophily in endowment remains negative and is marginally significant based on a two-sided test (b = - 0.88, SE = 0.48, p = 0.065). Class-based homophily does not significantly differ in students from an educationally mixed family, p = 0.751 for endowment and p = 0.872 for creation. Despite the improved fit after including control variables, none of the control variables are significant. Several relational effects additionally become insignificant after inclusion of the controls.
+
+# Evaluation and Interpretation of Models
+
+Model 1 found a significant positive homophily effect in tie creation and a significant negative effect in endowment. After introducing interaction effects with mixed background, both homophily effects lose their significance, despite the insignifance of the interaction effects themselves. In model three, which included all theoretically relevant variables as well as a set of control variables, the negative effect of homophily in endowment gained marginal significance. Model 3 also demonstrated the best fit, with no macro-level descriptives significantly deviating between the simulated networks and the observed network.
+
+The loss of significance of many variables, including standard relational effects such as reciprocity, raises suspicion of overcontrolling. Additionally, model 2.1 and 3 exclude the lower-level effects involved in class-based homophily. This complicates the interpretation of the homophily effect itself. In the following, I will therefore use model 1.6 to test hypothesis 2 and 2a. I will compare model 1.6 with an alternative model containing only evaluation effects, and two models combining evaluation with creation and evaluation with endowment, respectively. In doing so, I will provide an interpretation of the findings.
 
 ## Hypothesis 2 & 2b
 
 ### Evaluation-Only
 
 ```{r}
-myeff1.3e <- includeEffects(myeff0910, outAct, inAct, recip, gwespFF) 
-myeff1.3e
+myeff1.6e <- includeEffects(myeff0910, outAct, inAct, outIso, recip, balance, gwespFF) 
+myeff1.6e
 ```
 
 ```{r}
-myeff1.3e <- includeEffects(myeff1.3e, sameX, egoX, altX, interaction1 = "pareduhighcov")
-myeff1.3e
+myeff1.6e <- includeEffects(myeff1.6e, sameX, egoX, altX, interaction1 = "pareduhighcov")
+myeff1.6e
 ```
 
 ```{r, eval=FALSE}
-mod1.3e <- siena07(myAlgorithm, data = mydata, effects = myeff1.3e, returnDeps = TRUE) 
+mod1.6e <- siena07(myAlgorithm, data = mydata, effects = myeff1.6e, returnDeps = TRUE) 
 ```
 ```{r}
-#mod1.3e <- saveRDS(mod1.3e, "mod1.3e.rds")
-mod1.3e <- readRDS("mod1.3e.rds")
-mod1.3e
+#mod1.6e <- saveRDS(mod1.6e, "mod1.6e.rds")
+mod1.6e <- readRDS("mod1.6e.rds")
+mod1.6e
 ```
 
 ### Evaluation & Endowment
 
 ```{r}
-myeff1.3ee <- includeEffects(myeff0910, outAct, inAct, recip, gwespFF) 
-myeff1.3ee
+myeff1.6ee <- includeEffects(myeff0910, outAct, inAct, outIso, recip, balance, gwespFF) 
+myeff1.6ee
 ```
 
 ```{r}
-myeff1.3ee <- includeEffects(myeff1.3ee, sameX, egoX, altX, type = "endow", interaction1 = "pareduhighcov")
-myeff1.3ee
+myeff1.6ee <- includeEffects(myeff1.6ee, sameX, egoX, altX, type = "endow", interaction1 = "pareduhighcov")
+myeff1.6ee
 ```
 
 ```{r}
-myeff1.3ee <- includeEffects(myeff1.3ee, sameX, egoX, altX, type = "eval", interaction1 = "pareduhighcov")
-myeff1.3ee
+myeff1.6ee <- includeEffects(myeff1.6ee, sameX, egoX, altX, type = "eval", interaction1 = "pareduhighcov")
+myeff1.6ee
 ```
 
 ```{r, eval=FALSE}
-mod1.3ee <- siena07(myAlgorithm, data = mydata, effects = myeff1.3ee, returnDeps = TRUE) 
+mod1.6ee <- siena07(myAlgorithm, data = mydata, effects = myeff1.6ee, returnDeps = TRUE) 
 ```
 ```{r}
-#mod1.3ee <- saveRDS(mod1.3ee, "mod1.3ee.rds")
-mod1.3ee <- readRDS("mod1.3ee.rds")
-mod1.3ee
+#mod1.6ee <- saveRDS(mod1.6ee, "mod1.6ee.rds")
+mod1.6ee <- readRDS("mod1.6ee.rds")
+mod1.6ee
 ```
 
 ### Evaluation & Creation
 
 ```{r}
-myeff1.3ec <- includeEffects(myeff0910, outAct, inAct, recip, gwespFF) 
-myeff1.3ec
+myeff1.6ec <- includeEffects(myeff0910, outAct, inAct, outIso, recip, balance, gwespFF) 
+myeff1.6ec
 ```
 
 ```{r}
-myeff1.3ec <- includeEffects(myeff1.3ec, sameX, egoX, altX, type = "eval", interaction1 = "pareduhighcov")
-myeff1.3ec
+myeff1.6ec <- includeEffects(myeff1.6ec, sameX, egoX, altX, type = "eval", interaction1 = "pareduhighcov")
+myeff1.6ec
 ```
 
 ```{r}
-myeff1.3ec <- includeEffects(myeff1.3ec, sameX, egoX, altX, type = "creation", interaction1 = "pareduhighcov")
-myeff1.3ec
+myeff1.6ec <- includeEffects(myeff1.6ec, sameX, egoX, altX, type = "creation", interaction1 = "pareduhighcov")
+myeff1.6ec
 ```
 
 ```{r, eval=FALSE}
-mod1.3ec <- siena07(myAlgorithm, data = mydata, effects = myeff1.3ec, returnDeps = TRUE) 
+mod1.6ec <- siena07(myAlgorithm, data = mydata, effects = myeff1.6ec, returnDeps = TRUE) 
 ```
 ```{r}
-#mod1.3ec <- saveRDS(mod1.3ec, "mod1.3ec.rds")
-mod1.3ec <- readRDS("mod1.3ec.rds")
-mod1.3ec
+#mod1.6ec <- saveRDS(mod1.6ec, "mod1.6ec.rds")
+mod1.6ec <- readRDS("mod1.6ec.rds")
+mod1.6ec
 ```
 
 ### Endowment & Creation (Original 1.3)
 
 ```{r}
-mod1.3
+mod1.6
 ```
 ```{r}
-pander::pander(results1.3)
+pander::pander(results1.6)
 ```
 ## Comparison and Interpretation
 
-Model 1.3 demonstrated significant homophily effects in both creation (b = 1.35, SE = 0.55, p = 0.014) and endowment (b = -1.64, SE = 0.43, p < 0.001). This is visible throughout the models: in the evaluation & endowment model, evaluation takes up the positive impact of creation, whereas in the evaluation & creation model, evaluation turns negative to account for the unspecified impact of endowment. Both effects are similar in size, resulting in an effect close to zero in the evaluation-only model (b = -0.0024, SE = 0.17). The negative sign of the endowment effect suggests that, all else kept stable, students prefer maintaining ties with peers whose parents/caregivers have a different level of college experience than their own. On the flip side, the positive effect of homophily in creation suggests that in forming new ties, students do prefer befriending peers with a similar caregiver educational attainment as their own (e.g. first-generation students prefer ties with other first-generation students, students with at least one parent who attended college prefer ties with other students with the same educational family heritage). The findings therefore do not support hypothesis 1 (evaluation homophily) and 1b (homophily in maintenance).
+Model 1.6 demonstrated significant homophily effects in both creation (b = 0.66, SE = 0.25, p = 0.009) and endowment (b = -1.0, SE = 0.44, p = 0.02). This is visible throughout the models: in the evaluation & endowment model, evaluation takes up the positive impact of creation, whereas in the evaluation & creation model, evaluation turns negative to account for the unspecified impact of endowment. Both effects are similar in size, resulting in an effect close to zero in the evaluation-only model (b = -0.04, SE = 0.17). The negative sign of the endowment effect suggests that, all else kept stable, students prefer maintaining ties with peers whose parents/caregivers have a different level of college experience than their own. On the flip side, the positive effect of homophily in creation suggests that in forming new ties, students do prefer befriending peers with a similar caregiver educational attainment as their own (e.g. first-generation students prefer ties with other first-generation students, students with at least one parent who attended college prefer ties with other students with the same educational family heritage). The findings therefore do not support hypothesis 2 (homophily in evaluation) and 2b (homophily in maintenance).
 
-Interestingly, the model additionally contains a significant positive endowment effect of alter's caregiver educational attainment (b = -0.25, SE = 0.33, p = 0.002). This suggests that on average, students prefer maintaining ties with peers who have at least one parent/caregiver with a college diploma. In other words, ties with first-generation college students are more easily broken. 
-
-Students also demonstrate a preference for reciprocal relations (b = 3.07, SE = 0.73, p < 0.001) and for closing tie I --> J in the two-path I --> H --> J, with a diminishing additional benefit when I --> J closes several triads at once (b = 1.93, SE = 0.49, p < 0.001, using the standard internal effect parameter of 69). Students with a high out-degree are more likely to subsequently create/maintain an outgoing tie (b = 0.079, SE = 0.03, p = 0.012), while students with a high in-degree are less likely to create/maintain an outgoing tie (b = -0.39, SE = 0.17, p = 0.023).
+Students  also demonstrate a preference for reciprocal relations (b = 3.3, SE = 0.95, p < 0.001). Additionally, the positive out-isolate effect suggests that students have a positive tendency towards out-degree being 0 (b = 3.0, SE = 0.64, p < 0.001). The negative outdegree (density) effect reflects the previously observed decrease in density over time within the network.
 
 # Relative Influence
 
 ```{r}
 # get parameters
-theta.eval <- mod1.3e$theta
+theta.eval <- mod1.6e$theta
 # and effects
-myeff.eval <- mod1.3e$effects
+myeff.eval <- mod1.6e$effects
 
 # find it
-RI <- interpret_size(mod1.3e, data = mydata, theta = theta.eval, effects = myeff.eval)
+RI <- interpret_size(mod1.6e, data = mydata, theta = theta.eval, effects = myeff.eval)
 # plot it
-plot(RI, addPieChart = TRUE, legendColumns = 2, col = c("#FCFDBF", "#FDDD9F", "#FEBD82","#E44F64", "#CC3F71", "#A02F7F", "#681C81", "#2F1163"), radius = 1.1, width = 0.4, height = 2, cex.legend = 0.8, cex.names = 0.8)
+plot(RI, addPieChart = TRUE, legendColumns = 2, col = c("#FCFDBF", "#FDDD9F", "#FEBD82", "#FC8B62", "#F56B5C", "#E44F64", "#CC3F71", "#A02F7F", "#681C81", "#2F1163"), radius = 1.1, width = 0.4, height = 2, cex.legend = 0.8, cex.names = 0.8)
 ```
 
 The relative influence plot demonstrates the extent to which ministeps would have differed had a certain effect been omitted, plotted for each actor (bar chart) and the sample as a whole (pie chart). This can be used to interpret the relative micro-level importance of each effect compared to the others. In the plot above, I visualise the relative influence of effects based on the evaluation-only alternative model, as the interpret_size function does not yet work for models containing endowment or creation effects. As expected given the previously observed mutual cancelling out between creation and endowment effects, homophily is irrelevant for tie evaluation as a whole.
+
+# References
