@@ -23024,3 +23024,1320 @@ covariance/correlation matrix of X can be found using
 summary(ans) within R, or by using the 'verbose' option in Siena07.
  
 Total computation time 126.67 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 12:54:53
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           5.4680
+  1. eval:  outdegree (density)                            -1.7253
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  GWESP I -> K -> J (69)                          0.0000
+  4. eval:  indegree - popularity                           0.0000
+  5. eval:  outdegree - activity                            0.0000
+  6. eval:  indegree - activity(1)                          0.0000
+  7. endow:  pareduhighcov alter                            0.0000
+  8. creation:  pareduhighcov alter                         0.0000
+  9. endow:  pareduhighcov ego                              0.0000
+ 10. creation:  pareduhighcov ego                           0.0000
+ 11. endow:  same pareduhighcov                             0.0000
+ 12. creation:  same pareduhighcov                          0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared indegrees                                           963.0000
+  5. Sum of squared outdegrees                                         1193.0000
+  6. Sum of crossproducts indegree x outdegree                          714.0000
+  7. Lost ties: Sum indegrees x pareduhighcov                           -16.6441
+  8. New ties: Sum indegrees x pareduhighcov                              0.1356
+  9. Lost ties: Sum outdegrees x pareduhighcov                            2.1864
+ 10. New ties: Sum outdegrees x pareduhighcov                           -10.8983
+ 11. Lost ties: Same values on pareduhighcov                            130.0000
+ 12. New ties: Same values on pareduhighcov                              62.0000
+These were calculated from the data.
+
+ 12 parameters, 12 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 4060 iterations.
+Parameter estimates based on 2060 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.2695  16.1764  -0.0167 
+  2.   0.6710  13.5362   0.0496 
+  3.   0.6631  25.3158   0.0262 
+  4.   1.1155 112.4353   0.0099 
+  5.   1.7065 130.0177   0.0131 
+  6.   3.4975  94.0918   0.0372 
+  7.   0.1246   4.0873   0.0305 
+  8.  -0.0050   4.2879  -0.0012 
+  9.  -0.1772   4.4614  -0.0397 
+ 10.  -0.0302   5.0350  -0.0060 
+ 11.  -0.0210   6.5367  -0.0032 
+ 12.  -0.2680   7.1046  -0.0377 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1568 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 4060 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                             8.578  (   0.8006)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.7148  (   0.2693)
+ 2. eval:  reciprocity                                             2.8202  (   0.6229)
+ 3. eval:  GWESP I -> K -> J (69)                                  1.9245  (   0.3223)
+ 4. eval:  indegree - popularity                                  -0.0536  (   0.0439)
+ 5. eval:  outdegree - activity                                    0.0746  (   0.0317)
+ 6. eval:  indegree - activity(1)                                 -0.3510  (   0.1521)
+ 7. endow: pareduhighcov alter                                     0.9689  (   0.3626)
+ 8. creat: pareduhighcov alter                                    -0.2426  (   0.3162)
+ 9. endow: pareduhighcov ego                                       6.8624  (   4.9284)
+10. creat: pareduhighcov ego                                      -7.5028  (   5.0200)
+11. endow: same pareduhighcov                                     -1.5508  (   0.3622)
+12. creat: same pareduhighcov                                      1.2977  (   0.3121)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.073     -0.110     -0.023     -0.007     -0.006      0.021      0.000     -0.023      0.669     -0.683      0.000      0.006
+    -0.659      0.388      0.145      0.010      0.016     -0.088      0.008      0.077     -2.317      2.395     -0.045     -0.058
+    -0.266      0.724      0.104      0.000      0.005     -0.039     -0.006      0.035     -0.991      1.009     -0.029     -0.021
+    -0.587      0.362      0.005      0.002      0.000     -0.002      0.003     -0.001     -0.006      0.009     -0.004      0.002
+    -0.698      0.801      0.470      0.286      0.001     -0.004      0.001      0.003     -0.094      0.098     -0.002     -0.003
+     0.521     -0.930     -0.805     -0.327     -0.798      0.023      0.000     -0.017      0.522     -0.541      0.011      0.012
+    -0.005      0.033     -0.048      0.187      0.063      0.001      0.131     -0.058      0.424     -0.416     -0.039      0.007
+    -0.272      0.389      0.348     -0.104      0.290     -0.363     -0.506      0.100     -0.821      0.816      0.012     -0.011
+     0.504     -0.755     -0.624     -0.028     -0.600      0.696      0.237     -0.527     24.289    -24.677     -0.309      0.831
+    -0.505      0.766      0.624      0.041      0.618     -0.709     -0.229      0.514     -0.997     25.200      0.292     -0.867
+     0.000     -0.199     -0.244     -0.266     -0.145      0.208     -0.299      0.102     -0.173      0.161      0.131     -0.054
+     0.071     -0.299     -0.205      0.116     -0.295      0.263      0.062     -0.107      0.540     -0.554     -0.481      0.097
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 91.48 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 13:03:42
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff1.3 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           5.4680
+  1. eval:  outdegree (density)                            -1.7253
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  GWESP I -> K -> J (69)                          0.0000
+  4. eval:  outdegree - activity                            0.0000
+  5. eval:  indegree - activity(1)                          0.0000
+  6. endow:  pareduhighcov alter                            0.0000
+  7. creation:  pareduhighcov alter                         0.0000
+  8. endow:  pareduhighcov ego                              0.0000
+  9. creation:  pareduhighcov ego                           0.0000
+ 10. endow:  same pareduhighcov                             0.0000
+ 11. creation:  same pareduhighcov                          0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared outdegrees                                         1193.0000
+  5. Sum of crossproducts indegree x outdegree                          714.0000
+  6. Lost ties: Sum indegrees x pareduhighcov                           -16.6441
+  7. New ties: Sum indegrees x pareduhighcov                              0.1356
+  8. Lost ties: Sum outdegrees x pareduhighcov                            2.1864
+  9. New ties: Sum outdegrees x pareduhighcov                           -10.8983
+ 10. Lost ties: Same values on pareduhighcov                            130.0000
+ 11. New ties: Same values on pareduhighcov                              62.0000
+These were calculated from the data.
+
+ 11 parameters, 11 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 4007 iterations.
+Parameter estimates based on 2007 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.1235  16.6717  -0.0074 
+  2.   0.6470  13.8354   0.0468 
+  3.   0.2761  26.5914   0.0104 
+  4.  -1.2395 133.1364  -0.0093 
+  5.  -1.1675  98.5365  -0.0118 
+  6.   0.1308   4.2137   0.0310 
+  7.   0.1656   4.5821   0.0361 
+  8.  -0.1312   4.5680  -0.0287 
+  9.   0.2468   5.3490   0.0461 
+ 10.  -0.3160   6.7902  -0.0465 
+ 11.   0.0785   7.4566   0.0105 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.167 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 4007 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            8.3482  (   0.7663)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.9352  (   0.2271)
+ 2. eval:  reciprocity                                             3.0653  (   0.7255)
+ 3. eval:  GWESP I -> K -> J (69)                                  1.9314  (   0.4913)
+ 4. eval:  outdegree - activity                                    0.0785  (   0.0312)
+ 5. eval:  indegree - activity(1)                                 -0.3917  (   0.1722)
+ 6. endow: pareduhighcov alter                                     1.0203  (   0.3321)
+ 7. creat: pareduhighcov alter                                    -0.2473  (   0.2500)
+ 8. endow: pareduhighcov ego                                       6.8685  (   6.4780)
+ 9. creat: pareduhighcov ego                                      -7.5250  (   6.6338)
+10. endow: same pareduhighcov                                     -1.6400  (   0.4258)
+11. creat: same pareduhighcov                                      1.3528  (   0.5520)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.052     -0.088     -0.047     -0.005      0.015     -0.007     -0.006      0.703     -0.699      0.009      0.028
+    -0.531      0.526      0.323      0.017     -0.118      0.058     -0.003     -3.933      4.009     -0.150     -0.254
+    -0.421      0.905      0.241      0.009     -0.078      0.032     -0.007     -2.647      2.698     -0.098     -0.175
+    -0.642      0.763      0.614      0.001     -0.004      0.002      0.000     -0.123      0.125     -0.006     -0.007
+     0.376     -0.941     -0.926     -0.759      0.030     -0.014      0.003      0.868     -0.887      0.037      0.056
+    -0.088      0.241      0.197      0.232     -0.244      0.110     -0.030     -0.044      0.032     -0.049      0.005
+    -0.109     -0.015     -0.058     -0.039      0.069     -0.362      0.062     -0.026      0.016      0.007      0.007
+     0.478     -0.837     -0.832     -0.605      0.778     -0.020     -0.016     41.964    -42.917      0.559      3.053
+    -0.464      0.833      0.828      0.604     -0.776      0.014      0.009     -0.999     44.008     -0.585     -3.144
+     0.093     -0.487     -0.468     -0.467      0.507     -0.343      0.063      0.203     -0.207      0.181     -0.016
+     0.226     -0.635     -0.644     -0.422      0.587      0.029      0.049      0.854     -0.859     -0.067      0.305
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 85.48 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 13:09:30
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff1.4 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           5.4680
+  1. eval:  outdegree (density)                            -1.7253
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  GWESP I -> K -> J (69)                          0.0000
+  4. eval:  outdegree - activity                            0.0000
+  5. eval:  indegree - activity(1)                          0.0000
+  6. endow:  pareduhighcov alter                            0.0000
+  7. endow:  pareduhighcov ego                              0.0000
+  8. creation:  pareduhighcov ego                           0.0000
+  9. endow:  same pareduhighcov                             0.0000
+ 10. creation:  same pareduhighcov                          0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared outdegrees                                         1193.0000
+  5. Sum of crossproducts indegree x outdegree                          714.0000
+  6. Lost ties: Sum indegrees x pareduhighcov                           -16.6441
+  7. Lost ties: Sum outdegrees x pareduhighcov                            2.1864
+  8. New ties: Sum outdegrees x pareduhighcov                           -10.8983
+  9. Lost ties: Same values on pareduhighcov                            130.0000
+ 10. New ties: Same values on pareduhighcov                              62.0000
+These were calculated from the data.
+
+ 10 parameters, 10 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 3926 iterations.
+Parameter estimates based on 1926 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   1.5550  16.5150   0.0942 
+  2.  -0.0930  13.5653  -0.0069 
+  3.   1.1937  25.7996   0.0463 
+  4.  11.4510 134.1288   0.0854 
+  5.   7.9445  97.1018   0.0818 
+  6.  -0.1767   4.2406  -0.0417 
+  7.  -0.0112   4.5341  -0.0025 
+  8.  -0.2733   5.2225  -0.0523 
+  9.  -0.0590   6.7004  -0.0088 
+ 10.   0.4425   7.4147   0.0597 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1901 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 3926 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                             8.091  (   0.7382)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.9653  (   0.2210)
+ 2. eval:  reciprocity                                             3.0781  (   1.0367)
+ 3. eval:  GWESP I -> K -> J (69)                                  1.9402  (   0.7239)
+ 4. eval:  outdegree - activity                                    0.0772  (   0.0376)
+ 5. eval:  indegree - activity(1)                                 -0.3898  (   0.3043)
+ 6. endow: pareduhighcov alter                                     0.9854  (   0.3425)
+ 7. endow: pareduhighcov ego                                       6.2913  (   9.7937)
+ 8. creat: pareduhighcov ego                                      -6.9852  (   9.4532)
+ 9. endow: same pareduhighcov                                     -1.6479  (   0.6017)
+10. creat: same pareduhighcov                                      1.3914  (   0.3397)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.049     -0.100     -0.052     -0.005      0.023      0.000      0.858     -0.813      0.019      0.003
+    -0.436      1.075      0.710      0.032     -0.308      0.016     -9.452      9.081     -0.485     -0.083
+    -0.327      0.946      0.524      0.020     -0.213      0.011     -6.439      6.181     -0.344     -0.055
+    -0.619      0.826      0.722      0.001     -0.009      0.001     -0.278      0.269     -0.013     -0.003
+     0.343     -0.976     -0.969     -0.821      0.093     -0.003      2.769     -2.663      0.141      0.026
+     0.000      0.045      0.046      0.042     -0.032      0.117      0.204     -0.200     -0.045      0.029
+     0.397     -0.931     -0.908     -0.756      0.929      0.061     95.917    -92.507      4.079      1.300
+    -0.389      0.927      0.903      0.756     -0.926     -0.062     -0.999     89.363     -3.919     -1.294
+     0.142     -0.778     -0.789     -0.576      0.768     -0.219      0.692     -0.689      0.362     -0.033
+     0.040     -0.236     -0.223     -0.267      0.250      0.249      0.391     -0.403     -0.159      0.115
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 74.68 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 13:13:16
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff1.5 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           8.3482
+  1. eval:  outdegree (density)                            -2.9352
+  2. eval:  reciprocity                                     3.0653
+  3. eval:  GWESP I -> K -> J (69)                          1.9314
+  4. eval:  outdegree - activity                            0.0785
+  5. eval:  indegree - activity(1)                         -0.3917
+  6. eval:  out-isolate                                     0.0000
+  7. endow:  pareduhighcov alter                            1.0203
+  8. creation:  pareduhighcov alter                        -0.2473
+  9. endow:  pareduhighcov ego                              6.8685
+ 10. creation:  pareduhighcov ego                          -7.5250
+ 11. endow:  same pareduhighcov                            -1.6400
+ 12. creation:  same pareduhighcov                          1.3528
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared outdegrees                                         1193.0000
+  5. Sum of crossproducts indegree x outdegree                          714.0000
+  6. Number of out-isolates                                              48.0000
+  7. Lost ties: Sum indegrees x pareduhighcov                           -16.6441
+  8. New ties: Sum indegrees x pareduhighcov                              0.1356
+  9. Lost ties: Sum outdegrees x pareduhighcov                            2.1864
+ 10. New ties: Sum outdegrees x pareduhighcov                           -10.8983
+ 11. Lost ties: Same values on pareduhighcov                            130.0000
+ 12. New ties: Same values on pareduhighcov                              62.0000
+These were calculated from the data.
+
+ 12 parameters, 12 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 4060 iterations.
+Parameter estimates based on 2060 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.1055  17.4695  -0.0060 
+  2.   0.3930  13.9403   0.0282 
+  3.   0.1854  25.6771   0.0072 
+  4.  -1.5795 129.9367  -0.0122 
+  5.   3.5800  97.7936   0.0366 
+  6.  -0.0585   3.9309  -0.0149 
+  7.  -0.1595   4.3582  -0.0366 
+  8.  -0.1170   4.4158  -0.0265 
+  9.   0.4402   4.3129   0.1021 
+ 10.  -0.0395   5.3756  -0.0073 
+ 11.   0.2320   6.7834   0.0342 
+ 12.   0.0500   7.7655   0.0064 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1596 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 4060 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            8.5271  (    0.827)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.1356  (   0.3331)
+ 2. eval:  reciprocity                                             3.0498  (   0.4005)
+ 3. eval:  GWESP I -> K -> J (69)                                  1.7739  (   0.2859)
+ 4. eval:  outdegree - activity                                    0.0174  (   0.0281)
+ 5. eval:  indegree - activity(1)                                 -0.3758  (   0.1069)
+ 6. eval:  out-isolate                                             2.6005  (   1.3459)
+ 7. endow: pareduhighcov alter                                     0.9455  (   0.3666)
+ 8. creat: pareduhighcov alter                                    -0.2403  (   0.2873)
+ 9. endow: pareduhighcov ego                                       4.6109  (   5.9776)
+10. creat: pareduhighcov ego                                      -5.0998  (   5.8552)
+11. endow: same pareduhighcov                                     -1.6357  (   0.3657)
+12. creat: same pareduhighcov                                      1.2830  (   0.2895)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.111      0.038      0.028     -0.007     -0.014      0.364     -0.007      0.007     -1.253      1.247     -0.029     -0.037
+     0.289      0.160      0.073      0.000     -0.036      0.244      0.015      0.021     -1.031      0.984     -0.052     -0.008
+     0.291      0.634      0.082     -0.002     -0.024      0.120     -0.003      0.011     -0.677      0.635     -0.036     -0.002
+    -0.748      0.007     -0.212      0.001      0.000     -0.022      0.002     -0.001      0.070     -0.069      0.000      0.001
+    -0.407     -0.841     -0.775      0.007      0.011     -0.066     -0.001     -0.006      0.300     -0.287      0.012      0.003
+     0.813      0.452      0.312     -0.572     -0.460      1.811     -0.095      0.087     -7.047      6.946     -0.056     -0.157
+    -0.058      0.103     -0.032      0.149     -0.036     -0.193      0.134     -0.042      0.628     -0.617     -0.038      0.022
+     0.078      0.185      0.129     -0.063     -0.185      0.226     -0.402      0.083     -0.465      0.439      0.001     -0.004
+    -0.629     -0.431     -0.396      0.419      0.469     -0.876      0.286     -0.271     35.732    -34.942      0.091      0.847
+     0.639      0.420      0.379     -0.420     -0.459      0.881     -0.287      0.261     -0.998     34.283     -0.080     -0.858
+    -0.237     -0.357     -0.344     -0.009      0.304     -0.114     -0.285      0.005      0.041     -0.037      0.134     -0.038
+    -0.384     -0.067     -0.022      0.160      0.113     -0.402      0.205     -0.043      0.489     -0.506     -0.359      0.084
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 92.06 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 13:23:14
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff2.1 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           5.4680
+  1. eval:  outdegree (density)                            -1.7253
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  GWESP I -> K -> J (69)                          0.0000
+  4. eval:  outdegree - activity                            0.0000
+  5. eval:  indegree - activity(1)                          0.0000
+  6. eval:  paredudifcov ego                                0.0000
+  7. eval:  pareduhighcov alter                             0.0000
+  8. eval:  pareduhighcov ego                               0.0000
+  9. endow:  same pareduhighcov                             0.0000
+ 10. creation:  same pareduhighcov                          0.0000
+ 11. endow:  paredudifcov ego x same pareduhighcov          0.0000
+ 12. creation:  paredudifcov ego x same pareduhighcov       0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared outdegrees                                         1193.0000
+  5. Sum of crossproducts indegree x outdegree                          714.0000
+  6. Sum outdegrees x paredudifcov                                      -20.8230
+  7. Sum indegrees x pareduhighcov                                        8.8983
+  8. Sum outdegrees x pareduhighcov                                      -8.8814
+  9. Lost ties: Same values on pareduhighcov                            130.0000
+ 10. New ties: Same values on pareduhighcov                              62.0000
+ 11. paredudifcov ego x same pareduhighcov                               -0.3628
+ 12. paredudifcov ego x same pareduhighcov                               -5.0354
+These were calculated from the data.
+
+ 12 parameters, 12 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 3861 iterations.
+Parameter estimates based on 1861 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   0.1880  15.8452   0.0119 
+  2.  -0.2840  13.6925  -0.0207 
+  3.   0.3704  25.9262   0.0143 
+  4.   5.7460 129.2337   0.0445 
+  5.  -1.2720  95.6628  -0.0133 
+  6.   0.0204   2.4515   0.0083 
+  7.  -0.1030   6.1459  -0.0168 
+  8.  -0.3339   7.4961  -0.0445 
+  9.  -0.2435   6.6928  -0.0364 
+ 10.   0.2285   7.1507   0.0320 
+ 11.   0.0302   1.7122   0.0176 
+ 12.   0.0455   1.1025   0.0413 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1493 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 3861 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            6.9206  (   0.5889)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -3.2365  (   0.2708)
+ 2. eval:  reciprocity                                             3.3290  (   0.3843)
+ 3. eval:  GWESP I -> K -> J (69)                                  2.1273  (   0.3239)
+ 4. eval:  outdegree - activity                                    0.0769  (   0.0242)
+ 5. eval:  indegree - activity(1)                                 -0.4484  (   0.1155)
+ 6. eval:  paredudifcov ego                                       -1.9491  (   1.9241)
+ 7. eval:  pareduhighcov alter                                     0.4071  (   0.2018)
+ 8. eval:  pareduhighcov ego                                      -0.3380  (   0.2081)
+ 9. endow: same pareduhighcov                                     -1.2628  (   0.6893)
+10. creat: same pareduhighcov                                      1.1378  (   0.3694)
+11. endow: paredudifcov ego x same pareduhighcov                   1.0576  (   5.4441)
+12. creat: paredudifcov ego x same pareduhighcov                  -1.6319  (   1.9362)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.073     -0.022      0.007     -0.003     -0.001      0.324     -0.010      0.002     -0.066     -0.025     -0.578     -0.163
+    -0.216      0.148      0.082      0.003     -0.037     -0.125      0.016      0.016     -0.077      0.033     -0.250      0.204
+     0.080      0.657      0.105     -0.001     -0.028     -0.034      0.004      0.011     -0.109      0.035     -0.465      0.117
+    -0.464      0.368     -0.118      0.001     -0.001     -0.005      0.000      0.001      0.002      0.000      0.016      0.005
+    -0.024     -0.829     -0.756     -0.315      0.013      0.037     -0.002     -0.007      0.023     -0.009      0.102     -0.066
+     0.623     -0.169     -0.055     -0.111      0.169      3.702     -0.012     -0.092     -0.380     -0.123     -4.385     -2.227
+    -0.182      0.211      0.058      0.072     -0.106     -0.031      0.041     -0.010     -0.007      0.011     -0.001     -0.020
+     0.029      0.194      0.161      0.196     -0.279     -0.229     -0.243      0.043     -0.007     -0.015     -0.034      0.095
+    -0.355     -0.289     -0.490      0.110      0.295     -0.286     -0.052     -0.047      0.475     -0.113      2.755     -0.090
+    -0.249      0.235      0.295     -0.042     -0.201     -0.173      0.149     -0.189     -0.445      0.136     -0.179      0.210
+    -0.392     -0.120     -0.264      0.125      0.162     -0.419     -0.001     -0.030      0.734     -0.089     29.639     -1.605
+    -0.311      0.274      0.187      0.105     -0.293     -0.598     -0.052      0.237     -0.068      0.293     -0.152      3.749
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 82.77 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 13:31:58
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff3 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           6.9206
+  1. eval:  outdegree (density)                            -3.2365
+  2. eval:  reciprocity                                     3.3290
+  3. eval:  GWESP I -> K -> J (69)                          2.1273
+  4. eval:  outdegree - activity                            0.0769
+  5. eval:  indegree - activity(1)                         -0.4484
+  6. eval:  gendercov alter                                 0.0000
+  7. eval:  gendercov ego                                   0.0000
+  8. eval:  same gendercov                                  0.0000
+  9. eval:  ethcov alter                                    0.0000
+ 10. eval:  ethcov ego                                      0.0000
+ 11. eval:  same ethcov                                     0.0000
+ 12. eval:  paredudifcov ego                               -1.9491
+ 13. eval:  pareduhighcov alter                             0.4071
+ 14. eval:  pareduhighcov ego                              -0.3380
+ 15. endow:  same pareduhighcov                            -1.2628
+ 16. creation:  same pareduhighcov                          1.1378
+ 17. endow:  paredudifcov ego x same pareduhighcov          1.0576
+ 18. creation:  paredudifcov ego x same pareduhighcov      -1.6319
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared outdegrees                                         1193.0000
+  5. Sum of crossproducts indegree x outdegree                          714.0000
+  6. Sum indegrees x gendercov                                            6.5124
+  7. Sum outdegrees x gendercov                                          -3.4876
+  8. Same values on gendercov                                           189.0000
+  9. Sum indegrees x ethcov                                             -54.1240
+ 10. Sum outdegrees x ethcov                                            -34.1240
+ 11. Same values on ethcov                                              114.0000
+ 12. Sum outdegrees x paredudifcov                                      -20.8230
+ 13. Sum indegrees x pareduhighcov                                        8.8983
+ 14. Sum outdegrees x pareduhighcov                                      -8.8814
+ 15. Lost ties: Same values on pareduhighcov                            130.0000
+ 16. New ties: Same values on pareduhighcov                              62.0000
+ 17. paredudifcov ego x same pareduhighcov                               -0.3628
+ 18. paredudifcov ego x same pareduhighcov                               -5.0354
+These were calculated from the data.
+
+ 18 parameters, 18 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 4482 iterations.
+Parameter estimates based on 2482 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.0955  16.6348  -0.0057 
+  2.  -0.1350  13.8835  -0.0097 
+  3.   0.0869  26.6833   0.0033 
+  4.  -0.7285 135.6364  -0.0054 
+  5.   1.5055  99.1101   0.0152 
+  6.  -0.2821   7.2875  -0.0387 
+  7.  -0.3386   8.0933  -0.0418 
+  8.  -0.0230  14.1838  -0.0016 
+  9.   0.5460  21.7770   0.0251 
+ 10.   0.3855  23.2162   0.0166 
+ 11.   0.1560  11.1294   0.0140 
+ 12.  -0.0404   2.4805  -0.0163 
+ 13.   0.0889   6.4573   0.0138 
+ 14.   0.0445   7.3709   0.0060 
+ 15.  -0.1240   6.9149  -0.0179 
+ 16.  -0.2940   7.4162  -0.0396 
+ 17.  -0.0604   1.6736  -0.0361 
+ 18.   0.0601   1.1239   0.0534 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1403 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 4482 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            7.2009  (   0.6301)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -3.5130  (   0.3006)
+ 2. eval:  reciprocity                                             3.1452  (   0.3515)
+ 3. eval:  GWESP I -> K -> J (69)                                  2.0074  (   0.2821)
+ 4. eval:  outdegree - activity                                    0.0769  (   0.0256)
+ 5. eval:  indegree - activity(1)                                 -0.4124  (   0.1086)
+ 6. eval:  gendercov alter                                         0.0826  (   0.1716)
+ 7. eval:  gendercov ego                                          -0.0711  (   0.1721)
+ 8. eval:  same gendercov                                          0.3593  (   0.1664)
+ 9. eval:  ethcov alter                                            0.0432  (   0.0525)
+10. eval:  ethcov ego                                             -0.0420  (   0.0638)
+11. eval:  same ethcov                                             0.2342  (   0.1559)
+12. eval:  paredudifcov ego                                       -1.8371  (   1.7172)
+13. eval:  pareduhighcov alter                                     0.4016  (   0.1866)
+14. eval:  pareduhighcov ego                                      -0.3095  (   0.2041)
+15. endow: same pareduhighcov                                     -1.2953  (   0.5141)
+16. creat: same pareduhighcov                                      1.1324  (   0.3347)
+17. endow: paredudifcov ego x same pareduhighcov                   0.9919  (   3.0058)
+18. creat: paredudifcov ego x same pareduhighcov                  -1.7715  (   1.8572)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.090     -0.021     -0.001     -0.003      0.000      0.000     -0.001     -0.023     -0.001     -0.003     -0.010      0.220     -0.002      0.007     -0.025     -0.031     -0.227     -0.163
+    -0.198      0.124      0.052      0.005     -0.029      0.008      0.003     -0.004      0.001     -0.005     -0.001      0.001      0.004      0.001     -0.042      0.028      0.099      0.044
+    -0.013      0.524      0.080      0.000     -0.021      0.002      0.006     -0.002      0.001     -0.004      0.001     -0.040     -0.001     -0.001     -0.043      0.019      0.016      0.003
+    -0.449      0.532      0.005      0.001     -0.001      0.000      0.001      0.000      0.000      0.000      0.000      0.002      0.000      0.001     -0.001      0.001      0.003      0.007
+     0.004     -0.756     -0.692     -0.446      0.012     -0.002     -0.002      0.001     -0.001      0.003     -0.001      0.019      0.001     -0.004      0.006     -0.004     -0.014     -0.025
+     0.006      0.136      0.051      0.094     -0.123      0.029     -0.009     -0.003      0.000     -0.001      0.001      0.008     -0.001     -0.001     -0.008      0.004      0.021     -0.033
+    -0.023      0.044      0.121      0.137     -0.112     -0.293      0.030     -0.007      0.000      0.000      0.001     -0.016     -0.001      0.005      0.008     -0.003     -0.007      0.024
+    -0.468     -0.067     -0.045      0.086      0.071     -0.094     -0.232      0.028      0.000      0.001      0.001     -0.002     -0.001      0.001     -0.002     -0.001      0.034      0.001
+    -0.057      0.049      0.052      0.114     -0.116      0.020      0.015      0.008      0.003      0.000      0.001      0.004     -0.001      0.000      0.005     -0.002      0.005      0.000
+    -0.170     -0.224     -0.232     -0.021      0.379     -0.135     -0.001      0.079     -0.134      0.004      0.002      0.007      0.000     -0.002     -0.004      0.001     -0.027      0.004
+    -0.209     -0.015      0.023      0.068     -0.083      0.028      0.043      0.025      0.138      0.163      0.024      0.002      0.002      0.003     -0.002     -0.004     -0.064      0.003
+     0.426      0.001     -0.084      0.056      0.102      0.027     -0.055     -0.007      0.039      0.065      0.006      2.949      0.037     -0.055     -0.297     -0.062     -1.780     -1.986
+    -0.039      0.065     -0.017     -0.034      0.044     -0.024     -0.036     -0.030     -0.152     -0.036      0.068      0.115      0.035     -0.010     -0.017      0.011     -0.073     -0.053
+     0.121      0.019     -0.020      0.154     -0.171     -0.019      0.142      0.020      0.025     -0.163      0.085     -0.156     -0.275      0.042      0.006     -0.020      0.015      0.061
+    -0.162     -0.231     -0.298     -0.072      0.101     -0.092      0.093     -0.021      0.189     -0.122     -0.029     -0.336     -0.176      0.053      0.264     -0.060      0.845      0.159
+    -0.306      0.237      0.197      0.088     -0.121      0.077     -0.054     -0.015     -0.115      0.033     -0.075     -0.108      0.176     -0.297     -0.349      0.112      0.105      0.106
+    -0.252      0.094      0.018      0.039     -0.043      0.040     -0.014      0.069      0.030     -0.141     -0.138     -0.345     -0.130      0.025      0.547      0.105      9.035      0.128
+    -0.291      0.067      0.006      0.139     -0.122     -0.104      0.074      0.002     -0.003      0.037      0.011     -0.623     -0.153      0.160      0.166      0.170      0.023      3.449
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 141.62 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 14:06:09
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff1.3e 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           5.4680
+  1. eval:  outdegree (density)                            -1.7253
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  GWESP I -> K -> J (69)                          0.0000
+  4. eval:  outdegree - activity                            0.0000
+  5. eval:  indegree - activity(1)                          0.0000
+  6. eval:  pareduhighcov alter                             0.0000
+  7. eval:  pareduhighcov ego                               0.0000
+  8. eval:  same pareduhighcov                              0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared outdegrees                                         1193.0000
+  5. Sum of crossproducts indegree x outdegree                          714.0000
+  6. Sum indegrees x pareduhighcov                                        8.8983
+  7. Sum outdegrees x pareduhighcov                                      -8.8814
+  8. Same values on pareduhighcov                                       139.0000
+These were calculated from the data.
+
+ 8 parameters, 8 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 3533 iterations.
+Parameter estimates based on 1533 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   0.6515  16.2367   0.0401 
+  2.  -0.2280  14.0283  -0.0163 
+  3.  -0.1703  25.9188  -0.0066 
+  4.   2.8705 127.8901   0.0224 
+  5.   1.9920  96.7789   0.0206 
+  6.   0.1213   6.4591   0.0188 
+  7.  -0.0102   7.6261  -0.0013 
+  8.   0.5130  11.3073   0.0454 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.0973 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 3533 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                              6.62  (   0.5494)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -3.0391  (   0.2135)
+ 2. eval:  reciprocity                                             3.1874  (   0.4037)
+ 3. eval:  GWESP I -> K -> J (69)                                  2.0058  (   0.2787)
+ 4. eval:  outdegree - activity                                    0.0838  (   0.0269)
+ 5. eval:  indegree - activity(1)                                 -0.4432  (   0.1271)
+ 6. eval:  pareduhighcov alter                                     0.2243  (   0.1647)
+ 7. eval:  pareduhighcov ego                                      -0.3456  (   0.1807)
+ 8. eval:  same pareduhighcov                                     -0.0024  (   0.1715)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.046     -0.048     -0.020     -0.004      0.010     -0.002      0.009     -0.015
+    -0.555      0.163      0.073      0.007     -0.044      0.000     -0.015      0.012
+    -0.342      0.647      0.078      0.002     -0.027     -0.006     -0.015      0.007
+    -0.643      0.613      0.215      0.001     -0.002      0.000      0.000      0.001
+     0.352     -0.849     -0.753     -0.616      0.016      0.003      0.004     -0.005
+    -0.057     -0.007     -0.121     -0.019      0.137      0.027      0.002     -0.001
+     0.245     -0.210     -0.299      0.018      0.172      0.079      0.033     -0.007
+    -0.417      0.167      0.146      0.114     -0.215     -0.050     -0.231      0.029
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 59.25 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 14:07:59
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff1.3ee 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           5.4680
+  1. eval:  outdegree (density)                            -1.7253
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  GWESP I -> K -> J (69)                          0.0000
+  4. eval:  outdegree - activity                            0.0000
+  5. eval:  indegree - activity(1)                          0.0000
+  6. eval:  pareduhighcov alter                             0.0000
+  7. endow:  pareduhighcov alter                            0.0000
+  8. eval:  pareduhighcov ego                               0.0000
+  9. endow:  pareduhighcov ego                              0.0000
+ 10. eval:  same pareduhighcov                              0.0000
+ 11. endow:  same pareduhighcov                             0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared outdegrees                                         1193.0000
+  5. Sum of crossproducts indegree x outdegree                          714.0000
+  6. Sum indegrees x pareduhighcov                                        8.8983
+  7. Lost ties: Sum indegrees x pareduhighcov                           -16.6441
+  8. Sum outdegrees x pareduhighcov                                      -8.8814
+  9. Lost ties: Sum outdegrees x pareduhighcov                            2.1864
+ 10. Same values on pareduhighcov                                       139.0000
+ 11. Lost ties: Same values on pareduhighcov                            130.0000
+These were calculated from the data.
+
+ 11 parameters, 11 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 3811 iterations.
+Parameter estimates based on 1811 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   0.5360  16.9903   0.0315 
+  2.   0.2160  14.1734   0.0152 
+  3.  -0.1825  27.3632  -0.0067 
+  4.   3.7960 135.3887   0.0280 
+  5.   1.0805 101.5814   0.0106 
+  6.  -0.2830   6.2829  -0.0450 
+  7.  -0.0817   4.3116  -0.0190 
+  8.   0.1034   7.4156   0.0139 
+  9.  -0.0356   4.4333  -0.0080 
+ 10.   0.2565  12.5443   0.0204 
+ 11.   0.2185   6.7154   0.0325 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1173 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 3811 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            8.2778  (    0.743)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.9286  (   0.2124)
+ 2. eval:  reciprocity                                             3.0313  (   0.3943)
+ 3. eval:  GWESP I -> K -> J (69)                                  1.9069  (   0.3301)
+ 4. eval:  outdegree - activity                                    0.0777  (   0.0226)
+ 5. eval:  indegree - activity(1)                                 -0.3843  (   0.1072)
+ 6. eval:  pareduhighcov alter                                    -0.2562  (   0.3274)
+ 7. endow: pareduhighcov alter                                     1.2435  (   0.5696)
+ 8. eval:  pareduhighcov ego                                      -7.3337  (   3.5080)
+ 9. endow: pareduhighcov ego                                      14.0013  (   7.2056)
+10. eval:  same pareduhighcov                                      1.3102  (   0.2774)
+11. endow: same pareduhighcov                                     -2.8920  (   0.5757)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.045     -0.035     -0.014     -0.003      0.005     -0.024      0.031     -0.294      0.622     -0.010     -0.007
+    -0.417      0.155      0.085      0.004     -0.036      0.041     -0.034      0.635     -1.325      0.007     -0.039
+    -0.206      0.653      0.109      0.000     -0.028      0.028     -0.030      0.587     -1.228      0.011     -0.054
+    -0.551      0.481      0.067      0.001     -0.001      0.001     -0.001      0.017     -0.034     -0.001      0.001
+     0.208     -0.847     -0.800     -0.452      0.011     -0.011      0.013     -0.188      0.389      0.000      0.008
+    -0.341      0.314      0.262      0.163     -0.319      0.107     -0.158      0.553     -1.156     -0.004      0.021
+     0.255     -0.150     -0.161     -0.073      0.208     -0.847      0.324     -0.747      1.544      0.018     -0.082
+    -0.395      0.459      0.507      0.212     -0.500      0.482     -0.374     12.306    -25.246     -0.261      0.393
+     0.406     -0.466     -0.516     -0.210      0.504     -0.490      0.376     -0.999     51.921      0.508     -0.777
+    -0.166      0.061      0.120     -0.112      0.000     -0.041      0.114     -0.268      0.254      0.077     -0.132
+    -0.054     -0.170     -0.286      0.065      0.136      0.109     -0.250      0.195     -0.187     -0.826      0.331
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 82.4 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 14:09:53
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 30000.
+Effects object used: myeff1.3ec 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: conditional moment estimation.
+Conditioning variable is the total number of observed changes ("distance") 
+in the network variable.
+Distance for simulations is  328 .
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable net :
+All digraphs are constrained to having outdegrees not larger than 10 .
+Initial value of gain parameter is  0.2000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  0. Rate parameter                           5.4680
+  1. eval:  outdegree (density)                            -1.7253
+  2. eval:  reciprocity                                     0.0000
+  3. eval:  GWESP I -> K -> J (69)                          0.0000
+  4. eval:  outdegree - activity                            0.0000
+  5. eval:  indegree - activity(1)                          0.0000
+  6. eval:  pareduhighcov alter                             0.0000
+  7. creation:  pareduhighcov alter                         0.0000
+  8. eval:  pareduhighcov ego                               0.0000
+  9. creation:  pareduhighcov ego                           0.0000
+ 10. eval:  same pareduhighcov                              0.0000
+ 11. creation:  same pareduhighcov                          0.0000
+
+
+Values of target statistics are
+  1. Number of ties                                                     255.0000
+  2. Number of reciprocated ties                                        108.0000
+  3. Numb. edgew. shrd prtns.by two path (69)                           171.8363
+  4. Sum of squared outdegrees                                         1193.0000
+  5. Sum of crossproducts indegree x outdegree                          714.0000
+  6. Sum indegrees x pareduhighcov                                        8.8983
+  7. New ties: Sum indegrees x pareduhighcov                              0.1356
+  8. Sum outdegrees x pareduhighcov                                      -8.8814
+  9. New ties: Sum outdegrees x pareduhighcov                           -10.8983
+ 10. Same values on pareduhighcov                                       139.0000
+ 11. New ties: Same values on pareduhighcov                              62.0000
+These were calculated from the data.
+
+ 11 parameters, 11 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 4007 iterations.
+Parameter estimates based on 2007 iterations,
+basic rate parameter as well as 
+convergence diagnostics, covariance and derivative matrices based on 2000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.  -0.6225  16.1949  -0.0384 
+  2.   0.3030  13.8705   0.0218 
+  3.   0.0946  26.3543   0.0036 
+  4.  -4.6195 129.6698  -0.0356 
+  5.  -2.9845  96.3087  -0.0310 
+  6.  -0.1574   6.2281  -0.0253 
+  7.  -0.0701   4.3620  -0.0161 
+  8.  -0.3459   7.4018  -0.0467 
+  9.  -0.0841   5.2274  -0.0161 
+ 10.  -0.0820  12.2429  -0.0067 
+ 11.   0.1380   7.2772   0.0190 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.1476 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 4007 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+Rate parameters:
+ 0. Rate parameter                            8.3792  (   0.7471)
+
+Other parameters:
+ 1. eval:  outdegree (density)                                    -2.9278  (   0.1974)
+ 2. eval:  reciprocity                                             3.0645  (   0.3528)
+ 3. eval:  GWESP I -> K -> J (69)                                  1.9400  (   0.2858)
+ 4. eval:  outdegree - activity                                    0.0771  (   0.0223)
+ 5. eval:  indegree - activity(1)                                 -0.3938  (   0.0968)
+ 6. eval:  pareduhighcov alter                                     1.0130  (   0.3388)
+ 7. creat: pareduhighcov alter                                    -1.2570  (   0.5156)
+ 8. eval:  pareduhighcov ego                                       6.8351  (   4.0226)
+ 9. creat: pareduhighcov ego                                     -14.3601  (   8.0239)
+10. eval:  same pareduhighcov                                     -1.6342  (   0.3816)
+11. creat: same pareduhighcov                                      2.9961  (   0.6188)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     0.039     -0.022     -0.004     -0.002      0.001     -0.001     -0.005      0.187     -0.363     -0.010      0.000
+    -0.321      0.124      0.069      0.003     -0.028      0.034     -0.031     -0.568      1.104     -0.035      0.030
+    -0.079      0.688      0.082      0.000     -0.022      0.016     -0.015     -0.528      1.033     -0.034      0.024
+    -0.548      0.428      0.068      0.000     -0.001      0.001     -0.001     -0.006      0.011      0.000      0.001
+     0.055     -0.817     -0.785     -0.438      0.009     -0.008      0.007      0.131     -0.255      0.007     -0.004
+    -0.019      0.286      0.167      0.185     -0.233      0.115     -0.152     -0.019      0.020     -0.037      0.048
+    -0.054     -0.168     -0.104     -0.118      0.137     -0.869      0.266      0.158     -0.320      0.035     -0.026
+     0.236     -0.400     -0.460     -0.062      0.338     -0.014      0.076     16.181    -32.249     -0.189      0.860
+    -0.229      0.390      0.450      0.061     -0.328      0.007     -0.077     -0.999     64.383      0.387     -1.747
+    -0.139     -0.257     -0.312     -0.059      0.194     -0.287      0.177     -0.123      0.126      0.146     -0.211
+     0.002      0.136      0.137      0.047     -0.063      0.227     -0.081      0.345     -0.352     -0.894      0.383
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 96.56 seconds.

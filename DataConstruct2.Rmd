@@ -27,6 +27,21 @@ lapply(packages, require, character.only=T)
 #hanging networks
 hanging_df_t1 <- as.data.frame(hanging[[1]][1])
 hanging_df_t2 <- as.data.frame(hanging[[1]][2])
+#missing responses
+hangingt1m <- as.matrix(hanging_df_t1)
+hangingt2m <- as.matrix(hanging_df_t2)
+
+hangingt1na <- hangingt1m
+hangingt1na[hangingt1na == 9] <- NA
+
+hangingt2na <- hangingt2m
+hangingt2na[hangingt2na == 9] <- NA
+
+rowmissw1 <- rowSums(is.na(hangingt1na)) == nrow(hangingt1na)
+which(rowmissw1 == TRUE) #11 students missing in wave 1
+
+rowmissw2 <- rowSums(is.na(hangingt2na)) == nrow(hangingt2na)
+which(rowmissw2 == TRUE) #9 students missing in wave 2
 ```
 
 # Construction of Variables

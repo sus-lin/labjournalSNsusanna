@@ -20,7 +20,7 @@ To answer the research questions, I make use of a subset of the Michigan Residen
 
 A complete directed social network (i.e. socionet) was constructed based on the peers each student reported they hung around with and talked to the most (*"Which students in your MLC do you hang around with and talk to the most?"*). Students could nominate up to ten peers from within their MLC. Participants were instructed to skip the question if they could not think of anyone.
 
-The data subset contained only students who responded to the network question in at least one wave. Non-responses were marked as NA and treated as uninformative in modelling.
+The data subset contained only students who responded to the network question in at least one wave. Non-responses were treated as structural zeros, as they could not nominate anyone, and any nominations by others were not registered as such because they did not provide consent to study participation. Wave one contained eleven non-respondents who only participated in the second wave (9.1%), and in wave two, nine students were missing who had only participated in the first wave (7.4%).
 
 ### Caregiver Educational Attainment
 
@@ -28,11 +28,11 @@ Caregiver educational attainment was measured through two versions of the same c
 
 **Highest Caregiver Educational Attainment**
 
-Studies of educational inequality in the US have indicated that having at least one parent/caregiver with a bachelor's degree is strongly associated with likelihood of college attendance [@sandefur2006; @buchmann2010]. This implies a strong relevance of caregiver college experience. Students were therefore classified as first-generation students if they had no parent/caregiver who had attained at least a bachelor's degree. Students with at least one parent/caregiver with a bachelor's degree or more educational attainment were classified as having inherited parental resources in terms of college attainment.
+Studies of educational inequality in the US have indicated that having at least one parent/caregiver with a bachelor's degree is strongly associated with likelihood of college attendance [@sandefur2006; @buchmann2010]. This implies a strong relevance of caregiver college experience. Students were therefore classified as first-generation students if they had no parent/caregiver who had attained at least a bachelor's degree. Students with at least one parent/caregiver with a bachelor's degree or more educational experience were classified as continuing-generation students.
 
-**Mixed Family**
+**Educationally Mixed Family Background**
 
-Students were classified as coming from a mixed family if one parent had a bachelor's degree or more educational experience, whereas the other parent had no college diploma.
+Students were classified as coming from an educationally mixed family if one parent had a bachelor's degree or more educational experience, whereas the other parent had no college diploma.
 
 ### Gender
 
@@ -40,17 +40,19 @@ Gender was measured as a binary variable based on administrative data. Although 
 
 ### Ethnicity
 
-Ethnic identity was categorised in eight groups: Asian, Black, Hispanic, White, Multiracial, Hawaiian, Middle Eastern/North African, and American Indian/Native American. The investigated learning community did not include any students identifying as Middle Eastern/North African or American Indian/Native American. As with previous variables, if data was missing from one wave but not the other, students were classified as the ethnic identity reported in the non-missing wave.
+Ethnic identity was categorised in eight groups: Asian, Black, Hispanic, White, Multiracial, Hawaiian, Middle Eastern/North African, and American Indian/Native American. The investigated learning community did not include any students identifying as Middle Eastern/North African or American Indian/Native American. As with previous constant covariates, if data was missing from one wave but not the other, students were classified as the ethnic identity reported in the non-missing wave.
 
 ## Analytical Methods
 
-I make use of Stochastic Actor-Oriented Models (SAOMs) in RSiena, using R version 4.5.1 of R Statistical Software [@snijders; @rcoreteam2025]. SAOMs takes an actor-based approach by modelling the individual network choices ('ministeps') made by nodes in the network. For each ministep, the probability of each possibility (making a tie, breaking a tie, maintaining the current situation) is determined based on a set of effects provided by the researcher. The model simulates the network evolution a large number of times, refining estimates for each included effect at every iteration. Model-building was conducted using an iterative approach driven by both data and theory. First, an initial theory-based model was run for each hypothesis, see descriptions below. In case of persistent non-convergence, the model was simplified. Once a model converged, goodness of fit was assessed based on several macro-level network descriptives: in-degree distribution, out-degree distribution, geodesic distribution, and a triad census. Models were refined by adding potentially relevant relational effects or removing non-significant effects until fit was deemed appropriate.
+To answer the first research question, I calculate Moran's I, a spatial autocorrelation measure used to indicate whether nodes that are closer to one another are more alike. Under the null hypothesis of no segregation, the expected value of I is -1/(N-1). An observed I larger than the expected indicates positive autocorrelation, or segregation, an observed I smaller than the expected indicates negative autocorrelation, the opposite of segregation [@disalvatore2021]. As I am interested in selection processes, I use a distance decay function of 1, i.e. I test whether students who are directly connected are more similar in their parents' highest educational attainment. I do not rowstandardise, since rowstandardising would treat a student connected to only one peer with a different educational heritage and no others the same as it would a student connected to several such peers and no others.
+
+For the explanatory questions two and three, I make use of Stochastic Actor-Oriented Models (SAOMs) in RSiena, using R version 4.5.1 of R Statistical Software [@snijders; @rcoreteam2025]. SAOMs takes an actor-based approach by modelling the individual network choices ('ministeps') made by nodes in the network. For each ministep, the probability of each possibility (making a tie, breaking a tie, maintaining the current situation) is determined based on a set of effects provided by the researcher. The model simulates the network evolution a large number of times, refining estimates for each included effect at every iteration. Model-building was conducted using an iterative approach driven by both data and theory. First, an initial theory-based model was run for each hypothesis, see descriptions below. In case of persistent non-convergence, the model was simplified. Once a model converged, goodness of fit was assessed based on several macro-level network descriptives: in-degree distribution, out-degree distribution, geodesic distribution, and a triad census. Models were refined by adding potentially relevant relational effects or removing non-significant effects until fit was deemed appropriate.
 
 I defined three initial models.
 
 The first model tests the endowment and creation effects of homophily based on caregiver educational attainment in the presence of well-known relational effects. To start, the relational effects included in the model were an outdegree (density) effect, reciprocity, GWESP (used to account for transitivity), indegree - popularity, outdegree - activity, and indegree - activity. As I am not interested in differentiating between creation and endowment for these effects, they were included as evaluation effects. To test the hypothesis, the model included homophily based on caregiver educational attainment as both an endowment and a creation effect. To this end, the lower-order components of homophily (ego's characteristic and alter's characteristic) were also included as both endowment and creation effects.
 
-The second model tests whether coming from a mixed family changes the reduces the homophily effect. In addition to the model 1 effects, model 2 therefore initially includes ego's mixed background characteristic (yes/no, as both endowment and creation effect), and the interaction of this effect with homophily (again, both as endowment and as creation).
+The second model tests whether having an educationally mixed family background reduces the homophily effect. In addition to the model 1 effects, model 2 therefore initially includes ego's mixed background characteristic (yes/no, as both endowment and creation effect), and the interaction of this effect with homophily (again, both as endowment and as creation).
 
 In a third and final model, all effects are tested in the presence of control variables: ego's gender, alter's gender, gender homophily, ego's ethnic identity, alter's ethnic identity, and ethnic homophily.
 

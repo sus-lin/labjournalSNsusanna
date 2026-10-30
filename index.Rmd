@@ -4,21 +4,7 @@ author: "by: Susanna Linden"
 bibliography: references.bib
 ---
 
-Welcome to my lab journal!
-
-# This is a heading
-
-**this is bold text** *this text is in italics*
-
-# This is a chunk of R syntax
-
-```{r}
-2+3
-```
-
-```{r}
-2 + 2 
-```
+Welcome to my lab journal! Lots of ups and downs throughout the process, but I guess I learnt to be flexible? Well, I do have an end product. I hope the syntax will be useful for future generations of Social Networks students. Enjoy the read:)
 
 ```{r, install remotely, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
 #install.packages("remotes")
@@ -74,7 +60,7 @@ We, Jochem Tolsma and Bas Hofstra, use this repository for our Social Network An
 :::
 
 ::: {.column width="50%"}
-![](images/cover.jpg)
+![](bakeoffmeme.jpg)
 :::
 :::::
 

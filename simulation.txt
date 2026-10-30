@@ -7324,3 +7324,336 @@ Estimated means and standard deviations, standard errors of the mean
 Standard errors of the mean are less than s.d./sqrt(n) 
 because of regression on scores (Dolby option). 
 Total computation time 2.76 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 15:09:26
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Simulations.
+============
+
+Current random number seed is 242452.
+Effects object used: myeff_obs 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: unconditional moment estimation
+.
+
+Time duration for simulations is 1.0.
+Derivatives are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Parameter values are 
+  1. rate:  basic rate parameter net                        2.6988  (fixed) 
+  2. eval:  outdegree (density)                            -2.3130  (fixed) 
+  3. eval:  reciprocity                                     2.3449  (fixed) 
+  4. eval:  transitive triplets                             0.7627  (fixed) 
+  5. eval:  shared popularity                               0.0000  (fixed) 
+  6. eval:  indegree - popularity                           0.2083  (fixed) 
+  7. eval:  outdegree - activity                           -0.0169  (fixed) 
+  8. eval:  indegree - activity(1)                         -0.4200  (fixed) 
+  9. eval:  network-isolate                                 2.5065  (fixed) 
+ 10. eval:  gender alter                                   -0.3786  (fixed) 
+ 11. eval:  gender ego                                      0.1537  (fixed) 
+ 12. eval:  same gender                                     0.1532  (fixed) 
+
+
+Values of target statistics are
+  1. Amount of network change                                            62.0000
+  2. Number of ties                                                      59.0000
+  3. Number of reciprocated ties                                         12.0000
+  4. Number of transitive triplets                                       15.0000
+  5. (Number 2 2PU)^1/1)                                                 18.0000
+  6. Sum of squared indegrees                                           279.0000
+  7. Sum of squared outdegrees                                          165.0000
+  8. Sum of crossproducts indegree x outdegree                           80.0000
+  9. Number of isolates                                                  11.0000
+ 10. Sum indegrees x gender                                             -15.7826
+ 11. Sum outdegrees x gender                                              1.2174
+ 12. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 12 parameters, 12 statistics
+
+All parameters are fixed.
+Therefore the estimation phase is skipped
+ and the program passes on immediately to phase 3
+ for checking the current parameter values and calculating standard errors.
+Estimation of derivatives by the LR method (type 1).
+
+
+
+
+@2
+Simulation Results.
+-------------------
+
+Regular end of simulation algorithm.
+Total of 1000 iteration steps.
+
+
+@3
+Parameter values
+                
+ 1. rate:  basic rate parameter net                                2.6988  
+ 2. eval:  outdegree (density)                                    -2.3130  
+ 3. eval:  reciprocity                                             2.3449  
+ 4. eval:  transitive triplets                                     0.7627  
+ 5. eval:  shared popularity                                       0.0000  
+ 6. eval:  indegree - popularity                                   0.2083  
+ 7. eval:  outdegree - activity                                   -0.0169  
+ 8. eval:  indegree - activity(1)                                 -0.4200  
+ 9. eval:  network-isolate                                         2.5065  
+10. eval:  gender alter                                           -0.3786  
+11. eval:  gender ego                                              0.1537  
+12. eval:  same gender                                             0.1532  
+
+
+@3
+Simulated statistics
+                    
+Estimated means and standard deviations, standard errors of the mean 
+  1. Amount of network change                                  46.531    7.305   0.2121
+  2. Number of ties                                            49.145    9.057   0.1737
+  3. Number of reciprocated ties                                9.327    4.100   0.0753
+  4. Number of transitive triplets                              7.980    6.562   0.1493
+  5. (Number 2 2PU)^1/1)                                        6.459    7.897   0.1670
+  6. Sum of squared indegrees                                 188.191  101.531   1.8511
+  7. Sum of squared outdegrees                                123.508   36.522   0.6151
+  8. Sum of crossproducts indegree x outdegree                 57.379   21.644   0.5422
+  9. Number of isolates                                        13.548    3.449   0.0959
+ 10. Sum indegrees x gender                                   -13.495    4.181   0.0796
+ 11. Sum outdegrees x gender                                    0.653    3.134   0.0630
+ 12. Same values on gender                                     22.916    5.426   0.1045
+
+Standard errors of the mean are less than s.d./sqrt(n) 
+because of regression on scores (Dolby option). 
+Total computation time 3.05 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 15:09:29
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Simulations.
+============
+
+Current random number seed is 242452.
+Effects object used: myeff_no 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: unconditional moment estimation
+.
+
+Time duration for simulations is 1.0.
+Derivatives are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Parameter values are 
+  1. rate:  basic rate parameter net                        2.6988  (fixed) 
+  2. eval:  outdegree (density)                            -2.3130  (fixed) 
+  3. eval:  reciprocity                                     2.3449  (fixed) 
+  4. eval:  transitive triplets                             0.7627  (fixed) 
+  5. eval:  shared popularity                               0.0000  (fixed) 
+  6. eval:  indegree - popularity                           0.0000  (fixed) 
+  7. eval:  outdegree - activity                           -0.0169  (fixed) 
+  8. eval:  indegree - activity(1)                         -0.4200  (fixed) 
+  9. eval:  network-isolate                                 2.5065  (fixed) 
+ 10. eval:  gender alter                                   -0.3786  (fixed) 
+ 11. eval:  gender ego                                      0.1537  (fixed) 
+ 12. eval:  same gender                                     0.1532  (fixed) 
+
+
+Values of target statistics are
+  1. Amount of network change                                            62.0000
+  2. Number of ties                                                      59.0000
+  3. Number of reciprocated ties                                         12.0000
+  4. Number of transitive triplets                                       15.0000
+  5. (Number 2 2PU)^1/1)                                                 18.0000
+  6. Sum of squared indegrees                                           279.0000
+  7. Sum of squared outdegrees                                          165.0000
+  8. Sum of crossproducts indegree x outdegree                           80.0000
+  9. Number of isolates                                                  11.0000
+ 10. Sum indegrees x gender                                             -15.7826
+ 11. Sum outdegrees x gender                                              1.2174
+ 12. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 12 parameters, 12 statistics
+
+All parameters are fixed.
+Therefore the estimation phase is skipped
+ and the program passes on immediately to phase 3
+ for checking the current parameter values and calculating standard errors.
+Estimation of derivatives by the LR method (type 1).
+
+
+
+
+@2
+Simulation Results.
+-------------------
+
+Regular end of simulation algorithm.
+Total of 1000 iteration steps.
+
+
+@3
+Parameter values
+                
+ 1. rate:  basic rate parameter net                                2.6988  
+ 2. eval:  outdegree (density)                                    -2.3130  
+ 3. eval:  reciprocity                                             2.3449  
+ 4. eval:  transitive triplets                                     0.7627  
+ 5. eval:  shared popularity                                       0.0000  
+ 6. eval:  indegree - popularity                                   0.0000  
+ 7. eval:  outdegree - activity                                   -0.0169  
+ 8. eval:  indegree - activity(1)                                 -0.4200  
+ 9. eval:  network-isolate                                         2.5065  
+10. eval:  gender alter                                           -0.3786  
+11. eval:  gender ego                                              0.1537  
+12. eval:  same gender                                             0.1532  
+
+
+@3
+Simulated statistics
+                    
+Estimated means and standard deviations, standard errors of the mean 
+  1. Amount of network change                                  39.768    5.372   0.1583
+  2. Number of ties                                            31.026    5.409   0.1278
+  3. Number of reciprocated ties                                6.619    3.421   0.0637
+  4. Number of transitive triplets                              1.093    1.468   0.0353
+  5. (Number 2 2PU)^1/1)                                        0.649    0.956   0.0261
+  6. Sum of squared indegrees                                  62.617   17.755   0.4494
+  7. Sum of squared outdegrees                                 59.320   16.016   0.3407
+  8. Sum of crossproducts indegree x outdegree                 27.223   10.215   0.2829
+  9. Number of isolates                                        17.998    3.556   0.1037
+ 10. Sum indegrees x gender                                    -7.018    2.595   0.0603
+ 11. Sum outdegrees x gender                                   -0.597    2.499   0.0592
+ 12. Same values on gender                                     14.859    3.820   0.0871
+
+Standard errors of the mean are less than s.d./sqrt(n) 
+because of regression on scores (Dolby option). 
+Total computation time 2.87 seconds.
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 30/10/2026 15:09:32
+New results follow.
+-----------------------------------
+
+RSiena version 1.6.6 (20 Apr 26)
+
+
+@1
+Simulations.
+============
+
+Current random number seed is 242452.
+Effects object used: myeff_high 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: unconditional moment estimation
+.
+
+Time duration for simulations is 1.0.
+Derivatives are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Parameter values are 
+  1. rate:  basic rate parameter net                        2.6988  (fixed) 
+  2. eval:  outdegree (density)                            -2.3130  (fixed) 
+  3. eval:  reciprocity                                     2.3449  (fixed) 
+  4. eval:  transitive triplets                             0.7627  (fixed) 
+  5. eval:  shared popularity                               0.0000  (fixed) 
+  6. eval:  indegree - popularity                           0.4165  (fixed) 
+  7. eval:  outdegree - activity                           -0.0169  (fixed) 
+  8. eval:  indegree - activity(1)                         -0.4200  (fixed) 
+  9. eval:  network-isolate                                 2.5065  (fixed) 
+ 10. eval:  gender alter                                   -0.3786  (fixed) 
+ 11. eval:  gender ego                                      0.1537  (fixed) 
+ 12. eval:  same gender                                     0.1532  (fixed) 
+
+
+Values of target statistics are
+  1. Amount of network change                                            62.0000
+  2. Number of ties                                                      59.0000
+  3. Number of reciprocated ties                                         12.0000
+  4. Number of transitive triplets                                       15.0000
+  5. (Number 2 2PU)^1/1)                                                 18.0000
+  6. Sum of squared indegrees                                           279.0000
+  7. Sum of squared outdegrees                                          165.0000
+  8. Sum of crossproducts indegree x outdegree                           80.0000
+  9. Number of isolates                                                  11.0000
+ 10. Sum indegrees x gender                                             -15.7826
+ 11. Sum outdegrees x gender                                              1.2174
+ 12. Same values on gender                                               28.0000
+These were calculated from the data.
+
+ 12 parameters, 12 statistics
+
+All parameters are fixed.
+Therefore the estimation phase is skipped
+ and the program passes on immediately to phase 3
+ for checking the current parameter values and calculating standard errors.
+Estimation of derivatives by the LR method (type 1).
+
+
+
+
+@2
+Simulation Results.
+-------------------
+
+Regular end of simulation algorithm.
+Total of 1000 iteration steps.
+
+
+@3
+Parameter values
+                
+ 1. rate:  basic rate parameter net                                2.6988  
+ 2. eval:  outdegree (density)                                    -2.3130  
+ 3. eval:  reciprocity                                             2.3449  
+ 4. eval:  transitive triplets                                     0.7627  
+ 5. eval:  shared popularity                                       0.0000  
+ 6. eval:  indegree - popularity                                   0.4165  
+ 7. eval:  outdegree - activity                                   -0.0169  
+ 8. eval:  indegree - activity(1)                                 -0.4200  
+ 9. eval:  network-isolate                                         2.5065  
+10. eval:  gender alter                                           -0.3786  
+11. eval:  gender ego                                              0.1537  
+12. eval:  same gender                                             0.1532  
+
+
+@3
+Simulated statistics
+                    
+Estimated means and standard deviations, standard errors of the mean 
+  1. Amount of network change                                 108.212   12.166   0.2082
+  2. Number of ties                                           135.381   12.862   0.3720
+  3. Number of reciprocated ties                               10.540    4.310   0.1001
+  4. Number of transitive triplets                            146.182   40.287   1.2337
+  5. (Number 2 2PU)^1/1)                                      798.145  311.882   9.3951
+  6. Sum of squared indegrees                                3040.099  543.292  15.4455
+  7. Sum of squared outdegrees                                555.988   93.126   2.6989
+  8. Sum of crossproducts indegree x outdegree                235.866   57.310   1.6765
+  9. Number of isolates                                         2.011    1.397   0.0435
+ 10. Sum indegrees x gender                                   -53.845    7.778   0.1817
+ 11. Sum outdegrees x gender                                    4.527    4.975   0.1450
+ 12. Same values on gender                                     59.831    7.315   0.2033
+
+Standard errors of the mean are less than s.d./sqrt(n) 
+because of regression on scores (Dolby option). 
+Total computation time 3.58 seconds.
